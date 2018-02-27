@@ -102,13 +102,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 10
-  accelerationFactor: 0.5
+  accelerationFactor: 0.3
   snapToMaxThresholdFactor: 0.1
   bounceThreshold: 1.1
   dashFactor: 2
   dashDuration: 0.1
   dashDamageDuration: 0.5
-  dashCooldown: 0.75
+  dashCooldown: 1
   collisionDebounceTime: 1
   rayBoundShrinkage: 0.001
   numRays: 4

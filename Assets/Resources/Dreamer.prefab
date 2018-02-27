@@ -202,11 +202,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 3
-  maxDeathTime: 60
+  maxDeathTime: 100
+  deathTimeLost: 30
   jumpRecovery: 0.2
   wallJumpRecovery: 0.2
   nightmareCollisionRecovery: 0.5
-  deathTimer: 1
+  deathTimer: 3
   maxSpeed: 6
   gravityFactor: 4
   terminalVelocityFactor: 2
