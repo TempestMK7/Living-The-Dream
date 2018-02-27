@@ -158,8 +158,10 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void EndTheGame(PunTeams.Team winningTeam) {
-            Debug.Log("Attempted to end game, winner is: " + winningTeam);
-            LeaveRoom();
+            GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
+            if (PhotonNetwork.isMasterClient) {
+                PhotonNetwork.LoadLevel("VictoryScene");
+            }
         }
 
         private void LevelWasLoaded(Scene scene, LoadSceneMode mode) {
@@ -203,12 +205,12 @@ namespace Com.Tempest.Nightmare {
             };
         }
 
-        public override void OnLeftRoom() {
-            SceneManager.LoadScene("LauncherScene");
-        }
-
         public void LeaveRoom() {
             PhotonNetwork.LeaveRoom();
+        }
+
+        public override void OnLeftRoom() {
+            SceneManager.LoadScene("LauncherScene");
         }
     }
 }
