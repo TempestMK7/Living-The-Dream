@@ -89,16 +89,16 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             if (dreamers != null) {
-                int deadDreamers = 0;
+                int awakeDreamers = 0;
                 foreach(DreamerBehavior dreamer in dreamers) {
-                    if (dreamer.IsDead() == true) {
-                        deadDreamers++;
+                    if (dreamer.IsDead() == false) {
+                        awakeDreamers++;
                     }
                 }
-                if (deadDreamers == dreamers.Count) {
+                if (awakeDreamers == 0) {
                     EndTheGame(PunTeams.Team.blue);
                 }
-                dreamerText.text = "Dreamers Remaining: " + dreamers.Count;    
+                dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + dreamers.Count;    
             }
         }
 

@@ -8,19 +8,20 @@ namespace Com.Tempest.Nightmare {
 
         // Player rule params.
         public int maxHealth = 3;
-        public int maxDeathTime = 60;
+        public int maxDeathTime = 100;
+        public float deathTimeLost = 30f;
         
         // Recovery timers.  Values are in seconds.
         public float jumpRecovery = 0.2f;
         public float wallJumpRecovery = 0.2f;
         public float nightmareCollisionRecovery = 0.5f;
-        public float deathTimer = 2f;
+        public float deathTimer = 3f;
 
         // Player movement params.
         public float maxSpeed = 6f;
         public float gravityFactor = 4f;
         public float terminalVelocityFactor = 2f;
-        public float risingGravityBackoffFactor = 0.6f;
+        public float risingGravityBackoffFactor = 0.8f;
         public float jumpFactor = 1.8f;
         public float wallJumpFactor = 1.5f;
         public float wallSlideFactor = 0.3f;
@@ -34,10 +35,10 @@ namespace Com.Tempest.Nightmare {
 
 
         // Internal objects accessed by this behavior.
+        private GameObject healthCanvas;
         private Image positiveHealthBar;
         private BoxCollider2D boxCollider;
         private Renderer myRenderer;
-        private GameObject healthCanvas;
         private Vector3 currentSpeed;
         private Vector3 currentControllerState;
 
@@ -61,10 +62,10 @@ namespace Com.Tempest.Nightmare {
         
         void Start () {
             // Setup internal components and initialize object variables.
-            positiveHealthBar = transform.Find("DreamerCanvas").Find("PositiveHealth").GetComponent<Image>();
+            healthCanvas = transform.Find("DreamerCanvas").gameObject;
+            positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
             boxCollider = GetComponent<BoxCollider2D>();
             myRenderer = GetComponent<Renderer>();
-            healthCanvas = transform.Find("DreamerCanvas").gameObject;
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
 
@@ -78,7 +79,45 @@ namespace Com.Tempest.Nightmare {
         void Update () {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
+            MoveAsFarAsYouCan();
+            ResurrectIfAble();
+            HandleLifeState();
+        }
 
+        // Updates horizontal movement based on controller state.
+        // Does nothing if this character belongs to another player.
+        private void UpdateHorizontalMovement() {
+            if (photonView.isMine == false) return;
+            if (Time.time - deathEventTime < deathTimer) {
+                currentSpeed.x -= currentSpeed.x * Time.deltaTime;
+            } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
+                currentSpeed += currentControllerState * maxSpeed * maxSpeed * 2f * Time.deltaTime;
+            } else if (grabHeld && (holdingWallLeft || holdingWallRight)) {
+                currentSpeed.x = 0;
+            } else if (Time.time - wallJumpTime < wallJumpRecovery) {
+                currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
+                if (currentSpeed.x > maxSpeed) currentSpeed.x = maxSpeed;
+                else if (currentSpeed.x < maxSpeed * -1f) currentSpeed.x = maxSpeed * -1f;
+            } else {
+                currentSpeed.x = currentControllerState.x * maxSpeed;
+            }
+        }
+
+        // Updates vertical movement based on gravity.  
+        private void UpdateVerticalMovement() {
+            // Add gravity.
+            if (currentSpeed.y > maxSpeed * 0.1f) {
+                currentSpeed.y += maxSpeed * -1f * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
+            } else {
+                currentSpeed.y += maxSpeed * -1f * gravityFactor * Time.deltaTime;
+            }
+            // Clip to terminal velocity if necessary.
+            currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
+        }
+
+        // Moves the character based on current speed.
+        // Uses raycasts to respect physics.
+        private void MoveAsFarAsYouCan() {
             // Calculate how far we're going.
             Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
             bool goingRight = distanceForFrame.x > 0;
@@ -176,40 +215,14 @@ namespace Com.Tempest.Nightmare {
             if (distanceForFrame.x != 0 && goingRight != facingRight) {
                 Flip();
             }
-
-            ResurrectIfAble();
-            HandleLifeState();
         }
 
-        // Updates horizontal movement based on controller state.
-        // Does nothing if this character belongs to another player.
-        private void UpdateHorizontalMovement() {
-            if (photonView.isMine == false) return;
-            if (Time.time - deathEventTime < deathTimer) {
-                currentSpeed.x -= currentSpeed.x * Time.deltaTime;
-            } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
-                currentSpeed += currentControllerState * maxSpeed * maxSpeed * 2f * Time.deltaTime;
-            } else if (grabHeld && (holdingWallLeft || holdingWallRight)) {
-                currentSpeed.x = 0;
-            } else if (Time.time - wallJumpTime < wallJumpRecovery) {
-                currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
-                if (currentSpeed.x > maxSpeed) currentSpeed.x = maxSpeed;
-                else if (currentSpeed.x < maxSpeed * -1f) currentSpeed.x = maxSpeed * -1f;
-            } else {
-                currentSpeed.x = currentControllerState.x * maxSpeed;
-            }
-        }
-
-        // Updates vertical movement based on gravity.  
-        private void UpdateVerticalMovement() {
-            // Add gravity.
-            if (currentSpeed.y > maxSpeed * 0.1f) {
-                currentSpeed.y += maxSpeed * -1f * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
-            } else {
-                currentSpeed.y += maxSpeed * -1f * gravityFactor * Time.deltaTime;
-            }
-            // Clip to terminal velocity if necessary.
-            currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
+        // Flips the character sprite.
+        private void Flip() {
+            facingRight = !facingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -1;
+            transform.localScale = currentScale;
         }
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
@@ -227,15 +240,18 @@ namespace Com.Tempest.Nightmare {
 
         // Draws current health total, switches layers based on health totals, and hides player to other players if dead.
         private void HandleLifeState() {
-            positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-            if (IsDead() && Time.time - deathEventTime > deathTimer) {
-                gameObject.layer = LayerMask.NameToLayer("Death");
-                if (photonView.isMine == false) {
-                    ToggleRenderers(false);
-                } else {
+            if (IsDead() == true) {
+                if (Time.time - deathEventTime < deathTimer) {
+                    positiveHealthBar.fillAmount = 0f;
+                    gameObject.layer = LayerMask.NameToLayer("Dreamer");
                     ToggleRenderers(true);
+                } else {
+                    positiveHealthBar.fillAmount = deathTimeRemaining / (float)maxDeathTime;
+                    gameObject.layer = LayerMask.NameToLayer("Death");
+                    ToggleRenderers(photonView.isMine);
                 }
             } else {
+                positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
                 gameObject.layer = LayerMask.NameToLayer("Dreamer");
                 ToggleRenderers(true);
             }
@@ -248,22 +264,14 @@ namespace Com.Tempest.Nightmare {
             healthCanvas.SetActive(enabled);
         }
 
-        // Flips the character sprite.
-        private void Flip() {
-            facingRight = !facingRight;
-            Vector3 currentScale = transform.localScale;
-            currentScale.x *= -1;
-            transform.localScale = currentScale;
-        }
-
         // Returns whether or not the player is currently dead (out of health but still in the game).
         public bool IsDead() {
-            return currentHealth == 0;
+            return currentHealth <= 0;
         }
 
         // Returns whether or not the player is out of the game (out of death time).
         public bool IsExiled() {
-            return deathTimeRemaining == 0;
+            return deathTimeRemaining <= 0;
         }
 
         // Called by the input manager with controller values.
@@ -311,6 +319,7 @@ namespace Com.Tempest.Nightmare {
             if (currentHealth <= 0) {
                 currentHealth = 0;
                 deathEventTime = Time.time;
+                deathTimeRemaining -= deathTimeLost;
             }
         }
 
