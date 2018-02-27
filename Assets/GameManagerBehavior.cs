@@ -17,6 +17,8 @@ namespace Com.Tempest.Nightmare {
         public Text bonfireText;
         public Text dreamerText;
 
+        public int bonfiresAllowedIncomplete = 1;
+
         public NightmareBehavior Nightmare { get; set; }
         public DreamerBehavior Dreamer { get; set; }
 
@@ -66,10 +68,10 @@ namespace Com.Tempest.Nightmare {
                         firesLit++;
                     }
                 }
-                if (firesLit == bonfires.Count) {
+                if (firesLit >= bonfires.Count - bonfiresAllowedIncomplete) {
                     EndTheGame(PunTeams.Team.red);
                 }
-                bonfireText.text = "Bonfires Remaining: " + (bonfires.Count - firesLit);
+                bonfireText.text = "Bonfires Remaining: " + (bonfires.Count - firesLit - bonfiresAllowedIncomplete);
             }
         }
 
