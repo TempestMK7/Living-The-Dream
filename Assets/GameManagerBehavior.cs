@@ -17,6 +17,8 @@ namespace Com.Tempest.Nightmare {
         public Text bonfireText;
         public Text dreamerText;
 
+        public CameraFilterPack_FX_Drunk2 drunkFX;
+
         public int bonfiresAllowedIncomplete = 1;
 
         public NightmareBehavior Nightmare { get; set; }
@@ -47,6 +49,7 @@ namespace Com.Tempest.Nightmare {
             HandleBonfires();
             HandlePlayers();
             HandleCanvasUI();
+            HandleCameraFilter();
         }
 
         private void HandleBonfires() {
@@ -156,6 +159,14 @@ namespace Com.Tempest.Nightmare {
                 foreach (Image image in bonfireNotifications) {
                     image.gameObject.SetActive(false);
                 }
+            }
+        }
+
+        private void HandleCameraFilter() {
+            if (Dreamer != null) {
+                drunkFX.enabled = Dreamer.IsDead();
+            } else {
+                drunkFX.enabled = false;
             }
         }
 

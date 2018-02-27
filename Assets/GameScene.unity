@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 601676708}
   - component: {fileID: 601676707}
   - component: {fileID: 601676706}
+  - component: {fileID: 601676710}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -548,6 +549,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &601676710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 601676705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c19446680fe4c44b865baf52c83d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: db42a94744e6f594c81e02e4a9f8d305, type: 3}
 --- !u!1001 &664838664
 Prefab:
   m_ObjectHideFlags: 0
@@ -642,6 +655,11 @@ Prefab:
       value: 
       objectReference: {fileID: 114654643125724186, guid: c267b582243d1c34fbd1c3ddd71c4295,
         type: 2}
+    - target: {fileID: 114773174430549430, guid: 1230c48d705d1bf4c84313abf5e53853,
+        type: 2}
+      propertyPath: drunkFX
+      value: 
+      objectReference: {fileID: 601676710}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1230c48d705d1bf4c84313abf5e53853, type: 2}
   m_IsPrefabParent: 0
