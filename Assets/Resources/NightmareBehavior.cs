@@ -166,9 +166,9 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void OnTriggerEnter2D(Collider2D other) {
-            if (photonView.isMine == false) return;
+            if (!photonView.isMine) return;
             DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
-            if (associatedBehavior == null || associatedBehavior.IsDead() == true) return;
+            if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (Time.time - dashStart < dashDamageDuration && Time.time - lastCollisionTime > collisionDebounceTime) {
                 associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, photonView.ownerId, associatedBehavior.photonView.ownerId, currentSpeed);
                 this.currentSpeed *= -1;
@@ -183,7 +183,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting == true) {
+            if (stream.isWriting) {
                 stream.SendNext(transform.position);
                 stream.SendNext(currentSpeed);
             } else {

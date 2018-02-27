@@ -15,7 +15,7 @@ namespace Com.Tempest.Nightmare {
         public float jumpRecovery = 0.2f;
         public float wallJumpRecovery = 0.2f;
         public float nightmareCollisionRecovery = 0.5f;
-        public float deathTimer = 3f;
+        public float deathAnimationTime = 3f;
 
         // Player movement params.
         public float maxSpeed = 6f;
@@ -88,7 +88,7 @@ namespace Com.Tempest.Nightmare {
         // Does nothing if this character belongs to another player.
         private void UpdateHorizontalMovement() {
             if (photonView.isMine == false) return;
-            if (Time.time - deathEventTime < deathTimer) {
+            if (Time.time - deathEventTime < deathAnimationTime) {
                 currentSpeed.x -= currentSpeed.x * Time.deltaTime;
             } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
                 currentSpeed += currentControllerState * maxSpeed * maxSpeed * 2f * Time.deltaTime;
@@ -246,7 +246,7 @@ namespace Com.Tempest.Nightmare {
                 return;
             }
             if (IsDead() == true) {
-                if (Time.time - deathEventTime < deathTimer) {
+                if (Time.time - deathEventTime < deathAnimationTime) {
                     positiveHealthBar.fillAmount = 0f;
                     gameObject.layer = LayerMask.NameToLayer("Dreamer");
                     ToggleRenderers(true);
@@ -270,9 +270,13 @@ namespace Com.Tempest.Nightmare {
             healthCanvas.SetActive(enabled);
         }
 
+        public bool OutOfHealth() {
+            return currentHealth <= 0;
+        }
+
         // Returns whether or not the player is currently dead (out of health but still in the game).
         public bool IsDead() {
-            return currentHealth <= 0;
+            return currentHealth <= 0 && Time.time - deathEventTime > deathAnimationTime;
         }
 
         // Returns whether or not the player is out of the game (out of death time).

@@ -557,10 +557,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 601676705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c19446680fe4c44b865baf52c83d4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 573604d13001e92428f59b1dea134a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: db42a94744e6f594c81e02e4a9f8d305, type: 3}
+  SCShader: {fileID: 4800000, guid: ac773c6af6fb7954b9472db9ac8b0673, type: 3}
+  Twist: 0.2
+  Speed: 0.5
+  Color: {r: 0.16, g: 0.57, b: 0.19, a: 1}
+  PosX: 0.5
+  PosY: 0.5
 --- !u!1001 &664838664
 Prefab:
   m_ObjectHideFlags: 0
@@ -658,6 +663,11 @@ Prefab:
     - target: {fileID: 114773174430549430, guid: 1230c48d705d1bf4c84313abf5e53853,
         type: 2}
       propertyPath: drunkFX
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114773174430549430, guid: 1230c48d705d1bf4c84313abf5e53853,
+        type: 2}
+      propertyPath: distortionEffect
       value: 
       objectReference: {fileID: 601676710}
     m_RemovedComponents: []

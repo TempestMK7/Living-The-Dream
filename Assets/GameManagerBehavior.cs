@@ -17,7 +17,7 @@ namespace Com.Tempest.Nightmare {
         public Text bonfireText;
         public Text dreamerText;
 
-        public CameraFilterPack_FX_Drunk2 drunkFX;
+        public CameraFilterPack_Vision_AuraDistortion distortionEffect;
 
         public int bonfiresAllowedIncomplete = 1;
 
@@ -164,9 +164,9 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleCameraFilter() {
             if (Dreamer != null) {
-                drunkFX.enabled = Dreamer.IsDead();
+                distortionEffect.enabled = Dreamer.IsDead();
             } else {
-                drunkFX.enabled = false;
+                distortionEffect.enabled = false;
             }
         }
 
