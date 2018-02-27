@@ -240,12 +240,18 @@ namespace Com.Tempest.Nightmare {
 
         // Draws current health total, switches layers based on health totals, and hides player to other players if dead.
         private void HandleLifeState() {
+            if (photonView.isMine == true && IsExiled() == true) {
+                FindObjectOfType<GameManagerBehavior>().Dreamer = null;
+                PhotonNetwork.Destroy(photonView);
+                return;
+            }
             if (IsDead() == true) {
                 if (Time.time - deathEventTime < deathTimer) {
                     positiveHealthBar.fillAmount = 0f;
                     gameObject.layer = LayerMask.NameToLayer("Dreamer");
                     ToggleRenderers(true);
                 } else {
+                    deathTimeRemaining -= Time.deltaTime;
                     positiveHealthBar.fillAmount = deathTimeRemaining / (float)maxDeathTime;
                     gameObject.layer = LayerMask.NameToLayer("Death");
                     ToggleRenderers(photonView.isMine);
