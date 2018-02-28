@@ -60,7 +60,7 @@ namespace Com.Tempest.Nightmare {
         private float nightmareCollisionTime;
         private float deathEventTime;
         
-        void Start () {
+        void Awake () {
             // Setup internal components and initialize object variables.
             healthCanvas = transform.Find("DreamerCanvas").gameObject;
             positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
