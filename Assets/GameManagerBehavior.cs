@@ -199,12 +199,13 @@ namespace Com.Tempest.Nightmare {
 
         public void InstantiateCharacter() {
             PunTeams.Team teamSelection = PhotonNetwork.player.GetTeam();
+            float[] spawnLocations = { -30f, -27f, -22f, -19f, -14f, -6f, -3f, 2f, 5f, 10f, 13f, 18f, 21f, 26f, 29f };
             switch (teamSelection) {
                 case PunTeams.Team.blue:
-                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(1, 0), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 15f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
                     break;
                 case PunTeams.Team.red:
-                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-3, 0), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(spawnLocations[Random.Range(0, spawnLocations.Length)], -3.6f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
                     break;
                 default:
                     break;
