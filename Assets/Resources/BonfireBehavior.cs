@@ -19,7 +19,7 @@ namespace Com.Tempest.Nightmare {
         private bool playersNearby;
 
         // Use this for initialization
-        void Start () {
+        void Awake () {
             spriteRenderer = GetComponent<SpriteRenderer>();
             circleCollider = GetComponent<CircleCollider2D>();
             currentCharges = 0f;

@@ -37,7 +37,7 @@ namespace Com.Tempest.Nightmare {
         private float lastCollisionTime;
 
         // Use this for initialization
-        void Start () {
+        void Awake () {
             boxCollider = GetComponent<BoxCollider2D>();
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
