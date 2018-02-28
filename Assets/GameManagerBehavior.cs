@@ -67,7 +67,7 @@ namespace Com.Tempest.Nightmare {
             if (bonfires != null) {
                 int firesLit = 0;
                 foreach (BonfireBehavior bonfire in bonfires) {
-                    if (bonfire.IsLit() == true) {
+                    if (bonfire.IsLit()) {
                         firesLit++;
                     }
                 }
@@ -96,7 +96,7 @@ namespace Com.Tempest.Nightmare {
             if (dreamers != null) {
                 int awakeDreamers = 0;
                 foreach(DreamerBehavior dreamer in dreamers) {
-                    if (dreamer.IsDead() == false) {
+                    if (!dreamer.IsDead()) {
                         awakeDreamers++;
                     }
                 }
@@ -126,12 +126,14 @@ namespace Com.Tempest.Nightmare {
                 }
             }
 
-            if (Dreamer.IsDead() == true) {
+            if (Dreamer.IsDead()) {
                 // Get camera bounds.
-                float vertExtent = Camera.main.orthographicSize;
-                float horzExtent = vertExtent * Screen.width / Screen.height;
+                Camera mainCamera = Camera.main;
+                Vector3 min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.transform.position.z * -1f));
+                Vector3 max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z * -1f));
                 Vector3 cameraPosition = Camera.main.transform.position;
-                Bounds cameraBounds = new Bounds(new Vector3(cameraPosition.x, cameraPosition.y), new Vector3(horzExtent * 2f, vertExtent * 2f));
+                Bounds cameraBounds = new Bounds();
+                cameraBounds.SetMinMax(min, max);
 
                 // Get canvas bounds.
                 RectTransform canvasRect = uiCanvas.GetComponent<RectTransform>();
@@ -142,7 +144,7 @@ namespace Com.Tempest.Nightmare {
                 for (int x = 0; x < bonfires.Count; x++) {
                     BonfireBehavior behavior = bonfires[x];
                     Image fireImage = bonfireNotifications[x];
-                    if (behavior.PlayersNearby() == true && !cameraBounds.Contains(behavior.transform.position)) {
+                    if (behavior.PlayersNearby() && !cameraBounds.Contains(behavior.transform.position)) {
                         fireImage.gameObject.SetActive(true);
                         fireImage.sprite = behavior.GetCurrentSprite();
                         Vector3 fireDistance = behavior.transform.position - cameraPosition;

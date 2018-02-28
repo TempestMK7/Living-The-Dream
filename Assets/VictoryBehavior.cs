@@ -12,7 +12,7 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Start() {
-            if (GlobalPlayerContainer.Instance.IsWinner == true) {
+            if (GlobalPlayerContainer.Instance.IsWinner) {
                 victoryText.text = "Victory";
             } else {
                 victoryText.text = "Defeat";

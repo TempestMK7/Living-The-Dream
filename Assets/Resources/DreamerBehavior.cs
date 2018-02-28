@@ -87,7 +87,7 @@ namespace Com.Tempest.Nightmare {
         // Updates horizontal movement based on controller state.
         // Does nothing if this character belongs to another player.
         private void UpdateHorizontalMovement() {
-            if (photonView.isMine == false) return;
+            if (!photonView.isMine) return;
             if (Time.time - deathEventTime < deathAnimationTime) {
                 currentSpeed.x -= currentSpeed.x * Time.deltaTime;
             } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
@@ -227,12 +227,12 @@ namespace Com.Tempest.Nightmare {
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
         private void ResurrectIfAble() {
-            if (photonView.isMine == false || IsDead() == false || IsExiled() == true) return;
+            if (!photonView.isMine || !IsDead() || IsExiled()) return;
             Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
             foreach (Collider2D fireCollider in bonfires) {
                 BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
                 if (behavior == null) continue;
-                if (behavior.PlayersNearby() == true) {
+                if (behavior.PlayersNearby()) {
                     currentHealth = maxHealth;
                 }
             }
@@ -240,12 +240,12 @@ namespace Com.Tempest.Nightmare {
 
         // Draws current health total, switches layers based on health totals, and hides player to other players if dead.
         private void HandleLifeState() {
-            if (photonView.isMine == true && IsExiled() == true) {
+            if (photonView.isMine && IsExiled()) {
                 FindObjectOfType<GameManagerBehavior>().Dreamer = null;
                 PhotonNetwork.Destroy(photonView);
                 return;
             }
-            if (IsDead() == true) {
+            if (IsDead()) {
                 if (Time.time - deathEventTime < deathAnimationTime) {
                     positiveHealthBar.fillAmount = 0f;
                     gameObject.layer = LayerMask.NameToLayer("Dreamer");
@@ -335,7 +335,7 @@ namespace Com.Tempest.Nightmare {
 
         // Called by Photon whenever player state is synced across the network.
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting == true) {
+            if (stream.isWriting) {
                 stream.SendNext(transform.position);
                 stream.SendNext(currentSpeed);
                 stream.SendNext(grabHeld);

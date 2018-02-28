@@ -50,7 +50,7 @@ namespace Com.Tempest.Nightmare {
 	
 	    // Update is called once per frame
 	    void Update () {
-            if (photonView.isMine == true && Time.time - dashStart > dashDuration) {
+            if (photonView.isMine && Time.time - dashStart > dashDuration) {
                 // The angle at which we are travelling.
                 float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
                 // This is the speed we are accelerating towards.
