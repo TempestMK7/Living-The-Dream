@@ -41,6 +41,7 @@ namespace Com.Tempest.Nightmare {
         private Renderer myRenderer;
         private Vector3 currentSpeed;
         private Vector3 currentControllerState;
+        private Vector3 currentOffset;
 
         // Booleans used when deciding how to respond to collisions and controller inputs.
         private bool grabHeld;
@@ -68,6 +69,7 @@ namespace Com.Tempest.Nightmare {
             myRenderer = GetComponent<Renderer>();
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
+            currentOffset = new Vector3();
 
             // Initialize state values.
             facingRight = true;
@@ -120,6 +122,13 @@ namespace Com.Tempest.Nightmare {
         private void MoveAsFarAsYouCan() {
             // Calculate how far we're going.
             Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
+            if (currentOffset.magnitude < 0.1f) {
+                distanceForFrame += currentOffset;
+                currentOffset = new Vector3();
+            } else {
+                distanceForFrame += currentOffset / 2f;
+                currentOffset /= 2f;
+            }
             bool goingRight = distanceForFrame.x > 0;
             bool goingUp = distanceForFrame.y > 0;
 
@@ -155,12 +164,14 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             if (hitX) {
-                if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
+                if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery || Time.time - deathEventTime < deathAnimationTime) {
                     holdingWallLeft = false;
                     holdingWallRight = false;
-                    currentSpeed.x *= -1;
+                    currentSpeed.x *= -1f;
+                    currentOffset.x *= -1f;
                 } else {
                     currentSpeed.x = 0f;
+                    currentOffset.x = 0f;
                     if (currentSpeed.y < maxSpeed * wallSlideFactor * -1f) currentSpeed.y = maxSpeed * wallSlideFactor * -1f;
                 }
             }
@@ -194,13 +205,13 @@ namespace Com.Tempest.Nightmare {
             }
             if (hitY) {
                 currentSpeed.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
+                currentOffset.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
             }
 
             // If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
             if (!(hitY || hitX) && distanceForFrame.x != 0 && distanceForFrame.y != 0) {
                 Vector3 rayOrigin = new Vector3(goingRight ? bottomRight.x : bottomLeft.x, goingUp ? topLeft.y : bottomLeft.y);
-                float distance = Mathf.Sqrt(Mathf.Pow(distanceForFrame.x, 2f) + Mathf.Pow(distanceForFrame.y, 2f));
-                RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distance, whatIsSolid);
+                RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distanceForFrame.magnitude, whatIsSolid);
                 if (rayCast) {
                     distanceForFrame.x = rayCast.point.x - rayOrigin.x;
                     distanceForFrame.y = rayCast.point.y - rayOrigin.y;
@@ -211,8 +222,8 @@ namespace Com.Tempest.Nightmare {
             transform.position += distanceForFrame;
 
             // Decide whether or not to flip.
-            goingRight = distanceForFrame.x > 0;
-            if (distanceForFrame.x != 0 && goingRight != facingRight) {
+            goingRight = currentSpeed.x > 0;
+            if (currentSpeed.x != 0 && goingRight != facingRight) {
                 Flip();
             }
         }
@@ -341,10 +352,16 @@ namespace Com.Tempest.Nightmare {
                 stream.SendNext(grabHeld);
                 stream.SendNext(currentHealth);
             } else {
-                transform.position = (Vector3)stream.ReceiveNext();
+                Vector3 networkPosition = (Vector3)stream.ReceiveNext();
                 currentSpeed = (Vector3)stream.ReceiveNext();
                 grabHeld = (bool)stream.ReceiveNext();
                 currentHealth = (int)stream.ReceiveNext();
+
+                currentOffset = networkPosition - transform.position;
+                if (currentOffset.magnitude > 1f) {
+                    currentOffset = new Vector3();
+                    transform.position = networkPosition;
+                }
             }
         }
     }
