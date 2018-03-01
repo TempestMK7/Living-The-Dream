@@ -22,8 +22,8 @@ namespace Com.Tempest.Nightmare {
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.autoCleanUpPlayerObjects = true;
-            PhotonNetwork.sendRate = 60;
-            PhotonNetwork.sendRateOnSerialize = 60;
+            PhotonNetwork.sendRate = 20;
+            PhotonNetwork.sendRateOnSerialize = 20;
             controlPanel.SetActive(true);
             progressLabel.SetActive(false);
 	    }
