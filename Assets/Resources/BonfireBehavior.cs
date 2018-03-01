@@ -19,7 +19,7 @@ namespace Com.Tempest.Nightmare {
         private bool playersNearby;
 
         // Use this for initialization
-        void Start () {
+        void Awake () {
             spriteRenderer = GetComponent<SpriteRenderer>();
             circleCollider = GetComponent<CircleCollider2D>();
             currentCharges = 0f;
@@ -27,7 +27,7 @@ namespace Com.Tempest.Nightmare {
 	
 	    // Update is called once per frame
 	    void Update () {
-            Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius, whatIsPlayer);
+            Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
             playersNearby = otherPlayers.Length != 0;
             if (photonView.isMine == true && currentCharges < requiredCharges) {
                 if (playersNearby == false) {

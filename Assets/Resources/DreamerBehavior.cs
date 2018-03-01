@@ -8,19 +8,20 @@ namespace Com.Tempest.Nightmare {
 
         // Player rule params.
         public int maxHealth = 3;
-        public int maxDeathTime = 60;
+        public int maxDeathTime = 100;
+        public float deathTimeLost = 30f;
         
         // Recovery timers.  Values are in seconds.
         public float jumpRecovery = 0.2f;
         public float wallJumpRecovery = 0.2f;
         public float nightmareCollisionRecovery = 0.5f;
-        public float deathTimer = 2f;
+        public float deathAnimationTime = 3f;
 
         // Player movement params.
         public float maxSpeed = 6f;
         public float gravityFactor = 4f;
         public float terminalVelocityFactor = 2f;
-        public float risingGravityBackoffFactor = 0.6f;
+        public float risingGravityBackoffFactor = 0.8f;
         public float jumpFactor = 1.8f;
         public float wallJumpFactor = 1.5f;
         public float wallSlideFactor = 0.3f;
@@ -34,12 +35,13 @@ namespace Com.Tempest.Nightmare {
 
 
         // Internal objects accessed by this behavior.
+        private GameObject healthCanvas;
         private Image positiveHealthBar;
         private BoxCollider2D boxCollider;
         private Renderer myRenderer;
-        private GameObject healthCanvas;
         private Vector3 currentSpeed;
         private Vector3 currentControllerState;
+        private Vector3 currentOffset;
 
         // Booleans used when deciding how to respond to collisions and controller inputs.
         private bool grabHeld;
@@ -59,14 +61,15 @@ namespace Com.Tempest.Nightmare {
         private float nightmareCollisionTime;
         private float deathEventTime;
         
-        void Start () {
+        void Awake () {
             // Setup internal components and initialize object variables.
-            positiveHealthBar = transform.Find("DreamerCanvas").Find("PositiveHealth").GetComponent<Image>();
+            healthCanvas = transform.Find("DreamerCanvas").gameObject;
+            positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
             boxCollider = GetComponent<BoxCollider2D>();
             myRenderer = GetComponent<Renderer>();
-            healthCanvas = transform.Find("DreamerCanvas").gameObject;
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
+            currentOffset = new Vector3();
 
             // Initialize state values.
             facingRight = true;
@@ -78,9 +81,54 @@ namespace Com.Tempest.Nightmare {
         void Update () {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
+            MoveAsFarAsYouCan();
+            ResurrectIfAble();
+            HandleLifeState();
+        }
 
+        // Updates horizontal movement based on controller state.
+        // Does nothing if this character belongs to another player.
+        private void UpdateHorizontalMovement() {
+            if (!photonView.isMine) return;
+            if (Time.time - deathEventTime < deathAnimationTime) {
+                currentSpeed.x -= currentSpeed.x * Time.deltaTime;
+            } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
+                currentSpeed += currentControllerState * maxSpeed * maxSpeed * 2f * Time.deltaTime;
+            } else if (grabHeld && (holdingWallLeft || holdingWallRight)) {
+                currentSpeed.x = 0;
+            } else if (Time.time - wallJumpTime < wallJumpRecovery) {
+                currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
+                if (currentSpeed.x > maxSpeed) currentSpeed.x = maxSpeed;
+                else if (currentSpeed.x < maxSpeed * -1f) currentSpeed.x = maxSpeed * -1f;
+            } else {
+                currentSpeed.x = currentControllerState.x * maxSpeed;
+            }
+        }
+
+        // Updates vertical movement based on gravity.  
+        private void UpdateVerticalMovement() {
+            // Add gravity.
+            if (currentSpeed.y > maxSpeed * 0.1f) {
+                currentSpeed.y += maxSpeed * -1f * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
+            } else {
+                currentSpeed.y += maxSpeed * -1f * gravityFactor * Time.deltaTime;
+            }
+            // Clip to terminal velocity if necessary.
+            currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
+        }
+
+        // Moves the character based on current speed.
+        // Uses raycasts to respect physics.
+        private void MoveAsFarAsYouCan() {
             // Calculate how far we're going.
             Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
+            if (currentOffset.magnitude < 0.1f) {
+                distanceForFrame += currentOffset;
+                currentOffset = new Vector3();
+            } else {
+                distanceForFrame += currentOffset / 2f;
+                currentOffset /= 2f;
+            }
             bool goingRight = distanceForFrame.x > 0;
             bool goingUp = distanceForFrame.y > 0;
 
@@ -116,12 +164,14 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             if (hitX) {
-                if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
+                if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery || Time.time - deathEventTime < deathAnimationTime) {
                     holdingWallLeft = false;
                     holdingWallRight = false;
-                    currentSpeed.x *= -1;
+                    currentSpeed.x *= -1f;
+                    currentOffset.x *= -1f;
                 } else {
                     currentSpeed.x = 0f;
+                    currentOffset.x = 0f;
                     if (currentSpeed.y < maxSpeed * wallSlideFactor * -1f) currentSpeed.y = maxSpeed * wallSlideFactor * -1f;
                 }
             }
@@ -155,13 +205,13 @@ namespace Com.Tempest.Nightmare {
             }
             if (hitY) {
                 currentSpeed.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
+                currentOffset.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
             }
 
             // If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
             if (!(hitY || hitX) && distanceForFrame.x != 0 && distanceForFrame.y != 0) {
                 Vector3 rayOrigin = new Vector3(goingRight ? bottomRight.x : bottomLeft.x, goingUp ? topLeft.y : bottomLeft.y);
-                float distance = Mathf.Sqrt(Mathf.Pow(distanceForFrame.x, 2f) + Mathf.Pow(distanceForFrame.y, 2f));
-                RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distance, whatIsSolid);
+                RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distanceForFrame.magnitude, whatIsSolid);
                 if (rayCast) {
                     distanceForFrame.x = rayCast.point.x - rayOrigin.x;
                     distanceForFrame.y = rayCast.point.y - rayOrigin.y;
@@ -172,54 +222,28 @@ namespace Com.Tempest.Nightmare {
             transform.position += distanceForFrame;
 
             // Decide whether or not to flip.
-            goingRight = distanceForFrame.x > 0;
-            if (distanceForFrame.x != 0 && goingRight != facingRight) {
+            goingRight = currentSpeed.x > 0;
+            if (currentSpeed.x != 0 && goingRight != facingRight) {
                 Flip();
             }
-
-            ResurrectIfAble();
-            HandleLifeState();
         }
 
-        // Updates horizontal movement based on controller state.
-        // Does nothing if this character belongs to another player.
-        private void UpdateHorizontalMovement() {
-            if (photonView.isMine == false) return;
-            if (Time.time - deathEventTime < deathTimer) {
-                currentSpeed.x -= currentSpeed.x * Time.deltaTime;
-            } else if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
-                currentSpeed += currentControllerState * maxSpeed * maxSpeed * 2f * Time.deltaTime;
-            } else if (grabHeld && (holdingWallLeft || holdingWallRight)) {
-                currentSpeed.x = 0;
-            } else if (Time.time - wallJumpTime < wallJumpRecovery) {
-                currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
-                if (currentSpeed.x > maxSpeed) currentSpeed.x = maxSpeed;
-                else if (currentSpeed.x < maxSpeed * -1f) currentSpeed.x = maxSpeed * -1f;
-            } else {
-                currentSpeed.x = currentControllerState.x * maxSpeed;
-            }
-        }
-
-        // Updates vertical movement based on gravity.  
-        private void UpdateVerticalMovement() {
-            // Add gravity.
-            if (currentSpeed.y > maxSpeed * 0.1f) {
-                currentSpeed.y += maxSpeed * -1f * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
-            } else {
-                currentSpeed.y += maxSpeed * -1f * gravityFactor * Time.deltaTime;
-            }
-            // Clip to terminal velocity if necessary.
-            currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
+        // Flips the character sprite.
+        private void Flip() {
+            facingRight = !facingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -1;
+            transform.localScale = currentScale;
         }
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
         private void ResurrectIfAble() {
-            if (photonView.isMine == false || IsDead() == false || IsExiled() == true) return;
+            if (!photonView.isMine || !IsDead() || IsExiled()) return;
             Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
             foreach (Collider2D fireCollider in bonfires) {
                 BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
                 if (behavior == null) continue;
-                if (behavior.PlayersNearby() == true) {
+                if (behavior.PlayersNearby()) {
                     currentHealth = maxHealth;
                 }
             }
@@ -227,15 +251,24 @@ namespace Com.Tempest.Nightmare {
 
         // Draws current health total, switches layers based on health totals, and hides player to other players if dead.
         private void HandleLifeState() {
-            positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-            if (IsDead() && Time.time - deathEventTime > deathTimer) {
-                gameObject.layer = LayerMask.NameToLayer("Death");
-                if (photonView.isMine == false) {
-                    ToggleRenderers(false);
-                } else {
+            if (photonView.isMine && IsExiled()) {
+                FindObjectOfType<GameManagerBehavior>().Dreamer = null;
+                PhotonNetwork.Destroy(photonView);
+                return;
+            }
+            if (IsDead()) {
+                if (Time.time - deathEventTime < deathAnimationTime) {
+                    positiveHealthBar.fillAmount = 0f;
+                    gameObject.layer = LayerMask.NameToLayer("Dreamer");
                     ToggleRenderers(true);
+                } else {
+                    deathTimeRemaining -= Time.deltaTime;
+                    positiveHealthBar.fillAmount = deathTimeRemaining / (float)maxDeathTime;
+                    gameObject.layer = LayerMask.NameToLayer("Death");
+                    ToggleRenderers(photonView.isMine);
                 }
             } else {
+                positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
                 gameObject.layer = LayerMask.NameToLayer("Dreamer");
                 ToggleRenderers(true);
             }
@@ -248,22 +281,18 @@ namespace Com.Tempest.Nightmare {
             healthCanvas.SetActive(enabled);
         }
 
-        // Flips the character sprite.
-        private void Flip() {
-            facingRight = !facingRight;
-            Vector3 currentScale = transform.localScale;
-            currentScale.x *= -1;
-            transform.localScale = currentScale;
+        public bool OutOfHealth() {
+            return currentHealth <= 0;
         }
 
         // Returns whether or not the player is currently dead (out of health but still in the game).
         public bool IsDead() {
-            return currentHealth == 0;
+            return currentHealth <= 0 && Time.time - deathEventTime > deathAnimationTime;
         }
 
         // Returns whether or not the player is out of the game (out of death time).
         public bool IsExiled() {
-            return deathTimeRemaining == 0;
+            return deathTimeRemaining <= 0;
         }
 
         // Called by the input manager with controller values.
@@ -311,21 +340,28 @@ namespace Com.Tempest.Nightmare {
             if (currentHealth <= 0) {
                 currentHealth = 0;
                 deathEventTime = Time.time;
+                deathTimeRemaining -= deathTimeLost;
             }
         }
 
         // Called by Photon whenever player state is synced across the network.
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting == true) {
+            if (stream.isWriting) {
                 stream.SendNext(transform.position);
                 stream.SendNext(currentSpeed);
                 stream.SendNext(grabHeld);
                 stream.SendNext(currentHealth);
             } else {
-                transform.position = (Vector3)stream.ReceiveNext();
+                Vector3 networkPosition = (Vector3)stream.ReceiveNext();
                 currentSpeed = (Vector3)stream.ReceiveNext();
                 grabHeld = (bool)stream.ReceiveNext();
                 currentHealth = (int)stream.ReceiveNext();
+
+                currentOffset = networkPosition - transform.position;
+                if (currentOffset.magnitude > 1f) {
+                    currentOffset = new Vector3();
+                    transform.position = networkPosition;
+                }
             }
         }
     }

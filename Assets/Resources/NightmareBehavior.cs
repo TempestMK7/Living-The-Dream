@@ -37,7 +37,7 @@ namespace Com.Tempest.Nightmare {
         private float lastCollisionTime;
 
         // Use this for initialization
-        void Start () {
+        void Awake () {
             boxCollider = GetComponent<BoxCollider2D>();
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
@@ -50,7 +50,7 @@ namespace Com.Tempest.Nightmare {
 	
 	    // Update is called once per frame
 	    void Update () {
-            if (photonView.isMine == true && Time.time - dashStart > dashDuration) {
+            if (photonView.isMine && Time.time - dashStart > dashDuration) {
                 // The angle at which we are travelling.
                 float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
                 // This is the speed we are accelerating towards.
@@ -166,9 +166,9 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void OnTriggerEnter2D(Collider2D other) {
-            if (photonView.isMine == false) return;
+            if (!photonView.isMine) return;
             DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
-            if (associatedBehavior == null || associatedBehavior.IsDead() == true) return;
+            if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (Time.time - dashStart < dashDamageDuration && Time.time - lastCollisionTime > collisionDebounceTime) {
                 associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, photonView.ownerId, associatedBehavior.photonView.ownerId, currentSpeed);
                 this.currentSpeed *= -1;
@@ -183,7 +183,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
-            if (stream.isWriting == true) {
+            if (stream.isWriting) {
                 stream.SendNext(transform.position);
                 stream.SendNext(currentSpeed);
             } else {

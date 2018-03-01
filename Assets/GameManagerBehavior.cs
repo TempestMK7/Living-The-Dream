@@ -17,6 +17,10 @@ namespace Com.Tempest.Nightmare {
         public Text bonfireText;
         public Text dreamerText;
 
+        public CameraFilterPack_Vision_AuraDistortion distortionEffect;
+
+        public int bonfiresAllowedIncomplete = 1;
+
         public NightmareBehavior Nightmare { get; set; }
         public DreamerBehavior Dreamer { get; set; }
 
@@ -45,6 +49,7 @@ namespace Com.Tempest.Nightmare {
             HandleBonfires();
             HandlePlayers();
             HandleCanvasUI();
+            HandleCameraFilter();
         }
 
         private void HandleBonfires() {
@@ -62,14 +67,14 @@ namespace Com.Tempest.Nightmare {
             if (bonfires != null) {
                 int firesLit = 0;
                 foreach (BonfireBehavior bonfire in bonfires) {
-                    if (bonfire.IsLit() == true) {
+                    if (bonfire.IsLit()) {
                         firesLit++;
                     }
                 }
-                if (firesLit == bonfires.Count) {
+                if (firesLit >= bonfires.Count - bonfiresAllowedIncomplete) {
                     EndTheGame(PunTeams.Team.red);
                 }
-                bonfireText.text = "Bonfires Remaining: " + (bonfires.Count - firesLit);
+                bonfireText.text = "Bonfires Remaining: " + (bonfires.Count - firesLit - bonfiresAllowedIncomplete);
             }
         }
 
@@ -89,16 +94,16 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             if (dreamers != null) {
-                int deadDreamers = 0;
+                int awakeDreamers = 0;
                 foreach(DreamerBehavior dreamer in dreamers) {
-                    if (dreamer.IsDead() == true) {
-                        deadDreamers++;
+                    if (!dreamer.IsDead()) {
+                        awakeDreamers++;
                     }
                 }
-                if (deadDreamers == dreamers.Count) {
+                if (awakeDreamers == 0) {
                     EndTheGame(PunTeams.Team.blue);
                 }
-                dreamerText.text = "Dreamers Remaining: " + dreamers.Count;    
+                dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + dreamers.Count;    
             }
         }
 
@@ -121,12 +126,14 @@ namespace Com.Tempest.Nightmare {
                 }
             }
 
-            if (Dreamer.IsDead() == true) {
+            if (Dreamer.IsDead()) {
                 // Get camera bounds.
-                float vertExtent = Camera.main.orthographicSize;
-                float horzExtent = vertExtent * Screen.width / Screen.height;
+                Camera mainCamera = Camera.main;
+                Vector3 min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.transform.position.z * -1f));
+                Vector3 max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z * -1f));
                 Vector3 cameraPosition = Camera.main.transform.position;
-                Bounds cameraBounds = new Bounds(new Vector3(cameraPosition.x, cameraPosition.y), new Vector3(horzExtent * 2f, vertExtent * 2f));
+                Bounds cameraBounds = new Bounds();
+                cameraBounds.SetMinMax(min, max);
 
                 // Get canvas bounds.
                 RectTransform canvasRect = uiCanvas.GetComponent<RectTransform>();
@@ -137,7 +144,7 @@ namespace Com.Tempest.Nightmare {
                 for (int x = 0; x < bonfires.Count; x++) {
                     BonfireBehavior behavior = bonfires[x];
                     Image fireImage = bonfireNotifications[x];
-                    if (behavior.PlayersNearby() == true && !cameraBounds.Contains(behavior.transform.position)) {
+                    if (behavior.PlayersNearby() && !cameraBounds.Contains(behavior.transform.position)) {
                         fireImage.gameObject.SetActive(true);
                         fireImage.sprite = behavior.GetCurrentSprite();
                         Vector3 fireDistance = behavior.transform.position - cameraPosition;
@@ -157,9 +164,19 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        private void HandleCameraFilter() {
+            if (Dreamer != null) {
+                distortionEffect.enabled = Dreamer.IsDead();
+            } else {
+                distortionEffect.enabled = false;
+            }
+        }
+
         private void EndTheGame(PunTeams.Team winningTeam) {
-            Debug.Log("Attempted to end game, winner is: " + winningTeam);
-            LeaveRoom();
+            GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
+            if (PhotonNetwork.isMasterClient) {
+                PhotonNetwork.LoadLevel("VictoryScene");
+            }
         }
 
         private void LevelWasLoaded(Scene scene, LoadSceneMode mode) {
@@ -176,7 +193,6 @@ namespace Com.Tempest.Nightmare {
             playersConnected++;
             if (PhotonNetwork.playerList.Length == playersConnected) {
                 InstantiateCharacter();
-                InstantiateBonfires();
             }
         }
 
@@ -184,31 +200,23 @@ namespace Com.Tempest.Nightmare {
             PunTeams.Team teamSelection = PhotonNetwork.player.GetTeam();
             switch (teamSelection) {
                 case PunTeams.Team.blue:
-                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(1, 0), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 0f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
                     break;
                 case PunTeams.Team.red:
-                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-3, 0), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Camera.main.transform.position = Dreamer.transform.position;
                     break;
                 default:
                     break;
             }
         }
 
-        public void InstantiateBonfires() {
-            bonfires = new List<BonfireBehavior> {
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(-40.52f, -14.68f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(39.49f, -14.68f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(39.49f, 21.32f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(-40.52f, 21.32f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>()
-            };
+        public void LeaveRoom() {
+            PhotonNetwork.LeaveRoom();
         }
 
         public override void OnLeftRoom() {
             SceneManager.LoadScene("LauncherScene");
-        }
-
-        public void LeaveRoom() {
-            PhotonNetwork.LeaveRoom();
         }
     }
 }

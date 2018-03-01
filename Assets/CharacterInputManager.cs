@@ -61,6 +61,9 @@ namespace Com.Tempest.Nightmare {
                     dreamer.Jump();
                 }
             }
+            if (nightmare == null && dreamer == null) {
+                Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
+            }
         }
     }
 }
