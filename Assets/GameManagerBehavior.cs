@@ -193,32 +193,22 @@ namespace Com.Tempest.Nightmare {
             playersConnected++;
             if (PhotonNetwork.playerList.Length == playersConnected) {
                 InstantiateCharacter();
-                InstantiateBonfires();
             }
         }
 
         public void InstantiateCharacter() {
             PunTeams.Team teamSelection = PhotonNetwork.player.GetTeam();
-            float[] spawnLocations = { -30f, -27f, -22f, -19f, -14f, -6f, -3f, 2f, 5f, 10f, 13f, 18f, 21f, 26f, 29f };
             switch (teamSelection) {
                 case PunTeams.Team.blue:
-                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 15f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 0f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
                     break;
                 case PunTeams.Team.red:
-                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(spawnLocations[Random.Range(0, spawnLocations.Length)], -3.6f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Camera.main.transform.position = Dreamer.transform.position;
                     break;
                 default:
                     break;
             }
-        }
-
-        public void InstantiateBonfires() {
-            bonfires = new List<BonfireBehavior> {
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(-40.52f, -14.68f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(39.49f, -14.68f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(39.49f, 21.32f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>(),
-                PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, new Vector3(-40.52f, 21.32f), Quaternion.identity, 0, null).GetComponent<BonfireBehavior>()
-            };
         }
 
         public void LeaveRoom() {
