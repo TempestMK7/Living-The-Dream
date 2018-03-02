@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
         public Canvas uiCanvas;
         public Text bonfireText;
         public Text dreamerText;
+        public Text alertText;
 
         public CameraFilterPack_Vision_AuraDistortion distortionEffect;
 
@@ -35,6 +36,7 @@ namespace Com.Tempest.Nightmare {
                 PhotonNetwork.room.IsOpen = false;
             }
             bonfireNotifications = new Image[0];
+            alertText.enabled = false;
         }
 
         private void OnEnable() {
@@ -109,6 +111,7 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleCanvasUI() {
             ShowBonfiresIfDead();
+            ShowAlertIfAppropriate();
         }
 
         private void ShowBonfiresIfDead() {
@@ -161,6 +164,32 @@ namespace Com.Tempest.Nightmare {
                 foreach (Image image in bonfireNotifications) {
                     image.gameObject.SetActive(false);
                 }
+            }
+        }
+
+        private void ShowAlertIfAppropriate() {
+            if (PhotonNetwork.player.GetTeam() == PunTeams.Team.blue) return;
+            if (Dreamer == null) {
+                alertText.enabled = false;
+            } else if (Dreamer.IsDead()) {
+                alertText.text = "You are unconscious! Other dreamers can wake you up at a bonfire.";
+                alertText.enabled = true;
+            } else if (dreamers != null) {
+                bool showAlert = false;
+                foreach (DreamerBehavior behavior in dreamers) {
+                    if (behavior.IsDead()) {
+                        showAlert = true;
+                        break;
+                    }
+                }
+                if (showAlert) {
+                    alertText.text = "A dreamer is unconscious!  Go to any bonfire to help them wake up!";
+                    alertText.enabled = true;
+                } else {
+                    alertText.enabled = false;
+                }
+            } else {
+                alertText.enabled = false;
             }
         }
 
