@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
         public float wallJumpRecovery = 0.2f;
         public float nightmareCollisionRecovery = 0.5f;
         public float deathAnimationTime = 3f;
+        public float healthBarFadeDelay = 5f;
 
         // Player movement params.
         public float maxSpeed = 6f;
@@ -256,21 +257,18 @@ namespace Com.Tempest.Nightmare {
                 PhotonNetwork.Destroy(photonView);
                 return;
             }
+
             if (IsDead()) {
-                if (Time.time - deathEventTime < deathAnimationTime) {
-                    positiveHealthBar.fillAmount = 0f;
-                    gameObject.layer = LayerMask.NameToLayer("Dreamer");
-                    ToggleRenderers(true);
-                } else {
-                    deathTimeRemaining -= Time.deltaTime;
-                    positiveHealthBar.fillAmount = deathTimeRemaining / (float)maxDeathTime;
-                    gameObject.layer = LayerMask.NameToLayer("Death");
-                    ToggleRenderers(photonView.isMine);
-                }
+                deathTimeRemaining -= Time.deltaTime;
+                positiveHealthBar.fillAmount = deathTimeRemaining / (float)maxDeathTime;
+                gameObject.layer = LayerMask.NameToLayer("Death");
+                ToggleRenderers(photonView.isMine);
+                healthCanvas.SetActive(photonView.isMine);
             } else {
                 positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-                gameObject.layer = LayerMask.NameToLayer("Dreamer");
+                gameObject.layer = LayerMask.NameToLayer(OutOfHealth() ? "Death" : "Dreamer");
                 ToggleRenderers(true);
+                healthCanvas.SetActive(Time.time - nightmareCollisionTime < healthBarFadeDelay);
             }
         }
 
@@ -278,7 +276,6 @@ namespace Com.Tempest.Nightmare {
         // Prevents multiple calls to change enabled state.
         private void ToggleRenderers(bool enabled) {
             if (myRenderer.enabled != enabled) myRenderer.enabled = enabled;
-            healthCanvas.SetActive(enabled);
         }
 
         public bool OutOfHealth() {

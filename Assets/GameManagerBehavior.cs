@@ -229,7 +229,7 @@ namespace Com.Tempest.Nightmare {
             PunTeams.Team teamSelection = PhotonNetwork.player.GetTeam();
             switch (teamSelection) {
                 case PunTeams.Team.blue:
-                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 0f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
                     break;
                 case PunTeams.Team.red:
                     Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
