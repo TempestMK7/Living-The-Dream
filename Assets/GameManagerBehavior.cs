@@ -116,7 +116,7 @@ namespace Com.Tempest.Nightmare {
 
         private void ShowBonfiresIfDead() {
             if (bonfires == null) return;
-            if (Dreamer == null) return;
+            if (Dreamer == null && Nightmare != null) return;
 
             // Build new array of images if necessary.
             if (bonfireNotifications.Length != bonfires.Count) {
@@ -129,7 +129,7 @@ namespace Com.Tempest.Nightmare {
                 }
             }
 
-            if (Dreamer.IsDead()) {
+            if (Dreamer == null || Dreamer.IsDead()) {
                 // Get camera bounds.
                 Camera mainCamera = Camera.main;
                 Vector3 min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.transform.position.z * -1f));
@@ -140,8 +140,8 @@ namespace Com.Tempest.Nightmare {
 
                 // Get canvas bounds.
                 RectTransform canvasRect = uiCanvas.GetComponent<RectTransform>();
-                float canvasWidth = (canvasRect.rect.width / 2f) - 16f;
-                float canvasHeight = (canvasRect.rect.height / 2f) - 16f;
+                float canvasWidth = (canvasRect.rect.width / 2f) - 32f;
+                float canvasHeight = (canvasRect.rect.height / 2f) - 32f;
                 float canvasDiagonal = Mathf.Sqrt(Mathf.Pow(canvasWidth, 2f) + Mathf.Pow(canvasHeight, 2f));
 
                 for (int x = 0; x < bonfires.Count; x++) {
