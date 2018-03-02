@@ -25,6 +25,7 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsPlayer;
 
         private BoxCollider2D boxCollider;
+        private Animator animator;
 
         private Vector3 currentSpeed;
         private Vector3 currentControllerState;
@@ -39,22 +40,25 @@ namespace Com.Tempest.Nightmare {
         // Use this for initialization
         void Awake () {
             boxCollider = GetComponent<BoxCollider2D>();
+            animator = GetComponent<Animator>();
+            animator.SetBool("IsAttacking", false);
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
             acceleration = accelerationFactor * maxSpeed;
             snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
             dashSpeed = maxSpeed * dashFactor;
             dashStart = 0f;
-            facingRight = false;
+            facingRight = true;
         }
 	
 	    // Update is called once per frame
 	    void Update () {
             if (photonView.isMine && Time.time - dashStart > dashDuration) {
-                // The angle at which we are travelling.
-                float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
-                // This is the speed we are accelerating towards.
-                Vector3 newMax = new Vector3(Mathf.Cos(angle) * maxSpeed * Mathf.Abs(currentControllerState.x), Mathf.Sin(angle) * maxSpeed * Mathf.Abs(currentControllerState.y));
+                Vector3 newMax = new Vector3(maxSpeed * currentControllerState.x, maxSpeed * currentControllerState.y);
+                if (newMax.magnitude > maxSpeed) {
+                    newMax *= maxSpeed / newMax.magnitude;
+                }
+                Debug.Log("New Max: " + newMax + ", magnitude: " + newMax.magnitude);
                 // This is how far we are from that speed.
                 Vector3 difference = newMax - currentSpeed;
                 if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
@@ -82,7 +86,7 @@ namespace Com.Tempest.Nightmare {
 
             // Use raycasts to decide if we hit anything horizontally.
             if (distanceForFrame.x != 0) {
-                float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
+                float rayInterval = (topLeft.y - bottomLeft.y) / (float)numRays;
                 Vector3 rayOriginBase = currentSpeed.x > 0 ? bottomRight : bottomLeft;
                 float rayOriginCorrection = currentSpeed.x > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
                 for (int x = 0; x <= numRays; x++) {
@@ -105,7 +109,7 @@ namespace Com.Tempest.Nightmare {
 
             // Use raycasts to decide if we hit anything vertically.
             if (distanceForFrame.y != 0) {
-                float rayInterval = (topLeft.y - bottomLeft.y) / (float)numRays;
+                float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
                 Vector3 rayOriginBase = currentSpeed.y > 0 ? topLeft : bottomLeft;
                 float rayOriginCorrection = currentSpeed.y > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
                 for (int x = 0; x <= numRays; x++) {
@@ -126,17 +130,6 @@ namespace Com.Tempest.Nightmare {
                 }
             }
 
-            // If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
-            if (!(hitY || hitX) && distanceForFrame.x != 0 && distanceForFrame.y != 0) {
-                Vector3 rayOrigin = new Vector3(goingRight ? bottomRight.x : bottomLeft.x, goingUp ? topLeft.y : bottomLeft.y);
-                float distance = Mathf.Sqrt(Mathf.Pow(distanceForFrame.x, 2f) + Mathf.Pow(distanceForFrame.y, 2f));
-                RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distance, whatIsSolid);
-                if (rayCast) {
-                    distanceForFrame.x = rayCast.point.x - rayOrigin.x;
-                    distanceForFrame.y = rayCast.point.y - rayOrigin.y;
-                }
-            }
-
             // Actually move at long last.
             transform.position += distanceForFrame;
             // Decide whether or not to flip.
@@ -144,6 +137,8 @@ namespace Com.Tempest.Nightmare {
             if (distanceForFrame.x != 0 && goingRight != facingRight) {
                 Flip();
             }
+
+            animator.SetBool("IsAttacking", IsAttacking());
 	    }
 
         public void Accelerate(float horizontalScale, float verticalScale) {
@@ -165,11 +160,15 @@ namespace Com.Tempest.Nightmare {
             transform.localScale = currentScale;
         }
 
+        public bool IsAttacking() {
+            return Time.time - dashStart < dashDamageDuration;
+        }
+
         public void OnTriggerEnter2D(Collider2D other) {
             if (!photonView.isMine) return;
             DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
             if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
-            if (Time.time - dashStart < dashDamageDuration && Time.time - lastCollisionTime > collisionDebounceTime) {
+            if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
                 associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, photonView.ownerId, associatedBehavior.photonView.ownerId, currentSpeed);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
