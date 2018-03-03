@@ -10,7 +10,7 @@ GameObject:
   - component: {fileID: 411176}
   - component: {fileID: 21215388}
   - component: {fileID: 11472168}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Male - Hair - Shark (Blue)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -91402939
+  m_SortingLayer: 1
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300256, guid: 695054c42974f494698c04dd21fc0457, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

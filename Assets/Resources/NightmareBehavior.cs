@@ -48,7 +48,7 @@ namespace Com.Tempest.Nightmare {
             snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
             dashSpeed = maxSpeed * dashFactor;
             dashStart = 0f;
-            facingRight = true;
+            facingRight = false;
         }
 	
 	    // Update is called once per frame
@@ -58,7 +58,6 @@ namespace Com.Tempest.Nightmare {
                 if (newMax.magnitude > maxSpeed) {
                     newMax *= maxSpeed / newMax.magnitude;
                 }
-                Debug.Log("New Max: " + newMax + ", magnitude: " + newMax.magnitude);
                 // This is how far we are from that speed.
                 Vector3 difference = newMax - currentSpeed;
                 if (Mathf.Abs(difference.x) > snapToMaxThreshold) {

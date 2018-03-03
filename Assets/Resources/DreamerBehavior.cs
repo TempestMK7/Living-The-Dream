@@ -39,6 +39,7 @@ namespace Com.Tempest.Nightmare {
         private GameObject healthCanvas;
         private Image positiveHealthBar;
         private BoxCollider2D boxCollider;
+        private Animator animator;
         private Renderer myRenderer;
         private Vector3 currentSpeed;
         private Vector3 currentControllerState;
@@ -50,7 +51,6 @@ namespace Com.Tempest.Nightmare {
         private bool holdingWallLeft;
         private bool holdingWallRight;
         private bool usedSecondJump;
-        private bool facingRight;
 
         // Health values.
         private int currentHealth;
@@ -67,13 +67,13 @@ namespace Com.Tempest.Nightmare {
             healthCanvas = transform.Find("DreamerCanvas").gameObject;
             positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
             boxCollider = GetComponent<BoxCollider2D>();
+            animator = GetComponent<Animator>();
             myRenderer = GetComponent<Renderer>();
             currentSpeed = new Vector3();
             currentControllerState = new Vector3();
             currentOffset = new Vector3();
 
             // Initialize state values.
-            facingRight = true;
             currentHealth = maxHealth;
             deathTimeRemaining = maxDeathTime;
         }
@@ -83,6 +83,7 @@ namespace Com.Tempest.Nightmare {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
             MoveAsFarAsYouCan();
+            HandleAnimator();
             ResurrectIfAble();
             HandleLifeState();
         }
@@ -146,7 +147,7 @@ namespace Com.Tempest.Nightmare {
             if (distanceForFrame.x != 0) {
                 holdingWallLeft = false;
                 holdingWallRight = false;
-                float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
+                float rayInterval = (topLeft.y - bottomLeft.y) / (float)numRays;
                 Vector3 rayOriginBase = currentSpeed.x > 0 ? bottomRight : bottomLeft;
                 float rayOriginCorrection = currentSpeed.x > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
                 for (int x = 0; x <= numRays; x++) {
@@ -187,7 +188,7 @@ namespace Com.Tempest.Nightmare {
             // Use raycasts to decide if we hit anything vertically.
             if (distanceForFrame.y != 0) {
                 grounded = false;
-                float rayInterval = (topLeft.y - bottomLeft.y) / (float)numRays;
+                float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
                 Vector3 rayOriginBase = currentSpeed.y > 0 ? topLeft : bottomLeft;
                 float rayOriginCorrection = currentSpeed.y > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
                 for (int x = 0; x <= numRays; x++) {
@@ -207,6 +208,7 @@ namespace Com.Tempest.Nightmare {
             if (hitY) {
                 currentSpeed.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
                 currentOffset.y *= Time.time - nightmareCollisionTime < nightmareCollisionRecovery ? -1f : 0f;
+                grounded = grounded && Time.time - nightmareCollisionTime > nightmareCollisionRecovery;
             }
 
             // If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
@@ -221,20 +223,16 @@ namespace Com.Tempest.Nightmare {
 
             // Actually move at long last.
             transform.position += distanceForFrame;
-
-            // Decide whether or not to flip.
-            goingRight = currentSpeed.x > 0;
-            if (currentSpeed.x != 0 && goingRight != facingRight) {
-                Flip();
-            }
         }
 
-        // Flips the character sprite.
-        private void Flip() {
-            facingRight = !facingRight;
-            Vector3 currentScale = transform.localScale;
-            currentScale.x *= -1;
-            transform.localScale = currentScale;
+        private void HandleAnimator() {
+            animator.SetBool("IsGrounded", grounded);
+            int speed = 0;
+            if (currentSpeed.x < 0f) speed = -1;
+            else if (currentSpeed.x > 0f) speed = 1;
+            animator.SetInteger("HorizontalSpeed", speed);
+            bool dyingAnimation = OutOfHealth() && !IsDead();
+            animator.SetBool("DyingAnimation", dyingAnimation);
         }
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
