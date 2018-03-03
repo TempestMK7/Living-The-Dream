@@ -10,7 +10,7 @@ GameObject:
   - component: {fileID: 495386}
   - component: {fileID: 21290600}
   - component: {fileID: 11455620}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Male - Eyes - Green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -91402939
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300256, guid: 4c3a1869430e17e4fab4f67127c7e0aa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
