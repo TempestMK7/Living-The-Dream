@@ -51,3 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f4b4ec49112e7941b4c8ebaa216638d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pingDisplay: {fileID: 0}
+  startGameButton: {fileID: 0}
+  typeSelect: {fileID: 0}
+  playerListContent: {fileID: 0}
+  textPrefab: {fileID: 0}

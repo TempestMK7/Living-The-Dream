@@ -47,22 +47,14 @@ namespace Com.Tempest.Nightmare {
         private void FixedUpdate() {
             InputDevice inputDevice = InputManager.ActiveDevice;
             if (inputDevice == null) return;
-            NightmareBehavior nightmare = managerBehavior.Nightmare;
-            DreamerBehavior dreamer = managerBehavior.Dreamer;
-            if (nightmare != null) {
-                nightmare.Accelerate(actionSet.MoveX.Value, actionSet.MoveY.Value);
-                if (actionSet.Action.WasPressed) {
-                    nightmare.Dash();
-                }
-            }
-            if (dreamer != null) {
-                dreamer.Accelerate(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
-                if (actionSet.Action.WasPressed) {
-                    dreamer.Jump();
-                }
-            }
-            if (nightmare == null && dreamer == null) {
+            IControllable controllable = managerBehavior.GetControllableCharacter();
+            if (controllable == null) {
                 Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
+            } else {
+                controllable.SendInputs(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
+                if (actionSet.Action.WasPressed) {
+                    controllable.SendAction();
+                }
             }
         }
     }

@@ -121,7 +121,7 @@ namespace Com.Tempest.Nightmare {
                     objectsToDisplay.AddRange(GetBonfiresInProgress());
                 }
             } else if (Nightmare != null) {
-
+                objectsToDisplay.AddRange(GetDreamerNotifications());
             } else {
                 objectsToDisplay.AddRange(GetBonfiresInProgress());
             }
@@ -145,6 +145,15 @@ namespace Com.Tempest.Nightmare {
                 if (behavior.ShowLitNotification()) {
                     output.Add(behavior.gameObject);
                 }
+            }
+            return output;
+        }
+
+        private List<GameObject> GetDreamerNotifications() {
+            List<GameObject> output = new List<GameObject>();
+            if (dreamers == null || dreamers.Count == 0) return output;
+            foreach (DreamerBehavior behavior in dreamers) {
+                output.Add(behavior.gameObject);
             }
             return output;
         }
@@ -272,6 +281,12 @@ namespace Com.Tempest.Nightmare {
 
         public override void OnLeftRoom() {
             SceneManager.LoadScene("LauncherScene");
+        }
+        
+        public IControllable GetControllableCharacter() {
+            if (Nightmare != null) return Nightmare;
+            if (Dreamer != null) return Dreamer;
+            return null;
         }
     }
 }

@@ -94,3 +94,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nightmarePrefab: {fileID: 0}
   dreamerPrefab: {fileID: 0}
+  bonfirePrefab: {fileID: 0}
+  notificationIconPrefab: {fileID: 0}
+  uiCanvas: {fileID: 0}
+  bonfireText: {fileID: 0}
+  dreamerText: {fileID: 0}
+  alertText: {fileID: 0}
+  distortionEffect: {fileID: 0}
+  bonfiresAllowedIncomplete: 1

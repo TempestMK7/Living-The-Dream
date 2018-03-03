@@ -2,9 +2,8 @@
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
-
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class DreamerBehavior : Photon.PunBehaviour, IPunObservable {
+    
+    public class DreamerBehavior : Photon.PunBehaviour, IPunObservable, IControllable {
 
         // Player rule params.
         public int maxHealth = 3;
@@ -294,13 +293,13 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Called by the input manager with controller values.
-        public void Accelerate(float horizontalScale, float verticalScale, bool grabHeld) {
+        public void SendInputs(float horizontalScale, float verticalScale, bool grabHeld) {
             currentControllerState = new Vector3(horizontalScale, verticalScale);
             this.grabHeld = grabHeld;
         }
 
         // Called by the input manager when the jump action is pressed.
-        public void Jump() {
+        public void SendAction() {
             // If we just jumped, ignore this jump.
             if (Time.time - jumpTime < jumpRecovery
                 || Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {

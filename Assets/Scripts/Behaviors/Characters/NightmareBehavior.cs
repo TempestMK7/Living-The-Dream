@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
-
-    [RequireComponent(typeof(BoxCollider2D))]
-    public class NightmareBehavior : Photon.PunBehaviour, IPunObservable {
+    
+    public class NightmareBehavior : Photon.PunBehaviour, IPunObservable, IControllable {
 
         public float maxSpeed = 10f;
         public float accelerationFactor = 0.5f;
@@ -38,7 +37,7 @@ namespace Com.Tempest.Nightmare {
         private float lastCollisionTime;
 
         // Use this for initialization
-        void Awake () {
+        void Awake() {
             boxCollider = GetComponent<BoxCollider2D>();
             animator = GetComponent<Animator>();
             animator.SetBool("IsAttacking", false);
@@ -53,6 +52,12 @@ namespace Com.Tempest.Nightmare {
 	
 	    // Update is called once per frame
 	    void Update () {
+            UpdateCurrentSpeed();
+            MoveAsFarAsYouCan();
+            animator.SetBool("IsAttacking", IsAttacking());
+	    }
+
+        private void UpdateCurrentSpeed() {
             if (photonView.isMine && Time.time - dashStart > dashDuration) {
                 Vector3 newMax = new Vector3(maxSpeed * currentControllerState.x, maxSpeed * currentControllerState.y);
                 if (newMax.magnitude > maxSpeed) {
@@ -68,7 +73,9 @@ namespace Com.Tempest.Nightmare {
                 }
                 currentSpeed += difference;
             }
+        }
 
+        private void MoveAsFarAsYouCan() {
             // Calculate how far we're going.
             Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
             bool goingRight = distanceForFrame.x > 0;
@@ -131,20 +138,19 @@ namespace Com.Tempest.Nightmare {
 
             // Actually move at long last.
             transform.position += distanceForFrame;
+
             // Decide whether or not to flip.
             goingRight = distanceForFrame.x > 0;
             if (distanceForFrame.x != 0 && goingRight != facingRight) {
                 Flip();
             }
+        }
 
-            animator.SetBool("IsAttacking", IsAttacking());
-	    }
-
-        public void Accelerate(float horizontalScale, float verticalScale) {
+        public void SendInputs(float horizontalScale, float verticalScale, bool grabHeld) {
             currentControllerState = new Vector3(horizontalScale, verticalScale);
         }
 
-        public void Dash() {
+        public void SendAction() {
             if (Time.time - dashStart < dashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
             dashStart = Time.time;
             float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
