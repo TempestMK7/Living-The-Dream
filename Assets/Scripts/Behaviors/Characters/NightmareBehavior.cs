@@ -37,7 +37,8 @@ namespace Com.Tempest.Nightmare {
         private float lastCollisionTime;
 
         // Use this for initialization
-        void Awake() {
+        public override void Awake() {
+            base.Awake();
             boxCollider = GetComponent<BoxCollider2D>();
             animator = GetComponent<Animator>();
             animator.SetBool("IsAttacking", false);
@@ -51,10 +52,10 @@ namespace Com.Tempest.Nightmare {
         }
 	
 	    // Update is called once per frame
-	    void Update () {
+	    public override void Update () {
+            base.Update();
             UpdateCurrentSpeed();
             MoveAsFarAsYouCan();
-            CheckPowerups();
             animator.SetBool("IsAttacking", IsAttacking());
 	    }
 

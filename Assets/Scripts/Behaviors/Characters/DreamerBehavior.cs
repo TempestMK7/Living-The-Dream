@@ -63,7 +63,8 @@ namespace Com.Tempest.Nightmare {
         private float nightmareCollisionTime;
         private float deathEventTime;
         
-        void Awake () {
+        public override void Awake () {
+            base.Awake();
             // Setup internal components and initialize object variables.
             healthCanvas = transform.Find("DreamerCanvas").gameObject;
             positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
@@ -80,14 +81,14 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Update is called once per frame
-        void Update () {
+        public override void Update() {
+            base.Update();
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
             MoveAsFarAsYouCan();
             HandleAnimator();
             ResurrectIfAble();
             HandleLifeState();
-            CheckPowerups();
         }
 
         // Updates horizontal movement based on controller state.

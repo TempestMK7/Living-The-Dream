@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Com.Tempest.Nightmare {
+﻿namespace Com.Tempest.Nightmare {
 
     public interface IControllable {
 

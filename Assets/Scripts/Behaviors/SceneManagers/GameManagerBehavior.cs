@@ -109,13 +109,13 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        private void HandleCameraFilter() {
+            distortionEffect.enabled = Dreamer != null && Dreamer.IsDead();
+        }
+
         private void HandleCanvasUI() {
             HandleNotifications();
             ShowAlertIfAppropriate();
-        }
-
-        private void HandleCameraFilter() {
-            distortionEffect.enabled = Dreamer != null && Dreamer.IsDead();
         }
 
         private void HandleNotifications() {

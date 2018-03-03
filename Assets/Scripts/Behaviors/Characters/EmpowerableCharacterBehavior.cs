@@ -10,6 +10,14 @@ namespace Com.Tempest.Nightmare {
 
         private Dictionary<Powerup, float> powerupDictionary;
 
+        public virtual void Awake() {
+            powerupDictionary = new Dictionary<Powerup, float>();
+        }
+
+        public virtual void Update() {
+            CheckPowerups();
+        }
+
         protected void CheckPowerups() {
             foreach (Powerup p in powerupDictionary.Keys) {
                 if (Time.time - powerupDictionary[p] < powerupDuration) {
@@ -18,13 +26,15 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        [PunRPC]
         public void AddPowerup(Powerup p) {
             powerupDictionary.Add(p, Time.time);
         }
 
         public void AddRandomPowerup() {
+            if (!photonView.isMine) return;
             Powerup[] possiblePowerups = GetUsablePowerups();
-            AddPowerup(possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
+            photonView.RPC("AddPowerup", PhotonTargets.All, photonView, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
         }
 
         public bool HasPowerup(Powerup p) {

@@ -45,4 +45,5 @@ MonoBehaviour:
   - HandleCollision
   - NotifyMasterClientConnected
   - RefreshPlayerList
+  - AddPowerup
   DisableAutoOpenWizard: 1
