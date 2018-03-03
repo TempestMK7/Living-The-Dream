@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
     
-    public class NightmareBehavior : Photon.PunBehaviour, IPunObservable, IControllable {
+    public class NightmareBehavior : EmpowerableCharacterBehavior, IPunObservable, IControllable {
 
         public float maxSpeed = 10f;
         public float accelerationFactor = 0.5f;
@@ -54,6 +54,7 @@ namespace Com.Tempest.Nightmare {
 	    void Update () {
             UpdateCurrentSpeed();
             MoveAsFarAsYouCan();
+            CheckPowerups();
             animator.SetBool("IsAttacking", IsAttacking());
 	    }
 
@@ -146,6 +147,13 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        private void Flip() {
+            facingRight = !facingRight;
+            Vector3 currentScale = transform.localScale;
+            currentScale.x *= -1;
+            transform.localScale = currentScale;
+        }
+
         public void SendInputs(float horizontalScale, float verticalScale, bool grabHeld) {
             currentControllerState = new Vector3(horizontalScale, verticalScale);
         }
@@ -156,13 +164,6 @@ namespace Com.Tempest.Nightmare {
             float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
             currentSpeed.x = Mathf.Cos(angle) * dashSpeed;
             currentSpeed.y = Mathf.Sin(angle) * dashSpeed;
-        }
-
-        private void Flip() {
-            facingRight = !facingRight;
-            Vector3 currentScale = transform.localScale;
-            currentScale.x *= -1;
-            transform.localScale = currentScale;
         }
 
         public bool IsAttacking() {
@@ -195,6 +196,10 @@ namespace Com.Tempest.Nightmare {
                 transform.position = (transform.position + networkPosition) / 2;
                 currentSpeed = (Vector3)stream.ReceiveNext();
             }
+        }
+
+        protected override Powerup[] GetUsablePowerups() {
+            return new Powerup[]{ Powerup.DREAMER_VISION, Powerup.HALF_ABILITY_COOLDOWN, Powerup.PERFECT_ACCELERATION };
         }
     }
 }

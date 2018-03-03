@@ -1,15 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
     
-    public class DreamerBehavior : Photon.PunBehaviour, IPunObservable, IControllable {
+    public class DreamerBehavior : EmpowerableCharacterBehavior, IPunObservable, IControllable {
 
         // Player rule params.
         public int maxHealth = 3;
         public int maxDeathTime = 100;
         public float deathTimeLost = 30f;
-        
+
         // Recovery timers.  Values are in seconds.
         public float jumpRecovery = 0.2f;
         public float wallJumpRecovery = 0.2f;
@@ -85,6 +87,7 @@ namespace Com.Tempest.Nightmare {
             HandleAnimator();
             ResurrectIfAble();
             HandleLifeState();
+            CheckPowerups();
         }
 
         // Updates horizontal movement based on controller state.
@@ -361,7 +364,9 @@ namespace Com.Tempest.Nightmare {
                 }
             }
         }
+
+        protected override Powerup[] GetUsablePowerups() {
+            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
+        }
     }
 }
-
-

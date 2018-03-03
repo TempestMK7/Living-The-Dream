@@ -20,7 +20,7 @@ namespace Com.Tempest.Nightmare {
 
         public CameraFilterPack_Vision_AuraDistortion distortionEffect;
 
-        public int bonfiresAllowedIncomplete = 1;
+        public int bonfiresAllowedIncomplete = 0;
 
         public NightmareBehavior Nightmare { get; set; }
         public DreamerBehavior Dreamer { get; set; }
@@ -50,8 +50,8 @@ namespace Com.Tempest.Nightmare {
         public void Update() {
             HandleBonfires();
             HandlePlayers();
-            HandleCanvasUI();
             HandleCameraFilter();
+            HandleCanvasUI();
         }
 
         private void HandleBonfires() {
@@ -113,15 +113,24 @@ namespace Com.Tempest.Nightmare {
             HandleNotifications();
             ShowAlertIfAppropriate();
         }
-        
+
+        private void HandleCameraFilter() {
+            distortionEffect.enabled = Dreamer != null && Dreamer.IsDead();
+        }
+
         private void HandleNotifications() {
             List<GameObject> objectsToDisplay = new List<GameObject>();
             if (Dreamer != null) {
                 if (Dreamer.IsDead()) {
                     objectsToDisplay.AddRange(GetBonfiresInProgress());
                 }
+                if (Dreamer.HasPowerup(Powerup.NIGHTMARE_VISION)) {
+                    objectsToDisplay.AddRange(GetNightmareNotifications());
+                }
             } else if (Nightmare != null) {
-                objectsToDisplay.AddRange(GetDreamerNotifications());
+                if (Nightmare.HasPowerup(Powerup.DREAMER_VISION)) {
+                    objectsToDisplay.AddRange(GetDreamerNotifications());
+                }
             } else {
                 objectsToDisplay.AddRange(GetBonfiresInProgress());
             }
@@ -153,6 +162,15 @@ namespace Com.Tempest.Nightmare {
             List<GameObject> output = new List<GameObject>();
             if (dreamers == null || dreamers.Count == 0) return output;
             foreach (DreamerBehavior behavior in dreamers) {
+                output.Add(behavior.gameObject);
+            }
+            return output;
+        }
+
+        private List<GameObject> GetNightmareNotifications() {
+            List<GameObject> output = new List<GameObject>();
+            if (nightmares == null || nightmares.Count == 0) return output;
+            foreach (NightmareBehavior behavior in nightmares) {
                 output.Add(behavior.gameObject);
             }
             return output;
@@ -228,14 +246,6 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        private void HandleCameraFilter() {
-            if (Dreamer != null) {
-                distortionEffect.enabled = Dreamer.IsDead();
-            } else {
-                distortionEffect.enabled = false;
-            }
-        }
-
         private void EndTheGame(PunTeams.Team winningTeam) {
             GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
             if (PhotonNetwork.isMasterClient) {
@@ -265,6 +275,7 @@ namespace Com.Tempest.Nightmare {
             switch (teamSelection) {
                 case PunTeams.Team.blue:
                     Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                    Camera.main.transform.position = Nightmare.transform.position;
                     break;
                 case PunTeams.Team.red:
                     Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
