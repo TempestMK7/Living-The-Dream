@@ -274,6 +274,9 @@ namespace Com.Tempest.Nightmare {
         // Prevents multiple calls to change enabled state.
         private void ToggleRenderers(bool enabled) {
             if (myRenderer.enabled != enabled) myRenderer.enabled = enabled;
+            foreach(SpriteRenderer childRenderer in GetComponentsInChildren<SpriteRenderer>()) {
+                if (childRenderer.enabled != enabled) childRenderer.enabled = enabled;
+            }
         }
 
         public bool OutOfHealth() {
