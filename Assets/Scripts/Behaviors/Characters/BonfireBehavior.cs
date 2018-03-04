@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
-
-    [RequireComponent(typeof(CircleCollider2D))]
+    
     public class BonfireBehavior : Photon.PunBehaviour, IPunObservable {
 
         public float requiredCharges = 30f;
@@ -42,7 +41,7 @@ namespace Com.Tempest.Nightmare {
         private void HandlePlayerEvents() {
             Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
             playersNearby = otherPlayers.Length != 0;
-            if (photonView.isMine == true && currentCharges < requiredCharges) {
+            if (photonView.isMine && currentCharges < requiredCharges) {
                 if (playersNearby == false) {
                     currentCharges -= Time.deltaTime;
                     currentCharges = Mathf.Max(currentCharges, 0f);

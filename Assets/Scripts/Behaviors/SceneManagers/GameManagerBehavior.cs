@@ -28,6 +28,7 @@ namespace Com.Tempest.Nightmare {
         private int playersConnected;
         Image[] notificationImages;
         private List<BonfireBehavior> bonfires;
+        private List<ShrineBehavior> shrines;
         private List<DreamerBehavior> dreamers;
         private List<NightmareBehavior> nightmares;
 
@@ -49,6 +50,7 @@ namespace Com.Tempest.Nightmare {
 
         public void Update() {
             HandleBonfires();
+            HandleShrines();
             HandlePlayers();
             HandleCameraFilter();
             HandleCanvasUI();
@@ -56,8 +58,6 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleBonfires() {
             if (bonfires == null) {
-                // Try to build the bonfire list if we are the master client but do not have it.
-                // This can happen if the user becomes the master client when the master client leaves the room.
                 HashSet<GameObject> fireSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BonfireBehavior));
                 if (fireSet.Count != 0) {
                     bonfires = new List<BonfireBehavior>();
@@ -77,6 +77,18 @@ namespace Com.Tempest.Nightmare {
                     EndTheGame(PunTeams.Team.red);
                 }
                 bonfireText.text = "Bonfires Remaining: " + (bonfires.Count - firesLit - bonfiresAllowedIncomplete);
+            }
+        }
+
+        private void HandleShrines() {
+            if (shrines == null) {
+                HashSet<GameObject> shrineSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(ShrineBehavior));
+                if (shrineSet.Count != 0) {
+                    shrines = new List<ShrineBehavior>();
+                    foreach (GameObject go in shrineSet) {
+                        shrines.Add(go.GetComponent<ShrineBehavior>());
+                    }
+                }
             }
         }
 
@@ -135,11 +147,13 @@ namespace Com.Tempest.Nightmare {
                 objectsToDisplay.AddRange(GetBonfiresInProgress());
             }
             objectsToDisplay.AddRange(GetRecentlyLitBonfires());
+            objectsToDisplay.AddRange(GetRecentlyLitShrines());
             DrawNotifications(objectsToDisplay);
         }
 
         private List<GameObject> GetBonfiresInProgress() {
             List<GameObject> output = new List<GameObject>();
+            if (bonfires == null) return output;
             foreach(BonfireBehavior behavior in bonfires) {
                 if (behavior.PlayersNearby()) {
                     output.Add(behavior.gameObject);
@@ -150,8 +164,20 @@ namespace Com.Tempest.Nightmare {
 
         private List<GameObject> GetRecentlyLitBonfires() {
             List<GameObject> output = new List<GameObject>();
+            if (bonfires == null) return output;
             foreach (BonfireBehavior behavior in bonfires) {
                 if (behavior.ShowLitNotification()) {
+                    output.Add(behavior.gameObject);
+                }
+            }
+            return output;
+        }
+
+        private List<GameObject> GetRecentlyLitShrines() {
+            List<GameObject> output = new List<GameObject>();
+            if (shrines == null) return output;
+            foreach (ShrineBehavior behavior in shrines) {
+                if (behavior.ShowCaptureNotification()) {
                     output.Add(behavior.gameObject);
                 }
             }
@@ -298,6 +324,15 @@ namespace Com.Tempest.Nightmare {
             if (Nightmare != null) return Nightmare;
             if (Dreamer != null) return Dreamer;
             return null;
+        }
+
+        [PunRPC]
+        public void AddPowerup(bool dreamer) {
+            if (dreamer && Dreamer != null) {
+                Dreamer.AddRandomPowerup();
+            } else if (!dreamer && Nightmare != null) {
+                Nightmare.AddRandomPowerup();
+            }
         }
     }
 }

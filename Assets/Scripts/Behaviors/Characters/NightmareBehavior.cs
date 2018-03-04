@@ -200,7 +200,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[]{ Powerup.DREAMER_VISION, Powerup.HALF_ABILITY_COOLDOWN, Powerup.PERFECT_ACCELERATION };
+            return new Powerup[]{ Powerup.DREAMER_VISION };
         }
     }
 }

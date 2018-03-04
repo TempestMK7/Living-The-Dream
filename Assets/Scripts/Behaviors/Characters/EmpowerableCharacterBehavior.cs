@@ -19,10 +19,14 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected void CheckPowerups() {
+            List<Powerup> removeThese = new List<Powerup>();
             foreach (Powerup p in powerupDictionary.Keys) {
-                if (Time.time - powerupDictionary[p] < powerupDuration) {
-                    powerupDictionary.Remove(p);
+                if (Time.time - powerupDictionary[p] > powerupDuration) {
+                    removeThese.Add(p);
                 }
+            }
+            foreach (Powerup p in removeThese) {
+                powerupDictionary.Remove(p);
             }
         }
 
@@ -34,7 +38,7 @@ namespace Com.Tempest.Nightmare {
         public void AddRandomPowerup() {
             if (!photonView.isMine) return;
             Powerup[] possiblePowerups = GetUsablePowerups();
-            photonView.RPC("AddPowerup", PhotonTargets.All, photonView, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
+            photonView.RPC("AddPowerup", PhotonTargets.All, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
         }
 
         public bool HasPowerup(Powerup p) {

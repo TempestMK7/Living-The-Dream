@@ -368,7 +368,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
+            return new Powerup[] { Powerup.NIGHTMARE_VISION };
         }
     }
 }
