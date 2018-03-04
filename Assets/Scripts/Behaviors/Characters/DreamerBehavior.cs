@@ -304,9 +304,10 @@ namespace Com.Tempest.Nightmare {
 
         // Called by the input manager when the jump action is pressed.
         public void SendAction() {
-            // If we just jumped, ignore this jump.
-            if (Time.time - jumpTime < jumpRecovery
-                || Time.time - nightmareCollisionTime < nightmareCollisionRecovery) {
+            // If we just jumped, got hit, or are in the death animation, ignore this action.
+            if (Time.time - jumpTime < jumpRecovery ||
+                Time.time - nightmareCollisionTime < nightmareCollisionRecovery ||
+                Time.time - deathEventTime < deathAnimationTime) {
                 return;
             }
 
