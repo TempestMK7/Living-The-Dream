@@ -52,6 +52,7 @@ namespace Com.Tempest.Nightmare {
         private bool holdingWallLeft;
         private bool holdingWallRight;
         private bool usedSecondJump;
+        private bool usedThirdJump;
 
         // Health values.
         private int currentHealth;
@@ -161,8 +162,10 @@ namespace Com.Tempest.Nightmare {
                         distanceForFrame.x = rayCast.point.x - rayOrigin.x;
                         if (currentSpeed.x > 0) {
                             holdingWallRight = true;
+                            usedThirdJump = false;
                         } else {
                             holdingWallLeft = true;
+                            usedThirdJump = false;
                         }
                     }
                     if (distanceForFrame.x == 0f) break;
@@ -203,6 +206,7 @@ namespace Com.Tempest.Nightmare {
                         if (currentSpeed.y < 0) {
                             grounded = true;
                             usedSecondJump = false;
+                            usedThirdJump = false;
                         }
                     }
                     if (distanceForFrame.y == 0f) break;
@@ -330,6 +334,10 @@ namespace Com.Tempest.Nightmare {
                 currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
                 jumpTime = Time.time;
                 usedSecondJump = true;
+            } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
+                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
+                jumpTime = Time.time;
+                usedThirdJump = true;
             }
         }
 
@@ -368,7 +376,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[] { Powerup.NIGHTMARE_VISION };
+            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP };
         }
     }
 }

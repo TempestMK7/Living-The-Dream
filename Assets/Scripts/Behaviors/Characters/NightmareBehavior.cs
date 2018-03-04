@@ -67,11 +67,12 @@ namespace Com.Tempest.Nightmare {
                 }
                 // This is how far we are from that speed.
                 Vector3 difference = newMax - currentSpeed;
+                float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : acceleration;
                 if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
-                    difference.x *= acceleration * Time.deltaTime;
+                    difference.x *= usableAcceleratior * Time.deltaTime;
                 }
                 if (Mathf.Abs(difference.y) > snapToMaxThreshold) {
-                    difference.y *= acceleration * Time.deltaTime;
+                    difference.y *= usableAcceleratior * Time.deltaTime;
                 }
                 currentSpeed += difference;
             }
@@ -160,7 +161,8 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void SendAction() {
-            if (Time.time - dashStart < dashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
+            float usableDashCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
+            if (Time.time - dashStart < usableDashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
             dashStart = Time.time;
             float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
             currentSpeed.x = Mathf.Cos(angle) * dashSpeed;
@@ -200,7 +202,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[]{ Powerup.DREAMER_VISION };
+            return new Powerup[]{ Powerup.DREAMER_VISION, Powerup.PERFECT_ACCELERATION, Powerup.HALF_ABILITY_COOLDOWN };
         }
     }
 }
