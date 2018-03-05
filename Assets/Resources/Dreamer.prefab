@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 750e679ebb2cf6a4a876faccacc947b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  powerupDuration: 60
   maxHealth: 3
   maxDeathTime: 100
   deathTimeLost: 30
@@ -684,7 +685,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -91402939
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!224 &224067269239052622

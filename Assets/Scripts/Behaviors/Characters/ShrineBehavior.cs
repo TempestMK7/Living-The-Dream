@@ -7,6 +7,8 @@ namespace Com.Tempest.Nightmare {
 
     public class ShrineBehavior : Photon.PunBehaviour, IPunObservable {
 
+        private static float unlitTime = -1f;
+
         public float requiredCharges = 10f;
         public float captureNotificationDuration = 5f;
         public float cooldownTime = 180f;
@@ -31,6 +33,7 @@ namespace Com.Tempest.Nightmare {
             circleCollider = GetComponent<CircleCollider2D>();
             dreamerCharges = 0f;
             nightmareCharges = 0f;
+            timeLit = unlitTime;
         }
 
         // Update is called once per frame
@@ -38,6 +41,7 @@ namespace Com.Tempest.Nightmare {
             HandleDreamerProximity();
             HandleNightmareProximity();
             ResetIfAppropriate();
+            HandleTimeStamp();
             HandleProgressBar();
         }
 
@@ -53,7 +57,6 @@ namespace Com.Tempest.Nightmare {
             }
             if (dreamerCharges >= requiredCharges) {
                 dreamerCharges = requiredCharges;
-                timeLit = Time.time;
                 AwardPowerups(true);
             }
         }
@@ -70,7 +73,6 @@ namespace Com.Tempest.Nightmare {
             }
             if (nightmareCharges >= requiredCharges) {
                 nightmareCharges = requiredCharges;
-                timeLit = Time.time;
                 AwardPowerups(false);
             }
         }
@@ -87,6 +89,14 @@ namespace Com.Tempest.Nightmare {
             if (Time.time - timeLit > cooldownTime) {
                 dreamerCharges = 0f;
                 nightmareCharges = 0f;
+                timeLit = unlitTime;
+            }
+        }
+
+        private void HandleTimeStamp() {
+            if (timeLit == unlitTime && IsLit()) {
+                timeLit = Time.time;
+                AwardPowerups(true);
             }
         }
 
@@ -115,11 +125,9 @@ namespace Com.Tempest.Nightmare {
             if (stream.isWriting) {
                 stream.SendNext(dreamerCharges);
                 stream.SendNext(nightmareCharges);
-                stream.SendNext(timeLit);
             } else {
                 dreamerCharges = (float)stream.ReceiveNext();
                 nightmareCharges = (float)stream.ReceiveNext();
-                timeLit = (float)stream.ReceiveNext();
             }
         }
     }

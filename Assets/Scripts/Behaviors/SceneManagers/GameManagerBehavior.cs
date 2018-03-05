@@ -135,6 +135,8 @@ namespace Com.Tempest.Nightmare {
             if (Dreamer != null) {
                 if (Dreamer.IsDead()) {
                     objectsToDisplay.AddRange(GetBonfiresInProgress());
+                } else {
+                    objectsToDisplay.AddRange(GetBonfiresWithDeadPlayers());
                 }
                 if (Dreamer.HasPowerup(Powerup.NIGHTMARE_VISION)) {
                     objectsToDisplay.AddRange(GetNightmareNotifications());
@@ -145,6 +147,7 @@ namespace Com.Tempest.Nightmare {
                 }
             } else {
                 objectsToDisplay.AddRange(GetBonfiresInProgress());
+                objectsToDisplay.AddRange(GetBonfiresWithDeadPlayers());
             }
             objectsToDisplay.AddRange(GetRecentlyLitBonfires());
             objectsToDisplay.AddRange(GetRecentlyLitShrines());
@@ -156,6 +159,17 @@ namespace Com.Tempest.Nightmare {
             if (bonfires == null) return output;
             foreach(BonfireBehavior behavior in bonfires) {
                 if (behavior.PlayersNearby()) {
+                    output.Add(behavior.gameObject);
+                }
+            }
+            return output;
+        }
+
+        private List<GameObject> GetBonfiresWithDeadPlayers() {
+            List<GameObject> output = new List<GameObject>();
+            if (bonfires == null) return output;
+            foreach (BonfireBehavior behavior in bonfires) {
+                if (behavior.DeadPlayersNearby()) {
                     output.Add(behavior.gameObject);
                 }
             }

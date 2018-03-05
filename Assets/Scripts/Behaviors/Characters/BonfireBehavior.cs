@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
-    
+
     public class BonfireBehavior : Photon.PunBehaviour, IPunObservable {
+
+        private static float unlitTime = -1f;
 
         public float requiredCharges = 30f;
         public float litNotificationDuration = 5f;
@@ -13,6 +15,7 @@ namespace Com.Tempest.Nightmare {
         public Sprite partLitSprite;
         public Sprite litSprite;
         public LayerMask whatIsPlayer;
+        public LayerMask whatIsDeadPlayer;
 
         private GameObject progressCanvas;
         private Image positiveProgressBar;
@@ -21,21 +24,24 @@ namespace Com.Tempest.Nightmare {
         private float currentCharges;
         private float timeLit;
         private bool playersNearby;
+        private bool deadPlayersNearby;
 
         // Use this for initialization
-        void Awake () {
+        void Awake() {
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
             spriteRenderer = GetComponent<SpriteRenderer>();
             circleCollider = GetComponent<CircleCollider2D>();
             currentCharges = 0f;
-	    }
-	
-	    // Update is called once per frame
-	    void Update () {
+            timeLit = unlitTime;
+        }
+
+        // Update is called once per frame
+        void Update() {
             HandlePlayerEvents();
             HandleSprite();
             HandleProgressBar();
+            HandleTimeStamp();
         }
 
         private void HandlePlayerEvents() {
@@ -56,11 +62,10 @@ namespace Com.Tempest.Nightmare {
                     currentCharges += Time.deltaTime * multiplier;
                     currentCharges = Mathf.Min(currentCharges, requiredCharges);
                 }
-                if (currentCharges >= requiredCharges) {
-                    currentCharges = requiredCharges;
-                    timeLit = Time.time;
-                }
+                currentCharges = Mathf.Min(currentCharges, requiredCharges);
             }
+            Collider2D[] deadPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsDeadPlayer);
+            deadPlayersNearby = deadPlayers.Length != 0;
         }
 
         private void HandleSprite() {
@@ -82,6 +87,12 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        private void HandleTimeStamp() {
+            if (timeLit == unlitTime && IsLit()) {
+                timeLit = Time.time;
+            }
+        }
+
         public Sprite GetCurrentSprite() {
             return spriteRenderer.sprite;
         }
@@ -98,13 +109,15 @@ namespace Com.Tempest.Nightmare {
             return playersNearby;
         }
 
+        public bool DeadPlayersNearby() {
+            return deadPlayersNearby;
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             if (stream.isWriting) {
                 stream.SendNext(currentCharges);
-                stream.SendNext(timeLit);
             } else {
                 currentCharges = (float)stream.ReceiveNext();
-                timeLit = (float)stream.ReceiveNext();
             }
         }
     }
