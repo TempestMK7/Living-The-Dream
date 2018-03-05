@@ -82,8 +82,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Update is called once per frame
-        public override void Update() {
-            base.Update();
+        public void Update() {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
             MoveAsFarAsYouCan();
@@ -376,7 +375,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP };
+            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
         }
     }
 }

@@ -42,11 +42,18 @@ namespace Com.Tempest.Nightmare {
             Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
             playersNearby = otherPlayers.Length != 0;
             if (photonView.isMine && currentCharges < requiredCharges) {
-                if (playersNearby == false) {
+                if (!playersNearby) {
                     currentCharges -= Time.deltaTime;
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
-                    currentCharges += Time.deltaTime * otherPlayers.Length;
+                    float multiplier = otherPlayers.Length;
+                    foreach (Collider2D collider in otherPlayers) {
+                        DreamerBehavior behavior = collider.GetComponentInParent<DreamerBehavior>();
+                        if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
+                            multiplier += 1f;
+                        }
+                    }
+                    currentCharges += Time.deltaTime * multiplier;
                     currentCharges = Mathf.Min(currentCharges, requiredCharges);
                 }
                 if (currentCharges >= requiredCharges) {

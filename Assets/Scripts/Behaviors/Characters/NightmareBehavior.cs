@@ -52,8 +52,7 @@ namespace Com.Tempest.Nightmare {
         }
 	
 	    // Update is called once per frame
-	    public override void Update () {
-            base.Update();
+	    public void Update () {
             UpdateCurrentSpeed();
             MoveAsFarAsYouCan();
             animator.SetBool("IsAttacking", IsAttacking());
