@@ -16,7 +16,6 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Start() {
-            OnSelectionChanged();
             if (PhotonNetwork.isMasterClient) {
                 PhotonNetwork.room.IsOpen = true;
             }
@@ -61,9 +60,10 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void RefreshPlayerList() {
+            if (Time.time - lastListRefresh < 1f) return;
+            OnSelectionChanged();
             PhotonPlayer[] playerList = PhotonNetwork.playerList;
             Text[] childrenTexts = playerListContent.GetComponentsInChildren<Text>();
-            if (Time.time - lastListRefresh < 1f) return;
             foreach (Text text in childrenTexts) {
                 Destroy(text.gameObject);
             }

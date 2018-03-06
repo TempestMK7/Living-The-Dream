@@ -46,4 +46,5 @@ MonoBehaviour:
   - NotifyMasterClientConnected
   - RefreshPlayerList
   - AddPowerup
+  - DisplayAlert
   DisableAutoOpenWizard: 1

@@ -122,5 +122,3 @@ namespace Com.Tempest.Nightmare {
         }
     }
 }
-
-    

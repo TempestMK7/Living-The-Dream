@@ -7,6 +7,10 @@ using UnityEngine.UI;
 namespace Com.Tempest.Nightmare {
 
     public class GameManagerBehavior : Photon.PunBehaviour {
+
+        public const int DREAMER = 0;
+        public const int NIGHTMARE = 1;
+        public const int ALL = 2;
         
         public GameObject nightmarePrefab;
         public GameObject dreamerPrefab;
@@ -14,9 +18,10 @@ namespace Com.Tempest.Nightmare {
         public Image notificationIconPrefab;
         
         public Canvas uiCanvas;
+        public VerticalLayoutGroup notificationLayout;
+        public GameObject alertTextPrefab;
         public Text bonfireText;
         public Text dreamerText;
-        public Text alertText;
 
         public CameraFilterPack_Vision_AuraDistortion distortionEffect;
 
@@ -37,7 +42,6 @@ namespace Com.Tempest.Nightmare {
                 PhotonNetwork.room.IsOpen = false;
             }
             notificationImages = new Image[0];
-            alertText.enabled = false;
         }
 
         private void OnEnable() {
@@ -53,7 +57,7 @@ namespace Com.Tempest.Nightmare {
             HandleShrines();
             HandlePlayers();
             HandleCameraFilter();
-            HandleCanvasUI();
+            HandleNotifications();
         }
 
         private void HandleBonfires() {
@@ -123,11 +127,6 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleCameraFilter() {
             distortionEffect.enabled = Dreamer != null && Dreamer.IsDead();
-        }
-
-        private void HandleCanvasUI() {
-            HandleNotifications();
-            ShowAlertIfAppropriate();
         }
 
         private void HandleNotifications() {
@@ -260,32 +259,6 @@ namespace Com.Tempest.Nightmare {
             return cameraBounds;
         }
 
-        private void ShowAlertIfAppropriate() {
-            if (PhotonNetwork.player.GetTeam() == PunTeams.Team.blue) return;
-            if (Dreamer == null) {
-                alertText.enabled = false;
-            } else if (Dreamer.IsDead()) {
-                alertText.text = "You are unconscious! Other dreamers can wake you up at a bonfire.";
-                alertText.enabled = true;
-            } else if (dreamers != null) {
-                bool showAlert = false;
-                foreach (DreamerBehavior behavior in dreamers) {
-                    if (behavior.IsDead()) {
-                        showAlert = true;
-                        break;
-                    }
-                }
-                if (showAlert) {
-                    alertText.text = "A dreamer is unconscious!  Go to any bonfire to help them wake up!";
-                    alertText.enabled = true;
-                } else {
-                    alertText.enabled = false;
-                }
-            } else {
-                alertText.enabled = false;
-            }
-        }
-
         private void EndTheGame(PunTeams.Team winningTeam) {
             GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
             if (PhotonNetwork.isMasterClient) {
@@ -341,12 +314,21 @@ namespace Com.Tempest.Nightmare {
         }
 
         [PunRPC]
-        public void AddPowerup(bool dreamer) {
+        public void AddPowerupToCharacter(bool dreamer) {
             if (dreamer && Dreamer != null) {
                 Dreamer.AddRandomPowerup();
             } else if (!dreamer && Nightmare != null) {
                 Nightmare.AddRandomPowerup();
             }
+        }
+
+        [PunRPC]
+        public void DisplayAlert(string alertText, int targets) {
+            if (targets == DREAMER && Dreamer == null) return;
+            if (targets == NIGHTMARE && Nightmare == null) return;
+            GameObject textPrefab = Instantiate(alertTextPrefab);
+            textPrefab.GetComponent<Text>().text = alertText;
+            textPrefab.transform.SetParent(notificationLayout.transform);
         }
     }
 }

@@ -17,6 +17,9 @@ namespace Com.Tempest.Nightmare {
         [PunRPC]
         public void AddPowerup(Powerup p) {
             powerupDictionary[p] = Time.time;
+            if (photonView.isMine) {
+                FindObjectOfType<GameManagerBehavior>().DisplayAlert("You have been granted " + p.ToString(), GameManagerBehavior.ALL);
+            }
         }
 
         public void AddRandomPowerup() {

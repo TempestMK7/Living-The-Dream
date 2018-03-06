@@ -81,7 +81,7 @@ namespace Com.Tempest.Nightmare {
             if (!photonView.isMine) return;
             GameManagerBehavior behavior = FindObjectOfType<GameManagerBehavior>();
             if (behavior == null) return;
-            behavior.photonView.RPC("AddPowerup", PhotonTargets.All, dreamersWon);
+            behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
         }
 
         private void ResetIfAppropriate() {
@@ -96,7 +96,6 @@ namespace Com.Tempest.Nightmare {
         private void HandleTimeStamp() {
             if (timeLit == unlitTime && IsLit()) {
                 timeLit = Time.time;
-                AwardPowerups(true);
             }
         }
 

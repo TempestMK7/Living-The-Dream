@@ -342,7 +342,7 @@ namespace Com.Tempest.Nightmare {
 
         // Called by a nightmare behavior when collision occurs.
         [PunRPC]
-        public void HandleCollision(int nightmareId, int dreamerId, Vector3 currentSpeed) {
+        public void HandleCollision(Vector3 currentSpeed) {
             this.currentSpeed = currentSpeed;
             nightmareCollisionTime = Time.time;
             currentHealth -= 1;
@@ -350,6 +350,11 @@ namespace Com.Tempest.Nightmare {
                 currentHealth = 0;
                 deathEventTime = Time.time;
                 deathTimeRemaining -= deathTimeLost;
+                if (photonView.isMine) {
+                    GameManagerBehavior behavior = FindObjectOfType<GameManagerBehavior>();
+                    behavior.DisplayAlert("You are unconscious! Other dreamers can wake you up at a bonfire.", GameManagerBehavior.DREAMER);
+                    behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "A dreamer is unconscious!  Go to any bonfire to help them wake up!", GameManagerBehavior.DREAMER);
+                }
             }
         }
 

@@ -177,7 +177,7 @@ namespace Com.Tempest.Nightmare {
             DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
             if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
-                associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, photonView.ownerId, associatedBehavior.photonView.ownerId, currentSpeed);
+                associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, currentSpeed);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
             }
