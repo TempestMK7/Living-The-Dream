@@ -7,10 +7,6 @@ namespace Com.Tempest.Nightmare {
 
     public class NotificationManagerBehavior : MonoBehaviour {
 
-        public const int DREAMER = 0;
-        public const int NIGHTMARE = 1;
-        public const int ALL = 2;
-
         // Text holder and prefab for text notifications.
         public VerticalLayoutGroup notificationLayout;
         public GameObject alertTextPrefab;
