@@ -19,6 +19,7 @@ namespace Com.Tempest.Nightmare {
         // Prefabs.
         public GameObject nightmarePrefab;
         public GameObject dreamerPrefab;
+        public GameObject lightBoxPrefab;
 
         // Camera filter when dreamer is dead.
         public CameraFilterPack_Vision_AuraDistortion distortionEffect;
@@ -156,10 +157,14 @@ namespace Com.Tempest.Nightmare {
             switch (teamSelection) {
                 case PunTeams.Team.blue:
                     Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
-                    Camera.main.transform.position = Nightmare.transform.position;
+                    GameObject lightbox = Instantiate(lightBoxPrefab, Nightmare.transform);
+                    lightbox.transform.localScale = new Vector3(10f, 10f);
+                    Camera.main.transform.position = Nightmare.gameObject.transform.position;
                     break;
                 case PunTeams.Team.red:
                     Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    lightbox = Instantiate(lightBoxPrefab, Dreamer.gameObject.transform);
+                    lightbox.transform.localScale = new Vector3(10f, 10f);
                     Camera.main.transform.position = Dreamer.transform.position;
                     break;
                 default:
