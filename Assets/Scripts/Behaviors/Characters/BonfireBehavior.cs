@@ -7,8 +7,6 @@ namespace Com.Tempest.Nightmare {
 
     public class BonfireBehavior : Photon.PunBehaviour, IPunObservable {
 
-        private static float unlitTime = -1f;
-
         public float requiredCharges = 30f;
         public float litNotificationDuration = 5f;
         public Sprite unlitSprite;
@@ -33,7 +31,7 @@ namespace Com.Tempest.Nightmare {
             spriteRenderer = GetComponent<SpriteRenderer>();
             circleCollider = GetComponent<CircleCollider2D>();
             currentCharges = 0f;
-            timeLit = unlitTime;
+            timeLit = 0f;
         }
 
         // Update is called once per frame
@@ -41,7 +39,6 @@ namespace Com.Tempest.Nightmare {
             HandlePlayerEvents();
             HandleSprite();
             HandleProgressBar();
-            HandleTimeStamp();
         }
 
         private void HandlePlayerEvents() {
@@ -60,9 +57,11 @@ namespace Com.Tempest.Nightmare {
                         }
                     }
                     currentCharges += Time.deltaTime * multiplier;
-                    currentCharges = Mathf.Min(currentCharges, requiredCharges);
+                    if (currentCharges >= requiredCharges) {
+                        currentCharges = requiredCharges;
+                        photonView.RPC("NotifyLit", PhotonTargets.All);
+                    }
                 }
-                currentCharges = Mathf.Min(currentCharges, requiredCharges);
             }
             Collider2D[] deadPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsDeadPlayer);
             deadPlayersNearby = deadPlayers.Length != 0;
@@ -87,10 +86,10 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        private void HandleTimeStamp() {
-            if (timeLit == unlitTime && IsLit()) {
-                timeLit = Time.time;
-            }
+        [PunRPC]
+        public void NotifyLit() {
+            currentCharges = requiredCharges;
+            timeLit = Time.time;
         }
 
         public Sprite GetCurrentSprite() {

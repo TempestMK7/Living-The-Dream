@@ -47,4 +47,6 @@ MonoBehaviour:
   - RefreshPlayerList
   - AddPowerup
   - DisplayAlert
+  - AddPowerupToCharacter
+  - NotifyLit
   DisableAutoOpenWizard: 1

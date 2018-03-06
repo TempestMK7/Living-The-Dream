@@ -7,8 +7,6 @@ namespace Com.Tempest.Nightmare {
 
     public class ShrineBehavior : Photon.PunBehaviour, IPunObservable {
 
-        private static float unlitTime = -1f;
-
         public float requiredCharges = 10f;
         public float captureNotificationDuration = 5f;
         public float cooldownTime = 180f;
@@ -33,7 +31,7 @@ namespace Com.Tempest.Nightmare {
             circleCollider = GetComponent<CircleCollider2D>();
             dreamerCharges = 0f;
             nightmareCharges = 0f;
-            timeLit = unlitTime;
+            timeLit = 0f;
         }
 
         // Update is called once per frame
@@ -41,7 +39,6 @@ namespace Com.Tempest.Nightmare {
             HandleDreamerProximity();
             HandleNightmareProximity();
             ResetIfAppropriate();
-            HandleTimeStamp();
             HandleProgressBar();
         }
 
@@ -57,7 +54,7 @@ namespace Com.Tempest.Nightmare {
             }
             if (dreamerCharges >= requiredCharges) {
                 dreamerCharges = requiredCharges;
-                AwardPowerups(true);
+                photonView.RPC("NotifyLit", PhotonTargets.All, true);
             }
         }
 
@@ -73,8 +70,16 @@ namespace Com.Tempest.Nightmare {
             }
             if (nightmareCharges >= requiredCharges) {
                 nightmareCharges = requiredCharges;
-                AwardPowerups(false);
+                photonView.RPC("NotifyLit", PhotonTargets.All, false);
             }
+        }
+
+        [PunRPC]
+        public void NotifyLit(bool dreamersWon) {
+            if (dreamersWon) dreamerCharges = requiredCharges;
+            else nightmareCharges = requiredCharges;
+            timeLit = Time.time;
+            AwardPowerups(dreamersWon);
         }
 
         private void AwardPowerups(bool dreamersWon) {
@@ -85,17 +90,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void ResetIfAppropriate() {
-            if (!photonView.isMine || !IsLit()) return;
+            if (!IsLit()) return;
             if (Time.time - timeLit > cooldownTime) {
                 dreamerCharges = 0f;
                 nightmareCharges = 0f;
-                timeLit = unlitTime;
-            }
-        }
-
-        private void HandleTimeStamp() {
-            if (timeLit == unlitTime && IsLit()) {
-                timeLit = Time.time;
+                timeLit = 0f;
             }
         }
 
