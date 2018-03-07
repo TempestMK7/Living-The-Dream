@@ -166,11 +166,11 @@ namespace Com.Tempest.Nightmare {
             transform.localScale = currentScale;
         }
 
-        public void SendInputs(float horizontalScale, float verticalScale, bool grabHeld) {
+        public void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
             currentControllerState = new Vector3(horizontalScale, verticalScale);
         }
 
-        public void SendAction() {
+        public void ActionPressed() {
             float usableDashCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
             if (Time.time - dashStart < usableDashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
             dashStart = Time.time;
@@ -179,7 +179,11 @@ namespace Com.Tempest.Nightmare {
             currentSpeed.y = Mathf.Sin(angle) * dashSpeed;
         }
 
-        public void SendLightToggle() {
+        public void ActionReleased() {
+
+        }
+
+        public void LightTogglePressed() {
             lightBox.IsActive = !lightBox.IsActive;
         }
 
@@ -189,7 +193,7 @@ namespace Com.Tempest.Nightmare {
 
         public void OnTriggerEnter2D(Collider2D other) {
             if (!photonView.isMine) return;
-            DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
+            BaseDreamerBehavior associatedBehavior = other.gameObject.GetComponent<BaseDreamerBehavior>();
             if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
                 associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, currentSpeed);

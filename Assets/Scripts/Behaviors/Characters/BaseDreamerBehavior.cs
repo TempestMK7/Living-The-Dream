@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
-    
-    public class DreamerBehavior : EmpowerableCharacterBehavior, IPunObservable, IControllable {
+
+    public abstract class BaseDreamerBehavior : EmpowerableCharacterBehavior, IControllable, IPunObservable {
 
         // Player rule params.
         public int maxHealth = 3;
@@ -41,35 +41,34 @@ namespace Com.Tempest.Nightmare {
 
 
         // Internal objects accessed by this behavior.
-        private LightBoxBehavior lightBox;
+        protected LightBoxBehavior lightBox;
         private GameObject healthCanvas;
         private Image positiveHealthBar;
         private BoxCollider2D boxCollider;
         private Animator animator;
         private Renderer myRenderer;
-        private Vector3 currentSpeed;
-        private Vector3 currentControllerState;
         private Vector3 currentOffset;
 
+        protected Vector3 currentSpeed;
+        protected Vector3 currentControllerState;
+
         // Booleans used when deciding how to respond to collisions and controller inputs.
-        private bool grabHeld;
-        private bool grounded;
-        private bool holdingWallLeft;
-        private bool holdingWallRight;
-        private bool usedSecondJump;
-        private bool usedThirdJump;
+        protected bool grabHeld;
+        protected bool grounded;
+        protected bool holdingWallLeft;
+        protected bool holdingWallRight;
 
         // Health values.
         private int currentHealth;
         private float deathTimeRemaining;
 
         // Timer values, recorded in seconds.
-        private float jumpTime;
-        private float wallJumpTime;
-        private float nightmareCollisionTime;
-        private float deathEventTime;
-        
-        public override void Awake () {
+        protected float jumpTime;
+        protected float wallJumpTime;
+        protected float nightmareCollisionTime;
+        protected float deathEventTime;
+
+        public override void Awake() {
             base.Awake();
 
             // Handle character's light box.
@@ -78,7 +77,7 @@ namespace Com.Tempest.Nightmare {
             lightBox.IsActive = false;
             lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
             lightBox.ActiveScale = new Vector3(activeScale, activeScale);
-            
+
             // Setup internal components and initialize object variables.
             healthCanvas = transform.Find("DreamerCanvas").gameObject;
             positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
@@ -95,7 +94,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Update is called once per frame
-        public void Update() {
+        public virtual void Update() {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
             MoveAsFarAsYouCan();
@@ -124,7 +123,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Updates vertical movement based on gravity.  
-        private void UpdateVerticalMovement() {
+        protected virtual void UpdateVerticalMovement() {
             // Add gravity.
             if (currentSpeed.y > maxSpeed * 0.1f) {
                 currentSpeed.y += maxSpeed * -1f * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
@@ -144,8 +143,8 @@ namespace Com.Tempest.Nightmare {
                 distanceForFrame += currentOffset;
                 currentOffset = new Vector3();
             } else {
-                distanceForFrame += currentOffset / 2f;
-                currentOffset /= 2f;
+                distanceForFrame += currentOffset / 3f;
+                currentOffset -= currentOffset / 3f;
             }
             bool goingRight = distanceForFrame.x > 0;
             bool goingUp = distanceForFrame.y > 0;
@@ -174,10 +173,10 @@ namespace Com.Tempest.Nightmare {
                         distanceForFrame.x = rayCast.point.x - rayOrigin.x;
                         if (currentSpeed.x > 0) {
                             holdingWallRight = true;
-                            usedThirdJump = false;
+                            GrabbedWall(false);
                         } else {
                             holdingWallLeft = true;
-                            usedThirdJump = false;
+                            GrabbedWall(true);
                         }
                     }
                     if (distanceForFrame.x == 0f) break;
@@ -217,8 +216,7 @@ namespace Com.Tempest.Nightmare {
                         distanceForFrame.y = rayCast.point.y - rayOrigin.y;
                         if (currentSpeed.y < 0) {
                             grounded = true;
-                            usedSecondJump = false;
-                            usedThirdJump = false;
+                            BecameGrounded();
                         }
                     }
                     if (distanceForFrame.y == 0f) break;
@@ -311,48 +309,19 @@ namespace Com.Tempest.Nightmare {
             return deathTimeRemaining <= 0;
         }
 
-        // Called by the input manager with controller values.
-        public void SendInputs(float horizontalScale, float verticalScale, bool grabHeld) {
-            currentControllerState = new Vector3(horizontalScale, verticalScale);
-            this.grabHeld = grabHeld;
-        }
+        // Called internally to let sub classes know what our state is.
+        public abstract void BecameGrounded();
 
-        // Called by the input manager when the jump action is pressed.
-        public void SendAction() {
-            // If we just jumped, got hit, or are in the death animation, ignore this action.
-            if (Time.time - jumpTime < jumpRecovery ||
-                Time.time - nightmareCollisionTime < nightmareCollisionRecovery ||
-                Time.time - deathEventTime < deathAnimationTime) {
-                return;
-            }
+        public abstract void GrabbedWall(bool grabbedLeft);
+        
+        // Called by the input manager to move our character.
+        public abstract void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld);
+        
+        public abstract void ActionPressed();
 
-            if (grounded) {
-                currentSpeed.y = maxSpeed * jumpFactor;
-                jumpTime = Time.time;
-            } else if (holdingWallLeft) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
-                jumpTime = Time.time;
-                wallJumpTime = Time.time;
-                holdingWallLeft = false;
-            } else if (holdingWallRight) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
-                jumpTime = Time.time;
-                wallJumpTime = Time.time;
-                holdingWallRight = false;
-            } else if (!usedSecondJump) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
-                jumpTime = Time.time;
-                usedSecondJump = true;
-            } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
-                jumpTime = Time.time;
-                usedThirdJump = true;
-            }
-        }
+        public abstract void ActionReleased();
 
-        public void SendLightToggle() {
+        public void LightTogglePressed() {
             if (!OutOfHealth()) {
                 lightBox.IsActive = !lightBox.IsActive;
             }
@@ -377,7 +346,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Called by Photon whenever player state is synced across the network.
-        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             if (stream.isWriting) {
                 stream.SendNext(transform.position);
                 stream.SendNext(currentSpeed);
@@ -399,6 +368,7 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        // Called within EmpowerableCharacterBehavior to determine which powerups this character is eligible for.
         protected override Powerup[] GetUsablePowerups() {
             return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
         }

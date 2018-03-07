@@ -148,7 +148,7 @@ namespace Com.Tempest.Nightmare {
         private List<GameObject> GetDreamerNotifications() {
             List<GameObject> output = new List<GameObject>();
             if (gameManagerBehavior.Dreamers == null || gameManagerBehavior.Dreamers.Count == 0) return output;
-            foreach (DreamerBehavior behavior in gameManagerBehavior.Dreamers) {
+            foreach (BaseDreamerBehavior behavior in gameManagerBehavior.Dreamers) {
                 output.Add(behavior.gameObject);
             }
             return output;

@@ -51,7 +51,7 @@ namespace Com.Tempest.Nightmare {
                 } else {
                     float multiplier = otherPlayers.Length;
                     foreach (Collider2D collider in otherPlayers) {
-                        DreamerBehavior behavior = collider.GetComponentInParent<DreamerBehavior>();
+                        BaseDreamerBehavior behavior = collider.GetComponentInParent<BaseDreamerBehavior>();
                         if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             multiplier += 1f;
                         }

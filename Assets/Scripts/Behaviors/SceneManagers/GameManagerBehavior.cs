@@ -31,11 +31,11 @@ namespace Com.Tempest.Nightmare {
 
         // Publicly accessible fields pertaining to game state.
         public NightmareBehavior Nightmare { get; set; }
-        public DreamerBehavior Dreamer { get; set; }
+        public BaseDreamerBehavior Dreamer { get; set; }
 
         public List<BonfireBehavior> Bonfires { get; set; }
         public List<ShrineBehavior> Shrines { get; set; }
-        public List<DreamerBehavior> Dreamers { get; set; }
+        public List<BaseDreamerBehavior> Dreamers { get; set; }
         public List<NightmareBehavior> Nightmares { get; set; }
 
         private int playersConnected;
@@ -98,11 +98,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void HandlePlayers() {
-            HashSet<GameObject> dreamerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(DreamerBehavior));
+            HashSet<GameObject> dreamerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseDreamerBehavior));
             if ((Dreamers == null && dreamerSet.Count != 0) || (Dreamers != null && dreamerSet.Count != Dreamers.Count)) {
-                Dreamers = new List<DreamerBehavior>();
+                Dreamers = new List<BaseDreamerBehavior>();
                 foreach (GameObject go in dreamerSet) {
-                    Dreamers.Add(go.GetComponent<DreamerBehavior>());
+                    Dreamers.Add(go.GetComponent<BaseDreamerBehavior>());
                 }
             }
             HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(NightmareBehavior));
@@ -114,7 +114,7 @@ namespace Com.Tempest.Nightmare {
             }
             if (Dreamers != null) {
                 int awakeDreamers = 0;
-                foreach(DreamerBehavior dreamer in Dreamers) {
+                foreach(BaseDreamerBehavior dreamer in Dreamers) {
                     if (!dreamer.IsDead()) {
                         awakeDreamers++;
                     }
@@ -163,7 +163,7 @@ namespace Com.Tempest.Nightmare {
                     maskCamera.backgroundColor = new Color(.1f, .1f, .15f);
                     break;
                 case PunTeams.Team.red:
-                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
+                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<BaseDreamerBehavior>();
                     Camera.main.transform.position = Dreamer.transform.position;
                     maskCamera.backgroundColor = new Color(.01f, .01f, .02f);
                     break;
