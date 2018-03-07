@@ -36,8 +36,12 @@ namespace Com.Tempest.Nightmare {
             actionSet.Action.AddDefaultBinding(Key.Space);
             actionSet.Action.AddDefaultBinding(InputControlType.Action1);
 
-            actionSet.Grab.AddDefaultBinding(InputControlType.RightBumper);
+            actionSet.ActivateLight.AddDefaultBinding(Key.Control);
+            actionSet.ActivateLight.AddDefaultBinding(InputControlType.LeftBumper);
+            actionSet.ActivateLight.AddDefaultBinding(InputControlType.Action2);
+
             actionSet.Grab.AddDefaultBinding(Key.Shift);
+            actionSet.Grab.AddDefaultBinding(InputControlType.RightBumper);
         }
 
         private void OnDestroy() {
@@ -54,6 +58,9 @@ namespace Com.Tempest.Nightmare {
                 controllable.SendInputs(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
                 if (actionSet.Action.WasPressed) {
                     controllable.SendAction();
+                }
+                if (actionSet.ActivateLight.WasPressed) {
+                    controllable.SendLightToggle();
                 }
             }
         }

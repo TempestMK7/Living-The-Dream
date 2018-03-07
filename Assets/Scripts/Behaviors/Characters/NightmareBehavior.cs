@@ -23,6 +23,10 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsSolid;
         public LayerMask whatIsPlayer;
 
+        public float lightBoxScale = 25f;
+
+        private LightBoxBehavior lightBox;
+
         private BoxCollider2D boxCollider;
         private Animator animator;
 
@@ -39,6 +43,13 @@ namespace Com.Tempest.Nightmare {
         // Use this for initialization
         public override void Awake() {
             base.Awake();
+
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = photonView.isMine;
+            lightBox.IsActive = false;
+            lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
+            lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
+
             boxCollider = GetComponent<BoxCollider2D>();
             animator = GetComponent<Animator>();
             animator.SetBool("IsAttacking", false);
@@ -52,8 +63,7 @@ namespace Com.Tempest.Nightmare {
         }
 	
 	    // Update is called once per frame
-	    public override void Update () {
-            base.Update();
+	    public void Update () {
             UpdateCurrentSpeed();
             MoveAsFarAsYouCan();
             animator.SetBool("IsAttacking", IsAttacking());
@@ -67,11 +77,12 @@ namespace Com.Tempest.Nightmare {
                 }
                 // This is how far we are from that speed.
                 Vector3 difference = newMax - currentSpeed;
+                float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : acceleration;
                 if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
-                    difference.x *= acceleration * Time.deltaTime;
+                    difference.x *= usableAcceleratior * Time.deltaTime;
                 }
                 if (Mathf.Abs(difference.y) > snapToMaxThreshold) {
-                    difference.y *= acceleration * Time.deltaTime;
+                    difference.y *= usableAcceleratior * Time.deltaTime;
                 }
                 currentSpeed += difference;
             }
@@ -160,11 +171,16 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void SendAction() {
-            if (Time.time - dashStart < dashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
+            float usableDashCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
+            if (Time.time - dashStart < usableDashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
             dashStart = Time.time;
             float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
             currentSpeed.x = Mathf.Cos(angle) * dashSpeed;
             currentSpeed.y = Mathf.Sin(angle) * dashSpeed;
+        }
+
+        public void SendLightToggle() {
+            lightBox.IsActive = !lightBox.IsActive;
         }
 
         public bool IsAttacking() {
@@ -176,7 +192,7 @@ namespace Com.Tempest.Nightmare {
             DreamerBehavior associatedBehavior = other.gameObject.GetComponent<DreamerBehavior>();
             if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
-                associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, photonView.ownerId, associatedBehavior.photonView.ownerId, currentSpeed);
+                associatedBehavior.photonView.RPC("HandleCollision", PhotonTargets.All, currentSpeed);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
             }
@@ -200,7 +216,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[]{ Powerup.DREAMER_VISION, Powerup.HALF_ABILITY_COOLDOWN, Powerup.PERFECT_ACCELERATION };
+            return new Powerup[]{ Powerup.DREAMER_VISION, Powerup.PERFECT_ACCELERATION, Powerup.HALF_ABILITY_COOLDOWN };
         }
     }
 }

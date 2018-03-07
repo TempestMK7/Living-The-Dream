@@ -14,31 +14,22 @@ namespace Com.Tempest.Nightmare {
             powerupDictionary = new Dictionary<Powerup, float>();
         }
 
-        public virtual void Update() {
-            CheckPowerups();
-        }
-
-        protected void CheckPowerups() {
-            foreach (Powerup p in powerupDictionary.Keys) {
-                if (Time.time - powerupDictionary[p] < powerupDuration) {
-                    powerupDictionary.Remove(p);
-                }
-            }
-        }
-
         [PunRPC]
         public void AddPowerup(Powerup p) {
-            powerupDictionary.Add(p, Time.time);
+            powerupDictionary[p] = Time.time;
+            if (photonView.isMine) {
+                FindObjectOfType<GameManagerBehavior>().DisplayAlert("You have been granted " + p.ToString(), GameManagerBehavior.ALL);
+            }
         }
 
         public void AddRandomPowerup() {
             if (!photonView.isMine) return;
             Powerup[] possiblePowerups = GetUsablePowerups();
-            photonView.RPC("AddPowerup", PhotonTargets.All, photonView, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
+            photonView.RPC("AddPowerup", PhotonTargets.All, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
         }
 
         public bool HasPowerup(Powerup p) {
-            return powerupDictionary.ContainsKey(p);
+            return powerupDictionary.ContainsKey(p) && Time.time - powerupDictionary[p] < powerupDuration;
         }
 
         protected abstract Powerup[] GetUsablePowerups();

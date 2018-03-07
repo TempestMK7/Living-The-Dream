@@ -4,5 +4,6 @@
 
         void SendInputs(float horizontalAxis, float verticalAxis, bool grabHeld);
         void SendAction();
+        void SendLightToggle();
     }
 }

@@ -147,7 +147,7 @@ MonoBehaviour:
   group: 0
   OwnerShipWasTransfered: 0
   prefixBackup: -1
-  synchronization: 2
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
@@ -224,12 +224,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredCharges: 30
+  litNotificationDuration: 5
   unlitSprite: {fileID: 21300000, guid: fb98c734ccc8fbd4a8ebf3e4f9ed38d1, type: 3}
   partLitSprite: {fileID: 21300000, guid: 2be5792185d5c1b438729b39e1dabfbf, type: 3}
   litSprite: {fileID: 21300000, guid: 9dc521138661c9c40b7e3b10076918a7, type: 3}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
+  whatIsDeadPlayer:
+    serializedVersion: 2
+    m_Bits: 4096
 --- !u!114 &114693732215152540
 MonoBehaviour:
   m_ObjectHideFlags: 1

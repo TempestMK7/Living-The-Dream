@@ -35,8 +35,13 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsSolid;
         public LayerMask whatIsBonfire;
 
+        // Light box params.
+        public float defaultScale = 6f;
+        public float activeScale = 40f;
+
 
         // Internal objects accessed by this behavior.
+        private LightBoxBehavior lightBox;
         private GameObject healthCanvas;
         private Image positiveHealthBar;
         private BoxCollider2D boxCollider;
@@ -52,6 +57,7 @@ namespace Com.Tempest.Nightmare {
         private bool holdingWallLeft;
         private bool holdingWallRight;
         private bool usedSecondJump;
+        private bool usedThirdJump;
 
         // Health values.
         private int currentHealth;
@@ -65,6 +71,14 @@ namespace Com.Tempest.Nightmare {
         
         public override void Awake () {
             base.Awake();
+
+            // Handle character's light box.
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = photonView.isMine;
+            lightBox.IsActive = false;
+            lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
+            lightBox.ActiveScale = new Vector3(activeScale, activeScale);
+            
             // Setup internal components and initialize object variables.
             healthCanvas = transform.Find("DreamerCanvas").gameObject;
             positiveHealthBar = healthCanvas.transform.Find("PositiveHealth").GetComponent<Image>();
@@ -81,8 +95,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Update is called once per frame
-        public override void Update() {
-            base.Update();
+        public void Update() {
             UpdateHorizontalMovement();
             UpdateVerticalMovement();
             MoveAsFarAsYouCan();
@@ -161,8 +174,10 @@ namespace Com.Tempest.Nightmare {
                         distanceForFrame.x = rayCast.point.x - rayOrigin.x;
                         if (currentSpeed.x > 0) {
                             holdingWallRight = true;
+                            usedThirdJump = false;
                         } else {
                             holdingWallLeft = true;
+                            usedThirdJump = false;
                         }
                     }
                     if (distanceForFrame.x == 0f) break;
@@ -203,6 +218,7 @@ namespace Com.Tempest.Nightmare {
                         if (currentSpeed.y < 0) {
                             grounded = true;
                             usedSecondJump = false;
+                            usedThirdJump = false;
                         }
                     }
                     if (distanceForFrame.y == 0f) break;
@@ -265,6 +281,7 @@ namespace Com.Tempest.Nightmare {
                 gameObject.layer = LayerMask.NameToLayer("Death");
                 ToggleRenderers(photonView.isMine);
                 healthCanvas.SetActive(photonView.isMine);
+                lightBox.IsActive = false;
             } else {
                 positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
                 gameObject.layer = LayerMask.NameToLayer(OutOfHealth() ? "Death" : "Dreamer");
@@ -277,9 +294,7 @@ namespace Com.Tempest.Nightmare {
         // Prevents multiple calls to change enabled state.
         private void ToggleRenderers(bool enabled) {
             if (myRenderer.enabled != enabled) myRenderer.enabled = enabled;
-            foreach(SpriteRenderer childRenderer in GetComponentsInChildren<SpriteRenderer>()) {
-                if (childRenderer.enabled != enabled) childRenderer.enabled = enabled;
-            }
+            healthCanvas.SetActive(enabled);
         }
 
         public bool OutOfHealth() {
@@ -330,12 +345,22 @@ namespace Com.Tempest.Nightmare {
                 currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
                 jumpTime = Time.time;
                 usedSecondJump = true;
+            } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
+                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
+                jumpTime = Time.time;
+                usedThirdJump = true;
+            }
+        }
+
+        public void SendLightToggle() {
+            if (!OutOfHealth()) {
+                lightBox.IsActive = !lightBox.IsActive;
             }
         }
 
         // Called by a nightmare behavior when collision occurs.
         [PunRPC]
-        public void HandleCollision(int nightmareId, int dreamerId, Vector3 currentSpeed) {
+        public void HandleCollision(Vector3 currentSpeed) {
             this.currentSpeed = currentSpeed;
             nightmareCollisionTime = Time.time;
             currentHealth -= 1;
@@ -343,6 +368,11 @@ namespace Com.Tempest.Nightmare {
                 currentHealth = 0;
                 deathEventTime = Time.time;
                 deathTimeRemaining -= deathTimeLost;
+                if (photonView.isMine) {
+                    GameManagerBehavior behavior = FindObjectOfType<GameManagerBehavior>();
+                    behavior.DisplayAlert("You are unconscious! Other dreamers can wake you up at a bonfire.", GameManagerBehavior.DREAMER);
+                    behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "A dreamer is unconscious!  Go to any bonfire to help them wake up!", GameManagerBehavior.DREAMER);
+                }
             }
         }
 
@@ -353,11 +383,13 @@ namespace Com.Tempest.Nightmare {
                 stream.SendNext(currentSpeed);
                 stream.SendNext(grabHeld);
                 stream.SendNext(currentHealth);
+                stream.SendNext(lightBox.IsActive);
             } else {
                 Vector3 networkPosition = (Vector3)stream.ReceiveNext();
                 currentSpeed = (Vector3)stream.ReceiveNext();
                 grabHeld = (bool)stream.ReceiveNext();
                 currentHealth = (int)stream.ReceiveNext();
+                lightBox.IsActive = (bool)stream.ReceiveNext();
 
                 currentOffset = networkPosition - transform.position;
                 if (currentOffset.magnitude > 1f) {

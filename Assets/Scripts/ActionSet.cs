@@ -9,8 +9,11 @@ public class ActionSet : PlayerActionSet {
     public PlayerAction Right;
     public PlayerAction Up;
     public PlayerAction Down;
+
     public PlayerAction Action;
+    public PlayerAction ActivateLight;
     public PlayerAction Grab;
+
     public PlayerOneAxisAction MoveX;
     public PlayerOneAxisAction MoveY;
 
@@ -20,6 +23,7 @@ public class ActionSet : PlayerActionSet {
         Up = CreatePlayerAction("Move Up");
         Down = CreatePlayerAction("Move Down");
         Action = CreatePlayerAction("Action");
+        ActivateLight = CreatePlayerAction("ActivateLight");
         Grab = CreatePlayerAction("Grab");
         MoveX = CreateOneAxisPlayerAction(Left, Right);
         MoveY = CreateOneAxisPlayerAction(Down, Up);
