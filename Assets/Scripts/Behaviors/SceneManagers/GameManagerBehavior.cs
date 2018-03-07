@@ -19,8 +19,9 @@ namespace Com.Tempest.Nightmare {
         public Text dreamerText;
         
         // Prefabs.
-        public GameObject nightmarePrefab;
-        public GameObject dreamerPrefab;
+        public GameObject ghastPrefab;
+        public GameObject doubleJumpPrefab;
+        public GameObject jetpackPrefab;
         public GameObject lightBoxPrefab;
 
         // Camera filter when dreamer is dead.
@@ -155,21 +156,34 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void InstantiateCharacter() {
-            PunTeams.Team teamSelection = PhotonNetwork.player.GetTeam();
-            switch (teamSelection) {
-                case PunTeams.Team.blue:
-                    Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
-                    Camera.main.transform.position = Nightmare.gameObject.transform.position;
-                    maskCamera.backgroundColor = new Color(.1f, .1f, .15f);
-                    break;
-                case PunTeams.Team.red:
-                    Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<BaseDreamerBehavior>();
+            GlobalPlayerContainer playerContainer = GlobalPlayerContainer.Instance;
+            if (playerContainer.TeamSelection == GlobalPlayerContainer.DREAMER) {
+                switch (playerContainer.DreamerSelection) {
+                    case GlobalPlayerContainer.DOUBLE_JUMP_DREAMER:
+                        Dreamer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
+                            .GetComponent<BaseDreamerBehavior>();
+                        break;
+                    case GlobalPlayerContainer.JETPACK_DREAMER:
+                        Dreamer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
+                            .GetComponent<BaseDreamerBehavior>();
+                        break;
+                }
+                if (Dreamer != null) {
                     Camera.main.transform.position = Dreamer.transform.position;
-                    maskCamera.backgroundColor = new Color(.01f, .01f, .02f);
-                    break;
-                default:
-                    maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
-                    break;
+                }
+                maskCamera.backgroundColor = new Color(.01f, .01f, .02f);
+            } else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
+                switch (playerContainer.NightmareSelection) {
+                    case GlobalPlayerContainer.GHAST:
+                        Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                        break;
+                }
+                if (Nightmare != null) {
+                    Camera.main.transform.position = Nightmare.gameObject.transform.position;
+                }
+                maskCamera.backgroundColor = new Color(.1f, .1f, .15f);
+            } else {
+                maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
             }
         }
 

@@ -7,8 +7,9 @@ namespace Com.Tempest.Nightmare {
     public class LobbyManagerBehavior : Photon.PunBehaviour {
 
         public Text pingDisplay;
-        public Button startGameButton;
-        public Dropdown typeSelect;
+        public Button readyButton;
+        public Dropdown dreamerSelect;
+        public Dropdown nightmareSelect;
         public VerticalLayoutGroup playerListContent;
         public Text textPrefab;
 
@@ -19,6 +20,30 @@ namespace Com.Tempest.Nightmare {
                 PhotonNetwork.room.IsOpen = true;
             }
             InitializePlayerStateWithPhoton();
+            InitializePlayerSelections();
+        }
+
+        public void InitializePlayerStateWithPhoton() {
+            PhotonPlayer player = PhotonNetwork.player;
+            switch (GlobalPlayerContainer.Instance.TeamSelection) {
+                case GlobalPlayerContainer.DREAMER:
+                    player.SetTeam(PunTeams.Team.red);
+                    break;
+                case GlobalPlayerContainer.NIGHTMARE:
+                    player.SetTeam(PunTeams.Team.blue);
+                    break;
+                default:
+                    player.SetTeam(PunTeams.Team.none);
+                    break;
+            }
+            ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+            properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_NOT_READY;
+            player.SetCustomProperties(properties);
+        }
+
+        public void InitializePlayerSelections() {
+            GlobalPlayerContainer.Instance.DreamerSelection = GlobalPlayerContainer.DOUBLE_JUMP_DREAMER;
+            GlobalPlayerContainer.Instance.NightmareSelection = GlobalPlayerContainer.GHAST;
         }
 
         private void Update() {
@@ -46,42 +71,8 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        public void RefreshTeam() {
-            PhotonPlayer player = PhotonNetwork.player;
-            switch (GlobalPlayerContainer.Instance.TeamSelection) {
-                case GlobalPlayerContainer.DREAMER:
-                    player.SetTeam(PunTeams.Team.red);
-                    break;
-                case GlobalPlayerContainer.NIGHTMARE:
-                    player.SetTeam(PunTeams.Team.blue);
-                    break;
-                default:
-                    player.SetTeam(PunTeams.Team.none);
-                    break;
-            }
-        }
-
-        public void InitializePlayerStateWithPhoton() {
-            PhotonPlayer player = PhotonNetwork.player;
-            switch (GlobalPlayerContainer.Instance.TeamSelection) {
-                case GlobalPlayerContainer.DREAMER:
-                    player.SetTeam(PunTeams.Team.red);
-                    break;
-                case GlobalPlayerContainer.NIGHTMARE:
-                    player.SetTeam(PunTeams.Team.blue);
-                    break;
-                default:
-                    player.SetTeam(PunTeams.Team.none);
-                    break;
-            }
-            ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-            properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_NOT_READY;
-            player.SetCustomProperties(properties);
-        }
-
         public void RefreshPlayerList() {
             if (Time.time - lastListRefresh < 1f) return;
-            RefreshTeam();
             PhotonPlayer[] playerList = PhotonNetwork.playerList;
             Text[] childrenTexts = playerListContent.GetComponentsInChildren<Text>();
             foreach (Text text in childrenTexts) {
@@ -134,6 +125,14 @@ namespace Com.Tempest.Nightmare {
                 properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_READY;
                 PhotonNetwork.player.SetCustomProperties(properties);
             }
+        }
+
+        public void OnCharacterSelectChanged() {
+            Debug.Log("Selection was called.");
+            int dreamerChoice = dreamerSelect.value;
+            int nightmareChoice = nightmareSelect.value;
+            GlobalPlayerContainer.Instance.DreamerSelection = dreamerChoice;
+            GlobalPlayerContainer.Instance.NightmareSelection = nightmareChoice;
         }
 
         public void LeaveRoom() {
