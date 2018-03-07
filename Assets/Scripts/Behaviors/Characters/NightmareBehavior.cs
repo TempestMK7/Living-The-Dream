@@ -23,6 +23,10 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsSolid;
         public LayerMask whatIsPlayer;
 
+        public float lightBoxScale = 25f;
+
+        private LightBoxBehavior lightBox;
+
         private BoxCollider2D boxCollider;
         private Animator animator;
 
@@ -39,6 +43,13 @@ namespace Com.Tempest.Nightmare {
         // Use this for initialization
         public override void Awake() {
             base.Awake();
+
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = photonView.isMine;
+            lightBox.IsActive = false;
+            lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
+            lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
+
             boxCollider = GetComponent<BoxCollider2D>();
             animator = GetComponent<Animator>();
             animator.SetBool("IsAttacking", false);
@@ -166,6 +177,10 @@ namespace Com.Tempest.Nightmare {
             float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
             currentSpeed.x = Mathf.Cos(angle) * dashSpeed;
             currentSpeed.y = Mathf.Sin(angle) * dashSpeed;
+        }
+
+        public void SendLightToggle() {
+            lightBox.IsActive = !lightBox.IsActive;
         }
 
         public bool IsAttacking() {

@@ -33,6 +33,7 @@ CGPROGRAM
 
 // uniforms
 sampler2D _MainTex;
+uniform float4 _MainTex_TexelSize;
 uniform float4 _MainTex_ST;
 sampler2D _LightsTex;
 float _MultiplicativeFactor;
@@ -67,7 +68,9 @@ half4 frag( fragmentInput i ) : COLOR
 {
 	half4 main = tex2D( _MainTex, i.uv );
 
+
 #if UNITY_UV_STARTS_AT_TOP
+if (_MainTex_TexelSize.y < 0)
 	i.uv.y = 1.0f - i.uv.y;
 #endif
 

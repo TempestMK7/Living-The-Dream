@@ -12,6 +12,8 @@ namespace Com.Tempest.Nightmare {
         public const int NIGHTMARE = 1;
         public const int ALL = 2;
 
+        public Camera maskCamera;
+
         // UI objects.
         public Text bonfireText;
         public Text dreamerText;
@@ -157,17 +159,16 @@ namespace Com.Tempest.Nightmare {
             switch (teamSelection) {
                 case PunTeams.Team.blue:
                     Nightmare = PhotonNetwork.Instantiate(nightmarePrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
-                    GameObject lightbox = Instantiate(lightBoxPrefab, Nightmare.transform);
-                    lightbox.transform.localScale = new Vector3(10f, 10f);
                     Camera.main.transform.position = Nightmare.gameObject.transform.position;
+                    maskCamera.backgroundColor = new Color(.1f, .1f, .15f);
                     break;
                 case PunTeams.Team.red:
                     Dreamer = PhotonNetwork.Instantiate(dreamerPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0).GetComponent<DreamerBehavior>();
-                    lightbox = Instantiate(lightBoxPrefab, Dreamer.gameObject.transform);
-                    lightbox.transform.localScale = new Vector3(10f, 10f);
                     Camera.main.transform.position = Dreamer.transform.position;
+                    maskCamera.backgroundColor = new Color(.01f, .01f, .02f);
                     break;
                 default:
+                    maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
                     break;
             }
         }

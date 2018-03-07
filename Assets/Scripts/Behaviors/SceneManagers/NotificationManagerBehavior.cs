@@ -78,7 +78,6 @@ namespace Com.Tempest.Nightmare {
             for (int x = 0; x < gameObjects.Count; x++) {
                 GameObject notifier = gameObjects[x];
                 Image notification = notificationImages[x];
-                notification.enabled = !cameraBounds.Contains(notifier.transform.position);
                 notification.sprite = notifier.GetComponent<SpriteRenderer>().sprite;
                 Vector3 distance = notifier.transform.position - cameraBounds.center;
                 float angle = Mathf.Atan2(distance.y, distance.x);
@@ -86,13 +85,16 @@ namespace Com.Tempest.Nightmare {
                 canvasOffset.x = Mathf.Clamp(canvasOffset.x, canvasWidth * -1, canvasWidth);
                 canvasOffset.y = Mathf.Clamp(canvasOffset.y, canvasHeight * -1, canvasHeight);
                 notification.rectTransform.localPosition = canvasOffset;
+                notification.enabled = !cameraBounds.Contains(notifier.transform.position);
             }
         }
 
         private Bounds GetCameraBounds() {
             Camera mainCamera = Camera.main;
             Vector3 min = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, mainCamera.transform.position.z * -1f));
+            min.z = -1f;
             Vector3 max = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, mainCamera.transform.position.z * -1f));
+            max.z = 1f;
             Vector3 cameraPosition = Camera.main.transform.position;
             Bounds cameraBounds = new Bounds();
             cameraBounds.SetMinMax(min, max);

@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c8321db0eaa3a469d608918e1cb797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredCharges: 10
+  requiredCharges: 5
   captureNotificationDuration: 5
   cooldownTime: 180
   whatIsNightmare:
