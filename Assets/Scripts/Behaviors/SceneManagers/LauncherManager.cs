@@ -4,14 +4,11 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class Launcher : Photon.PunBehaviour {
+    public class LauncherManager : Photon.PunBehaviour {
 
         public PhotonLogLevel logLevel = PhotonLogLevel.Informational;
-        [Tooltip("The maximum number of players per room.")]
         public byte maxPlayersPerRoom = 5;
-        [Tooltip("The parent of the connect button and name input field.")]
         public GameObject controlPanel;
-        [Tooltip("The label that shows 'Connecting...' while connection is being established.")]
         public GameObject progressLabel;
 
         private string gameVersion = "0.01";
@@ -26,9 +23,19 @@ namespace Com.Tempest.Nightmare {
             PhotonNetwork.sendRateOnSerialize = 20;
             controlPanel.SetActive(true);
             progressLabel.SetActive(false);
-	    }
+        }
 
-        public void Connect() {
+        public void ConnectAsDreamer() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.DREAMER;
+            Connect();
+        }
+
+        public void ConnectAsNightmare() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.NIGHTMARE;
+            Connect();
+        }
+
+        private void Connect() {
             isConnecting = true;
             controlPanel.SetActive(false);
             progressLabel.SetActive(true);

@@ -13,63 +13,85 @@ namespace Com.Tempest.Nightmare {
         public Text textPrefab;
 
         private float lastListRefresh;
-
-        // Use this for initialization
+        
         void Start() {
             if (PhotonNetwork.isMasterClient) {
                 PhotonNetwork.room.IsOpen = true;
             }
+            InitializePlayerStateWithPhoton();
         }
 
         private void Update() {
             pingDisplay.text = string.Format("Ping: {0:D4} ms", PhotonNetwork.GetPing());
+            ResendPlayerInfoIfWrong();
             RefreshPlayerList();
         }
 
-        public void StartGame() {
-            if (PhotonNetwork.isMasterClient) {
-                PhotonNetwork.LoadLevel("GameScene");
+        public void ResendPlayerInfoIfWrong() {
+            PhotonPlayer player = PhotonNetwork.player;
+            int playerSelection;
+            switch (player.GetTeam()) {
+                case PunTeams.Team.red:
+                    playerSelection = GlobalPlayerContainer.DREAMER;
+                    break;
+                case PunTeams.Team.blue:
+                    playerSelection = GlobalPlayerContainer.NIGHTMARE;
+                    break;
+                default:
+                    playerSelection = GlobalPlayerContainer.OBSERVER;
+                    break;
+            }
+            if (playerSelection != GlobalPlayerContainer.Instance.TeamSelection) {
+                InitializePlayerStateWithPhoton();
             }
         }
 
-        public void OnSelectionChanged() {
-            int typeSelection = typeSelect.value;
-            switch (typeSelection) {
-                case 0:
-                    PhotonNetwork.player.SetTeam(PunTeams.Team.none);
+        public void RefreshTeam() {
+            PhotonPlayer player = PhotonNetwork.player;
+            switch (GlobalPlayerContainer.Instance.TeamSelection) {
+                case GlobalPlayerContainer.DREAMER:
+                    player.SetTeam(PunTeams.Team.red);
                     break;
-                case 1:
-                    PhotonNetwork.player.SetTeam(PunTeams.Team.blue);
+                case GlobalPlayerContainer.NIGHTMARE:
+                    player.SetTeam(PunTeams.Team.blue);
                     break;
-                case 2:
-                    PhotonNetwork.player.SetTeam(PunTeams.Team.red);
+                default:
+                    player.SetTeam(PunTeams.Team.none);
                     break;
             }
-            lastListRefresh = 0f;
-            GlobalPlayerContainer.Instance.PlayerTeam = PhotonNetwork.player.GetTeam();
         }
 
-        public void LeaveRoom() {
-            PhotonNetwork.LeaveRoom();
-        }
-
-        public void HandleMasterClientStuff() {
-            if (startGameButton != null) {
-                startGameButton.enabled = PhotonNetwork.isMasterClient;
+        public void InitializePlayerStateWithPhoton() {
+            PhotonPlayer player = PhotonNetwork.player;
+            switch (GlobalPlayerContainer.Instance.TeamSelection) {
+                case GlobalPlayerContainer.DREAMER:
+                    player.SetTeam(PunTeams.Team.red);
+                    break;
+                case GlobalPlayerContainer.NIGHTMARE:
+                    player.SetTeam(PunTeams.Team.blue);
+                    break;
+                default:
+                    player.SetTeam(PunTeams.Team.none);
+                    break;
             }
+            ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+            properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_NOT_READY;
+            player.SetCustomProperties(properties);
         }
 
         public void RefreshPlayerList() {
             if (Time.time - lastListRefresh < 1f) return;
-            OnSelectionChanged();
+            RefreshTeam();
             PhotonPlayer[] playerList = PhotonNetwork.playerList;
             Text[] childrenTexts = playerListContent.GetComponentsInChildren<Text>();
             foreach (Text text in childrenTexts) {
                 Destroy(text.gameObject);
             }
+            bool allPlayersReady = true;
             foreach (PhotonPlayer player in playerList) {
                 Text playerText = Instantiate(textPrefab) as Text;
-                playerText.text = player.NickName;
+                string readyStatus = player.CustomProperties[GlobalPlayerContainer.IS_READY].ToString();
+                playerText.text = "(" + readyStatus + ") " + player.NickName;
                 switch (player.GetTeam()) {
                     case PunTeams.Team.blue:
                         playerText.text += ": Nightmare";
@@ -84,23 +106,42 @@ namespace Com.Tempest.Nightmare {
                 if (player.IsMasterClient) {
                     playerText.text += " (Host)";
                 }
+                if (!GlobalPlayerContainer.STATUS_READY.Equals(readyStatus)) {
+                    allPlayersReady = false;
+                }
                 playerText.gameObject.transform.SetParent(playerListContent.transform);
             }
             lastListRefresh = Time.time;
+            if (allPlayersReady) {
+                StartGame();
+            }
+        }
+
+        private void StartGame() {
+            if (PhotonNetwork.isMasterClient) {
+                PhotonNetwork.LoadLevel("GameScene");
+            }
+        }
+
+        public void ToggleReady() {
+            string readyStatus = PhotonNetwork.player.CustomProperties[GlobalPlayerContainer.IS_READY].ToString();
+            if (GlobalPlayerContainer.STATUS_READY.Equals(readyStatus)) {
+                ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+                properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_NOT_READY;
+                PhotonNetwork.player.SetCustomProperties(properties);
+            } else {
+                ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+                properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.STATUS_READY;
+                PhotonNetwork.player.SetCustomProperties(properties);
+            }
+        }
+
+        public void LeaveRoom() {
+            PhotonNetwork.LeaveRoom();
         }
 
         public override void OnLeftRoom() {
             SceneManager.LoadScene("LauncherScene");
-        }
-
-        private void OnPlayerConnected(NetworkPlayer player) {
-            RefreshPlayerList();
-            HandleMasterClientStuff();
-        }
-
-        private void OnPlayerDisconnected(NetworkPlayer player) {
-            RefreshPlayerList();
-            HandleMasterClientStuff();
         }
     }
 }
