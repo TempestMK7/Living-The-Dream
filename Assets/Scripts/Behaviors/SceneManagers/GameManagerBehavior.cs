@@ -31,13 +31,13 @@ namespace Com.Tempest.Nightmare {
         public int bonfiresAllowedIncomplete = 0;
 
         // Publicly accessible fields pertaining to game state.
-        public NightmareBehavior Nightmare { get; set; }
+        public BaseNightmareBehavior Nightmare { get; set; }
         public BaseDreamerBehavior Dreamer { get; set; }
 
         public List<BonfireBehavior> Bonfires { get; set; }
         public List<ShrineBehavior> Shrines { get; set; }
         public List<BaseDreamerBehavior> Dreamers { get; set; }
-        public List<NightmareBehavior> Nightmares { get; set; }
+        public List<BaseNightmareBehavior> Nightmares { get; set; }
 
         private int playersConnected;
 
@@ -106,11 +106,11 @@ namespace Com.Tempest.Nightmare {
                     Dreamers.Add(go.GetComponent<BaseDreamerBehavior>());
                 }
             }
-            HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(NightmareBehavior));
+            HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseNightmareBehavior));
             if ((Nightmares == null && nightmareSet.Count != 0) || (Nightmares != null && nightmareSet.Count != Nightmares.Count)) {
-                Nightmares = new List<NightmareBehavior>();
+                Nightmares = new List<BaseNightmareBehavior>();
                 foreach (GameObject go in nightmareSet) {
-                    Nightmares.Add(go.GetComponent<NightmareBehavior>());
+                    Nightmares.Add(go.GetComponent<BaseNightmareBehavior>());
                 }
             }
             if (Dreamers != null) {
@@ -175,13 +175,13 @@ namespace Com.Tempest.Nightmare {
             } else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
                 switch (playerContainer.NightmareSelection) {
                     case GlobalPlayerContainer.GHAST:
-                        Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<NightmareBehavior>();
+                        Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
                         break;
                 }
                 if (Nightmare != null) {
                     Camera.main.transform.position = Nightmare.gameObject.transform.position;
                 }
-                maskCamera.backgroundColor = new Color(.1f, .1f, .15f);
+                maskCamera.backgroundColor = new Color(.03f, .03f, .05f);
             } else {
                 maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
             }

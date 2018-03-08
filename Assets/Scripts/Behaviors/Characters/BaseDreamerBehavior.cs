@@ -101,6 +101,7 @@ namespace Com.Tempest.Nightmare {
             HandleAnimator();
             ResurrectIfAble();
             HandleLifeState();
+            HandlePowerupState();
         }
 
         // Updates horizontal movement based on controller state.
@@ -295,6 +296,14 @@ namespace Com.Tempest.Nightmare {
             healthCanvas.SetActive(enabled);
         }
 
+        private void HandlePowerupState() {
+            if (HasPowerup(Powerup.BETTER_VISION)) {
+                lightBox.DefaultScale = new Vector3(defaultScale * 3f, defaultScale * 3f);
+            } else {
+                lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
+            }
+        }
+
         public bool OutOfHealth() {
             return currentHealth <= 0;
         }
@@ -329,7 +338,7 @@ namespace Com.Tempest.Nightmare {
 
         // Called by a nightmare behavior when collision occurs.
         [PunRPC]
-        public void HandleCollision(Vector3 currentSpeed) {
+        public void TakeDamage(Vector3 currentSpeed) {
             this.currentSpeed = currentSpeed;
             nightmareCollisionTime = Time.time;
             currentHealth -= 1;
@@ -370,7 +379,7 @@ namespace Com.Tempest.Nightmare {
 
         // Called within EmpowerableCharacterBehavior to determine which powerups this character is eligible for.
         protected override Powerup[] GetUsablePowerups() {
-            return new Powerup[] { Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
+            return new Powerup[] { Powerup.BETTER_VISION, Powerup.NIGHTMARE_VISION, Powerup.THIRD_JUMP, Powerup.DOUBLE_OBJECTIVE_SPEED };
         }
     }
 }

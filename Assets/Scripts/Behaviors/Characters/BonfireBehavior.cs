@@ -104,6 +104,7 @@ namespace Com.Tempest.Nightmare {
             float completion = currentCharges / requiredCharges;
             float unlitScale = completion * lightBoxScaleUnlit;
             lightBox.DefaultScale = new Vector3(unlitScale + lightBoxScaleBase, unlitScale + lightBoxScaleBase);
+            lightBox.IsMine = currentCharges > 0f;
             lightBox.IsActive = currentCharges >= requiredCharges;
         }
 

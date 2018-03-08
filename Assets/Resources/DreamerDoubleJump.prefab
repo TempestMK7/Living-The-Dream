@@ -385,7 +385,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   defaultScale: 6
-  activeScale: 40
+  activeScale: 50
 --- !u!212 &212365679792191610
 SpriteRenderer:
   m_ObjectHideFlags: 1

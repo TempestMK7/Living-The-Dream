@@ -157,7 +157,7 @@ namespace Com.Tempest.Nightmare {
         private List<GameObject> GetNightmareNotifications() {
             List<GameObject> output = new List<GameObject>();
             if (gameManagerBehavior.Nightmares == null || gameManagerBehavior.Nightmares.Count == 0) return output;
-            foreach (NightmareBehavior behavior in gameManagerBehavior.Nightmares) {
+            foreach (BaseNightmareBehavior behavior in gameManagerBehavior.Nightmares) {
                 output.Add(behavior.gameObject);
             }
             return output;
