@@ -16820,6 +16820,37 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 77170367}
+--- !u!84 &92262247
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1049
+  m_Height: 648
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &98931050
 Prefab:
   m_ObjectHideFlags: 0
@@ -17057,6 +17088,7 @@ GameObject:
   - component: {fileID: 248032495}
   - component: {fileID: 248032494}
   - component: {fileID: 248032493}
+  - component: {fileID: 248032496}
   m_Layer: 8
   m_Name: LevelTileMap
   m_TagString: Untagged
@@ -60042,6 +60074,20 @@ CompositeCollider2D:
       - {x: 39, y: -37}
       - {x: 41, y: -37}
   m_VertexDistance: 0.0005
+--- !u!114 &248032496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 248032489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce22b6d90ff4e4c7783ec212406bf4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLightSqrDistance: 100
+  maxShadowTranslation: 10
+  shadowDistanceMultiplier: 1
 --- !u!1 &302107456
 GameObject:
   m_ObjectHideFlags: 0
@@ -60615,7 +60661,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 683751484}
+  spriteLightRT: {fileID: 92262247}
   intensity: 1
 --- !u!1001 &664838664
 Prefab:
@@ -60816,37 +60862,6 @@ MonoBehaviour:
   instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!84 &683751484
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1049
-  m_Height: 648
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1001 &713688130
 Prefab:
   m_ObjectHideFlags: 0
@@ -60899,6 +60914,14 @@ Prefab:
         type: 2}
       propertyPath: instantiationId
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867202638842878, guid: e6e92c1194894864792dc0d996379d9b, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4867202638842878, guid: e6e92c1194894864792dc0d996379d9b, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e6e92c1194894864792dc0d996379d9b, type: 2}
@@ -61089,7 +61112,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 683751484}
+  m_TargetTexture: {fileID: 92262247}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1

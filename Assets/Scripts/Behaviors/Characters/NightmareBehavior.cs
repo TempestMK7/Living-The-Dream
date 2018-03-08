@@ -46,7 +46,7 @@ namespace Com.Tempest.Nightmare {
 
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = photonView.isMine;
-            lightBox.IsActive = false;
+            lightBox.IsActive = true;
             lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
             lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
 

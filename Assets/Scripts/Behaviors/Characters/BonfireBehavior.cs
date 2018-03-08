@@ -9,12 +9,19 @@ namespace Com.Tempest.Nightmare {
 
         public float requiredCharges = 30f;
         public float litNotificationDuration = 5f;
+
+        public float lightBoxScaleBase = 1f;
+        public float lightBoxScaleUnlit = 4f;
+        public float lightBoxScaleLit = 10f;
+
         public Sprite unlitSprite;
         public Sprite partLitSprite;
         public Sprite litSprite;
+
         public LayerMask whatIsPlayer;
         public LayerMask whatIsDeadPlayer;
 
+        private LightBoxBehavior lightBox;
         private GameObject progressCanvas;
         private Image positiveProgressBar;
         private SpriteRenderer spriteRenderer;
@@ -26,6 +33,12 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Awake() {
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = true;
+            lightBox.IsActive = false;
+            lightBox.DefaultScale = new Vector3(lightBoxScaleUnlit, lightBoxScaleUnlit);
+            lightBox.ActiveScale = new Vector3(lightBoxScaleLit, lightBoxScaleLit);
+
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,6 +52,7 @@ namespace Com.Tempest.Nightmare {
             HandlePlayerEvents();
             HandleSprite();
             HandleProgressBar();
+            HandleLightBox();
         }
 
         private void HandlePlayerEvents() {
@@ -84,6 +98,13 @@ namespace Com.Tempest.Nightmare {
                 progressCanvas.SetActive(true);
                 positiveProgressBar.fillAmount = currentCharges / requiredCharges;
             }
+        }
+
+        private void HandleLightBox() {
+            float completion = currentCharges / requiredCharges;
+            float unlitScale = completion * lightBoxScaleUnlit;
+            lightBox.DefaultScale = new Vector3(unlitScale + lightBoxScaleBase, unlitScale + lightBoxScaleBase);
+            lightBox.IsActive = currentCharges >= requiredCharges;
         }
 
         [PunRPC]

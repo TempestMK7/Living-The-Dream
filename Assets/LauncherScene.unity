@@ -302,7 +302,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Be A Nightmare
+  m_Text: Play As Nightmare
 --- !u!222 &490977205
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1115,7 +1115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Have A Dream
+  m_Text: Play As Dreamer
 --- !u!222 &1939649517
 CanvasRenderer:
   m_ObjectHideFlags: 0

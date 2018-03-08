@@ -143,8 +143,8 @@ namespace Com.Tempest.Nightmare {
                 distanceForFrame += currentOffset;
                 currentOffset = new Vector3();
             } else {
-                distanceForFrame += currentOffset / 3f;
-                currentOffset -= currentOffset / 3f;
+                distanceForFrame += currentOffset / 4f;
+                currentOffset -= currentOffset / 4f;
             }
             bool goingRight = distanceForFrame.x > 0;
             bool goingUp = distanceForFrame.y > 0;
@@ -361,7 +361,7 @@ namespace Com.Tempest.Nightmare {
                 lightBox.IsActive = (bool)stream.ReceiveNext();
 
                 currentOffset = networkPosition - transform.position;
-                if (currentOffset.magnitude > 1f) {
+                if (currentOffset.magnitude > 3f) {
                     currentOffset = new Vector3();
                     transform.position = networkPosition;
                 }
