@@ -255,126 +255,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 101939012}
---- !u!1001 &132866853
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4550276457155800, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: pingDisplay
-      value: 
-      objectReference: {fileID: 101939014}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: startGameButton
-      value: 
-      objectReference: {fileID: 1408663948}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: typeSelect
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: textPrefab
-      value: 
-      objectReference: {fileID: 114858750007813500, guid: 3f88c702c43f94b49b675f57a7f44789,
-        type: 2}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: playerListContent
-      value: 
-      objectReference: {fileID: 1739216013}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: readyButton
-      value: 
-      objectReference: {fileID: 1408663948}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: dreamerSelect
-      value: 
-      objectReference: {fileID: 373542092}
-    - target: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-        type: 2}
-      propertyPath: nightmareSelect
-      value: 
-      objectReference: {fileID: 698576377}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 188165d5c7d51c04497b0f6f3b324e6f, type: 2}
-  m_IsPrefabParent: 0
---- !u!114 &132866854 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114933203707296580, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-    type: 2}
-  m_PrefabInternal: {fileID: 132866853}
-  m_Script: {fileID: 11500000, guid: 7f4b4ec49112e7941b4c8ebaa216638d, type: 3}
---- !u!1 &132866855 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1744710270459012, guid: 188165d5c7d51c04497b0f6f3b324e6f,
-    type: 2}
-  m_PrefabInternal: {fileID: 132866853}
---- !u!114 &132866856
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 132866855}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!1 &315090647
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +465,7 @@ GameObject:
   - component: {fileID: 373542090}
   - component: {fileID: 373542092}
   m_Layer: 5
-  m_Name: DreamerSelect
+  m_Name: ExplorerSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,7 +576,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 132866854}
+      - m_Target: {fileID: 2075702496}
         m_MethodName: OnCharacterSelectChanged
         m_Mode: 1
         m_Arguments:
@@ -1145,7 +1025,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 132866854}
+      - m_Target: {fileID: 2075702496}
         m_MethodName: OnCharacterSelectChanged
         m_Mode: 1
         m_Arguments:
@@ -1904,7 +1784,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 132866854}
+      - m_Target: {fileID: 2075702496}
         m_MethodName: ToggleReady
         m_Mode: 1
         m_Arguments:
@@ -2440,7 +2320,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 132866854}
+      - m_Target: {fileID: 2075702496}
         m_MethodName: LeaveRoom
         m_Mode: 1
         m_Arguments:
@@ -2763,7 +2643,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4439186910420192, guid: 73cea060083f7094993302bc8f6ae53d, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 73cea060083f7094993302bc8f6ae53d, type: 2}
@@ -3420,6 +3300,53 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 28}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!1 &2075702495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2075702497}
+  - component: {fileID: 2075702496}
+  m_Layer: 0
+  m_Name: LobbyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2075702496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2075702495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4b4ec49112e7941b4c8ebaa216638d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pingDisplay: {fileID: 101939014}
+  readyButton: {fileID: 1408663948}
+  explorerSelect: {fileID: 373542092}
+  nightmareSelect: {fileID: 698576377}
+  playerListContent: {fileID: 1739216013}
+  textPrefab: {fileID: 114858750007813500, guid: 3f88c702c43f94b49b675f57a7f44789,
+    type: 2}
+--- !u!4 &2075702497
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2075702495}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.67135, y: -6.5994396, z: -0.5858239}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2136555780
 GameObject:
   m_ObjectHideFlags: 0

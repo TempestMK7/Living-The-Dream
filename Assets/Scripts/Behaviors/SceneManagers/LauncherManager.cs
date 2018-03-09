@@ -25,8 +25,8 @@ namespace Com.Tempest.Nightmare {
             progressLabel.SetActive(false);
         }
 
-        public void ConnectAsDreamer() {
-            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.DREAMER;
+        public void ConnectAsExplorer() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.EXPLORER;
             Connect();
         }
 

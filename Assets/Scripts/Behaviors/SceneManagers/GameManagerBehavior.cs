@@ -8,10 +8,6 @@ namespace Com.Tempest.Nightmare {
 
     public class GameManagerBehavior : Photon.PunBehaviour {
 
-        public const int DREAMER = 0;
-        public const int NIGHTMARE = 1;
-        public const int ALL = 2;
-
         public Camera maskCamera;
 
         // UI objects.
@@ -29,17 +25,17 @@ namespace Com.Tempest.Nightmare {
         public int bonfiresAllowedIncomplete = 0;
 
         // Publicly accessible fields pertaining to game state.
+        public BaseExplorerBehavior Explorer { get; set; }
         public BaseNightmareBehavior Nightmare { get; set; }
-        public BaseDreamerBehavior Dreamer { get; set; }
 
         public List<BonfireBehavior> Bonfires { get; set; }
         public List<ShrineBehavior> Shrines { get; set; }
-        public List<BaseDreamerBehavior> Dreamers { get; set; }
+        public List<BaseExplorerBehavior> Explorers { get; set; }
         public List<BaseNightmareBehavior> Nightmares { get; set; }
 
         private int playersConnected;
 
-        public void Start() {
+        public void Awake() {
             if (PhotonNetwork.isMasterClient) {
                 PhotonNetwork.room.IsOpen = false;
             }
@@ -96,11 +92,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void HandlePlayers() {
-            HashSet<GameObject> dreamerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseDreamerBehavior));
-            if ((Dreamers == null && dreamerSet.Count != 0) || (Dreamers != null && dreamerSet.Count != Dreamers.Count)) {
-                Dreamers = new List<BaseDreamerBehavior>();
+            HashSet<GameObject> dreamerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseExplorerBehavior));
+            if ((Explorers == null && dreamerSet.Count != 0) || (Explorers != null && dreamerSet.Count != Explorers.Count)) {
+                Explorers = new List<BaseExplorerBehavior>();
                 foreach (GameObject go in dreamerSet) {
-                    Dreamers.Add(go.GetComponent<BaseDreamerBehavior>());
+                    Explorers.Add(go.GetComponent<BaseExplorerBehavior>());
                 }
             }
             HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseNightmareBehavior));
@@ -110,9 +106,9 @@ namespace Com.Tempest.Nightmare {
                     Nightmares.Add(go.GetComponent<BaseNightmareBehavior>());
                 }
             }
-            if (Dreamers != null) {
+            if (Explorers != null) {
                 int awakeDreamers = 0;
-                foreach(BaseDreamerBehavior dreamer in Dreamers) {
+                foreach(BaseExplorerBehavior dreamer in Explorers) {
                     if (!dreamer.IsDead()) {
                         awakeDreamers++;
                     }
@@ -120,7 +116,7 @@ namespace Com.Tempest.Nightmare {
                 if (awakeDreamers == 0) {
                     EndTheGame(PunTeams.Team.blue);
                 }
-                dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + Dreamers.Count;    
+                dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + Explorers.Count;    
             }
         }
 
@@ -150,21 +146,21 @@ namespace Com.Tempest.Nightmare {
 
         public void InstantiateCharacter() {
             GlobalPlayerContainer playerContainer = GlobalPlayerContainer.Instance;
-            if (playerContainer.TeamSelection == GlobalPlayerContainer.DREAMER) {
-                switch (playerContainer.DreamerSelection) {
-                    case GlobalPlayerContainer.DOUBLE_JUMP_DREAMER:
-                        Dreamer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
-                            .GetComponent<BaseDreamerBehavior>();
+            if (playerContainer.TeamSelection == GlobalPlayerContainer.EXPLORER) {
+                switch (playerContainer.ExplorerSelection) {
+                    case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
+                        Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
+                            .GetComponent<BaseExplorerBehavior>();
                         break;
-                    case GlobalPlayerContainer.JETPACK_DREAMER:
-                        Dreamer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
-                            .GetComponent<BaseDreamerBehavior>();
+                    case GlobalPlayerContainer.JETPACK_EXPLORER:
+                        Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(-42f + (Random.Range(0, 8) * 12f), -38f), Quaternion.identity, 0)
+                            .GetComponent<BaseExplorerBehavior>();
                         break;
                 }
-                if (Dreamer != null) {
-                    Camera.main.transform.position = Dreamer.transform.position;
+                if (Explorer != null) {
+                    Camera.main.transform.position = Explorer.transform.position;
                 }
-                maskCamera.backgroundColor = new Color(0, 0, 0);
+                ChangeMaskColor(0f);
             } else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
                 switch (playerContainer.NightmareSelection) {
                     case GlobalPlayerContainer.GHAST:
@@ -177,10 +173,14 @@ namespace Com.Tempest.Nightmare {
                 if (Nightmare != null) {
                     Camera.main.transform.position = Nightmare.gameObject.transform.position;
                 }
-                maskCamera.backgroundColor = new Color(0, 0, 0);
+                ChangeMaskColor(0f);
             } else {
-                maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
+                ChangeMaskColor(0.5f);
             }
+        }
+
+        public void ChangeMaskColor(float newValue) {
+            maskCamera.backgroundColor = new Color(newValue, newValue, newValue);
         }
 
         public void LeaveRoom() {
@@ -193,14 +193,14 @@ namespace Com.Tempest.Nightmare {
         
         public IControllable GetControllableCharacter() {
             if (Nightmare != null) return Nightmare;
-            if (Dreamer != null) return Dreamer;
+            if (Explorer != null) return Explorer;
             return null;
         }
 
         [PunRPC]
         public void AddPowerupToCharacter(bool dreamer) {
-            if (dreamer && Dreamer != null) {
-                Dreamer.AddRandomPowerup();
+            if (dreamer && Explorer != null) {
+                Explorer.AddRandomPowerup();
             } else if (!dreamer && Nightmare != null) {
                 Nightmare.AddRandomPowerup();
             }
@@ -208,9 +208,10 @@ namespace Com.Tempest.Nightmare {
 
         [PunRPC]
         public void DisplayAlert(string alertText, int targets) {
-            if (targets == DREAMER && Dreamer == null) return;
-            if (targets == NIGHTMARE && Nightmare == null) return;
-            FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
+            if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.OBSERVER ||
+                targets == GlobalPlayerContainer.Instance.TeamSelection) {
+                FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
+            }
         }
     }
 }

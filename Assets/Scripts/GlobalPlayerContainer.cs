@@ -6,12 +6,13 @@ namespace Com.Tempest.Nightmare {
 
     public class GlobalPlayerContainer : MonoBehaviour {
 
-        public const int DREAMER = 0;
+        // TODO: make these enums.
+        public const int EXPLORER = 0;
         public const int NIGHTMARE = 1;
         public const int OBSERVER = 2;
 
-        public const int DOUBLE_JUMP_DREAMER = 0;
-        public const int JETPACK_DREAMER = 1;
+        public const int DOUBLE_JUMP_EXPLORER = 0;
+        public const int JETPACK_EXPLORER = 1;
 
         public const int GHAST = 0;
         public const int PYRO = 1;
@@ -23,7 +24,7 @@ namespace Com.Tempest.Nightmare {
         public static GlobalPlayerContainer Instance;
 
         public int TeamSelection { get; set; }
-        public int DreamerSelection { get; set; }
+        public int ExplorerSelection { get; set; }
         public int NightmareSelection { set; get; }
         public bool IsWinner { get; set; }
         

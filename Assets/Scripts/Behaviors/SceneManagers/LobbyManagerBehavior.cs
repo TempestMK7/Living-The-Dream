@@ -8,7 +8,7 @@ namespace Com.Tempest.Nightmare {
 
         public Text pingDisplay;
         public Button readyButton;
-        public Dropdown dreamerSelect;
+        public Dropdown explorerSelect;
         public Dropdown nightmareSelect;
         public VerticalLayoutGroup playerListContent;
         public Text textPrefab;
@@ -26,7 +26,7 @@ namespace Com.Tempest.Nightmare {
         public void InitializePlayerStateWithPhoton() {
             PhotonPlayer player = PhotonNetwork.player;
             switch (GlobalPlayerContainer.Instance.TeamSelection) {
-                case GlobalPlayerContainer.DREAMER:
+                case GlobalPlayerContainer.EXPLORER:
                     player.SetTeam(PunTeams.Team.red);
                     break;
                 case GlobalPlayerContainer.NIGHTMARE:
@@ -42,7 +42,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void InitializePlayerSelections() {
-            GlobalPlayerContainer.Instance.DreamerSelection = GlobalPlayerContainer.DOUBLE_JUMP_DREAMER;
+            GlobalPlayerContainer.Instance.ExplorerSelection = GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER;
             GlobalPlayerContainer.Instance.NightmareSelection = GlobalPlayerContainer.GHAST;
         }
 
@@ -57,7 +57,7 @@ namespace Com.Tempest.Nightmare {
             int playerSelection;
             switch (player.GetTeam()) {
                 case PunTeams.Team.red:
-                    playerSelection = GlobalPlayerContainer.DREAMER;
+                    playerSelection = GlobalPlayerContainer.EXPLORER;
                     break;
                 case PunTeams.Team.blue:
                     playerSelection = GlobalPlayerContainer.NIGHTMARE;
@@ -88,7 +88,7 @@ namespace Com.Tempest.Nightmare {
                         playerText.text += ": Nightmare";
                         break;
                     case PunTeams.Team.red:
-                        playerText.text += ": Dreamer";
+                        playerText.text += ": Explorer";
                         break;
                     default:
                         playerText.text += ": Observer";
@@ -129,9 +129,9 @@ namespace Com.Tempest.Nightmare {
 
         public void OnCharacterSelectChanged() {
             Debug.Log("Selection was called.");
-            int dreamerChoice = dreamerSelect.value;
+            int explorerChoice = explorerSelect.value;
             int nightmareChoice = nightmareSelect.value;
-            GlobalPlayerContainer.Instance.DreamerSelection = dreamerChoice;
+            GlobalPlayerContainer.Instance.ExplorerSelection = explorerChoice;
             GlobalPlayerContainer.Instance.NightmareSelection = nightmareChoice;
         }
 

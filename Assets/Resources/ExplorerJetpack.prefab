@@ -63,7 +63,7 @@ GameObject:
   - component: {fileID: 114474839814186338}
   - component: {fileID: 114268811126493152}
   m_Layer: 10
-  m_Name: DreamerJetpack
+  m_Name: ExplorerJetpack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -333,11 +333,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupDuration: 60
   maxHealth: 3
-  maxDeathTime: 150
-  deathTimeLost: 40
+  maxLives: 3
   jumpRecovery: 0.2
   wallJumpRecovery: 0.2
-  nightmareCollisionRecovery: 0.5
+  damageRecovery: 0.5
   deathAnimationTime: 3
   healthBarFadeDelay: 1
   maxSpeed: 7
@@ -356,6 +355,9 @@ MonoBehaviour:
   whatIsBonfire:
     serializedVersion: 2
     m_Bits: 2048
+  whatIsExplorer:
+    serializedVersion: 2
+    m_Bits: 1024
   defaultScale: 6
   activeScale: 50
   jetpackVelocityFactor: 2.5

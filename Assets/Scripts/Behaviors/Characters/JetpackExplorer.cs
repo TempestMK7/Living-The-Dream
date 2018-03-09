@@ -4,18 +4,40 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class DoubleJumpDreamer : BaseDreamerBehavior {
+    public class JetpackExplorer : BaseExplorerBehavior {
 
-        private bool usedSecondJump;
-        private bool usedThirdJump;
+        public float jetpackVelocityFactor = 2f;
+        public float maxJetpackTime = 1f;
+        public float fallingJetpackForceFactor = 2f;
+        private float jetpackTimeRemaining;
+        private bool jetpackOn;
+
+        protected override void UpdateVerticalMovement() {
+            base.UpdateVerticalMovement();
+            if (jetpackOn) {
+                if (currentSpeed.y <= 0f) {
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
+                } else {
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime;
+                }
+                currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor);
+                jetpackTimeRemaining -= HasPowerup(Powerup.THIRD_JUMP) ? Time.deltaTime : Time.deltaTime * 2f;
+                if (jetpackTimeRemaining <= 0f) {
+                    jetpackTimeRemaining = 0f;
+                    jetpackOn = false;
+                }
+            } else {
+                jetpackTimeRemaining += Time.deltaTime;
+                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, maxJetpackTime);
+            }
+        }
 
         public override void BecameGrounded() {
-            usedSecondJump = false;
-            usedThirdJump = false;
+            // ignored callback.
         }
 
         public override void GrabbedWall(bool grabbedLeft) {
-            usedThirdJump = false;
+            // ignored callback.
         }
 
         public override void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
@@ -25,8 +47,7 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionPressed() {
             // If we just jumped, got hit, or are in the death animation, ignore this action.
-            if (Time.time - jumpTime < jumpRecovery ||
-                Time.time - nightmareCollisionTime < nightmareCollisionRecovery ||
+            if (Time.time - damageTime < damageRecovery ||
                 Time.time - deathEventTime < deathAnimationTime) {
                 return;
             }
@@ -46,19 +67,13 @@ namespace Com.Tempest.Nightmare {
                 jumpTime = Time.time;
                 wallJumpTime = Time.time;
                 holdingWallRight = false;
-            } else if (!usedSecondJump) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
-                jumpTime = Time.time;
-                usedSecondJump = true;
-            } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
-                jumpTime = Time.time;
-                usedThirdJump = true;
+            } else {
+                jetpackOn = true;
             }
         }
 
         public override void ActionReleased() {
-            // ignored callback.
+            jetpackOn = false;
         }
     }
 }

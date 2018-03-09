@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114606555043823828}
   - component: {fileID: 114597935307207348}
   m_Layer: 9
-  m_Name: Pyro
+  m_Name: NightmarePyro
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

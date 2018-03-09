@@ -33,22 +33,28 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleNotifications() {
             List<GameObject> objectsToDisplay = new List<GameObject>();
-            if (gameManagerBehavior.Dreamer != null) {
-                if (gameManagerBehavior.Dreamer.IsDead()) {
-                    objectsToDisplay.AddRange(GetBonfiresInProgress());
-                } else {
-                    objectsToDisplay.AddRange(GetBonfiresWithDeadPlayers());
-                }
-                if (gameManagerBehavior.Dreamer.HasPowerup(Powerup.NIGHTMARE_VISION)) {
-                    objectsToDisplay.AddRange(GetNightmareNotifications());
-                }
-            } else if (gameManagerBehavior.Nightmare != null) {
-                if (gameManagerBehavior.Nightmare.HasPowerup(Powerup.DREAMER_VISION)) {
-                    objectsToDisplay.AddRange(GetDreamerNotifications());
-                }
-            } else {
-                objectsToDisplay.AddRange(GetBonfiresInProgress());
-                objectsToDisplay.AddRange(GetBonfiresWithDeadPlayers());
+            switch (GlobalPlayerContainer.Instance.TeamSelection) {
+                case GlobalPlayerContainer.EXPLORER:
+                    BaseExplorerBehavior explorer = gameManagerBehavior.Explorer;
+                    if (explorer != null) {
+                        if (!explorer.IsDead()) {
+                            objectsToDisplay.AddRange(GetDeadExplorerNotifications());
+                        }
+                        if (explorer.HasPowerup(Powerup.NIGHTMARE_VISION)) {
+                            objectsToDisplay.AddRange(GetNightmareNotifications());
+                        }
+                    }
+                    break;
+                case GlobalPlayerContainer.NIGHTMARE:
+                    BaseNightmareBehavior nightmare = gameManagerBehavior.Nightmare;
+                    if (nightmare != null) {
+                        if (nightmare.HasPowerup(Powerup.DREAMER_VISION)) {
+                            objectsToDisplay.AddRange(GetExplorerNotifications());
+                        }
+                    }
+                    break;
+                default:
+                    break;
             }
             objectsToDisplay.AddRange(GetRecentlyLitBonfires());
             objectsToDisplay.AddRange(GetRecentlyLitShrines());
@@ -101,28 +107,6 @@ namespace Com.Tempest.Nightmare {
             return cameraBounds;
         }
 
-        private List<GameObject> GetBonfiresInProgress() {
-            List<GameObject> output = new List<GameObject>();
-            if (gameManagerBehavior.Bonfires == null) return output;
-            foreach (BonfireBehavior behavior in gameManagerBehavior.Bonfires) {
-                if (behavior.PlayersNearby()) {
-                    output.Add(behavior.gameObject);
-                }
-            }
-            return output;
-        }
-
-        private List<GameObject> GetBonfiresWithDeadPlayers() {
-            List<GameObject> output = new List<GameObject>();
-            if (gameManagerBehavior.Bonfires == null) return output;
-            foreach (BonfireBehavior behavior in gameManagerBehavior.Bonfires) {
-                if (behavior.DeadPlayersNearby()) {
-                    output.Add(behavior.gameObject);
-                }
-            }
-            return output;
-        }
-
         private List<GameObject> GetRecentlyLitBonfires() {
             List<GameObject> output = new List<GameObject>();
             if (gameManagerBehavior.Bonfires == null) return output;
@@ -145,11 +129,24 @@ namespace Com.Tempest.Nightmare {
             return output;
         }
 
-        private List<GameObject> GetDreamerNotifications() {
+        private List<GameObject> GetExplorerNotifications() {
             List<GameObject> output = new List<GameObject>();
-            if (gameManagerBehavior.Dreamers == null || gameManagerBehavior.Dreamers.Count == 0) return output;
-            foreach (BaseDreamerBehavior behavior in gameManagerBehavior.Dreamers) {
-                output.Add(behavior.gameObject);
+            if (gameManagerBehavior.Explorers == null || gameManagerBehavior.Explorers.Count == 0) return output;
+            foreach (BaseExplorerBehavior behavior in gameManagerBehavior.Explorers) {
+                if (!behavior.IsDead()) {
+                    output.Add(behavior.gameObject);
+                }
+            }
+            return output;
+        }
+
+        private List<GameObject> GetDeadExplorerNotifications() {
+            List<GameObject> output = new List<GameObject>();
+            if (gameManagerBehavior.Explorers == null || gameManagerBehavior.Explorers.Count == 0) return output;
+            foreach (BaseExplorerBehavior behavior in gameManagerBehavior.Explorers) {
+                if (behavior.IsDead()) {
+                    output.Add(behavior.gameObject);
+                }
             }
             return output;
         }

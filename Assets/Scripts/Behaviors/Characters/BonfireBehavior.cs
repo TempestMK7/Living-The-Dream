@@ -57,15 +57,14 @@ namespace Com.Tempest.Nightmare {
 
         private void HandlePlayerEvents() {
             Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
-            playersNearby = otherPlayers.Length != 0;
             if (photonView.isMine && currentCharges < requiredCharges) {
-                if (!playersNearby) {
+                if (otherPlayers.Length == 0) {
                     currentCharges -= Time.deltaTime;
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
                     float multiplier = otherPlayers.Length;
                     foreach (Collider2D collider in otherPlayers) {
-                        BaseDreamerBehavior behavior = collider.GetComponentInParent<BaseDreamerBehavior>();
+                        BaseExplorerBehavior behavior = collider.GetComponentInParent<BaseExplorerBehavior>();
                         if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             multiplier += 1f;
                         }
@@ -77,14 +76,12 @@ namespace Com.Tempest.Nightmare {
                     }
                 }
             }
-            Collider2D[] deadPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsDeadPlayer);
-            deadPlayersNearby = deadPlayers.Length != 0;
         }
 
         private void HandleSprite() {
             if (IsLit()) {
                 spriteRenderer.sprite = litSprite;
-            } else if (playersNearby) {
+            } else if (currentCharges != 0) {
                 spriteRenderer.sprite = partLitSprite;
             } else {
                 spriteRenderer.sprite = unlitSprite;
@@ -124,14 +121,6 @@ namespace Com.Tempest.Nightmare {
 
         public bool ShowLitNotification() {
             return Time.time - timeLit < litNotificationDuration;
-        }
-
-        public bool PlayersNearby() {
-            return playersNearby;
-        }
-
-        public bool DeadPlayersNearby() {
-            return deadPlayersNearby;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
