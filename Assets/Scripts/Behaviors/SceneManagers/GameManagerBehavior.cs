@@ -20,12 +20,10 @@ namespace Com.Tempest.Nightmare {
         
         // Prefabs.
         public GameObject ghastPrefab;
+        public GameObject pyroPrefab;
         public GameObject doubleJumpPrefab;
         public GameObject jetpackPrefab;
         public GameObject lightBoxPrefab;
-
-        // Camera filter when dreamer is dead.
-        public CameraFilterPack_Vision_AuraDistortion distortionEffect;
 
         // Game parameters.
         public int bonfiresAllowedIncomplete = 0;
@@ -59,7 +57,6 @@ namespace Com.Tempest.Nightmare {
             HandleBonfires();
             HandleShrines();
             HandlePlayers();
-            HandleCameraFilter();
         }
 
         private void HandleBonfires() {
@@ -127,10 +124,6 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        private void HandleCameraFilter() {
-            distortionEffect.enabled = Dreamer != null && Dreamer.IsDead();
-        }
-
         private void EndTheGame(PunTeams.Team winningTeam) {
             GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
             if (PhotonNetwork.isMasterClient) {
@@ -171,17 +164,20 @@ namespace Com.Tempest.Nightmare {
                 if (Dreamer != null) {
                     Camera.main.transform.position = Dreamer.transform.position;
                 }
-                maskCamera.backgroundColor = new Color(.01f, .01f, .02f);
+                maskCamera.backgroundColor = new Color(0, 0, 0);
             } else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
                 switch (playerContainer.NightmareSelection) {
                     case GlobalPlayerContainer.GHAST:
                         Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
                         break;
+                    case GlobalPlayerContainer.PYRO:
+                        Nightmare = PhotonNetwork.Instantiate(pyroPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
+                        break;
                 }
                 if (Nightmare != null) {
                     Camera.main.transform.position = Nightmare.gameObject.transform.position;
                 }
-                maskCamera.backgroundColor = new Color(.03f, .03f, .05f);
+                maskCamera.backgroundColor = new Color(0, 0, 0);
             } else {
                 maskCamera.backgroundColor = new Color(.5f, .5f, .55f);
             }

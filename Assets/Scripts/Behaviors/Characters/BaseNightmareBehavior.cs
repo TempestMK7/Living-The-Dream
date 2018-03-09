@@ -56,6 +56,7 @@ namespace Com.Tempest.Nightmare {
             UpdateCurrentSpeed();
             MoveAsFarAsYouCan();
             HandlePowerupState();
+            HandleAnimator();
         }
 
         protected virtual void UpdateCurrentSpeed() {
@@ -146,11 +147,15 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        private void Flip() {
+        protected virtual void Flip() {
             facingRight = !facingRight;
             Vector3 currentScale = transform.localScale;
             currentScale.x *= -1;
             transform.localScale = currentScale;
+        }
+
+        protected virtual void HandleAnimator() {
+
         }
 
         private void HandlePowerupState() {

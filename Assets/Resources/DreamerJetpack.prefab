@@ -333,17 +333,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupDuration: 60
   maxHealth: 3
-  maxDeathTime: 100
-  deathTimeLost: 30
+  maxDeathTime: 150
+  deathTimeLost: 40
   jumpRecovery: 0.2
   wallJumpRecovery: 0.2
   nightmareCollisionRecovery: 0.5
   deathAnimationTime: 3
-  healthBarFadeDelay: 5
-  maxSpeed: 5
-  gravityFactor: 4
+  healthBarFadeDelay: 1
+  maxSpeed: 7
+  gravityFactor: 3
   terminalVelocityFactor: 3
-  risingGravityBackoffFactor: 0.8
+  risingGravityBackoffFactor: 1
   jumpFactor: 1.5
   wallJumpFactor: 1.5
   wallSlideFactor: 0.3
@@ -360,6 +360,7 @@ MonoBehaviour:
   activeScale: 50
   jetpackVelocityFactor: 2.5
   maxJetpackTime: 1
+  fallingJetpackForceFactor: 2
 --- !u!114 &114474839814186338
 MonoBehaviour:
   m_ObjectHideFlags: 1

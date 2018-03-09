@@ -14,6 +14,7 @@ namespace Com.Tempest.Nightmare {
         public const int JETPACK_DREAMER = 1;
 
         public const int GHAST = 0;
+        public const int PYRO = 1;
 
         public const string IS_READY = "is_ready";
         public const string STATUS_READY = "Ready";

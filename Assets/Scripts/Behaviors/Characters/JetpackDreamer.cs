@@ -7,15 +7,19 @@ namespace Com.Tempest.Nightmare {
     public class JetpackDreamer : BaseDreamerBehavior {
 
         public float jetpackVelocityFactor = 2f;
-
         public float maxJetpackTime = 1f;
+        public float fallingJetpackForceFactor = 2f;
         private float jetpackTimeRemaining;
         private bool jetpackOn;
 
         protected override void UpdateVerticalMovement() {
             base.UpdateVerticalMovement();
             if (jetpackOn) {
-                currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime;
+                if (currentSpeed.y <= 0f) {
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
+                } else {
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime;
+                }
                 currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor);
                 jetpackTimeRemaining -= HasPowerup(Powerup.THIRD_JUMP) ? Time.deltaTime : Time.deltaTime * 2f;
                 if (jetpackTimeRemaining <= 0f) {

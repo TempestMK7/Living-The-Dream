@@ -367,11 +367,11 @@ MonoBehaviour:
   wallJumpRecovery: 0.2
   nightmareCollisionRecovery: 0.5
   deathAnimationTime: 3
-  healthBarFadeDelay: 5
-  maxSpeed: 6
-  gravityFactor: 4
+  healthBarFadeDelay: 1
+  maxSpeed: 7
+  gravityFactor: 3
   terminalVelocityFactor: 3
-  risingGravityBackoffFactor: 0.8
+  risingGravityBackoffFactor: 1
   jumpFactor: 1.8
   wallJumpFactor: 1.8
   wallSlideFactor: 0.3

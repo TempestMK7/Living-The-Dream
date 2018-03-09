@@ -17,13 +17,13 @@ namespace Com.Tempest.Nightmare {
         public float wallJumpRecovery = 0.2f;
         public float nightmareCollisionRecovery = 0.5f;
         public float deathAnimationTime = 3f;
-        public float healthBarFadeDelay = 5f;
+        public float healthBarFadeDelay = 1f;
 
         // Player movement params.
-        public float maxSpeed = 6f;
-        public float gravityFactor = 4f;
+        public float maxSpeed = 7f;
+        public float gravityFactor = 3f;
         public float terminalVelocityFactor = 2f;
-        public float risingGravityBackoffFactor = 0.8f;
+        public float risingGravityBackoffFactor = 1f;
         public float jumpFactor = 1.8f;
         public float wallJumpFactor = 1.5f;
         public float wallSlideFactor = 0.3f;
@@ -339,6 +339,7 @@ namespace Com.Tempest.Nightmare {
         // Called by a nightmare behavior when collision occurs.
         [PunRPC]
         public void TakeDamage(Vector3 currentSpeed) {
+            if (Time.time - nightmareCollisionTime < nightmareCollisionRecovery) return;
             this.currentSpeed = currentSpeed;
             nightmareCollisionTime = Time.time;
             currentHealth -= 1;

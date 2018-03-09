@@ -21,15 +21,14 @@ namespace Com.Tempest.Nightmare {
             dashSpeed = maxSpeed * dashFactor;
         }
 
-        public override void Update() {
-            base.Update();
-            animator.SetBool("IsAttacking", IsAttacking());
-        }
-
         protected override void UpdateCurrentSpeed() {
             if (photonView.isMine && Time.time - dashStart > dashDuration) {
                 base.UpdateCurrentSpeed();
             }
+        }
+
+        protected override void HandleAnimator() {
+            animator.SetBool("IsAttacking", IsAttacking());
         }
 
         public override void ActionPressed() {
