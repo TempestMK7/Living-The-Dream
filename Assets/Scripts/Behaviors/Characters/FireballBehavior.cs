@@ -64,7 +64,7 @@ namespace Com.Tempest.Nightmare {
             Collider2D[] triggers = Physics2D.OverlapCircleAll(transform.position, explosionRadius, whatTakesDamage);
             foreach (Collider2D trigger in triggers) {
                 BaseExplorerBehavior dreamer = trigger.gameObject.GetComponent<BaseExplorerBehavior>();
-                if (dreamer != null && !dreamer.OutOfHealth()) {
+                if (dreamer != null && !dreamer.IsOutOfHealth()) {
                     dreamer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
                 }
             }

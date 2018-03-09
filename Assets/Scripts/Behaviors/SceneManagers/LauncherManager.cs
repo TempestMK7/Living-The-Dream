@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
 
@@ -10,8 +11,8 @@ namespace Com.Tempest.Nightmare {
         public byte maxPlayersPerRoom = 5;
         public GameObject controlPanel;
         public GameObject progressLabel;
+        public Text versionText;
 
-        private string gameVersion = "0.01";
         private bool isConnecting;
         
 	    public void Start() {
@@ -23,6 +24,7 @@ namespace Com.Tempest.Nightmare {
             PhotonNetwork.sendRateOnSerialize = 20;
             controlPanel.SetActive(true);
             progressLabel.SetActive(false);
+            versionText.text = "Game Version: " + GlobalPlayerContainer.GAME_VERSION;
         }
 
         public void ConnectAsExplorer() {
@@ -40,7 +42,7 @@ namespace Com.Tempest.Nightmare {
             controlPanel.SetActive(false);
             progressLabel.SetActive(true);
             if (!PhotonNetwork.connected) {
-                PhotonNetwork.ConnectUsingSettings(gameVersion);
+                PhotonNetwork.ConnectUsingSettings(GlobalPlayerContainer.GAME_VERSION);
             } else {
                 PhotonNetwork.JoinRandomRoom();
             }

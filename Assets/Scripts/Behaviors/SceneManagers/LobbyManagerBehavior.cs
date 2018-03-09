@@ -8,7 +8,9 @@ namespace Com.Tempest.Nightmare {
 
         public Text pingDisplay;
         public Button readyButton;
+        public GameObject explorerPanel;
         public Dropdown explorerSelect;
+        public GameObject nightmarePanel;
         public Dropdown nightmareSelect;
         public VerticalLayoutGroup playerListContent;
         public Text textPrefab;
@@ -21,6 +23,7 @@ namespace Com.Tempest.Nightmare {
             }
             InitializePlayerStateWithPhoton();
             InitializePlayerSelections();
+            HandlePanels();
         }
 
         public void InitializePlayerStateWithPhoton() {
@@ -44,6 +47,11 @@ namespace Com.Tempest.Nightmare {
         public void InitializePlayerSelections() {
             GlobalPlayerContainer.Instance.ExplorerSelection = GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER;
             GlobalPlayerContainer.Instance.NightmareSelection = GlobalPlayerContainer.GHAST;
+        }
+
+        public void HandlePanels() {
+            explorerPanel.SetActive(GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.EXPLORER);
+            nightmarePanel.SetActive(GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE);
         }
 
         private void Update() {

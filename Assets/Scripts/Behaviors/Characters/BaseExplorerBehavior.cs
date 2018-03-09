@@ -7,6 +7,7 @@ namespace Com.Tempest.Nightmare {
 
     public abstract class BaseExplorerBehavior : EmpowerableCharacterBehavior, IControllable, IPunObservable {
 
+        #region SerializedVariables
         // Player rule params.
         public int maxHealth = 3;
         public int maxLives = 3;
@@ -38,8 +39,9 @@ namespace Com.Tempest.Nightmare {
         // Light box params.
         public float defaultScale = 6f;
         public float activeScale = 40f;
+        #endregion
 
-
+        #region InternalVariables
         // Internal objects accessed by this behavior.
         protected LightBoxBehavior lightBox;
         private GameObject healthCanvas;
@@ -67,6 +69,7 @@ namespace Com.Tempest.Nightmare {
         protected float wallJumpTime;
         protected float damageTime;
         protected float deathEventTime;
+        #endregion
 
         public override void Awake() {
             base.Awake();
@@ -93,6 +96,7 @@ namespace Com.Tempest.Nightmare {
             currentLives = maxLives;
         }
 
+        #region Update
         // Update is called once per frame
         public virtual void Update() {
             UpdateHorizontalMovement();
@@ -249,13 +253,13 @@ namespace Com.Tempest.Nightmare {
             if (currentSpeed.x < 0f) speed = -1;
             else if (currentSpeed.x > 0f) speed = 1;
             animator.SetInteger("HorizontalSpeed", speed);
-            bool dyingAnimation = OutOfHealth() && !IsDead();
+            bool dyingAnimation = IsOutOfHealth() && !IsDead();
             animator.SetBool("DyingAnimation", dyingAnimation);
         }
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
         private void ResurrectIfAble() {
-            if (!photonView.isMine || !IsDead() || IsExiled()) return;
+            if (!photonView.isMine || !IsDead() || IsOutOfLives()) return;
             Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
             foreach (Collider2D fireCollider in bonfires) {
                 BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
@@ -269,7 +273,7 @@ namespace Com.Tempest.Nightmare {
                 foreach (Collider2D collider in players) {
                     BaseExplorerBehavior behavior = collider.gameObject.GetComponent<BaseExplorerBehavior>();
                     if (behavior == null) continue;
-                    if (!behavior.OutOfHealth()) {
+                    if (!behavior.IsOutOfHealth()) {
                         currentHealth = maxHealth;
                     }
                 }
@@ -279,25 +283,17 @@ namespace Com.Tempest.Nightmare {
         // Draws current health total, switches layers based on health totals, and hides player to other players if dead.
         private void HandleLifeState() {
             if (IsDead()) {
-                healthCanvas.SetActive(false);
                 gameObject.layer = LayerMask.NameToLayer("Death");
-                ToggleRenderers(photonView.isMine);
+                positiveHealthBar.fillAmount = 0f;
+                bool showPlayer = GlobalPlayerContainer.Instance.TeamSelection != GlobalPlayerContainer.NIGHTMARE;
+                healthCanvas.SetActive(showPlayer);
+                ToggleRenderers(showPlayer);
                 lightBox.IsActive = false;
             } else {
+                gameObject.layer = LayerMask.NameToLayer(IsOutOfHealth() ? "Death" : "Explorer");
                 positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
                 healthCanvas.SetActive(Time.time - damageTime < healthBarFadeDelay);
-                gameObject.layer = LayerMask.NameToLayer(OutOfHealth() ? "Death" : "Explorer");
                 ToggleRenderers(true);
-            }
-        }
-
-        private void DeleteSelf() {
-            if (photonView.isMine && IsExiled()) {
-                GameManagerBehavior gameManager = FindObjectOfType<GameManagerBehavior>();
-                gameManager.Explorer = null;
-                gameManager.ChangeMaskColor(0.5f);
-                PhotonNetwork.Destroy(photonView);
-                return;
             }
         }
 
@@ -315,7 +311,14 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        public bool OutOfHealth() {
+        // Called internally to let sub classes know what our state is.
+        public abstract void BecameGrounded();
+
+        public abstract void GrabbedWall(bool grabbedLeft);
+        #endregion Update
+
+        #region HealthState
+        public bool IsOutOfHealth() {
             return currentHealth <= 0;
         }
 
@@ -325,15 +328,12 @@ namespace Com.Tempest.Nightmare {
         }
 
         // Returns whether or not the player is out of the game (out of death time).
-        public bool IsExiled() {
+        public bool IsOutOfLives() {
             return currentLives <= 0;
         }
+        #endregion HealthState
 
-        // Called internally to let sub classes know what our state is.
-        public abstract void BecameGrounded();
-
-        public abstract void GrabbedWall(bool grabbedLeft);
-        
+        #region InputHandling
         // Called by the input manager to move our character.
         public abstract void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld);
         
@@ -342,28 +342,34 @@ namespace Com.Tempest.Nightmare {
         public abstract void ActionReleased();
 
         public void LightTogglePressed() {
-            if (!OutOfHealth()) {
+            if (!IsOutOfHealth()) {
                 lightBox.IsActive = !lightBox.IsActive;
             }
         }
+        #endregion InputHandling
 
+        #region DamageHandling
         // Called by a nightmare behavior when collision occurs.
         [PunRPC]
         public void TakeDamage(Vector3 currentSpeed) {
-            if (Time.time - damageTime < damageRecovery) return;
+            if (Time.time - damageTime < damageRecovery || IsOutOfHealth()) return;
             this.currentSpeed = currentSpeed;
             damageTime = Time.time;
             currentHealth -= 1;
+            DieIfAble();
+        }
+
+        private void DieIfAble() {
             if (currentHealth <= 0) {
                 currentHealth = 0;
                 deathEventTime = Time.time;
                 currentLives--;
                 if (photonView.isMine) {
                     GameManagerBehavior behavior = FindObjectOfType<GameManagerBehavior>();
-                    if (IsExiled()) {
-                        DeleteSelf();
+                    if (IsOutOfLives()) {
                         behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", GlobalPlayerContainer.EXPLORER);
                         behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", GlobalPlayerContainer.EXPLORER);
+                        DeleteSelf();
                     } else {
                         behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", GlobalPlayerContainer.EXPLORER);
                         behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", GlobalPlayerContainer.EXPLORER);
@@ -371,6 +377,17 @@ namespace Com.Tempest.Nightmare {
                 }
             }
         }
+
+        private void DeleteSelf() {
+            if (photonView.isMine && IsOutOfLives()) {
+                GameManagerBehavior gameManager = FindObjectOfType<GameManagerBehavior>();
+                gameManager.Explorer = null;
+                gameManager.ChangeMaskColor(0.5f);
+                PhotonNetwork.Destroy(photonView);
+                return;
+            }
+        }
+        #endregion DamageHandling
 
         // Called by Photon whenever player state is synced across the network.
         public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

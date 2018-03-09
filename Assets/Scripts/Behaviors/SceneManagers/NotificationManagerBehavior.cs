@@ -29,6 +29,7 @@ namespace Com.Tempest.Nightmare {
         // Update is called once per frame
         void Update() {
             HandleNotifications();
+            HandleCameraFilter();
         }
 
         private void HandleNotifications() {
@@ -164,6 +165,11 @@ namespace Com.Tempest.Nightmare {
             GameObject textPrefab = Instantiate(alertTextPrefab);
             textPrefab.GetComponent<Text>().text = alertText;
             textPrefab.transform.SetParent(notificationLayout.transform);
+        }
+
+        public void HandleCameraFilter() {
+            bool showMyst = gameManagerBehavior.Explorer != null && gameManagerBehavior.Explorer.IsDead();
+            Camera.main.GetComponent<CameraFilterPack_3D_Myst>().enabled = showMyst;
         }
     }
 }
