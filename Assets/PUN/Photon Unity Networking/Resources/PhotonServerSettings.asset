@@ -49,4 +49,5 @@ MonoBehaviour:
   - DisplayAlert
   - AddPowerupToCharacter
   - NotifyLit
+  - TakeDamage
   DisableAutoOpenWizard: 1

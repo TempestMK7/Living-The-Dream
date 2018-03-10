@@ -9,12 +9,19 @@ namespace Com.Tempest.Nightmare {
 
         public float requiredCharges = 30f;
         public float litNotificationDuration = 5f;
+
+        public float lightBoxScaleBase = 1f;
+        public float lightBoxScaleUnlit = 4f;
+        public float lightBoxScaleLit = 10f;
+
         public Sprite unlitSprite;
         public Sprite partLitSprite;
         public Sprite litSprite;
+
         public LayerMask whatIsPlayer;
         public LayerMask whatIsDeadPlayer;
 
+        private LightBoxBehavior lightBox;
         private GameObject progressCanvas;
         private Image positiveProgressBar;
         private SpriteRenderer spriteRenderer;
@@ -26,6 +33,12 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Awake() {
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = true;
+            lightBox.IsActive = false;
+            lightBox.DefaultScale = new Vector3(lightBoxScaleUnlit, lightBoxScaleUnlit);
+            lightBox.ActiveScale = new Vector3(lightBoxScaleLit, lightBoxScaleLit);
+
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -39,19 +52,19 @@ namespace Com.Tempest.Nightmare {
             HandlePlayerEvents();
             HandleSprite();
             HandleProgressBar();
+            HandleLightBox();
         }
 
         private void HandlePlayerEvents() {
             Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
-            playersNearby = otherPlayers.Length != 0;
             if (photonView.isMine && currentCharges < requiredCharges) {
-                if (!playersNearby) {
+                if (otherPlayers.Length == 0) {
                     currentCharges -= Time.deltaTime;
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
                     float multiplier = otherPlayers.Length;
                     foreach (Collider2D collider in otherPlayers) {
-                        DreamerBehavior behavior = collider.GetComponentInParent<DreamerBehavior>();
+                        BaseExplorerBehavior behavior = collider.GetComponentInParent<BaseExplorerBehavior>();
                         if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             multiplier += 1f;
                         }
@@ -63,14 +76,12 @@ namespace Com.Tempest.Nightmare {
                     }
                 }
             }
-            Collider2D[] deadPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsDeadPlayer);
-            deadPlayersNearby = deadPlayers.Length != 0;
         }
 
         private void HandleSprite() {
             if (IsLit()) {
                 spriteRenderer.sprite = litSprite;
-            } else if (playersNearby) {
+            } else if (currentCharges != 0) {
                 spriteRenderer.sprite = partLitSprite;
             } else {
                 spriteRenderer.sprite = unlitSprite;
@@ -84,6 +95,14 @@ namespace Com.Tempest.Nightmare {
                 progressCanvas.SetActive(true);
                 positiveProgressBar.fillAmount = currentCharges / requiredCharges;
             }
+        }
+
+        private void HandleLightBox() {
+            float completion = currentCharges / requiredCharges;
+            float unlitScale = completion * lightBoxScaleUnlit;
+            lightBox.DefaultScale = new Vector3(unlitScale + lightBoxScaleBase, unlitScale + lightBoxScaleBase);
+            lightBox.IsMine = currentCharges > 0f;
+            lightBox.IsActive = currentCharges >= requiredCharges;
         }
 
         [PunRPC]
@@ -102,14 +121,6 @@ namespace Com.Tempest.Nightmare {
 
         public bool ShowLitNotification() {
             return Time.time - timeLit < litNotificationDuration;
-        }
-
-        public bool PlayersNearby() {
-            return playersNearby;
-        }
-
-        public bool DeadPlayersNearby() {
-            return deadPlayersNearby;
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {

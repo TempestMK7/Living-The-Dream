@@ -2,8 +2,9 @@
 
     public interface IControllable {
 
-        void SendInputs(float horizontalAxis, float verticalAxis, bool grabHeld);
-        void SendAction();
-        void SendLightToggle();
+        void InputsReceived(float horizontalAxis, float verticalAxis, bool grabHeld);
+        void ActionPressed();
+        void ActionReleased();
+        void LightTogglePressed();
     }
 }

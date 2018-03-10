@@ -18,7 +18,7 @@ namespace Com.Tempest.Nightmare {
         public void AddPowerup(Powerup p) {
             powerupDictionary[p] = Time.time;
             if (photonView.isMine) {
-                FindObjectOfType<GameManagerBehavior>().DisplayAlert("You have been granted " + p.ToString(), GameManagerBehavior.ALL);
+                FindObjectOfType<GameManagerBehavior>().DisplayAlert("You have been granted " + p.ToString(), GlobalPlayerContainer.Instance.TeamSelection);
             }
         }
 

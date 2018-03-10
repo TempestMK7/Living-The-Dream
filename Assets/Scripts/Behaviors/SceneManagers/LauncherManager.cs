@@ -1,20 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
 
-    public class Launcher : Photon.PunBehaviour {
+    public class LauncherManager : Photon.PunBehaviour {
 
         public PhotonLogLevel logLevel = PhotonLogLevel.Informational;
-        [Tooltip("The maximum number of players per room.")]
         public byte maxPlayersPerRoom = 5;
-        [Tooltip("The parent of the connect button and name input field.")]
         public GameObject controlPanel;
-        [Tooltip("The label that shows 'Connecting...' while connection is being established.")]
         public GameObject progressLabel;
+        public Text versionText;
 
-        private string gameVersion = "0.01";
         private bool isConnecting;
         
 	    public void Start() {
@@ -26,14 +24,30 @@ namespace Com.Tempest.Nightmare {
             PhotonNetwork.sendRateOnSerialize = 20;
             controlPanel.SetActive(true);
             progressLabel.SetActive(false);
-	    }
+            versionText.text = "Game Version: " + GlobalPlayerContainer.GAME_VERSION;
+        }
 
-        public void Connect() {
+        public void ConnectAsExplorer() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.EXPLORER;
+            Connect();
+        }
+
+        public void ConnectAsNightmare() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.NIGHTMARE;
+            Connect();
+        }
+
+        public void ConnectAsObserver() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.OBSERVER;
+            Connect();
+        }
+
+        private void Connect() {
             isConnecting = true;
             controlPanel.SetActive(false);
             progressLabel.SetActive(true);
             if (!PhotonNetwork.connected) {
-                PhotonNetwork.ConnectUsingSettings(gameVersion);
+                PhotonNetwork.ConnectUsingSettings(GlobalPlayerContainer.GAME_VERSION);
             } else {
                 PhotonNetwork.JoinRandomRoom();
             }

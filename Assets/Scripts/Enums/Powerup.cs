@@ -4,6 +4,7 @@ using System.Collections.Generic;
 namespace Com.Tempest.Nightmare {
 
     public enum Powerup {
+        BETTER_VISION,
         NIGHTMARE_VISION,
         DREAMER_VISION,
         HALF_ABILITY_COOLDOWN,

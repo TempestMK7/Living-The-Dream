@@ -55,12 +55,15 @@ namespace Com.Tempest.Nightmare {
             if (controllable == null) {
                 Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
             } else {
-                controllable.SendInputs(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
+                controllable.InputsReceived(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
                 if (actionSet.Action.WasPressed) {
-                    controllable.SendAction();
+                    controllable.ActionPressed();
+                }
+                if (actionSet.Action.WasReleased) {
+                    controllable.ActionReleased();
                 }
                 if (actionSet.ActivateLight.WasPressed) {
-                    controllable.SendLightToggle();
+                    controllable.LightTogglePressed();
                 }
             }
         }
