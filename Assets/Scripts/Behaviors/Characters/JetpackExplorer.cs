@@ -9,7 +9,7 @@ namespace Com.Tempest.Nightmare {
 
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
-        public float fallingJetpackForceFactor = 2f;
+        public float fallingJetpackForceFactor = 1.5f;
 
         private GameObject fuelBarCanvas;
         private Image positiveFuelImage;
