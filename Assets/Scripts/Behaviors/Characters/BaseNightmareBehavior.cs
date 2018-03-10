@@ -17,7 +17,7 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsSolid;
         public LayerMask whatIsPlayer;
 
-        public float lightBoxScale = 25f;
+        public float lightBoxScale = 20f;
 
         protected LightBoxBehavior lightBox;
 
@@ -158,12 +158,13 @@ namespace Com.Tempest.Nightmare {
 
         }
 
-        private void HandlePowerupState() {
+        protected virtual void HandlePowerupState() {
             if (HasPowerup(Powerup.BETTER_VISION)) {
                 lightBox.DefaultScale = new Vector3(lightBoxScale * 2f, lightBoxScale * 2f);
             } else {
                 lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
             }
+            lightBox.ActiveScale = lightBox.DefaultScale;
         }
 
         public void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {

@@ -18,6 +18,7 @@ namespace Com.Tempest.Nightmare {
 
         public override void Awake() {
             base.Awake();
+            lightBox.IsActive = true;
             dashSpeed = maxSpeed * dashFactor;
         }
 

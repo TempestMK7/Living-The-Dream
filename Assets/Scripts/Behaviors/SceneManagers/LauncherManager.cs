@@ -37,6 +37,11 @@ namespace Com.Tempest.Nightmare {
             Connect();
         }
 
+        public void ConnectAsObserver() {
+            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.OBSERVER;
+            Connect();
+        }
+
         private void Connect() {
             isConnecting = true;
             controlPanel.SetActive(false);

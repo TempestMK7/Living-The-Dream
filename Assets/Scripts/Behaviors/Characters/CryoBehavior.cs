@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class PyroBehavior : BaseNightmareBehavior {
+    public class CryoBehavior : BaseNightmareBehavior {
 
         public float fireballSpeed = 20f;
         public float fireballAttackAnimation = 0.5f;
@@ -40,17 +40,19 @@ namespace Com.Tempest.Nightmare {
             float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
             if (Time.time - fireballTime < usableAttackCooldown) return;
             fireballTime = Time.time;
-            LaunchFireball();
+            LaunchIceBall();
         }
 
         public override void ActionReleased() {
 
         }
 
-        public void LaunchFireball() {
+        public void LaunchIceBall() {
             if (photonView.isMine) {
-                FireballBehavior fireball = PhotonNetwork.Instantiate(fireballPrefab.name, transform.position, Quaternion.identity, 0).GetComponent<FireballBehavior>();
-                fireball.SetStartingDirection(currentControllerState);
+                IceBallBehavior iceBall = PhotonNetwork.Instantiate(
+                    fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
+                    .GetComponent<IceBallBehavior>();
+                iceBall.SetStartingDirection(currentControllerState);
             }
         }
 

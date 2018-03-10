@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupDuration: 40
-  maxSpeed: 10
+  maxSpeed: 8
   accelerationFactor: 0.3
   snapToMaxThresholdFactor: 0.1
   bounceThreshold: 1.1
@@ -175,8 +175,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1024
   lightBoxScale: 20
-  dashFactor: 3
-  dashDuration: 0.1
+  dashFactor: 2.5
+  dashDuration: 0.15
   dashDamageDuration: 0.5
   dashCooldown: 1
   collisionDebounceTime: 1

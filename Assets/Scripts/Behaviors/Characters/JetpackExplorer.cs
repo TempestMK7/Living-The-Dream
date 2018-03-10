@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
 
@@ -9,8 +10,23 @@ namespace Com.Tempest.Nightmare {
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
         public float fallingJetpackForceFactor = 2f;
+
+        private GameObject fuelBarCanvas;
+        private Image positiveFuelImage;
+
         private float jetpackTimeRemaining;
         private bool jetpackOn;
+
+        public override void Awake() {
+            base.Awake();
+            fuelBarCanvas = transform.Find("FuelCanvas").gameObject;
+            positiveFuelImage = fuelBarCanvas.transform.Find("PositiveFuel").GetComponent<Image>();
+        }
+
+        public override void Update() {
+            base.Update();
+            HandleFuelBar();
+        }
 
         protected override void UpdateVerticalMovement() {
             base.UpdateVerticalMovement();
@@ -30,6 +46,11 @@ namespace Com.Tempest.Nightmare {
                 jetpackTimeRemaining += Time.deltaTime;
                 jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, maxJetpackTime);
             }
+        }
+
+        private void HandleFuelBar() {
+            positiveFuelImage.fillAmount = jetpackTimeRemaining / maxJetpackTime;
+            fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != maxJetpackTime);
         }
 
         public override void BecameGrounded() {

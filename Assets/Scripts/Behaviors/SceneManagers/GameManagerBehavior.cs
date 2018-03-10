@@ -16,7 +16,7 @@ namespace Com.Tempest.Nightmare {
         
         // Prefabs.
         public GameObject ghastPrefab;
-        public GameObject pyroPrefab;
+        public GameObject cryoPrefab;
         public GameObject doubleJumpPrefab;
         public GameObject jetpackPrefab;
         public GameObject lightBoxPrefab;
@@ -73,7 +73,7 @@ namespace Com.Tempest.Nightmare {
                     }
                 }
                 if (firesLit >= Bonfires.Count - bonfiresAllowedIncomplete) {
-                    EndTheGame(PunTeams.Team.red);
+                    EndTheGame(GlobalPlayerContainer.EXPLORER);
                 }
                 bonfireText.text = "Bonfires Remaining: " + (Bonfires.Count - firesLit - bonfiresAllowedIncomplete);
             }
@@ -114,14 +114,14 @@ namespace Com.Tempest.Nightmare {
                     }
                 }
                 if (awakeDreamers == 0) {
-                    EndTheGame(PunTeams.Team.blue);
+                    EndTheGame(GlobalPlayerContainer.NIGHTMARE);
                 }
                 dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + Explorers.Count;    
             }
         }
 
-        private void EndTheGame(PunTeams.Team winningTeam) {
-            GlobalPlayerContainer.Instance.IsWinner = winningTeam == PhotonNetwork.player.GetTeam();
+        private void EndTheGame(int winningTeam) {
+            GlobalPlayerContainer.Instance.IsWinner = winningTeam == GlobalPlayerContainer.Instance.TeamSelection;
             if (PhotonNetwork.isMasterClient) {
                 PhotonNetwork.LoadLevel("VictoryScene");
             }
@@ -166,8 +166,8 @@ namespace Com.Tempest.Nightmare {
                     case GlobalPlayerContainer.GHAST:
                         Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
                         break;
-                    case GlobalPlayerContainer.PYRO:
-                        Nightmare = PhotonNetwork.Instantiate(pyroPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
+                    case GlobalPlayerContainer.CRYO:
+                        Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, new Vector3(0f, 4f), Quaternion.identity, 0).GetComponent<BaseNightmareBehavior>();
                         break;
                 }
                 if (Nightmare != null) {
@@ -198,10 +198,10 @@ namespace Com.Tempest.Nightmare {
         }
 
         [PunRPC]
-        public void AddPowerupToCharacter(bool dreamer) {
-            if (dreamer && Explorer != null) {
+        public void AddPowerupToCharacter(bool explorer) {
+            if (explorer && Explorer != null) {
                 Explorer.AddRandomPowerup();
-            } else if (!dreamer && Nightmare != null) {
+            } else if (!explorer && Nightmare != null) {
                 Nightmare.AddRandomPowerup();
             }
         }

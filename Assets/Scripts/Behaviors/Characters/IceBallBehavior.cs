@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class FireballBehavior : Photon.PunBehaviour {
+    public class IceBallBehavior : Photon.PunBehaviour {
 
         public float startingSpeed = 20f;
         public float gravityFactor = 4f;
@@ -20,6 +20,8 @@ namespace Com.Tempest.Nightmare {
         private Vector3 currentSpeed;
         private float explosionTime;
 
+        private List<BaseExplorerBehavior> playersHit;
+
         public void SetStartingDirection(Vector3 currentControllderState) {
             currentSpeed = currentControllderState;
             if (currentSpeed.magnitude == 0f) currentSpeed = new Vector3(0f, -20f);
@@ -32,6 +34,7 @@ namespace Com.Tempest.Nightmare {
         void Awake() {
             animator = GetComponent<Animator>();
             if (currentSpeed == null) currentSpeed = new Vector3();
+            playersHit = new List<BaseExplorerBehavior>();
         }
         
         void Update() {
@@ -63,9 +66,10 @@ namespace Com.Tempest.Nightmare {
             if (!photonView.isMine || !IsExploding()) return;
             Collider2D[] triggers = Physics2D.OverlapCircleAll(transform.position, explosionRadius, whatTakesDamage);
             foreach (Collider2D trigger in triggers) {
-                BaseExplorerBehavior dreamer = trigger.gameObject.GetComponent<BaseExplorerBehavior>();
-                if (dreamer != null && !dreamer.IsOutOfHealth()) {
-                    dreamer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
+                BaseExplorerBehavior explorer = trigger.gameObject.GetComponent<BaseExplorerBehavior>();
+                if (explorer != null && !explorer.IsOutOfHealth() && !playersHit.Contains(explorer)) {
+                    playersHit.Add(explorer);
+                    explorer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
                 }
             }
         }

@@ -1102,7 +1102,7 @@ MonoBehaviour:
     m_Options:
     - m_Text: Ghast
       m_Image: {fileID: 21300080, guid: cc3ea4bfea7d7a249b1a88f96c878684, type: 3}
-    - m_Text: Pyro
+    - m_Text: Cryo
       m_Image: {fileID: 21300000, guid: e883cca0e8273cb4e8b2c019e0d360ee, type: 3}
   m_OnValueChanged:
     m_PersistentCalls:

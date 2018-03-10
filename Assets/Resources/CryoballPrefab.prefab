@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114505540326177884}
   - component: {fileID: 114420906319203712}
   m_Layer: 0
-  m_Name: FireballPrefab
+  m_Name: CryoballPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   gravityFactor: 8
   explosionTriggerRadius: 0.3
   explosionRadius: 1.25
-  explosionDuration: 0.25
+  explosionDuration: 0.2
   whatIsExplosionTrigger:
     serializedVersion: 2
     m_Bits: 1280
@@ -163,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f899fbbf44576de4e947666e6b1fc3ab, type: 3}
+  m_Sprite: {fileID: 21300032, guid: f899fbbf44576de4e947666e6b1fc3ab, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
