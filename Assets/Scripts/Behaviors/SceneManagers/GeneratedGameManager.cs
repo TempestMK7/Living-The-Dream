@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -148,13 +148,16 @@ namespace Com.Tempest.Nightmare {
 		public void InstantiateCharacter() {
 			GlobalPlayerContainer playerContainer = GlobalPlayerContainer.Instance;
 			if (playerContainer.TeamSelection == GlobalPlayerContainer.EXPLORER) {
+				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
+				float spawnLocationY = (UnityEngine.Random.Range(levelChunks.GetLength(1) / 2, levelChunks.GetLength(1)) * 16) + 2;
+				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.ExplorerSelection) {
 				case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
-					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
+					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorerBehavior>();
 					break;
 				case GlobalPlayerContainer.JETPACK_EXPLORER:
-					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
+					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorerBehavior>();
 					break;
 				}
@@ -163,13 +166,16 @@ namespace Com.Tempest.Nightmare {
 				}
 				ChangeMaskColor(0f);
 			} else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
+				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
+				float spawnLocationY = (UnityEngine.Random.Range(0, levelChunks.GetLength(1) / 2) * 16) + 2;
+				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.NightmareSelection) {
 				case GlobalPlayerContainer.GHAST:
-					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
+					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseNightmareBehavior>();
 					break;
 				case GlobalPlayerContainer.CRYO:
-					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
+					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseNightmareBehavior>();
 					break;
 				}
