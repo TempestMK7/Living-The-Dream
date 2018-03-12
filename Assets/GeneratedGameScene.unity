@@ -309,37 +309,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 85841813}
---- !u!84 &112382480
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1049
-  m_Height: 563
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &130369952
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +426,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 112382480}
+  m_TargetTexture: {fileID: 1648324368}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1069,9 +1038,10 @@ MonoBehaviour:
     type: 2}
   shrinePrefab: {fileID: 1566424408462786, guid: c32c8ee3c1f761346a1b223c7fe38400,
     type: 2}
-  bonfiresAllowedIncomplete: 0
-  levelWidth: 6
-  levelHeight: 6
+  bonfiresAllowedIncomplete: 2
+  levelWidth: 7
+  levelHeight: 7
+  bonfireFrequency: 4
 --- !u!114 &1446611635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1253,7 +1223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 112382480}
+  spriteLightRT: {fileID: 1648324368}
   intensity: 1
 --- !u!81 &1555642314
 AudioListener:
@@ -1269,6 +1239,37 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1555642309}
   m_Enabled: 1
+--- !u!84 &1648324368
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1077
+  m_Height: 563
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1717322135
 GameObject:
   m_ObjectHideFlags: 0
