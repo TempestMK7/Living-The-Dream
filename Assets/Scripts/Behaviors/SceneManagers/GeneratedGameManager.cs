@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -23,9 +24,11 @@ namespace Com.Tempest.Nightmare {
 		public GameObject cryoPrefab;
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
+
 		public GameObject lightBoxPrefab;
 
-		public GameObject levelChunk01;
+		public GameObject bonfirePrefab;
+		public GameObject shrinePrefab;
 	
 		// Game parameters.
 		public int bonfiresAllowedIncomplete = 0;
@@ -47,6 +50,7 @@ namespace Com.Tempest.Nightmare {
 
 		private int playersConnected;
 		private int levelsGenerated;
+		private GameObject[,] levelChunks;
 
 		public void Awake() {
 			if (PhotonNetwork.isMasterClient) {
@@ -72,49 +76,40 @@ namespace Com.Tempest.Nightmare {
 				return;
 			playersConnected++;
 			if (PhotonNetwork.playerList.Length == playersConnected) {
-				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight);
+				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight);
+				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
+		}
+
+		private static int[,] GenerateLevelGraph(int width, int height) {
+			LevelGenerator generator = new LevelGenerator(width, height);
+			return generator.SerializeLevelGraph();
+		}
+
+		private static int[] TransformToOneDimension(int[,] array) {
+			int[] output = new int[array.Length];
+			Buffer.BlockCopy(array, 0, output, 0, array.Length * 4);
+			return output;
+		}
+
+		private static int[,] TransformToTwoDimension(int[] array, int width, int height) {
+			int[,] output = new int[width, height];
+			Buffer.BlockCopy(array, 0, output, 0, output.Length * 4);
+			return output;
 		}
 
 		[PunRPC]
-		public void GenerateLevel(int levelWidth, int levelHeight) {
-			GameObject[,] levelChunks = new GameObject[levelWidth, levelHeight];
-			for (int x = 0; x < levelWidth; x++) {
-				for (int y = 0; y < levelHeight; y++) {
-					levelChunks[x, y] = Instantiate(levelChunk01, new Vector3(x * 16f, y * 16f), Quaternion.identity);
+		public void GenerateLevel(int width, int height, int[] singleDimensionGraph) {
+			int[,] levelGraph = TransformToTwoDimension(singleDimensionGraph, width, height);
+			levelChunks = new GameObject[width, height];
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					int roomType = levelGraph[x, y];
+					Vector3 position = new Vector3(x * 16, y * 16);
+					levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
 				}
 			}
-			GenerateBorder(levelWidth, levelHeight);
 			photonView.RPC("NotifyLevelGenerated", PhotonTargets.MasterClient);
-		}
-
-		private void GenerateBorder(int levelWidth, int levelHeight) {
-			int totalWidth = (levelWidth * 16) + 6; 
-			int totalHeight = (levelHeight * 16) + 6; 
-			GenerateHorizontalBorder(totalWidth, -3);
-			GenerateHorizontalBorder(totalWidth, -2);
-			GenerateHorizontalBorder(totalWidth, totalHeight - 4);
-			GenerateHorizontalBorder(totalWidth, totalHeight - 5);
-			GenerateVerticalBorder(-3, totalHeight);
-			GenerateVerticalBorder(-2, totalHeight);
-			GenerateVerticalBorder(totalWidth - 4, totalHeight);
-			GenerateVerticalBorder(totalWidth - 5, totalHeight);
-		}
-
-		private void GenerateHorizontalBorder(int totalWidth, int rowIndex) {
-			Vector3Int position = new Vector3Int(0, rowIndex, 0);
-			for (int x = 0; x < totalWidth; x++) {
-				position.x = x - 3;
-				borderMap.SetTile(position, ruleTile);
-			}
-		}
-
-		private void GenerateVerticalBorder(int rowIndex, int totalHeight) {
-			Vector3Int position = new Vector3Int(rowIndex, 0, 0);
-			for (int y = 0; y < totalHeight; y++) {
-				position.y = y - 3;
-				borderMap.SetTile(position, ruleTile);
-			}
 		}
 
 		[PunRPC]
@@ -123,7 +118,21 @@ namespace Com.Tempest.Nightmare {
 				return;
 			levelsGenerated++;
 			if (PhotonNetwork.playerList.Length == levelsGenerated) {
+				GenerateBonfires();
 				photonView.RPC("InstantiateCharacter", PhotonTargets.All);
+			}
+		}
+
+		public void GenerateBonfires() {
+			foreach (GameObject chunk in levelChunks) {
+				Transform fireHolder = chunk.transform.Find("BonfirePlaceholder");
+				if (fireHolder != null) {
+					PhotonNetwork.Instantiate(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0);
+				}
+				Transform shrineHolder = chunk.transform.Find("ShrinePlacehodler");
+				if (shrineHolder != null) {
+					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
+				}
 			}
 		}
 
@@ -133,11 +142,11 @@ namespace Com.Tempest.Nightmare {
 			if (playerContainer.TeamSelection == GlobalPlayerContainer.EXPLORER) {
 				switch (playerContainer.ExplorerSelection) {
 				case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
-					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(0, 0), Quaternion.identity, 0)
+					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
 						.GetComponent<BaseExplorerBehavior>();
 					break;
 				case GlobalPlayerContainer.JETPACK_EXPLORER:
-					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(0, 0), Quaternion.identity, 0)
+					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
 						.GetComponent<BaseExplorerBehavior>();
 					break;
 				}
@@ -148,11 +157,11 @@ namespace Com.Tempest.Nightmare {
 			} else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
 				switch (playerContainer.NightmareSelection) {
 				case GlobalPlayerContainer.GHAST:
-					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(0f, 0f), Quaternion.identity, 0)
+					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
 						.GetComponent<BaseNightmareBehavior>();
 					break;
 				case GlobalPlayerContainer.CRYO:
-					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, new Vector3(0f, 0f), Quaternion.identity, 0)
+					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, new Vector3(2, 2), Quaternion.identity, 0)
 						.GetComponent<BaseNightmareBehavior>();
 					break;
 				}

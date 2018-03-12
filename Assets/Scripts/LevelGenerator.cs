@@ -65,7 +65,7 @@ namespace Com.Tempest.Nightmare {
 						return 10;
 					}
 				}
-				throw new KeyNotFoundException("I can't decide which wall index I am.");
+				throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
 			}
 		}
 
@@ -98,9 +98,7 @@ namespace Com.Tempest.Nightmare {
 
 		private int width;
 		private int height;
-	
 		private GraphNode[,] levelGraph;
-		private int nodesVisited;
 
 		public LevelGenerator(int width, int height) {
 			this.width = width;
@@ -111,7 +109,6 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void InitializeLevelGraph() {
-			nodesVisited = 0;
 			levelGraph = new GraphNode[width, height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
@@ -131,7 +128,7 @@ namespace Com.Tempest.Nightmare {
 
 		private void BuildLevelGraph() {
 			List<GraphWall> wallList = new List<GraphWall>();
-			GraphNode startingNode = levelGraph[width / 2, height / 2];
+			GraphNode startingNode = levelGraph[0, 0];
 			foreach (WallDirection wall in startingNode.WallsRemaining) {
 				wallList.Add(new GraphWall(startingNode, wall));
 			}
@@ -141,13 +138,15 @@ namespace Com.Tempest.Nightmare {
 				GraphNode sourceNode = currentWall.SourceNode;
 				GraphNode destinationNode = GetDestinationNode(currentWall);
 				if (sourceNode.TimesVisited < 2 || destinationNode.TimesVisited < 2) {
-					sourceNode.TimesVisited++;
-					destinationNode.TimesVisited++;
 					sourceNode.WallsRemaining.Remove(currentWall.Direction);
 					destinationNode.WallsRemaining.Remove(currentWall.OppositeDirection());
-					foreach (WallDirection direction in destinationNode.WallsRemaining) {
-						wallList.Add(new GraphWall(destinationNode, direction));
+					if (destinationNode.TimesVisited == 0) {
+						foreach (WallDirection direction in destinationNode.WallsRemaining) {
+							wallList.Add(new GraphWall(destinationNode, direction));
+						}
 					}
+					sourceNode.TimesVisited++;
+					destinationNode.TimesVisited++;
 				}
 				wallList.Remove(currentWall);
 			}

@@ -309,6 +309,37 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 85841813}
+--- !u!84 &112382480
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1049
+  m_Height: 563
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 0
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &130369952
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +457,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1409275231}
+  m_TargetTexture: {fileID: 112382480}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -928,37 +959,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!84 &1409275231
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1049
-  m_Height: 648
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 0
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1421701198
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,7 +1065,9 @@ MonoBehaviour:
     type: 2}
   lightBoxPrefab: {fileID: 1528784548483380, guid: 1e3826033c1575945a47e377cc681457,
     type: 2}
-  levelChunk01: {fileID: 1384860949606864, guid: a9962eceda9027347870dc31d4f49292,
+  bonfirePrefab: {fileID: 1741911186584976, guid: e6e92c1194894864792dc0d996379d9b,
+    type: 2}
+  shrinePrefab: {fileID: 1566424408462786, guid: c32c8ee3c1f761346a1b223c7fe38400,
     type: 2}
   bonfiresAllowedIncomplete: 0
   levelWidth: 6
@@ -1251,7 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 1409275231}
+  spriteLightRT: {fileID: 112382480}
   intensity: 1
 --- !u!81 &1555642314
 AudioListener:

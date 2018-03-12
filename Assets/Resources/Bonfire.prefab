@@ -120,7 +120,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741911186584976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.1456947, y: 0.9051355, z: 0}
+  m_LocalPosition: {x: -5, y: 1, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_Children:
   - {fileID: 224640980396697188}
@@ -267,6 +267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredCharges: 30
   litNotificationDuration: 5
+  lightBoxScaleBase: 1
+  lightBoxScaleUnlit: 4
+  lightBoxScaleLit: 10
   unlitSprite: {fileID: 21300000, guid: 58a06ef57e87908409221b1ce7389b72, type: 3}
   partLitSprite: {fileID: 21300000, guid: ddfa2900448b9004abce5e610b8a8566, type: 3}
   litSprite: {fileID: 21300000, guid: 8a07361da2e9cc04b9ad982bc13e6c88, type: 3}
@@ -347,7 +350,7 @@ SpriteRenderer:
   m_SortingLayerID: -415694377
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fb98c734ccc8fbd4a8ebf3e4f9ed38d1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 58a06ef57e87908409221b1ce7389b72, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -355,7 +358,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
 --- !u!212 &212557475836576508
 SpriteRenderer:
@@ -388,8 +391,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -641124413
-  m_SortingLayer: 3
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2d0604ef57f23e7479773e00969126c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
