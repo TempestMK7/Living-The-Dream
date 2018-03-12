@@ -50,4 +50,7 @@ MonoBehaviour:
   - AddPowerupToCharacter
   - NotifyLit
   - TakeDamage
+  - GenerateLevel
+  - InstantiateCharacter
+  - NotifyLevelGenerated
   DisableAutoOpenWizard: 1
