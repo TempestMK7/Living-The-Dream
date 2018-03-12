@@ -34,6 +34,7 @@ namespace Com.Tempest.Nightmare {
 		public int bonfiresAllowedIncomplete = 0;
 		public int levelWidth = 8;
 		public int levelHeight = 8;
+		public int bonfireFrequency = 4;
 	
 		// Publicly accessible fields pertaining to game state.
 		public BaseExplorerBehavior Explorer { get; set; }
@@ -76,13 +77,13 @@ namespace Com.Tempest.Nightmare {
 				return;
 			playersConnected++;
 			if (PhotonNetwork.playerList.Length == playersConnected) {
-				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight);
+				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
 		}
 
-		private static int[,] GenerateLevelGraph(int width, int height) {
-			LevelGenerator generator = new LevelGenerator(width, height);
+		private static int[,] GenerateLevelGraph(int width, int height, int bonfire) {
+			LevelGenerator generator = new LevelGenerator(width, height, bonfire);
 			return generator.SerializeLevelGraph();
 		}
 
@@ -106,7 +107,14 @@ namespace Com.Tempest.Nightmare {
 				for (int y = 0; y < height; y++) {
 					int roomType = levelGraph[x, y];
 					Vector3 position = new Vector3(x * 16, y * 16);
-					levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					if ((x == 0 || x == width - 1) && (y == 0 || y == height - 1)) {
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/ShrineChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					} else if (roomType < 0) {
+						roomType *= -1;
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					} else {
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					}
 				}
 			}
 			photonView.RPC("NotifyLevelGenerated", PhotonTargets.MasterClient);
@@ -129,7 +137,7 @@ namespace Com.Tempest.Nightmare {
 				if (fireHolder != null) {
 					PhotonNetwork.Instantiate(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0);
 				}
-				Transform shrineHolder = chunk.transform.Find("ShrinePlacehodler");
+				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
 				if (shrineHolder != null) {
 					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
 				}

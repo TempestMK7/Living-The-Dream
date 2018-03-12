@@ -21,6 +21,8 @@ namespace Com.Tempest.Nightmare {
 
 			public Vector2Int Coordinates { get; set; }
 
+			public bool IsBonfire { get; set; }
+
 			public GraphNode(Vector2Int coordinates) {
 				WallsRemaining = new List<WallDirection>();
 				TimesVisited = 0;
@@ -28,44 +30,55 @@ namespace Com.Tempest.Nightmare {
 			}
 
 			public int GetLevelChunkIndex() {
+				int returnValue = 0;
 				if (WallsRemaining.Count == 0) {
-					return 0;
+					returnValue = 11;
 				}
 				if (WallsRemaining.Count == 1) {
 					switch (WallsRemaining[0]) {
 					case WallDirection.NORTH:
-						return 1;
+						returnValue = 1;
+						break;
 					case WallDirection.EAST:
-						return 2;
+						returnValue = 2;
+						break;
 					case WallDirection.SOUTH:
-						return 3;
+						returnValue = 3;
+						break;
 					case WallDirection.WEST:
-						return 4;
+						returnValue = 4;
+						break;
 					default:
 						throw new KeyNotFoundException("Illegal wall direction: " + WallsRemaining[0]);
 					}
 				}
 				if (WallsRemaining.Count == 2) {
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.EAST)) {
-						return 5;
+						returnValue = 5;
 					}
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.SOUTH)) {
-						return 6;
+						returnValue = 6;
 					}
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.WEST)) {
-						return 7;
+						returnValue = 7;
 					}
 					if (WallsRemaining.Contains(WallDirection.EAST) && WallsRemaining.Contains(WallDirection.SOUTH)) {
-						return 8;
+						returnValue = 8;
 					}
 					if (WallsRemaining.Contains(WallDirection.EAST) && WallsRemaining.Contains(WallDirection.WEST)) {
-						return 9;
+						returnValue = 9;
 					}
 					if (WallsRemaining.Contains(WallDirection.SOUTH) && WallsRemaining.Contains(WallDirection.WEST)) {
-						return 10;
+						returnValue = 10;
 					}
 				}
-				throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
+				if (returnValue == 0) {
+					throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
+				}
+				if (IsBonfire) {
+					returnValue *= -1;
+				}
+				return returnValue;
 			}
 		}
 
@@ -98,14 +111,17 @@ namespace Com.Tempest.Nightmare {
 
 		private int width;
 		private int height;
+		private int bonfireFrequency;
 		private GraphNode[,] levelGraph;
 
-		public LevelGenerator(int width, int height) {
+		public LevelGenerator(int width, int height, int bonfireFrequency) {
 			this.width = width;
 			this.height = height;
+			this.bonfireFrequency = bonfireFrequency;
 			InitializeLevelGraph();
 			BuildLevelGraph();
 			RestoreOuterWallsToLevelGraph();
+			AddBonfires();
 		}
 
 		private void InitializeLevelGraph() {
@@ -163,6 +179,16 @@ namespace Com.Tempest.Nightmare {
 						levelGraph[x, y].WallsRemaining.Add(WallDirection.SOUTH);
 					if (y == height - 1)
 						levelGraph[x, y].WallsRemaining.Add(WallDirection.NORTH);
+				}
+			}
+		}
+
+		private void AddBonfires() {
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					if (!((x == 0 || x == width - 1) && (y == 0 || y == height - 1)) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == 0)) {
+						levelGraph[x, y].IsBonfire = true;
+					}
 				}
 			}
 		}
