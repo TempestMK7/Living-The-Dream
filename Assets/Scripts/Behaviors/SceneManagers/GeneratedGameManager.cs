@@ -231,10 +231,10 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void HandlePlayers() {
-			HashSet<GameObject> dreamerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseExplorerBehavior));
-			if ((Explorers == null && dreamerSet.Count != 0) || (Explorers != null && dreamerSet.Count != Explorers.Count)) {
+			HashSet<GameObject> explorerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseExplorerBehavior));
+			if ((Explorers == null && explorerSet.Count != 0) || (Explorers != null && explorerSet.Count != Explorers.Count)) {
 				Explorers = new List<BaseExplorerBehavior>();
-				foreach (GameObject go in dreamerSet) {
+				foreach (GameObject go in explorerSet) {
 					Explorers.Add(go.GetComponent<BaseExplorerBehavior>());
 				}
 			}
@@ -246,16 +246,16 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (Explorers != null) {
-				int awakeDreamers = 0;
+				int aliveExplorers = 0;
 				foreach (BaseExplorerBehavior dreamer in Explorers) {
 					if (!dreamer.IsDead()) {
-						awakeDreamers++;
+						aliveExplorers++;
 					}
 				}
-				if (awakeDreamers == 0) {
+				if (aliveExplorers == 0) {
 					EndTheGame(GlobalPlayerContainer.NIGHTMARE);
 				}
-				dreamerText.text = "Dreamers Awake: " + awakeDreamers + " / " + Explorers.Count;    
+				dreamerText.text = "Dreamers Awake: " + aliveExplorers + " / " + Explorers.Count;    
 			}
 		}
 
