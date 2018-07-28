@@ -9,6 +9,7 @@ namespace Com.Tempest.Nightmare {
 
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
+        public float jetpackTimeUpgradeMod = 0.1f;
         public float fallingJetpackForceFactor = 1.5f;
 
         private GameObject fuelBarCanvas;
@@ -44,13 +45,13 @@ namespace Com.Tempest.Nightmare {
                 }
             } else {
                 jetpackTimeRemaining += Time.deltaTime;
-                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, maxJetpackTime);
+                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
             }
         }
 
         private void HandleFuelBar() {
-            positiveFuelImage.fillAmount = jetpackTimeRemaining / maxJetpackTime;
-            fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != maxJetpackTime);
+            positiveFuelImage.fillAmount = jetpackTimeRemaining / UpgradedMaxJetpackTime();
+            fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != UpgradedMaxJetpackTime());
         }
 
         public override void BecameGrounded() {
@@ -95,6 +96,10 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionReleased() {
             jetpackOn = false;
+        }
+
+        private float UpgradedMaxJetpackTime() {
+            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades());
         }
     }
 }

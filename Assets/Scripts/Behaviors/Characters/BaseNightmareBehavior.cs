@@ -29,7 +29,7 @@ namespace Com.Tempest.Nightmare {
 		protected Vector3 currentControllerState;
 
 		protected bool facingRight;
-		protected float acceleration;
+		protected float baseAcceleration;
 		protected float snapToMaxThreshold;
 
 		// Use this for initialization
@@ -48,7 +48,7 @@ namespace Com.Tempest.Nightmare {
 			currentOffset = new Vector3();
 			currentSpeed = new Vector3();
 			currentControllerState = new Vector3();
-			acceleration = accelerationFactor * maxSpeed;
+			baseAcceleration = accelerationFactor * maxSpeed;
 			snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
 			facingRight = false;
 		}
@@ -71,7 +71,7 @@ namespace Com.Tempest.Nightmare {
 			}
 			// This is how far we are from that speed.
 			Vector3 difference = newMax - currentSpeed;
-			float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : acceleration;
+			float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : GetCurrentAcceleration();
 			if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
 				difference.x *= usableAcceleratior * Time.deltaTime;
 			}
@@ -174,6 +174,10 @@ namespace Com.Tempest.Nightmare {
 
 		protected virtual void HandleAnimator() {
 
+		}
+
+		protected virtual float GetCurrentAcceleration() {
+			return baseAcceleration;
 		}
 
 		protected virtual void HandlePowerupState() {

@@ -11,6 +11,7 @@ namespace Com.Tempest.Nightmare {
         public float dashDamageDuration = 0.5f;
         public float dashCooldown = 1f;
         public float collisionDebounceTime = 1f;
+        public float upgradeAccelerationFactor = 0.03f;
     
         private float dashSpeed;
         private float dashStart;
@@ -64,6 +65,10 @@ namespace Com.Tempest.Nightmare {
             if (Time.time - lastCollisionTime > collisionDebounceTime) {
                 OnTriggerEnter2D(other);
             }
+        }
+
+        protected override float GetCurrentAcceleration() {
+            return baseAcceleration + (upgradeAccelerationFactor * (float) NumUpgrades());
         }
     }
 }

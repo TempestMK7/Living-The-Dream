@@ -10,6 +10,8 @@ namespace Com.Tempest.Nightmare {
 
 		private Dictionary<Powerup, float> powerupDictionary;
 
+		private int numUpgrades = 0;
+
 		public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
 		}
@@ -34,5 +36,14 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected abstract Powerup[] GetUsablePowerups();
+
+		[PunRPC]
+		public void AddUpgrade(int numUpgrades) {
+			numUpgrades += numUpgrades;
+		}
+
+		public int NumUpgrades() {
+			return numUpgrades;
+		}
 	}
 }

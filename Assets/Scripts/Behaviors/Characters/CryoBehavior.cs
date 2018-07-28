@@ -7,6 +7,7 @@ namespace Com.Tempest.Nightmare {
     public class CryoBehavior : BaseNightmareBehavior {
 
         public float fireballSpeed = 20f;
+        public float fireballUpgradeSpeed = 2f;
         public float fireballAttackAnimation = 0.5f;
         public float fireballCooldown = 1f;
 
@@ -52,7 +53,7 @@ namespace Com.Tempest.Nightmare {
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();
-                iceBall.SetStartingDirection(currentControllerState);
+                iceBall.SetStartingDirection(currentControllerState, fireballSpeed + (fireballUpgradeSpeed * (float) NumUpgrades()));
             }
         }
 

@@ -6,6 +6,7 @@ namespace Com.Tempest.Nightmare {
 
     public class DoubleJumpExplorer : BaseExplorerBehavior {
 
+        public float jumpFactorUpgradeModifier = 0.1f;
         private bool usedSecondJump;
         private bool usedThirdJump;
 
@@ -59,6 +60,10 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionReleased() {
             // ignored callback.
+        }
+
+        private float JumpFactor() {
+            return jumpFactor + ((float) NumUpgrades() * jumpFactorUpgradeModifier);
         }
     }
 }
