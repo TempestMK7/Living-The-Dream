@@ -212,7 +212,7 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (firesLit >= Bonfires.Count - bonfiresAllowedIncomplete) {
-					EndTheGame(GlobalPlayerContainer.EXPLORER);
+					BeginEndingSequence(GlobalPlayerContainer.EXPLORER);
 				}
 				bonfireText.text = "Bonfires Remaining: " + (Bonfires.Count - firesLit - bonfiresAllowedIncomplete);
 			}
@@ -253,10 +253,19 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (aliveExplorers == 0) {
-					EndTheGame(GlobalPlayerContainer.NIGHTMARE);
+					BeginEndingSequence(GlobalPlayerContainer.NIGHTMARE);
 				}
 				dreamerText.text = "Dreamers Awake: " + aliveExplorers + " / " + Explorers.Count;    
 			}
+		}
+
+		private void BeginEndingSequence(int winningTeam) {
+			StartCoroutine(EndingSequence(winningTeam));
+		}
+
+		IEnumerator EndingSequence(int winningTeam) {
+			yield return new WaitForSeconds(1f);
+			EndTheGame(winningTeam);
 		}
 
 		private void EndTheGame(int winningTeam) {
