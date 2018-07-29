@@ -82,6 +82,7 @@ namespace Com.Tempest.Nightmare {
 			lightBox = GetComponentInChildren<LightBoxBehavior>();
 			lightBox.IsMine = photonView.isMine;
 			lightBox.IsActive = false;
+			lightBox.IsDead = false;
 			lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
 			lightBox.ActiveScale = new Vector3(activeScale, activeScale);
 
@@ -298,12 +299,13 @@ namespace Com.Tempest.Nightmare {
 
 		// Draws current health total, switches layers based on health totals, and hides player to other players if dead.
 		private void HandleLifeState() {
+			lightBox.IsDead = IsDead();
 			if (IsDead()) {
+				bool amNightmare = GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE;
 				gameObject.layer = LayerMask.NameToLayer("Death");
 				positiveHealthBar.fillAmount = 0f;
-				bool showPlayer = GlobalPlayerContainer.Instance.TeamSelection != GlobalPlayerContainer.NIGHTMARE;
-				healthCanvas.SetActive(showPlayer);
-				ToggleRenderers(showPlayer);
+				healthCanvas.SetActive(!amNightmare);
+				ToggleRenderers(!amNightmare);
 				lightBox.IsActive = false;
 			} else {
 				gameObject.layer = LayerMask.NameToLayer(IsOutOfHealth() ? "Death" : "Explorer");
