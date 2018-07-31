@@ -54,4 +54,6 @@ MonoBehaviour:
   - InstantiateCharacter
   - NotifyLevelGenerated
   - AddUpgrade
+  - NotifyTaken
+  - AddUpgradeToCharacter
   DisableAutoOpenWizard: 1

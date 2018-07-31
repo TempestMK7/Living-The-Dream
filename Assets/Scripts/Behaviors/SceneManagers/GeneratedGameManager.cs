@@ -305,6 +305,15 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
+		public void AddUpgradeToCharacter(bool nightmaresWon) {
+			if (!nightmaresWon && Explorer != null) {
+				Explorer.AddUpgrade();
+			} else if (nightmaresWon && Nightmare != null) {
+				Nightmare.AddUpgrade();
+			}
+		}
+
+		[PunRPC]
 		public void DisplayAlert(string alertText, int targets) {
 			if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.OBSERVER ||
 			    targets == GlobalPlayerContainer.Instance.TeamSelection) {

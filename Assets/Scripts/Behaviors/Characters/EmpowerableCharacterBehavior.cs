@@ -37,9 +37,9 @@ namespace Com.Tempest.Nightmare {
 
 		protected abstract Powerup[] GetUsablePowerups();
 
-		[PunRPC]
-		public void AddUpgrade(int numUpgrades) {
-			numUpgrades += numUpgrades;
+		public void AddUpgrade() {
+			numUpgrades += 1;
+			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", GlobalPlayerContainer.Instance.TeamSelection);
 		}
 
 		public int NumUpgrades() {
