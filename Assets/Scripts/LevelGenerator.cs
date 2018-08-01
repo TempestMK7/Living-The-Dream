@@ -16,12 +16,10 @@ namespace Com.Tempest.Nightmare {
 		public class GraphNode {
 	
 			public List<WallDirection> WallsRemaining { get; set; }
-
 			public int TimesVisited { get; set; }
-
 			public Vector2Int Coordinates { get; set; }
-
 			public bool IsBonfire { get; set; }
+			public bool IsTorch { get; set; }
 
 			public GraphNode(Vector2Int coordinates) {
 				WallsRemaining = new List<WallDirection>();
@@ -77,6 +75,8 @@ namespace Com.Tempest.Nightmare {
 				}
 				if (IsBonfire) {
 					returnValue *= -1;
+				} else if (IsTorch) {
+					returnValue += 100;
 				}
 				return returnValue;
 			}
@@ -85,7 +85,6 @@ namespace Com.Tempest.Nightmare {
 		public class GraphWall {
 	
 			public GraphNode SourceNode { get; }
-
 			public WallDirection Direction { get; }
 
 			public GraphWall(GraphNode sourceNode, WallDirection direction) {
@@ -112,16 +111,21 @@ namespace Com.Tempest.Nightmare {
 		private int width;
 		private int height;
 		private int bonfireFrequency;
+		private float torchProbability;
+		private Random random;
 		private GraphNode[,] levelGraph;
 
-		public LevelGenerator(int width, int height, int bonfireFrequency) {
+		public LevelGenerator(int width, int height, int bonfireFrequency, float torchProbability) {
 			this.width = width;
 			this.height = height;
 			this.bonfireFrequency = bonfireFrequency;
+			this.torchProbability = torchProbability;
+			random = new Random();
 			InitializeLevelGraph();
 			BuildLevelGraph();
 			RestoreOuterWallsToLevelGraph();
 			AddBonfires();
+			AddTorches();
 		}
 
 		private void InitializeLevelGraph() {
@@ -186,9 +190,17 @@ namespace Com.Tempest.Nightmare {
 		private void AddBonfires() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					if (!((x == 0 || x == width - 1) && (y == 0 || y == height - 1)) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == 0)) {
+					if (!IsCorner(x, y) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == 0)) {
 						levelGraph[x, y].IsBonfire = true;
 					}
+				}
+			}
+		}
+
+		private void AddTorches() {
+			for (int x = 0; x < width; x++) {
+				for (int y = 0; y < height; y++) {
+					levelGraph[x, y].IsTorch = !IsCorner(x, y) && !levelGraph[x, y].IsBonfire && Random.Range(0f, 1f) < torchProbability;
 				}
 			}
 		}
@@ -218,6 +230,10 @@ namespace Com.Tempest.Nightmare {
 			default:
 				throw new KeyNotFoundException("Destination node called with illegal direction enum: " + wall.Direction);
 			}
+		}
+
+		private bool IsCorner(int x, int y) {
+			return (x == 0 || x == width - 1) && (y == 0 || y == height - 1);
 		}
 	}
 }

@@ -15,6 +15,7 @@ namespace Com.Tempest.Nightmare {
 		// UI objects.
 		public Text bonfireText;
 		public Text dreamerText;
+		public Text upgradesText;
 
 		public Tilemap borderMap;
 		public TileBase ruleTile;
@@ -25,16 +26,16 @@ namespace Com.Tempest.Nightmare {
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
 
-		public GameObject lightBoxPrefab;
-
 		public GameObject bonfirePrefab;
 		public GameObject shrinePrefab;
+		public GameObject torchPrefab;
 	
 		// Game parameters.
 		public int bonfiresAllowedIncomplete = 0;
 		public int levelWidth = 8;
 		public int levelHeight = 8;
 		public int bonfireFrequency = 4;
+		public float torchProbability = 0.3f;
 	
 		// Publicly accessible fields pertaining to game state.
 		public BaseExplorerBehavior Explorer { get; set; }
@@ -77,13 +78,13 @@ namespace Com.Tempest.Nightmare {
 				return;
 			playersConnected++;
 			if (PhotonNetwork.playerList.Length == playersConnected) {
-				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency);
+				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, torchProbability);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
 		}
 
-		private static int[,] GenerateLevelGraph(int width, int height, int bonfire) {
-			LevelGenerator generator = new LevelGenerator(width, height, bonfire);
+		private static int[,] GenerateLevelGraph(int width, int height, int bonfire, float torchProbability) {
+			LevelGenerator generator = new LevelGenerator(width, height, bonfire, torchProbability);
 			return generator.SerializeLevelGraph();
 		}
 
@@ -112,6 +113,9 @@ namespace Com.Tempest.Nightmare {
 					} else if (roomType < 0) {
 						roomType *= -1;
 						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					} else if (roomType >= 100) {
+						roomType -= 100;
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/LevelChunk" + roomType), position, Quaternion.identity);
 					} else {
 						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
 					}
@@ -140,6 +144,10 @@ namespace Com.Tempest.Nightmare {
 				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
 				if (shrineHolder != null) {
 					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
+				}
+				Transform torchHolder = chunk.transform.Find("TorchPlaceholder");
+				if (torchHolder != null) {
+					PhotonNetwork.Instantiate(torchPrefab.name, torchHolder.position, Quaternion.identity, 0);
 				}
 			}
 		}
@@ -192,6 +200,7 @@ namespace Com.Tempest.Nightmare {
 			HandleBonfires();
 			HandleShrines();
 			HandlePlayers();
+			HandleUpgrades();
 		}
 
 		private void HandleBonfires() {
@@ -256,6 +265,14 @@ namespace Com.Tempest.Nightmare {
 					BeginEndingSequence(GlobalPlayerContainer.NIGHTMARE);
 				}
 				dreamerText.text = "Dreamers Awake: " + aliveExplorers + " / " + Explorers.Count;    
+			}
+		}
+
+		private void HandleUpgrades() {
+			if (Explorer != null) {
+				upgradesText.text = "Upgrades: " + Explorer.NumUpgrades;
+			} else if (Nightmare != null) {
+				upgradesText.text = "Upgrades: " + Nightmare.NumUpgrades;
 			}
 		}
 

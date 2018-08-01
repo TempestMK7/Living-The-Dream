@@ -68,7 +68,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float GetCurrentAcceleration() {
-            return baseAcceleration + (upgradeAccelerationFactor * (float) NumUpgrades());
+            return baseAcceleration + (upgradeAccelerationFactor * (float) NumUpgrades);
         }
     }
 }

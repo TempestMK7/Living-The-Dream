@@ -33,26 +33,26 @@ namespace Com.Tempest.Nightmare {
             }
 
             if (grounded) {
-                currentSpeed.y = maxSpeed * jumpFactor;
+                currentSpeed.y = maxSpeed * JumpFactor();
                 jumpTime = Time.time;
             } else if (holdingWallLeft) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
+                currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * maxSpeed * WallJumpFactor();
+                currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * maxSpeed * WallJumpFactor();
                 jumpTime = Time.time;
                 wallJumpTime = Time.time;
                 holdingWallLeft = false;
             } else if (holdingWallRight) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
+                currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * maxSpeed * WallJumpFactor();
+                currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * maxSpeed * WallJumpFactor();
                 jumpTime = Time.time;
                 wallJumpTime = Time.time;
                 holdingWallRight = false;
             } else if (!usedSecondJump) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
+                currentSpeed.y = maxSpeed * JumpFactor() * 0.9f;
                 jumpTime = Time.time;
                 usedSecondJump = true;
             } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
-                currentSpeed.y = maxSpeed * jumpFactor * 0.9f;
+                currentSpeed.y = maxSpeed * JumpFactor() * 0.9f;
                 jumpTime = Time.time;
                 usedThirdJump = true;
             }
@@ -63,7 +63,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         private float JumpFactor() {
-            return jumpFactor + ((float) NumUpgrades() * jumpFactorUpgradeModifier);
+            return jumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
+        }
+
+        private float WallJumpFactor() {
+            return wallJumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
         }
     }
 }

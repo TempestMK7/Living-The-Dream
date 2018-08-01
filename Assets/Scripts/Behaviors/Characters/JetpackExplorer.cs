@@ -99,7 +99,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         private float UpgradedMaxJetpackTime() {
-            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades());
+            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades);
         }
     }
 }

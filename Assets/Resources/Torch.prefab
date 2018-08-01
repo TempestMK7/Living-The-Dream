@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114856629429205256}
   - component: {fileID: 114288527047905022}
   m_Layer: 11
-  m_Name: TorchPrefab
+  m_Name: Torch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnTimer: 60
-  lightBoxScale: 1
+  lightBoxScale: 2
   unlitSprite: {fileID: 21300000, guid: 95f577c4f4f3cf34ea6c52cabdd9235a, type: 3}
   litSprite: {fileID: 21300000, guid: bbf59159a1c81a34cab8a8e0797be06b, type: 3}
   whatIsNightmare:

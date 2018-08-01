@@ -53,7 +53,7 @@ namespace Com.Tempest.Nightmare {
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();
-                iceBall.SetStartingDirection(currentControllerState, fireballSpeed + (fireballUpgradeSpeed * (float) NumUpgrades()));
+                iceBall.SetStartingDirection(currentControllerState, fireballSpeed + (fireballUpgradeSpeed * (float) NumUpgrades));
             }
         }
 
