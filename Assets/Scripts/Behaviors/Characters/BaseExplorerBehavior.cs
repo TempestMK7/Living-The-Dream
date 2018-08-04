@@ -14,7 +14,6 @@ namespace Com.Tempest.Nightmare {
 		public int maxLives = 3;
 
 		// Recovery timers.  Values are in seconds.
-		public float jumpRecovery = 0.2f;
 		public float wallJumpRecovery = 0.2f;
 		public float damageRecovery = 0.5f;
 		public float deathAnimationTime = 3f;
@@ -53,7 +52,6 @@ namespace Com.Tempest.Nightmare {
 		private Animator animator;
 		private Renderer myRenderer;
 		private Vector3 currentOffset;
-
 		protected Vector3 currentSpeed;
 		protected Vector3 currentControllerState;
 

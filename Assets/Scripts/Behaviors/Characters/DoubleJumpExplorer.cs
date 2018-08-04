@@ -26,8 +26,7 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionPressed() {
             // If we just jumped, got hit, or are in the death animation, ignore this action.
-            if (Time.time - jumpTime < jumpRecovery ||
-                Time.time - damageTime < damageRecovery ||
+            if (Time.time - damageTime < damageRecovery ||
                 Time.time - deathEventTime < deathAnimationTime) {
                 return;
             }
