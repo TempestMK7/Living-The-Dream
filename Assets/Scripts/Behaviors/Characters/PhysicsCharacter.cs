@@ -10,7 +10,7 @@ namespace Com.Tempest.Nightmare {
         // Recovery timers.  Values are in seconds.
 		public float wallJumpRecovery = 0.2f;
 		public float dashDuration = 0.5f;
-		public float damageRecovery = 0.5f;
+		public float damageRecovery = 1f;
 		public float deathAnimationTime = 3f;
 
 		// General movement params.
@@ -115,15 +115,15 @@ namespace Com.Tempest.Nightmare {
 			switch (currentState) {
 				case MovementState.DASHING:
 					break;
+				case MovementState.DAMAGED:
+				case MovementState.DYING:
+					currentSpeed.x -= currentSpeed.x * Time.deltaTime;
+					break;
 				case MovementState.WALL_SLIDE_LEFT:
 					currentSpeed.x = -0.01f;
 					break;
 				case MovementState.WALL_SLIDE_RIGHT:
 					currentSpeed.x = 0.01f;
-					break;
-				case MovementState.DAMAGED:
-				case MovementState.DYING:
-					currentSpeed.x -= currentSpeed.x * Time.deltaTime;
 					break;
 				case MovementState.WALL_JUMP:
 					currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
@@ -222,7 +222,7 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitY) {
-				if (currentState == MovementState.DASHING) {
+				if ((currentState == MovementState.DASHING || currentState == MovementState.DAMAGED || currentState == MovementState.DYING) && Mathf.Abs(currentSpeed.y) > maxSpeed) {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
 				} else {
@@ -454,6 +454,7 @@ namespace Com.Tempest.Nightmare {
 
 		protected void DamagePhysics(Vector3 newSpeed, bool outOfHealth) {
 			currentState = outOfHealth ? MovementState.DYING : MovementState.DAMAGED;
+			timerStart = Time.time;
 			currentSpeed = newSpeed;
 		}
 

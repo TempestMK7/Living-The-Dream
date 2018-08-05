@@ -415,7 +415,7 @@ MonoBehaviour:
   powerupDuration: 60
   wallJumpRecovery: 0.2
   dashDuration: 0.5
-  damageRecovery: 0.5
+  damageRecovery: 1
   deathAnimationTime: 3
   maxSpeed: 6
   dashFactor: 3

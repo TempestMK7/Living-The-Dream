@@ -151,12 +151,10 @@ namespace Com.Tempest.Nightmare {
 		// Called by a nightmare behavior when collision occurs.
 		[PunRPC]
 		public void TakeDamage(Vector3 currentSpeed) {
-			if (Time.time - damageTime < damageRecovery || IsOutOfHealth())
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || IsOutOfHealth())
 				return;
-			this.currentSpeed = currentSpeed;
-			damageTime = Time.time;
 			currentHealth -= 1;
-			currentState = MovementState.DAMAGED;
+			DamagePhysics(currentSpeed, IsOutOfHealth());
 			DieIfAble();
 		}
 
