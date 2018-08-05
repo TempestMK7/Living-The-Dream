@@ -24,12 +24,12 @@ namespace Com.Tempest.Nightmare {
 
         // Gravity bound movement params.
 		public float gravityFactor = 3f;
-		public float terminalVelocityFactor = 2f;
-		public float risingGravityBackoffFactor = 1f;
-		public float jumpFactor = 1.8f;
+		public float terminalVelocityFactor = 3f;
+		public float risingGravityBackoffFactor = 0.9f;
+		public float jumpFactor = 1.5f;
 		public float wallJumpFactor = 1.5f;
-		public float wallSlideFactor = 0.3f;
-		public float wallJumpControlFactor = 5f;
+		public float wallSlideFactor = 0.5f;
+		public float wallJumpControlFactor = 6f;
         public float jumpFactorUpgradeModifier = 0.1f;
 
 		// Physics hit calculation params.
@@ -91,15 +91,13 @@ namespace Com.Tempest.Nightmare {
 
 		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
-			if (currentState == MovementState.JUMPING && !actionHeld) {
-				currentState = MovementState.FALLING;
-				currentSpeed.y = 0f;
-			} else if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
+			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
 				currentSpeed.y -= maxSpeed * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				if (grabHeld && currentSpeed.y <= 0f) {
 					currentSpeed.y = 0f;
 				} else {
+					currentSpeed.y -= maxSpeed * gravityFactor * Time.deltaTime;
 					currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * wallSlideFactor * -1f);
 				}
 			} else {
@@ -118,8 +116,10 @@ namespace Com.Tempest.Nightmare {
 				case MovementState.DASHING:
 					break;
 				case MovementState.WALL_SLIDE_LEFT:
+					currentSpeed.x = -0.01f;
+					break;
 				case MovementState.WALL_SLIDE_RIGHT:
-					currentSpeed.x = 0f;
+					currentSpeed.x = 0.01f;
 					break;
 				case MovementState.DAMAGED:
 				case MovementState.DYING:
@@ -190,6 +190,8 @@ namespace Com.Tempest.Nightmare {
 					currentOffset.x = 0f;
 					currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * wallSlideFactor * -1f);
 				}
+			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+				currentState = MovementState.FALLING;
 			}
 
 			// If we grabbed a wall and are holding grab, 0 out y movement.
@@ -227,6 +229,8 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.y = 0f;
 					currentOffset.y = 0f;
 				}
+			} else if (currentState == MovementState.GROUNDED) {
+				currentState = MovementState.FALLING;
 			}
 
 			// If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
@@ -376,7 +380,7 @@ namespace Com.Tempest.Nightmare {
 				currentState = MovementState.JUMPING;
 			} else if (currentState == MovementState.DASHING && Time.time - timerStart > dashDuration) {
 				currentState = MovementState.FALLING;
-			} else if (currentState == MovementState.JUMPING && currentSpeed.y <= 0) {
+			} else if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionHeld)) {
 				currentState = MovementState.FALLING;
 			}
 		}

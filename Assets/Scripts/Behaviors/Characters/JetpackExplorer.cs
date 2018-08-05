@@ -57,6 +57,8 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void ActionPressed() {
+            base.ActionPressed();
+
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
@@ -72,6 +74,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void ActionReleased() {
+            base.ActionReleased();
             jetpackOn = false;
         }
 
