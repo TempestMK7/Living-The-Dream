@@ -372,15 +372,18 @@ namespace Com.Tempest.Nightmare {
 		#endregion
 
 		private void UpdateStateFromTimers() {
-			if (currentState == MovementState.DAMAGED && Time.time - timerStart > damageRecovery) {
-				currentState = MovementState.FALLING;
-			} else if (currentState == MovementState.DYING && Time.time - timerStart > deathAnimationTime) {
-				currentState = MovementState.FALLING;
-			} else if (currentState == MovementState.WALL_JUMP && Time.time - timerStart > wallJumpRecovery) {
-				currentState = MovementState.JUMPING;
-			} else if (currentState == MovementState.DASHING && Time.time - timerStart > dashDuration) {
-				currentState = MovementState.FALLING;
-			} else if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionHeld)) {
+			if (photonView.isMine) {
+				if (currentState == MovementState.DAMAGED && Time.time - timerStart > damageRecovery) {
+					currentState = MovementState.FALLING;
+				} else if (currentState == MovementState.DYING && Time.time - timerStart > deathAnimationTime) {
+					currentState = MovementState.FALLING;
+				} else if (currentState == MovementState.WALL_JUMP && Time.time - timerStart > wallJumpRecovery) {
+					currentState = MovementState.JUMPING;
+				} else if (currentState == MovementState.DASHING && Time.time - timerStart > dashDuration) {
+					currentState = MovementState.FALLING;
+				}
+			}
+			if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionHeld)) {
 				currentState = MovementState.FALLING;
 			}
 		}
@@ -485,12 +488,14 @@ namespace Com.Tempest.Nightmare {
 				stream.SendNext(currentState);
 				stream.SendNext(transform.position);
 				stream.SendNext(currentSpeed);
+				stream.SendNext(currentControllerState);
 				stream.SendNext(actionHeld);
 				stream.SendNext(grabHeld);
 			} else {
 				currentState = (MovementState)stream.ReceiveNext();
 				Vector3 networkPosition = (Vector3)stream.ReceiveNext();
 				currentSpeed = (Vector3)stream.ReceiveNext();
+				currentControllerState = (Vector3)stream.ReceiveNext();
 				actionHeld = (bool)stream.ReceiveNext();
 				grabHeld = (bool)stream.ReceiveNext();
 
