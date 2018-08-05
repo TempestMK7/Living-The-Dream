@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
 
-    public class JetpackExplorer : BaseExplorerBehavior {
+    public class JetpackExplorer : BaseExplorer {
 
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
+        public float jetpackTimeUpgradeMod = 0.1f;
         public float fallingJetpackForceFactor = 1.5f;
 
         private GameObject fuelBarCanvas;
@@ -28,9 +29,11 @@ namespace Com.Tempest.Nightmare {
             HandleFuelBar();
         }
 
-        protected override void UpdateVerticalMovement() {
-            base.UpdateVerticalMovement();
-            if (jetpackOn) {
+        protected override void HandleVerticalMovementGravityBound() {
+            base.HandleVerticalMovementGravityBound();
+            if (jetpackOn && (currentState == MovementState.JUMPING ||
+                    currentState == MovementState.FALLING ||
+                    currentState == MovementState.WALL_JUMP)) {
                 if (currentSpeed.y <= 0f) {
                     currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
@@ -44,57 +47,43 @@ namespace Com.Tempest.Nightmare {
                 }
             } else {
                 jetpackTimeRemaining += Time.deltaTime;
-                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, maxJetpackTime);
+                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
             }
         }
 
         private void HandleFuelBar() {
-            positiveFuelImage.fillAmount = jetpackTimeRemaining / maxJetpackTime;
-            fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != maxJetpackTime);
-        }
-
-        public override void BecameGrounded() {
-            // ignored callback.
-        }
-
-        public override void GrabbedWall(bool grabbedLeft) {
-            // ignored callback.
-        }
-
-        public override void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
-            currentControllerState = new Vector3(horizontalScale, verticalScale);
-            this.grabHeld = grabHeld;
+            positiveFuelImage.fillAmount = jetpackTimeRemaining / UpgradedMaxJetpackTime();
+            fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != UpgradedMaxJetpackTime());
         }
 
         public override void ActionPressed() {
-            // If we just jumped, got hit, or are in the death animation, ignore this action.
-            if (Time.time - damageTime < damageRecovery ||
-                Time.time - deathEventTime < deathAnimationTime) {
-                return;
-            }
+            base.ActionPressed();
 
-            if (grounded) {
-                currentSpeed.y = maxSpeed * jumpFactor;
-                jumpTime = Time.time;
-            } else if (holdingWallLeft) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * maxSpeed * wallJumpFactor;
-                jumpTime = Time.time;
-                wallJumpTime = Time.time;
-                holdingWallLeft = false;
-            } else if (holdingWallRight) {
-                currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
-                currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * maxSpeed * wallJumpFactor;
-                jumpTime = Time.time;
-                wallJumpTime = Time.time;
-                holdingWallRight = false;
-            } else {
-                jetpackOn = true;
+            switch (currentState) {
+                case MovementState.GROUNDED:
+                case MovementState.WALL_SLIDE_LEFT:
+                case MovementState.WALL_SLIDE_RIGHT:
+                    JumpPhysics();
+                    break;
+                case MovementState.JUMPING:
+                case MovementState.FALLING:
+                case MovementState.WALL_JUMP:
+                    jetpackOn = true;
+                    break;
             }
         }
 
         public override void ActionReleased() {
+            base.ActionReleased();
             jetpackOn = false;
+        }
+
+        private float UpgradedMaxJetpackTime() {
+            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades);
+        }
+
+        protected override bool IsFlyer() {
+            return false;
         }
     }
 }

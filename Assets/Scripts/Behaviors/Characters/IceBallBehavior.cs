@@ -6,7 +6,6 @@ namespace Com.Tempest.Nightmare {
 
     public class IceBallBehavior : Photon.PunBehaviour {
 
-        public float startingSpeed = 20f;
         public float gravityFactor = 4f;
         public float explosionTriggerRadius = .5f;
         public float explosionRadius = 2f;
@@ -20,10 +19,10 @@ namespace Com.Tempest.Nightmare {
         private Vector3 currentSpeed;
         private float explosionTime;
 
-        private List<BaseExplorerBehavior> playersHit;
+        private List<BaseExplorer> playersHit;
 
-        public void SetStartingDirection(Vector3 currentControllderState) {
-            currentSpeed = currentControllderState;
+        public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed) {
+            currentSpeed = currentControllerState;
             if (currentSpeed.magnitude == 0f) currentSpeed = new Vector3(0f, -20f);
             float ratio = startingSpeed / currentSpeed.magnitude;
             currentSpeed.x *= ratio;
@@ -34,7 +33,7 @@ namespace Com.Tempest.Nightmare {
         void Awake() {
             animator = GetComponent<Animator>();
             if (currentSpeed == null) currentSpeed = new Vector3();
-            playersHit = new List<BaseExplorerBehavior>();
+            playersHit = new List<BaseExplorer>();
         }
         
         void Update() {
@@ -66,7 +65,7 @@ namespace Com.Tempest.Nightmare {
             if (!photonView.isMine || !IsExploding()) return;
             Collider2D[] triggers = Physics2D.OverlapCircleAll(transform.position, explosionRadius, whatTakesDamage);
             foreach (Collider2D trigger in triggers) {
-                BaseExplorerBehavior explorer = trigger.gameObject.GetComponent<BaseExplorerBehavior>();
+                BaseExplorer explorer = trigger.gameObject.GetComponent<BaseExplorer>();
                 if (explorer != null && !explorer.IsOutOfHealth() && !playersHit.Contains(explorer)) {
                     playersHit.Add(explorer);
                     explorer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);

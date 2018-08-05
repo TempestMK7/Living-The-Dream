@@ -10,6 +10,8 @@ namespace Com.Tempest.Nightmare {
 
 		private Dictionary<Powerup, float> powerupDictionary;
 
+		public int NumUpgrades { get; set; }
+
 		public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
 		}
@@ -34,5 +36,10 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected abstract Powerup[] GetUsablePowerups();
+
+		public void AddUpgrade() {
+			NumUpgrades += 1;
+			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", GlobalPlayerContainer.Instance.TeamSelection);
+		}
 	}
 }

@@ -9,6 +9,8 @@ namespace Com.Tempest.Nightmare {
 		private ActionSet actionSet;
 
 		private void Awake() {
+			GetComponent<TouchManager>().enabled = Application.platform == RuntimePlatform.Android;
+
 			managerBehavior = GetComponent<GeneratedGameManager>();
 			actionSet = new ActionSet();
 

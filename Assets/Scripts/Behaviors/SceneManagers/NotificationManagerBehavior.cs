@@ -36,7 +36,7 @@ namespace Com.Tempest.Nightmare {
 			List<GameObject> objectsToDisplay = new List<GameObject>();
 			switch (GlobalPlayerContainer.Instance.TeamSelection) {
 			case GlobalPlayerContainer.EXPLORER:
-				BaseExplorerBehavior explorer = gameManagerBehavior.Explorer;
+				BaseExplorer explorer = gameManagerBehavior.Explorer;
 				if (explorer != null) {
 					if (!explorer.IsDead()) {
 						objectsToDisplay.AddRange(GetDeadExplorerNotifications());
@@ -47,7 +47,7 @@ namespace Com.Tempest.Nightmare {
 				}
 				break;
 			case GlobalPlayerContainer.NIGHTMARE:
-				BaseNightmareBehavior nightmare = gameManagerBehavior.Nightmare;
+				BaseNightmare nightmare = gameManagerBehavior.Nightmare;
 				if (nightmare != null) {
 					if (nightmare.HasPowerup(Powerup.DREAMER_VISION)) {
 						objectsToDisplay.AddRange(GetExplorerNotifications());
@@ -136,7 +136,7 @@ namespace Com.Tempest.Nightmare {
 			List<GameObject> output = new List<GameObject>();
 			if (gameManagerBehavior.Explorers == null || gameManagerBehavior.Explorers.Count == 0)
 				return output;
-			foreach (BaseExplorerBehavior behavior in gameManagerBehavior.Explorers) {
+			foreach (BaseExplorer behavior in gameManagerBehavior.Explorers) {
 				if (!behavior.IsDead()) {
 					output.Add(behavior.gameObject);
 				}
@@ -148,7 +148,7 @@ namespace Com.Tempest.Nightmare {
 			List<GameObject> output = new List<GameObject>();
 			if (gameManagerBehavior.Explorers == null || gameManagerBehavior.Explorers.Count == 0)
 				return output;
-			foreach (BaseExplorerBehavior behavior in gameManagerBehavior.Explorers) {
+			foreach (BaseExplorer behavior in gameManagerBehavior.Explorers) {
 				if (behavior.IsDead()) {
 					output.Add(behavior.gameObject);
 				}
@@ -160,7 +160,7 @@ namespace Com.Tempest.Nightmare {
 			List<GameObject> output = new List<GameObject>();
 			if (gameManagerBehavior.Nightmares == null || gameManagerBehavior.Nightmares.Count == 0)
 				return output;
-			foreach (BaseNightmareBehavior behavior in gameManagerBehavior.Nightmares) {
+			foreach (BaseNightmare behavior in gameManagerBehavior.Nightmares) {
 				output.Add(behavior.gameObject);
 			}
 			return output;

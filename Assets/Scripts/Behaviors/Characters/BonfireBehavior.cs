@@ -64,7 +64,7 @@ namespace Com.Tempest.Nightmare {
                 } else {
                     float multiplier = otherPlayers.Length;
                     foreach (Collider2D collider in otherPlayers) {
-                        BaseExplorerBehavior behavior = collider.GetComponentInParent<BaseExplorerBehavior>();
+                        BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
                         if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             multiplier += 1f;
                         }
