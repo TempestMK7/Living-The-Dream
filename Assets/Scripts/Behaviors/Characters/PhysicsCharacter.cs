@@ -5,60 +5,91 @@ using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
 
-    public abstract class GravityBoundCharacter : EmpowerableCharacterBehavior {
+    public abstract class PhysicsCharacter : EmpowerableCharacterBehavior, IPunObservable, IControllable {
 
-		// Recovery timers.  Values are in seconds.
+        // Recovery timers.  Values are in seconds.
 		public float wallJumpRecovery = 0.2f;
 		public float dashDuration = 0.5f;
 		public float damageRecovery = 0.5f;
 		public float deathAnimationTime = 3f;
 
-		// Player movement params.
+		// General movement params.
 		public float maxSpeed = 7f;
+		public float dashFactor = 3f;
+		public float wallSpeedReflectionFactor = -0.75f;
+
+        // Flyer movement params.
+		public float accelerationFactor = 0.5f;
+		public float snapToMaxThresholdFactor = 0.1f;
+
+        // Gravity bound movement params.
 		public float gravityFactor = 3f;
 		public float terminalVelocityFactor = 2f;
 		public float risingGravityBackoffFactor = 1f;
-		public float dashFactor = 3f;
 		public float jumpFactor = 1.8f;
 		public float wallJumpFactor = 1.5f;
 		public float wallSlideFactor = 0.3f;
 		public float wallJumpControlFactor = 5f;
         public float jumpFactorUpgradeModifier = 0.1f;
-		public float wallSpeedReflectionFactor = -0.75f;
 
-		// Player hit calculation params.
+		// Physics hit calculation params.
 		public float rayBoundShrinkage = 0.001f;
 		public int numRays = 4;
 		public LayerMask whatIsSolid;
 
-		private BoxCollider2D boxCollider;
-        
+        // Self initialized variables.
+		protected BoxCollider2D boxCollider;
+		protected Animator animator;
 		protected MovementState currentState;
 		protected Vector3 currentSpeed;
+		protected Vector3 currentControllerState;
 		private Vector3 currentOffset;
-		private Vector3 currentControllerState;
-		private bool actionHeld;
-		private bool grabHeld;
 		private float timerStart;
 
-        protected void AwakePhysics() {
+        // Self initialized flyer variables.
+		private float baseAcceleration;
+		private float snapToMaxThreshold;
+        private bool facingRight;
+
+        // Self initialized gravity bound variables.
+		private bool actionHeld;
+		private bool grabHeld;
+
+        protected abstract bool IsFlyer();
+
+        // Called by the system when created.
+        public override void Awake() {
+            base.Awake();
 			boxCollider = GetComponent<BoxCollider2D>();
+			animator = GetComponent<Animator>();
 			currentSpeed = new Vector3();
 			currentControllerState = new Vector3();
 			currentOffset = new Vector3();
 			currentState = MovementState.GROUNDED;
+			baseAcceleration = accelerationFactor * maxSpeed;
+			snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
+			facingRight = false;
 			actionHeld = false;
 			grabHeld = false;
         }
 
-        protected void UpdatePhysics() {
-			HandleVerticalMovement();
-			HandleHorizontalMovement();
-			MoveAndUpdateState();
+        // Called by the system once per frame.
+        public virtual void Update() {
+            if (IsFlyer()) {
+                UpdateCurrentSpeedFlyer();
+                MoveAndUpdateStateFlyer();
+            } else {
+			    HandleVerticalMovementGravityBound();
+			    HandleHorizontalMovementGravityBound();
+			    MoveAndUpdateStateGravityBound();
+            }
 			UpdateStateFromTimers();
+			HandleAnimator();
         }
 
-		private void HandleVerticalMovement() {
+		#region Gravity-bound physics handling.
+
+		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
 			if (currentState == MovementState.JUMPING && !actionHeld) {
 				currentState = MovementState.FALLING;
@@ -76,13 +107,13 @@ namespace Com.Tempest.Nightmare {
 				if (currentControllerState.y < -0.5f && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
 					downHeldFactor += currentControllerState.y;
 				}
-				currentSpeed.y -= maxSpeed * gravityFactor * downHeldFactor * Time.deltaTime;
+				currentSpeed.y += maxSpeed * gravityFactor * downHeldFactor * Time.deltaTime;
 			}
 			// Clip to terminal velocity if necessary.
 			currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
 		}
 
-		private void HandleHorizontalMovement() {
+		private void HandleHorizontalMovementGravityBound() {
 			switch (currentState) {
 				case MovementState.DASHING:
 					break;
@@ -104,7 +135,7 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		private void MoveAndUpdateState() {
+		private void MoveAndUpdateStateGravityBound() {
 			// Calculate how far we're going.
 			Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
 			if (currentOffset.magnitude < 0.1f) {
@@ -212,6 +243,130 @@ namespace Com.Tempest.Nightmare {
 			transform.position += distanceForFrame;
 		}
 
+		#endregion
+
+		#region Flying physics handling.
+
+        private void UpdateCurrentSpeedFlyer() {
+            // Ignore controls if damaged, dying, or dashing.
+            if (currentState == MovementState.DASHING) return;
+            if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING) {
+                currentSpeed *= 0.9f;
+                return;
+            }
+
+			Vector3 newMax = new Vector3(maxSpeed * currentControllerState.x, maxSpeed * currentControllerState.y);
+			if (newMax.magnitude > maxSpeed) {
+				newMax *= maxSpeed / newMax.magnitude;
+			}
+			if (currentSpeed.magnitude > maxSpeed) {
+				currentSpeed *= maxSpeed / currentSpeed.magnitude;
+			}
+			// This is how far we are from that speed.
+			Vector3 difference = newMax - currentSpeed;
+			float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : GetCurrentAcceleration();
+			if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
+				difference.x *= usableAcceleratior * Time.deltaTime;
+			}
+			if (Mathf.Abs(difference.y) > snapToMaxThreshold) {
+				difference.y *= usableAcceleratior * Time.deltaTime;
+			}
+			currentSpeed += difference;
+        }
+
+        private void MoveAndUpdateStateFlyer() {
+			// Calculate how far we're going.
+			Vector3 distanceForFrame = currentSpeed * Time.deltaTime;
+			if (currentOffset.magnitude < 0.1f) {
+				distanceForFrame += currentOffset;
+				currentOffset = new Vector3();
+			} else {
+				distanceForFrame += currentOffset / 4f;
+				currentOffset -= currentOffset / 4f;
+			}
+			bool goingRight = distanceForFrame.x > 0;
+			bool goingUp = distanceForFrame.y > 0;
+
+			// Declare everything we need for the ray casting process.
+			Bounds currentBounds = boxCollider.bounds;
+			currentBounds.Expand(rayBoundShrinkage * -1f);
+			Vector3 topLeft = new Vector3(currentBounds.min.x, currentBounds.max.y);
+			Vector3 bottomLeft = currentBounds.min;
+			Vector3 bottomRight = new Vector3(currentBounds.max.x, currentBounds.min.y);
+			bool hitX = false;
+			bool hitY = false;
+
+			// Use raycasts to decide if we hit anything horizontally.
+			if (distanceForFrame.x != 0) {
+				float rayInterval = (topLeft.y - bottomLeft.y) / (float)numRays;
+				Vector3 rayOriginBase = currentSpeed.x > 0 ? bottomRight : bottomLeft;
+				float rayOriginCorrection = currentSpeed.x > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
+				for (int x = 0; x <= numRays; x++) {
+					Vector3 rayOrigin = new Vector3(rayOriginBase.x + rayOriginCorrection, rayOriginBase.y + rayInterval * (float)x);
+					RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, goingRight ? Vector3.right : Vector3.left, Mathf.Abs(distanceForFrame.x), whatIsSolid);
+					if (rayCast) {
+						hitX = true;
+						distanceForFrame.x = rayCast.point.x - rayOrigin.x;
+					}
+					if (distanceForFrame.x == 0f)
+						break;
+				}
+			}
+			if (hitX) {
+				if (Mathf.Abs(currentSpeed.x) > maxSpeed) {
+					currentSpeed.x *= wallSpeedReflectionFactor;
+					currentOffset.x *= wallSpeedReflectionFactor;
+				} else {
+					currentSpeed.x = 0f;
+					currentOffset.x = 0f;
+				}
+			}
+
+			// Use raycasts to decide if we hit anything vertically.
+			if (distanceForFrame.y != 0) {
+				float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
+				Vector3 rayOriginBase = currentSpeed.y > 0 ? topLeft : bottomLeft;
+				float rayOriginCorrection = currentSpeed.y > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
+				for (int x = 0; x <= numRays; x++) {
+					Vector3 rayOrigin = new Vector3(rayOriginBase.x + rayInterval * (float)x, rayOriginBase.y + rayOriginCorrection);
+					RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame.y > 0 ? Vector3.up : Vector3.down, Mathf.Abs(distanceForFrame.y), whatIsSolid);
+					if (rayCast) {
+						hitY = true;
+						distanceForFrame.y = rayCast.point.y - rayOrigin.y;
+					}
+					if (distanceForFrame.y == 0f)
+						break;
+				}
+			}
+			if (hitY) {
+				if (currentState == MovementState.DASHING) {
+					currentSpeed.y *= wallSpeedReflectionFactor;
+					currentOffset.y *= wallSpeedReflectionFactor;
+				} else {
+					currentSpeed.y = 0;
+					currentOffset.y = 0f;
+				}
+			}
+
+			// Actually move at long last.
+			transform.position += distanceForFrame;
+
+			// Decide whether or not to flip.
+			goingRight = distanceForFrame.x > 0;
+			if (distanceForFrame.x != 0 && goingRight != facingRight) {
+				Flip();
+			}
+        }
+
+		protected virtual void Flip() {
+			facingRight = !facingRight;
+			Vector3 currentScale = transform.localScale;
+			currentScale.x *= -1;
+			transform.localScale = currentScale;
+		}
+
+		#endregion
+
 		private void UpdateStateFromTimers() {
 			if (currentState == MovementState.DAMAGED && Time.time - timerStart > damageRecovery) {
 				currentState = MovementState.FALLING;
@@ -221,17 +376,40 @@ namespace Com.Tempest.Nightmare {
 				currentState = MovementState.JUMPING;
 			} else if (currentState == MovementState.DASHING && Time.time - timerStart > dashDuration) {
 				currentState = MovementState.FALLING;
+			} else if (currentState == MovementState.JUMPING && currentSpeed.y <= 0) {
+				currentState = MovementState.FALLING;
 			}
 		}
 
-		protected void InputPhysics(float horizontalScale, float verticalScale, bool grabHeld) {
+		protected virtual void HandleAnimator() {
+			animator.SetBool("IsGrounded", currentState == MovementState.GROUNDED);
+			int speed = 0;
+			if (currentSpeed.x < 0f) speed = -1;
+			else if (currentSpeed.x > 0f) speed = 1;
+			animator.SetInteger("HorizontalSpeed", speed);
+			animator.SetBool("DyingAnimation", currentState == MovementState.DYING);
+		}
+
+		public virtual void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
 			currentControllerState = new Vector3(horizontalScale, verticalScale);
 			this.grabHeld = grabHeld;
 		}
 
-		protected void ActionPhysics(bool held) {
-			actionHeld = held;
+		public virtual void ActionPressed() {
+			actionHeld = true;
 		}
+
+		public virtual void ActionReleased() {
+			actionHeld = false;
+		}
+
+		public virtual void LightTogglePressed() {
+			// ignored callback.
+		}
+
+		#region Control callbacks.
+
+		// These callbacks are not used by every character, so they should be called by children of this class when needed.
 
 		protected void JumpPhysics() {
 			switch (currentState) {
@@ -275,15 +453,29 @@ namespace Com.Tempest.Nightmare {
 			currentSpeed = newSpeed;
 		}
 
-        private float JumpFactor() {
-            return jumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
+		#endregion
+
+		#region Overridable variable accessors.
+
+		// Some characters have conditional changes to these values, such as upgrades of powerups 
+		// that modify the values temporarily.  Overriding these will change how the numbers are 
+		// used in the base physics calculations.
+
+        protected virtual float JumpFactor() {
+            return jumpFactor;
         }
 
-        private float WallJumpFactor() {
-            return wallJumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
+        protected virtual float WallJumpFactor() {
+            return wallJumpFactor;
         }
 
-		protected void SerializePhysics(PhotonStream stream, PhotonMessageInfo info) {
+		protected virtual float GetCurrentAcceleration() {
+			return baseAcceleration;
+		}
+
+		#endregion
+
+		public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 			if (stream.isWriting) {
 				stream.SendNext(currentState);
 				stream.SendNext(transform.position);

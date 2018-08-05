@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class CryoBehavior : BaseNightmareBehavior {
+    public class CryoBehavior : BaseNightmare {
 
         public float fireballSpeed = 20f;
         public float fireballUpgradeSpeed = 2f;
@@ -15,21 +15,12 @@ namespace Com.Tempest.Nightmare {
 
         private float fireballTime;
 
-        public override void Awake() {
-            base.Awake();
-            lightBox.IsActive = true;
-        }
-
         protected override void Flip() {
             // Do nothing here to prevent the base behavior from manually flipping our sprite.
         }
 
         protected override void HandleAnimator() {
             base.HandleAnimator();
-            int hMove = 0;
-            if (currentSpeed.x < 0) hMove = -1;
-            else if (currentSpeed.x > 0) hMove = 1;
-            animator.SetInteger("HorizontalDirection", hMove);
             animator.SetBool("IsAttacking", IsAttacking());
         }
 
@@ -57,8 +48,13 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        // Override this to remove perfect acceleration powerup.
         protected override Powerup[] GetUsablePowerups() {
             return new Powerup[] { Powerup.BETTER_VISION, Powerup.DREAMER_VISION, Powerup.HALF_ABILITY_COOLDOWN };
+        }
+
+        protected override bool IsFlyer() {
+            return true;
         }
     }
 }

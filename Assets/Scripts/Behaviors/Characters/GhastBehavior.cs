@@ -4,55 +4,38 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class GhastBehavior : BaseNightmareBehavior {
+    public class GhastBehavior : BaseNightmare {
 
-        public float dashFactor = 2f;
-        public float dashDuration = 0.1f;
-        public float dashDamageDuration = 0.5f;
         public float dashCooldown = 1f;
         public float collisionDebounceTime = 1f;
         public float upgradeAccelerationFactor = 0.03f;
     
-        private float dashSpeed;
         private float dashStart;
         private float lastCollisionTime;
 
-        public override void Awake() {
-            base.Awake();
-            lightBox.IsActive = true;
-            dashSpeed = maxSpeed * dashFactor;
-        }
-
-        protected override void UpdateCurrentSpeed() {
-            if (photonView.isMine && Time.time - dashStart > dashDuration) {
-                base.UpdateCurrentSpeed();
-            }
-        }
-
         protected override void HandleAnimator() {
+            base.HandleAnimator();
             animator.SetBool("IsAttacking", IsAttacking());
         }
 
         public override void ActionPressed() {
-            float usableDashCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
-            if (Time.time - dashStart < usableDashCooldown || Time.time - lastCollisionTime < collisionDebounceTime) return;
-            dashStart = Time.time;
-            float angle = Mathf.Atan2(currentControllerState.y, currentControllerState.x);
-            currentSpeed.x = Mathf.Cos(angle) * dashSpeed;
-            currentSpeed.y = Mathf.Sin(angle) * dashSpeed;
+            if (Time.time - dashStart <= EffectiveDashCooldown()) {
+                DashPhysics();
+                dashStart = Time.time;
+            }
         }
 
-        public override void ActionReleased() {
-
+        private float EffectiveDashCooldown() {
+            return HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
         }
 
         public bool IsAttacking() {
-            return Time.time - dashStart < dashDamageDuration;
+            return currentState == MovementState.DASHING;
         }
 
         public void OnTriggerEnter2D(Collider2D other) {
             if (!photonView.isMine) return;
-            BaseExplorerBehavior associatedBehavior = other.gameObject.GetComponent<BaseExplorerBehavior>();
+            BaseExplorer associatedBehavior = other.gameObject.GetComponent<BaseExplorer>();
             if (associatedBehavior == null || associatedBehavior.IsOutOfHealth()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
                 associatedBehavior.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
@@ -68,7 +51,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float GetCurrentAcceleration() {
-            return baseAcceleration + (upgradeAccelerationFactor * (float) NumUpgrades);
+            return base.GetCurrentAcceleration() + (upgradeAccelerationFactor * (float) NumUpgrades);
+        }
+
+        protected override bool IsFlyer() {
+            return true;
         }
     }
 }

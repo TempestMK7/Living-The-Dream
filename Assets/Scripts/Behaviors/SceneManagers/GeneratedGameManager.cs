@@ -38,17 +38,17 @@ namespace Com.Tempest.Nightmare {
 		public float torchProbability = 0.3f;
 	
 		// Publicly accessible fields pertaining to game state.
-		public BaseExplorerBehavior Explorer { get; set; }
+		public BaseExplorer Explorer { get; set; }
 
-		public BaseNightmareBehavior Nightmare { get; set; }
+		public BaseNightmare Nightmare { get; set; }
 
 		public List<BonfireBehavior> Bonfires { get; set; }
 
 		public List<ShrineBehavior> Shrines { get; set; }
 
-		public List<BaseExplorerBehavior> Explorers { get; set; }
+		public List<BaseExplorer> Explorers { get; set; }
 
-		public List<BaseNightmareBehavior> Nightmares { get; set; }
+		public List<BaseNightmare> Nightmares { get; set; }
 
 		private int playersConnected;
 		private int levelsGenerated;
@@ -162,11 +162,11 @@ namespace Com.Tempest.Nightmare {
 				switch (playerContainer.ExplorerSelection) {
 				case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseExplorerBehavior>();
+						.GetComponent<BaseExplorer>();
 					break;
 				case GlobalPlayerContainer.JETPACK_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseExplorerBehavior>();
+						.GetComponent<BaseExplorer>();
 					break;
 				}
 				if (Explorer != null) {
@@ -180,11 +180,11 @@ namespace Com.Tempest.Nightmare {
 				switch (playerContainer.NightmareSelection) {
 				case GlobalPlayerContainer.GHAST:
 					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmareBehavior>();
+						.GetComponent<BaseNightmare>();
 					break;
 				case GlobalPlayerContainer.CRYO:
 					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmareBehavior>();
+						.GetComponent<BaseNightmare>();
 					break;
 				}
 				if (Nightmare != null) {
@@ -240,31 +240,31 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void HandlePlayers() {
-			HashSet<GameObject> explorerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseExplorerBehavior));
+			HashSet<GameObject> explorerSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseExplorer));
 			if ((Explorers == null && explorerSet.Count != 0) || (Explorers != null && explorerSet.Count != Explorers.Count)) {
-				Explorers = new List<BaseExplorerBehavior>();
+				Explorers = new List<BaseExplorer>();
 				foreach (GameObject go in explorerSet) {
-					Explorers.Add(go.GetComponent<BaseExplorerBehavior>());
+					Explorers.Add(go.GetComponent<BaseExplorer>());
 				}
 			}
-			HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseNightmareBehavior));
+			HashSet<GameObject> nightmareSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BaseNightmare));
 			if ((Nightmares == null && nightmareSet.Count != 0) || (Nightmares != null && nightmareSet.Count != Nightmares.Count)) {
-				Nightmares = new List<BaseNightmareBehavior>();
+				Nightmares = new List<BaseNightmare>();
 				foreach (GameObject go in nightmareSet) {
-					Nightmares.Add(go.GetComponent<BaseNightmareBehavior>());
+					Nightmares.Add(go.GetComponent<BaseNightmare>());
 				}
 			}
 			if (Explorers != null) {
 				int aliveExplorers = 0;
-				foreach (BaseExplorerBehavior dreamer in Explorers) {
-					if (!dreamer.IsDead()) {
+				foreach (BaseExplorer explorer in Explorers) {
+					if (!explorer.IsDead()) {
 						aliveExplorers++;
 					}
 				}
 				if (aliveExplorers == 0) {
 					BeginEndingSequence(GlobalPlayerContainer.NIGHTMARE);
 				}
-				dreamerText.text = "Dreamers Awake: " + aliveExplorers + " / " + Explorers.Count;    
+				dreamerText.text = "Explorers Alive: " + aliveExplorers + " / " + Explorers.Count;    
 			}
 		}
 
