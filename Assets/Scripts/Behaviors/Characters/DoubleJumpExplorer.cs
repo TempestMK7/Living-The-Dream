@@ -43,11 +43,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float JumpFactor() {
-            return jumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
+            return base.JumpFactor() + ((float) NumUpgrades * jumpFactorUpgradeModifier);
         }
 
         protected override float WallJumpFactor() {
-            return wallJumpFactor + ((float) NumUpgrades * jumpFactorUpgradeModifier);
+            return base.WallJumpFactor() + ((float) NumUpgrades * jumpFactorUpgradeModifier);
         }
 
         protected override bool IsFlyer() {

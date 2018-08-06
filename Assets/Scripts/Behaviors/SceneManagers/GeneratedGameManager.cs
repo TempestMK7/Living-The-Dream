@@ -23,6 +23,7 @@ namespace Com.Tempest.Nightmare {
 		// Prefabs.
 		public GameObject ghastPrefab;
 		public GameObject cryoPrefab;
+		public GameObject goblinPrefab;
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
 
@@ -178,14 +179,18 @@ namespace Com.Tempest.Nightmare {
 				float spawnLocationY = (UnityEngine.Random.Range(0, levelChunks.GetLength(1) / 2) * 16) + 2;
 				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.NightmareSelection) {
-				case GlobalPlayerContainer.GHAST:
-					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmare>();
-					break;
-				case GlobalPlayerContainer.CRYO:
-					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmare>();
-					break;
+					case GlobalPlayerContainer.GHAST:
+						Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
+					case GlobalPlayerContainer.CRYO:
+						Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
+					case GlobalPlayerContainer.GOBLIN:
+						Nightmare = PhotonNetwork.Instantiate(goblinPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
 				}
 				if (Nightmare != null) {
 					Camera.main.transform.position = Nightmare.gameObject.transform.position;

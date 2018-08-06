@@ -92,23 +92,23 @@ namespace Com.Tempest.Nightmare {
 		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
 			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
-				currentSpeed.y -= maxSpeed * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
+				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				if (grabHeld && currentSpeed.y <= 0f) {
 					currentSpeed.y = 0f;
 				} else {
-					currentSpeed.y -= maxSpeed * gravityFactor * Time.deltaTime;
-					currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * wallSlideFactor * -1f);
+					currentSpeed.y -= MaxSpeed() * gravityFactor * Time.deltaTime;
+					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * -1f);
 				}
 			} else {
 				float downHeldFactor = -1f;
 				if (currentControllerState.y < -0.5f && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
 					downHeldFactor += currentControllerState.y;
 				}
-				currentSpeed.y += maxSpeed * gravityFactor * downHeldFactor * Time.deltaTime;
+				currentSpeed.y += MaxSpeed() * gravityFactor * downHeldFactor * Time.deltaTime;
 			}
 			// Clip to terminal velocity if necessary.
-			currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * terminalVelocityFactor * -1f);
+			currentSpeed.y = Mathf.Clamp(currentSpeed.y, MaxSpeed() * terminalVelocityFactor * -1f, MaxSpeed() * JumpFactor());
 		}
 
 		private void HandleHorizontalMovementGravityBound() {
@@ -120,17 +120,27 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.x -= currentSpeed.x * Time.deltaTime;
 					break;
 				case MovementState.WALL_SLIDE_LEFT:
-					currentSpeed.x = -0.01f;
+					if (currentControllerState.x > 0.5f && !grabHeld) {
+						currentSpeed.x = currentControllerState.x * MaxSpeed();
+						currentState = MovementState.FALLING;
+					} else {
+						currentSpeed.x = -0.01f;
+					}
 					break;
 				case MovementState.WALL_SLIDE_RIGHT:
-					currentSpeed.x = 0.01f;
+					if (currentControllerState.x < -0.5f && !grabHeld) {
+						currentSpeed.x = currentControllerState.x * MaxSpeed();
+						currentState = MovementState.FALLING;
+					} else {
+						currentSpeed.x = 0.01f;
+					}
 					break;
 				case MovementState.WALL_JUMP:
-					currentSpeed.x += currentControllerState.x * maxSpeed * Time.deltaTime * wallJumpControlFactor;
-					currentSpeed.x = Mathf.Clamp(currentSpeed.x, maxSpeed * -1f, maxSpeed);
+					currentSpeed.x += currentControllerState.x * MaxSpeed() * Time.deltaTime * wallJumpControlFactor;
+					currentSpeed.x = Mathf.Clamp(currentSpeed.x, MaxSpeed() * -1f, MaxSpeed());
 					break;
 				default:
-					currentSpeed.x = currentControllerState.x * maxSpeed;
+					currentSpeed.x = currentControllerState.x * MaxSpeed();
 					break;
 			}
 		}
@@ -188,7 +198,7 @@ namespace Com.Tempest.Nightmare {
 				} else {
 					currentSpeed.x = 0f;
 					currentOffset.x = 0f;
-					currentSpeed.y = Mathf.Max(currentSpeed.y, maxSpeed * wallSlideFactor * -1f);
+					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * -1f);
 				}
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				currentState = MovementState.FALLING;
@@ -222,7 +232,10 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitY) {
-				if ((currentState == MovementState.DASHING || currentState == MovementState.DAMAGED || currentState == MovementState.DYING) && Mathf.Abs(currentSpeed.y) > maxSpeed) {
+				if ((currentState == MovementState.DASHING || 
+						currentState == MovementState.DAMAGED || 
+						currentState == MovementState.DYING) && 
+								Mathf.Abs(currentSpeed.y) > MaxSpeed()) {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
 				} else {
@@ -424,18 +437,18 @@ namespace Com.Tempest.Nightmare {
 				case MovementState.JUMPING:
 				case MovementState.FALLING:
 				case MovementState.WALL_JUMP:
-					currentSpeed.y = maxSpeed * JumpFactor();
+					currentSpeed.y = MaxSpeed() * JumpFactor();
 					currentState = MovementState.JUMPING;
 					break;
 				case MovementState.WALL_SLIDE_LEFT:
-                	currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * maxSpeed * WallJumpFactor();
-                	currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * maxSpeed * WallJumpFactor();
+                	currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
+                	currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
 					timerStart = Time.time;
 					currentState = MovementState.WALL_JUMP;
 					break;
 				case MovementState.WALL_SLIDE_RIGHT:
-                	currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * maxSpeed * WallJumpFactor();
-                	currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * maxSpeed * WallJumpFactor();
+                	currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
+                	currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
 					timerStart = Time.time;
 					currentState = MovementState.WALL_JUMP;
 					break;
@@ -447,7 +460,7 @@ namespace Com.Tempest.Nightmare {
 			currentState = MovementState.DASHING;
 			timerStart = Time.time;
 
-            Vector3 direction = currentControllerState * maxSpeed / currentControllerState.magnitude;
+            Vector3 direction = currentControllerState * MaxSpeed() / currentControllerState.magnitude;
             currentSpeed = direction * dashFactor;
 		}
 
@@ -468,6 +481,10 @@ namespace Com.Tempest.Nightmare {
 		// Some characters have conditional changes to these values, such as upgrades of powerups 
 		// that modify the values temporarily.  Overriding these will change how the numbers are 
 		// used in the base physics calculations.
+
+		protected virtual float MaxSpeed() {
+			return maxSpeed;
+		}
 
         protected virtual float JumpFactor() {
             return jumpFactor;

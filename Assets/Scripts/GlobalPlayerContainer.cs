@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
 
         public const int GHAST = 0;
         public const int CRYO = 1;
+        public const int GOBLIN = 2;
 
         public const string TEAM_SELECTION = "team_selection";
         public const string IS_READY = "is_ready";

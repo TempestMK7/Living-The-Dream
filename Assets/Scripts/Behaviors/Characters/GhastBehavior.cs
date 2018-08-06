@@ -19,6 +19,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void ActionPressed() {
+            base.ActionPressed();
             if (Time.time - dashStart >= EffectiveDashCooldown()) {
                 DashPhysics();
                 dashStart = Time.time;

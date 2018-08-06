@@ -425,8 +425,8 @@ MonoBehaviour:
   gravityFactor: 3
   terminalVelocityFactor: 3
   risingGravityBackoffFactor: 0.9
-  jumpFactor: 1.5
-  wallJumpFactor: 1.5
+  jumpFactor: 1.8
+  wallJumpFactor: 1.8
   wallSlideFactor: 0.5
   wallJumpControlFactor: 6
   jumpFactorUpgradeModifier: 0.1
