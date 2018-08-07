@@ -97,8 +97,9 @@ namespace Com.Tempest.Nightmare {
 				if (grabHeld && currentSpeed.y <= 0f) {
 					currentSpeed.y = 0f;
 				} else {
-					currentSpeed.y -= MaxSpeed() * gravityFactor * Time.deltaTime;
-					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * -1f);
+					float wallControlFactor = currentControllerState.y < -0.5f ? terminalVelocityFactor : 1f;
+					currentSpeed.y -= MaxSpeed() * gravityFactor * Time.deltaTime * wallControlFactor;
+					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * wallControlFactor * -1f);
 				}
 			} else {
 				float downHeldFactor = -1f;
@@ -198,7 +199,6 @@ namespace Com.Tempest.Nightmare {
 				} else {
 					currentSpeed.x = 0f;
 					currentOffset.x = 0f;
-					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * -1f);
 				}
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				currentState = MovementState.FALLING;
@@ -415,12 +415,20 @@ namespace Com.Tempest.Nightmare {
 			this.grabHeld = grabHeld;
 		}
 
-		public virtual void ActionPressed() {
+		public virtual void ActionPrimaryPressed() {
 			actionHeld = true;
 		}
 
-		public virtual void ActionReleased() {
+		public virtual void ActionPrimaryReleased() {
 			actionHeld = false;
+		}
+
+		public virtual void ActionSecondaryPressed() {
+			// ignored callback.
+		}
+
+		public virtual void ActionSecondaryReleased() {
+			// ignored callback.
 		}
 
 		public virtual void LightTogglePressed() {

@@ -156,13 +156,13 @@ MonoBehaviour:
   dashDuration: 0.15
   damageRecovery: 1
   deathAnimationTime: 3
-  maxSpeed: 10
+  maxSpeed: 9
   dashFactor: 3
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.5
   snapToMaxThresholdFactor: 0.1
-  gravityFactor: 3
-  terminalVelocityFactor: 3
+  gravityFactor: 2.5
+  terminalVelocityFactor: 2.5
   risingGravityBackoffFactor: 0.5
   jumpFactor: 1.6
   wallJumpFactor: 1.6
@@ -179,7 +179,7 @@ MonoBehaviour:
     m_Bits: 1024
   lightBoxScale: 20
   collisionDebounceTime: 1
-  upgradeSpeedFactor: 0.2
+  upgradeSpeedFactor: 0.15
 --- !u!114 &114109434901271258
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -18,8 +18,8 @@ namespace Com.Tempest.Nightmare {
             animator.SetBool("IsAttacking", IsAttacking());
         }
 
-        public override void ActionPressed() {
-            base.ActionPressed();
+        public override void ActionPrimaryPressed() {
+            base.ActionPrimaryPressed();
             if (Time.time - dashStart >= EffectiveDashCooldown()) {
                 DashPhysics();
                 dashStart = Time.time;

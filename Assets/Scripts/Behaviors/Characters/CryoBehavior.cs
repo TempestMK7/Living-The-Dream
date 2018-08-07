@@ -28,15 +28,12 @@ namespace Com.Tempest.Nightmare {
             return Time.time - fireballTime < fireballAttackAnimation;
         }
 
-        public override void ActionPressed() {
+        public override void ActionPrimaryPressed() {
+            base.ActionPrimaryPressed();
             float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
             if (Time.time - fireballTime < usableAttackCooldown) return;
             fireballTime = Time.time;
             LaunchIceBall();
-        }
-
-        public override void ActionReleased() {
-
         }
 
         public void LaunchIceBall() {

@@ -56,8 +56,8 @@ namespace Com.Tempest.Nightmare {
             fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != UpgradedMaxJetpackTime());
         }
 
-        public override void ActionPressed() {
-            base.ActionPressed();
+        public override void ActionPrimaryPressed() {
+            base.ActionPrimaryPressed();
 
             switch (currentState) {
                 case MovementState.GROUNDED:
@@ -73,8 +73,8 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        public override void ActionReleased() {
-            base.ActionReleased();
+        public override void ActionPrimaryReleased() {
+            base.ActionPrimaryReleased();
             jetpackOn = false;
         }
 

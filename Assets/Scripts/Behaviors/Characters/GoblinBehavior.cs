@@ -28,14 +28,22 @@ namespace Com.Tempest.Nightmare {
             animator.SetBool("IsAttacking", currentState == MovementState.DASHING);
         }
 
-        public override void ActionPressed() {
-            base.ActionPressed();
+        public override void ActionPrimaryPressed() {
+            base.ActionPrimaryPressed();
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
                     JumpPhysics();
                     break;
+            }
+        }
+
+        public override void ActionSecondaryPressed() {
+            switch (currentState) {
+                case MovementState.GROUNDED:
+                case MovementState.WALL_SLIDE_LEFT:
+                case MovementState.WALL_SLIDE_RIGHT:
                 case MovementState.JUMPING:
                 case MovementState.FALLING:
                 case MovementState.WALL_JUMP:

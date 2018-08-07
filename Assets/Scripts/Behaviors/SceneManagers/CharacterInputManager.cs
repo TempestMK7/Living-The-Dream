@@ -34,12 +34,14 @@ namespace Com.Tempest.Nightmare {
 			actionSet.Down.AddDefaultBinding(InputControlType.DPadDown);
 			actionSet.Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
-			actionSet.Action.AddDefaultBinding(Key.Space);
-			actionSet.Action.AddDefaultBinding(InputControlType.Action1);
+			actionSet.ActionPrimary.AddDefaultBinding(Key.Space);
+			actionSet.ActionPrimary.AddDefaultBinding(InputControlType.Action1);
+
+			actionSet.ActionSecondary.AddDefaultBinding(Mouse.LeftButton);
+			actionSet.ActionSecondary.AddDefaultBinding(InputControlType.Action2);
 
 			actionSet.ActivateLight.AddDefaultBinding(Key.Control);
 			actionSet.ActivateLight.AddDefaultBinding(InputControlType.LeftBumper);
-			actionSet.ActivateLight.AddDefaultBinding(InputControlType.Action2);
 
 			actionSet.Grab.AddDefaultBinding(Key.Shift);
 			actionSet.Grab.AddDefaultBinding(InputControlType.RightBumper);
@@ -58,11 +60,17 @@ namespace Com.Tempest.Nightmare {
 				Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
 			} else {
 				controllable.InputsReceived(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
-				if (actionSet.Action.WasPressed) {
-					controllable.ActionPressed();
+				if (actionSet.ActionPrimary.WasPressed) {
+					controllable.ActionPrimaryPressed();
 				}
-				if (actionSet.Action.WasReleased) {
-					controllable.ActionReleased();
+				if (actionSet.ActionPrimary.WasReleased) {
+					controllable.ActionPrimaryReleased();
+				}
+				if (actionSet.ActionSecondary.WasPressed) {
+					controllable.ActionSecondaryPressed();
+				}
+				if (actionSet.ActionSecondary.WasReleased) {
+					controllable.ActionSecondaryReleased();
 				}
 				if (actionSet.ActivateLight.WasPressed) {
 					controllable.LightTogglePressed();
