@@ -80,5 +80,9 @@ namespace Com.Tempest.Nightmare {
         private bool IsLit() {
             return Time.time - timeTaken > respawnTimer;
         }
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+            // ignored callback.
+		}
     }
 }

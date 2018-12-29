@@ -24,6 +24,7 @@ namespace Com.Tempest.Nightmare {
 		public GameObject ghastPrefab;
 		public GameObject cryoPrefab;
 		public GameObject goblinPrefab;
+		
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
 

@@ -249,10 +249,15 @@ namespace Com.Tempest.Nightmare {
 			// If our horizontal and vertical ray casts did not find anything, there could still be an object to our corner.
 			if (!hitX && !hitY && distanceForFrame.x != 0 && distanceForFrame.y != 0) {
 				Vector3 rayOrigin = new Vector3(goingRight ? bottomRight.x : bottomLeft.x, goingUp ? topLeft.y : bottomLeft.y);
+				rayOrigin.x += goingRight ? rayBoundShrinkage : rayBoundShrinkage * -1f;
+				rayOrigin.y += goingUp ? rayBoundShrinkage : rayBoundShrinkage * -1f;
 				RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame, distanceForFrame.magnitude, whatIsSolid);
 				if (rayCast) {
 					distanceForFrame.x = rayCast.point.x - rayOrigin.x;
 					distanceForFrame.y = rayCast.point.y - rayOrigin.y;
+					currentSpeed.x = 0f;
+					currentOffset.x = 0f;
+					currentState = goingRight ? MovementState.WALL_SLIDE_RIGHT : MovementState.WALL_SLIDE_LEFT;
 				}
 			}
 
@@ -468,8 +473,12 @@ namespace Com.Tempest.Nightmare {
 			currentState = MovementState.DASHING;
 			timerStart = Time.time;
 
-            Vector3 direction = currentControllerState * MaxSpeed() / currentControllerState.magnitude;
-            currentSpeed = direction * dashFactor;
+			if (currentControllerState.magnitude == 0f) {
+				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * dashFactor;
+			} else {
+            	Vector3 direction = currentControllerState * MaxSpeed() / currentControllerState.magnitude;
+            	currentSpeed = direction * dashFactor;
+			}
 		}
 
 		protected void AttackPhysics() {
