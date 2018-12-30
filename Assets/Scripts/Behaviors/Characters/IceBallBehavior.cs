@@ -10,11 +10,13 @@ namespace Com.Tempest.Nightmare {
         public float explosionTriggerRadius = .5f;
         public float explosionRadius = 2f;
         public float explosionDuration = 0.5f;
+        public float lightBoxScale = 1f;
 
         public LayerMask whatIsExplosionTrigger;
         public LayerMask whatTakesDamage;
 
         private Animator animator;
+        private LightBoxBehavior lightBox;
 
         private Vector3 currentSpeed;
         private float explosionTime;
@@ -34,6 +36,12 @@ namespace Com.Tempest.Nightmare {
             animator = GetComponent<Animator>();
             if (currentSpeed == null) currentSpeed = new Vector3();
             playersHit = new List<BaseExplorer>();
+
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = false;
+            lightBox.IsActive = true;
+            lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
+            lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
         }
         
         void Update() {

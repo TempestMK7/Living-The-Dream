@@ -133,6 +133,7 @@ namespace Com.Tempest.Nightmare {
 			levelsGenerated++;
 			if (PhotonNetwork.playerList.Length == levelsGenerated) {
 				GenerateBonfires();
+				photonView.RPC("FindBonfireBehaviors", PhotonTargets.All);
 				photonView.RPC("InstantiateCharacter", PhotonTargets.All);
 			}
 		}
@@ -152,6 +153,25 @@ namespace Com.Tempest.Nightmare {
 					PhotonNetwork.Instantiate(torchPrefab.name, torchHolder.position, Quaternion.identity, 0);
 				}
 			}
+		}
+
+		[PunRPC]
+		public void FindBonfireBehaviors() {
+			HashSet<GameObject> fireSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BonfireBehavior));
+			if (fireSet.Count != 0) {
+				Bonfires = new List<BonfireBehavior>();
+				foreach (GameObject go in fireSet) {
+					Bonfires.Add(go.GetComponent<BonfireBehavior>());
+				}
+			}
+			HashSet<GameObject> shrineSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(ShrineBehavior));
+			if (shrineSet.Count != 0) {
+				Shrines = new List<ShrineBehavior>();
+				foreach (GameObject go in shrineSet) {
+					Shrines.Add(go.GetComponent<ShrineBehavior>());
+				}
+			}
+
 		}
 
 		[PunRPC]
@@ -204,21 +224,11 @@ namespace Com.Tempest.Nightmare {
 
 		public void Update() {
 			HandleBonfires();
-			HandleShrines();
 			HandlePlayers();
 			HandleUpgrades();
 		}
 
 		private void HandleBonfires() {
-			if (Bonfires == null) {
-				HashSet<GameObject> fireSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BonfireBehavior));
-				if (fireSet.Count != 0) {
-					Bonfires = new List<BonfireBehavior>();
-					foreach (GameObject go in fireSet) {
-						Bonfires.Add(go.GetComponent<BonfireBehavior>());
-					}
-				}
-			}
 			if (Bonfires != null) {
 				int firesLit = 0;
 				foreach (BonfireBehavior bonfire in Bonfires) {
@@ -230,18 +240,6 @@ namespace Com.Tempest.Nightmare {
 					BeginEndingSequence(GlobalPlayerContainer.EXPLORER);
 				}
 				bonfireText.text = "Bonfires Remaining: " + (Bonfires.Count - firesLit - bonfiresAllowedIncomplete);
-			}
-		}
-
-		private void HandleShrines() {
-			if (Shrines == null) {
-				HashSet<GameObject> shrineSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(ShrineBehavior));
-				if (shrineSet.Count != 0) {
-					Shrines = new List<ShrineBehavior>();
-					foreach (GameObject go in shrineSet) {
-						Shrines.Add(go.GetComponent<ShrineBehavior>());
-					}
-				}
 			}
 		}
 

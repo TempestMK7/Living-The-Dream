@@ -56,4 +56,5 @@ MonoBehaviour:
   - AddUpgrade
   - NotifyTaken
   - AddUpgradeToCharacter
+  - FindBonfireBehaviors
   DisableAutoOpenWizard: 1
