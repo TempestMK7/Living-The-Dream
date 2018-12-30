@@ -57,7 +57,7 @@ namespace Com.Tempest.Nightmare {
 		public void ResendPlayerInfoIfWrong() {
 			PhotonPlayer player = PhotonNetwork.player;
 			if ((int)player.CustomProperties[GlobalPlayerContainer.TEAM_SELECTION] != GlobalPlayerContainer.Instance.TeamSelection ||
-			             !GlobalPlayerContainer.Instance.IsReady.Equals(player.CustomProperties[GlobalPlayerContainer.IS_READY])) {
+			    	GlobalPlayerContainer.Instance.IsReady.Equals(player.CustomProperties[GlobalPlayerContainer.IS_READY])) {
 				InitializePlayerStateWithPhoton();
 			}
 		}
@@ -73,6 +73,10 @@ namespace Com.Tempest.Nightmare {
 			bool allPlayersReady = true;
 			foreach (PhotonPlayer player in playerList) {
 				Text playerText = Instantiate(textPrefab) as Text;
+				if (!player.CustomProperties.ContainsKey(GlobalPlayerContainer.IS_READY) ||
+				 		!player.CustomProperties.ContainsKey(GlobalPlayerContainer.TEAM_SELECTION)) {
+					continue;
+				}
 				string readyStatus = player.CustomProperties[GlobalPlayerContainer.IS_READY].ToString();
 				int teamSelection = (int)player.CustomProperties[GlobalPlayerContainer.TEAM_SELECTION];
 				playerText.text = "(" + readyStatus + ") " + player.NickName;

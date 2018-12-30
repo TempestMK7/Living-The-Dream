@@ -24,7 +24,7 @@ namespace Com.Tempest.Nightmare {
         public const string STATUS_READY = "Ready";
         public const string STATUS_NOT_READY = "Not Ready";
 
-        public const string GAME_VERSION = "0.04";
+        public const string GAME_VERSION = "0.05";
 
         public static GlobalPlayerContainer Instance;
 

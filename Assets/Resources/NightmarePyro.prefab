@@ -220,7 +220,7 @@ MonoBehaviour:
   dashDuration: 0.5
   damageRecovery: 1
   deathAnimationTime: 3
-  maxSpeed: 8
+  maxSpeed: 9
   dashFactor: 3
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 2

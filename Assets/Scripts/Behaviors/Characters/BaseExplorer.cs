@@ -66,13 +66,14 @@ namespace Com.Tempest.Nightmare {
 		private void ResurrectIfAble() {
 			if (!photonView.isMine || !IsDead() || IsOutOfLives())
 				return;
+				bool ableToRes = false;
 			Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
 			foreach (Collider2D fireCollider in bonfires) {
 				BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
 				if (behavior == null)
 					continue;
 				if (behavior.IsLit()) {
-					currentHealth = maxHealth;
+					ableToRes = true;
 				}
 			}
 			if (IsDead()) {
@@ -82,9 +83,14 @@ namespace Com.Tempest.Nightmare {
 					if (behavior == null)
 						continue;
 					if (!behavior.IsOutOfHealth()) {
-						currentHealth = maxHealth;
+						ableToRes = true;
 					}
 				}
+			}
+			if (ableToRes) {
+				currentHealth = maxHealth;
+				GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
+				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", GlobalPlayerContainer.EXPLORER);
 			}
 		}
 
@@ -154,6 +160,7 @@ namespace Com.Tempest.Nightmare {
 			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || IsOutOfHealth())
 				return;
 			currentHealth -= 1;
+			damageTime = Time.time;
 			DamagePhysics(currentSpeed, IsOutOfHealth());
 			DieIfAble();
 		}
