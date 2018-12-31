@@ -1,0 +1,1021 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563747bf02184ce4ea14006d97b0c701, type: 3}
+  m_Name: MyTalentusTree
+  m_EditorClassIdentifier: 
+  treeName: MyTalentusTree
+  talents:
+  - {fileID: 114517847659753742}
+  - {fileID: 114525911305740352}
+  - {fileID: 114843724075483378}
+  - {fileID: 114238293218772538}
+  - {fileID: 114700175850898922}
+  - {fileID: 114818403365365694}
+  - {fileID: 114352218229788824}
+  connections:
+  - {fileID: 114757815092339072}
+  - {fileID: 114779797183628200}
+  - {fileID: 114787167663414444}
+  - {fileID: 114243391850524694}
+  - {fileID: 114251665054348390}
+  - {fileID: 114215912233075902}
+  - {fileID: 114052186773100830}
+  tiers:
+  - {fileID: 114475375877927028}
+  - {fileID: 114983151439858430}
+  - {fileID: 114598528866246646}
+  selectedNode: {fileID: 0}
+  selectedConnection: {fileID: 0}
+  wantsConnection: 0
+  connectionNode: {fileID: 114843724075483378}
+  showProperties: 0
+  PanX: 0
+  PanY: 52
+  mouseOverProperties: 0
+  propertyWidth: 483.25
+  PointsToAssign: 10
+--- !u!114 &114052186773100830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: PlagueSpread_SecretOfLife
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114843724075483378}
+  toNode: {fileID: 114352218229788824}
+  curvePoints:
+  - {x: 172, y: 292, z: 0}
+  - {x: 189.09999, y: 295.61197, z: 0}
+  - {x: 209.8, y: 305.41605, z: 0}
+  - {x: 233.20001, y: 319.86398, z: 0}
+  - {x: 258.40002, y: 337.40802, z: 0}
+  - {x: 284.5, y: 356.5, z: 0}
+  - {x: 310.6, y: 375.592, z: 0}
+  - {x: 335.8, y: 393.136, z: 0}
+  - {x: 359.2, y: 407.58405, z: 0}
+  - {x: 397, y: 421, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114617773714374108}
+  connectionType: 0
+--- !u!114 &114139706421250468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 2
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: The second level cost
+--- !u!114 &114144748055318670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 3
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114154745680980792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Rampage Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114165133926605454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 2
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114215912233075902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: Navigation_SecretOfLife
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114517847659753742}
+  toNode: {fileID: 114352218229788824}
+  curvePoints:
+  - {x: 169, y: 112, z: 0}
+  - {x: 186.18398, y: 120.652, z: 0}
+  - {x: 207.112, y: 144.136, z: 0}
+  - {x: 230.84802, y: 178.744, z: 0}
+  - {x: 256.45602, y: 220.768, z: 0}
+  - {x: 283, y: 266.5, z: 0}
+  - {x: 309.544, y: 312.23203, z: 0}
+  - {x: 335.152, y: 354.25598, z: 0}
+  - {x: 358.888, y: 388.864, z: 0}
+  - {x: 397, y: 421, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114829983431949750}
+  connectionType: 0
+--- !u!114 &114221541707519950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 5
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: The fifth and final cost
+--- !u!114 &114224550317840704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 3
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: The tirth level cost
+--- !u!114 &114238293218772538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Phantom Invade
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 250
+    y: 236
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: f6c393a98995bd045ba9ff86e1377e96, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: 
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114983151439858430}
+  cost:
+  - {fileID: 114848140442089256}
+  - {fileID: 114796070883552422}
+--- !u!114 &114243391850524694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: NavigationTechnology_Rampage
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114525911305740352}
+  toNode: {fileID: 114700175850898922}
+  curvePoints:
+  - {x: 342, y: 112, z: 0}
+  - {x: 354.53598, y: 114.520004, z: 0}
+  - {x: 362.84802, y: 121.36, z: 0}
+  - {x: 367.99197, y: 131.44, z: 0}
+  - {x: 371.02405, y: 143.68002, z: 0}
+  - {x: 373, y: 157, z: 0}
+  - {x: 374.97598, y: 170.32, z: 0}
+  - {x: 378.008, y: 182.56, z: 0}
+  - {x: 383.152, y: 192.64001, z: 0}
+  - {x: 404, y: 202, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114255483003147744}
+  connectionType: 1
+--- !u!114 &114249351789367306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 3
+  m_EditorClassIdentifier: 
+  Cost: 3
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114251665054348390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: PhantomInvade_Rampage
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114238293218772538}
+  toNode: {fileID: 114700175850898922}
+  curvePoints:
+  - {x: 346, y: 292, z: 0}
+  - {x: 358.42398, y: 289.47998, z: 0}
+  - {x: 366.43204, y: 282.64, z: 0}
+  - {x: 371.12796, y: 272.56, z: 0}
+  - {x: 373.61603, y: 260.32004, z: 0}
+  - {x: 375, y: 247, z: 0}
+  - {x: 376.384, y: 233.68001, z: 0}
+  - {x: 378.872, y: 221.44, z: 0}
+  - {x: 383.568, y: 211.36002, z: 0}
+  - {x: 404, y: 202, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114641888129165990}
+  connectionType: 1
+--- !u!114 &114255483003147744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 2
+  Value: 0
+  Description: Tier 1 is maxed out.
+--- !u!114 &114269102053535148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 2
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114338027426233164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 2
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114352218229788824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Secret Of Life
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 397
+    y: 365
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 82d5c62bf5ea03140add221dc8e785f2, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: Learn how to heal yourself.
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114598528866246646}
+  cost:
+  - {fileID: 114338027426233164}
+  - {fileID: 114795077442857820}
+  - {fileID: 114249351789367306}
+  - {fileID: 114560236643530020}
+--- !u!114 &114383278641254020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 1
+  Value: 1
+  Description: Navigation must be maxed out.
+--- !u!114 &114465917714911146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114475375877927028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18962e5781387be42968e80823f11f33, type: 3}
+  m_Name: Tier 1
+  m_EditorClassIdentifier: 
+  parentTree: {fileID: 11400000}
+  editorColor:
+    r: 0
+    g: 0
+    b: 1
+    a: 1
+  description: 
+--- !u!114 &114478242389026406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 4
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: The fourth level cost
+--- !u!114 &114502212053148924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114517847659753742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Navigation
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 73
+    y: 56
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 7f8784f1bee35624a86234b984d3537b, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 1
+  description: 
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114475375877927028}
+  cost:
+  - {fileID: 114502212053148924}
+--- !u!114 &114525911305740352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Navigation Technology
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 246
+    y: 56
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 73651bc31aea9d04ba07ff88b25a9e76, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: 
+  explanation: You must have bought Navigation.
+  isInResearch: 0
+  tier: {fileID: 114475375877927028}
+  cost:
+  - {fileID: 114859077352670060}
+  - {fileID: 114269102053535148}
+  - {fileID: 114144748055318670}
+  - {fileID: 114907242799872594}
+  - {fileID: 114897344511552826}
+--- !u!114 &114542026656200468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 1
+  Value: 1
+  Description: Rampage must be maxed out.
+--- !u!114 &114560236643530020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 4
+  m_EditorClassIdentifier: 
+  Cost: 3
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114576546763076558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114581189711443820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 3
+  m_EditorClassIdentifier: 
+  Cost: 2
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114598528866246646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18962e5781387be42968e80823f11f33, type: 3}
+  m_Name: Tier 3
+  m_EditorClassIdentifier: 
+  parentTree: {fileID: 11400000}
+  editorColor:
+    r: 1
+    g: 0
+    b: 0
+    a: 1
+  description: 
+--- !u!114 &114617773714374108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Plague Spread must be active.
+--- !u!114 &114630702037417750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Plague Spread must be active.
+--- !u!114 &114641888129165990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 2
+  Value: 0
+  Description: Tier 2 must be maxed out!
+--- !u!114 &114680841499178612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114700175850898922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Rampage
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 404
+    y: 146
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 8d179291512b3dc40a812f134ebda589, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: 'This is a clear description of what Rampage is supposed to do.
+
+'
+  explanation: You must have bought Navigation Technology OR Phantom Invade.
+  isInResearch: 0
+  tier: {fileID: 114598528866246646}
+  cost:
+  - {fileID: 114154745680980792}
+  - {fileID: 114165133926605454}
+  - {fileID: 114581189711443820}
+--- !u!114 &114757815092339072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114517847659753742}
+  toNode: {fileID: 114525911305740352}
+  curvePoints:
+  - {x: 169, y: 112, z: 0}
+  - {x: 181.95596, y: 112, z: 0}
+  - {x: 191.408, y: 112.00001, z: 0}
+  - {x: 198.23201, y: 112, z: 0}
+  - {x: 203.30403, y: 112.000015, z: 0}
+  - {x: 207.5, y: 112, z: 0}
+  - {x: 211.696, y: 112, z: 0}
+  - {x: 216.768, y: 112.00001, z: 0}
+  - {x: 223.59201, y: 112, z: 0}
+  - {x: 246, y: 112, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114383278641254020}
+  connectionType: 0
+--- !u!114 &114779797183628200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114843724075483378}
+  toNode: {fileID: 114238293218772538}
+  curvePoints:
+  - {x: 172, y: 292, z: 0}
+  - {x: 184.98398, y: 291.99997, z: 0}
+  - {x: 194.51201, y: 292.00003, z: 0}
+  - {x: 201.448, y: 291.99997, z: 0}
+  - {x: 206.65604, y: 292, z: 0}
+  - {x: 211, y: 292, z: 0}
+  - {x: 215.344, y: 292.00003, z: 0}
+  - {x: 220.55202, y: 292, z: 0}
+  - {x: 227.48799, y: 292, z: 0}
+  - {x: 250, y: 292, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114630702037417750}
+  connectionType: 0
+--- !u!114 &114787167663414444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114700175850898922}
+  toNode: {fileID: 114818403365365694}
+  curvePoints:
+  - {x: 500, y: 202, z: 0}
+  - {x: 512.928, y: 201.99995, z: 0}
+  - {x: 522.304, y: 202.00002, z: 0}
+  - {x: 529.016, y: 201.99998, z: 0}
+  - {x: 533.952, y: 202.00003, z: 0}
+  - {x: 538, y: 202, z: 0}
+  - {x: 542.04803, y: 202, z: 0}
+  - {x: 546.984, y: 202, z: 0}
+  - {x: 553.696, y: 202, z: 0}
+  - {x: 576, y: 202, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114542026656200468}
+  connectionType: 0
+--- !u!114 &114795077442857820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 2
+  m_EditorClassIdentifier: 
+  Cost: 2
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114796070883552422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 2
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114818403365365694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: City Burn
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 576
+    y: 146
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 6329d43cf8e69b14a9ac696994d461b5, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: 
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114598528866246646}
+  cost:
+  - {fileID: 114982733917401572}
+  - {fileID: 114139706421250468}
+  - {fileID: 114224550317840704}
+  - {fileID: 114478242389026406}
+  - {fileID: 114221541707519950}
+--- !u!114 &114829983431949750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Navigation must be active.
+--- !u!114 &114843724075483378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Plague Spread
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    x: 76
+    y: 236
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 8eb14671f461b5542bf5bcb268fd2a80, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 1
+  description: 
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114983151439858430}
+  cost:
+  - {fileID: 114576546763076558}
+--- !u!114 &114848140442089256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114859077352670060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114875913741515940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114897344511552826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 5
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114907242799872594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Cost 4
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114922286283798906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114960694068062802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 2
+  Value: 1
+  Description: Tier 1  must be active.
+--- !u!114 &114963329817952656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 2
+  Value: 1
+  Description: Tier 2 must be maxed out.
+--- !u!114 &114982733917401572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: The default Cost
+--- !u!114 &114983151439858430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18962e5781387be42968e80823f11f33, type: 3}
+  m_Name: Tier 2
+  m_EditorClassIdentifier: 
+  parentTree: {fileID: 11400000}
+  editorColor:
+    r: 0
+    g: 1
+    b: 0
+    a: 1
+  description: 

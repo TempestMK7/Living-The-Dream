@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Com.Tempest.Nightmare {
@@ -26,6 +27,10 @@ namespace Com.Tempest.Nightmare {
             connectPanel.SetActive(false);
             progressLabel.SetActive(false);
             versionText.text = "Game Version: " + GlobalPlayerContainer.GAME_VERSION;
+        }
+
+        public void ExitGame() {
+            Application.Quit();
         }
 
         public void OpenConnectPanel() {

@@ -33,7 +33,9 @@ namespace Com.Tempest.Nightmare {
             base.HandleVerticalMovementGravityBound();
             if (jetpackOn && (currentState == MovementState.JUMPING ||
                     currentState == MovementState.FALLING ||
-                    currentState == MovementState.WALL_JUMP)) {
+                    currentState == MovementState.WALL_JUMP ||
+                    currentState == MovementState.WALL_SLIDE_LEFT ||
+                    currentState == MovementState.WALL_SLIDE_RIGHT)) {
                 if (currentSpeed.y <= 0f) {
                     currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
