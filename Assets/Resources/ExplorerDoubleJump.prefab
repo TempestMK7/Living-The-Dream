@@ -365,7 +365,7 @@ MonoBehaviour:
   dashDuration: 0.5
   damageRecovery: 1
   deathAnimationTime: 3
-  maxSpeed: 6.5
+  maxSpeed: 6
   dashFactor: 3
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.5
@@ -373,8 +373,8 @@ MonoBehaviour:
   gravityFactor: 3
   terminalVelocityFactor: 3
   risingGravityBackoffFactor: 0.7
-  jumpFactor: 1.45
-  wallJumpFactor: 1.45
+  jumpFactor: 1.5
+  wallJumpFactor: 1.5
   wallSlideFactor: 0.5
   wallJumpControlFactor: 6
   jumpFactorUpgradeModifier: 0.05

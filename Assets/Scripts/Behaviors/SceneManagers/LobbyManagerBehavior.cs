@@ -8,6 +8,7 @@ namespace Com.Tempest.Nightmare {
 
 		public Text pingDisplay;
 		public Button readyButton;
+		public Dropdown teamDropdown;
 		public GameObject explorerPanel;
 		public Dropdown explorerSelect;
 		public GameObject nightmarePanel;
@@ -16,14 +17,14 @@ namespace Com.Tempest.Nightmare {
 		public Text textPrefab;
 
 		private float lastListRefresh;
+		private int numExplorers;
+		private int numNightmares;
 
 		void Start() {
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = true;
 			}
-			GlobalPlayerContainer.Instance.IsReady = 
-                GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.OBSERVER ? 
-                    GlobalPlayerContainer.STATUS_READY : GlobalPlayerContainer.STATUS_NOT_READY;
+			GlobalPlayerContainer.Instance.IsReady = GlobalPlayerContainer.STATUS_NOT_READY;
 			InitializePlayerStateWithPhoton();
 			InitializePlayerSelections();
 			HandlePanels();
@@ -32,6 +33,7 @@ namespace Com.Tempest.Nightmare {
 		public void InitializePlayerStateWithPhoton() {
 			PhotonPlayer player = PhotonNetwork.player;
 			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+			teamDropdown.value = GlobalPlayerContainer.Instance.TeamSelection;
 			properties[GlobalPlayerContainer.TEAM_SELECTION] = GlobalPlayerContainer.Instance.TeamSelection;
 			properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.Instance.IsReady;
 			player.SetCustomProperties(properties);
@@ -45,13 +47,13 @@ namespace Com.Tempest.Nightmare {
 		public void HandlePanels() {
 			explorerPanel.SetActive(GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.EXPLORER);
 			nightmarePanel.SetActive(GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE);
-			readyButton.gameObject.SetActive(GlobalPlayerContainer.Instance.TeamSelection != GlobalPlayerContainer.OBSERVER);
 		}
 
 		private void Update() {
 			pingDisplay.text = string.Format("Ping: {0:D4} ms", PhotonNetwork.GetPing());
 			ResendPlayerInfoIfWrong();
 			RefreshPlayerList();
+			UpdateRoomCounts();
 		}
 
 		public void ResendPlayerInfoIfWrong() {
@@ -71,6 +73,8 @@ namespace Com.Tempest.Nightmare {
 				Destroy(text.gameObject);
 			}
 			bool allPlayersReady = true;
+			numExplorers = 0;
+			numNightmares = 0;
 			foreach (PhotonPlayer player in playerList) {
 				Text playerText = Instantiate(textPrefab) as Text;
 				if (!player.CustomProperties.ContainsKey(GlobalPlayerContainer.IS_READY) ||
@@ -83,9 +87,11 @@ namespace Com.Tempest.Nightmare {
 				switch (teamSelection) {
 				case GlobalPlayerContainer.NIGHTMARE:
 					playerText.text += ": Nightmare";
+					numNightmares++;
 					break;
 				case GlobalPlayerContainer.EXPLORER:
 					playerText.text += ": Explorer";
+					numExplorers++;
 					break;
 				default:
 					playerText.text += ": Observer";
@@ -105,8 +111,18 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
+		private void UpdateRoomCounts() {
+			if (PhotonNetwork.isMasterClient) {
+				int needsExplorers = numExplorers < GlobalPlayerContainer.MAX_EXPLORERS ? 1 : 0;
+				int needsNightmares = numNightmares < GlobalPlayerContainer.MAX_NIGHTMARES ? 1 : 0;
+				PhotonNetwork.room.SetPropertiesListedInLobby(new string[]{ "C0", "C1"});
+				PhotonNetwork.room.SetCustomProperties(new ExitGames.Client.Photon.Hashtable(){{"C0", needsExplorers}, {"C1", needsNightmares}});
+			}
+		}
+
 		private void StartGame() {
 			if (PhotonNetwork.isMasterClient) {
+				PhotonNetwork.room.IsOpen = false;
 				PhotonNetwork.LoadLevel("GeneratedGameScene");
 			}
 		}
@@ -120,6 +136,21 @@ namespace Com.Tempest.Nightmare {
 			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
 			properties[GlobalPlayerContainer.IS_READY] = GlobalPlayerContainer.Instance.IsReady;
 			PhotonNetwork.player.SetCustomProperties(properties);
+		}
+
+		public void OnTeamSelectChanged() {
+			int teamChoice = teamDropdown.value;
+			if (teamChoice != GlobalPlayerContainer.Instance.TeamSelection) {
+				if ((teamChoice == GlobalPlayerContainer.NIGHTMARE && numNightmares == GlobalPlayerContainer.MAX_NIGHTMARES) || 
+						(teamChoice == GlobalPlayerContainer.EXPLORER && numExplorers == GlobalPlayerContainer.MAX_EXPLORERS)) {
+					teamChoice = GlobalPlayerContainer.OBSERVER;
+					GlobalPlayerContainer.Instance.TeamSelection = teamChoice;
+					teamDropdown.value = teamChoice;
+				} else {
+					GlobalPlayerContainer.Instance.TeamSelection = teamChoice;
+				}
+				HandlePanels();
+			}
 		}
 
 		public void OnCharacterSelectChanged() {

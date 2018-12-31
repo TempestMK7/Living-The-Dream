@@ -18,13 +18,20 @@ namespace Com.Tempest.Nightmare {
         public const int CRYO = 1;
         public const int GOBLIN = 2;
 
+        public const string LOBBY_NAME = "LittleLightOfMineLobby";
+        public const int MAX_EXPLORERS = 4;
+        public const int MAX_NIGHTMARES = 2;
+
+        public const string ROOM_NEEDS_EXPLORERS = "room_needs_explorers";
+        public const string ROOM_NEEDS_NIGHTMARES = "room_needs_nightmares";
+
         public const string TEAM_SELECTION = "team_selection";
         public const string IS_READY = "is_ready";
 
         public const string STATUS_READY = "Ready";
         public const string STATUS_NOT_READY = "Not Ready";
 
-        public const string GAME_VERSION = "0.05";
+        public const string GAME_VERSION = "0.06";
 
         public static GlobalPlayerContainer Instance;
 
