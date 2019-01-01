@@ -13,6 +13,7 @@ namespace Com.Tempest.Nightmare {
 
         public const int DOUBLE_JUMP_EXPLORER = 0;
         public const int JETPACK_EXPLORER = 1;
+        public const int DASH_EXPLORER = 2;
 
         public const int GHAST = 0;
         public const int CRYO = 1;

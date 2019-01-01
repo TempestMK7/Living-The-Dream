@@ -30,14 +30,19 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionPrimaryPressed() {
             base.ActionPrimaryPressed();
-            float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
-            if (Time.time - fireballTime < usableAttackCooldown) return;
-            fireballTime = Time.time;
+            LaunchIceBall();
+        }
+
+        public override void ActionSecondaryPressed() {
+            base.ActionSecondaryPressed();
             LaunchIceBall();
         }
 
         public void LaunchIceBall() {
-            if (photonView.isMine) {
+            if (photonView.isMine) {    
+                float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
+                if (Time.time - fireballTime < usableAttackCooldown) return;
+                fireballTime = Time.time;
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();

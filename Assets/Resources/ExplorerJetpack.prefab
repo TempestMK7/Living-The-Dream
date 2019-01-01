@@ -412,13 +412,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1532942c2b239e04da26ea50cc3f5953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupDuration: 60
+  powerupDuration: 30
   wallJumpRecovery: 0.2
   dashDuration: 0.5
   damageRecovery: 1
   deathAnimationTime: 3
   maxSpeed: 6
   dashFactor: 3
+  wallReflection: 1
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.5
   snapToMaxThresholdFactor: 0.1
@@ -429,13 +430,12 @@ MonoBehaviour:
   wallJumpFactor: 1.8
   wallSlideFactor: 0.5
   wallJumpControlFactor: 6
-  jumpFactorUpgradeModifier: 0.1
   rayBoundShrinkage: 0.0001
   numRays: 4
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 256
-  maxHealth: 3
+  maxHealth: 2
   maxLives: 3
   healthBarFadeDelay: 1
   deathRenderTime: 3

@@ -31,11 +31,7 @@ namespace Com.Tempest.Nightmare {
 
         protected override void HandleVerticalMovementGravityBound() {
             base.HandleVerticalMovementGravityBound();
-            if (jetpackOn && (currentState == MovementState.JUMPING ||
-                    currentState == MovementState.FALLING ||
-                    currentState == MovementState.WALL_JUMP ||
-                    currentState == MovementState.WALL_SLIDE_LEFT ||
-                    currentState == MovementState.WALL_SLIDE_RIGHT)) {
+            if (jetpackOn && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
                 if (currentSpeed.y <= 0f) {
                     currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
@@ -60,23 +56,22 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionPrimaryPressed() {
             base.ActionPrimaryPressed();
-
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
                     JumpPhysics();
                     break;
-                case MovementState.JUMPING:
-                case MovementState.FALLING:
-                case MovementState.WALL_JUMP:
-                    jetpackOn = true;
-                    break;
             }
         }
 
-        public override void ActionPrimaryReleased() {
-            base.ActionPrimaryReleased();
+        public override void ActionSecondaryPressed() {
+            base.ActionSecondaryPressed();
+            jetpackOn = true;
+        }
+
+        public override void ActionSecondaryReleased() {
+            base.ActionSecondaryReleased();
             jetpackOn = false;
         }
 

@@ -5,6 +5,8 @@ using UnityEngine;
 namespace Com.Tempest.Nightmare {
 
     public class DoubleJumpExplorer : BaseExplorer {
+        
+        public float jumpFactorUpgradeModifier = 0.05f;
 
         private bool usedSecondJump;
         private bool usedThirdJump;

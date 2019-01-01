@@ -1,0 +1,222 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563747bf02184ce4ea14006d97b0c701, type: 3}
+  m_Name: Explorer Tree
+  m_EditorClassIdentifier: 
+  treeName: Explorer Tree
+  talents:
+  - {fileID: 114388731550925804}
+  - {fileID: 114465650938121474}
+  - {fileID: 114682349474266738}
+  - {fileID: 114192773692216888}
+  connections: []
+  tiers:
+  - {fileID: 114588502085780866}
+  selectedNode: {fileID: 114192773692216888}
+  selectedConnection: {fileID: 0}
+  wantsConnection: 0
+  connectionNode: {fileID: 0}
+  showProperties: 1
+  PanX: 0
+  PanY: 52
+  mouseOverProperties: 0
+  propertyWidth: 466.75
+  PointsToAssign: 0
+--- !u!114 &114192773692216888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Talent/Skill
+  m_EditorClassIdentifier: 
+  isSelected: 1
+  nodeRect:
+    serializedVersion: 2
+    x: 319
+    y: 31
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: cb16a666a23ef7944a2671747a0dbd28, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: 
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114925111441998562}
+--- !u!114 &114388731550925804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Double Jump Explorer
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 57
+    y: 110
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: cb16a666a23ef7944a2671747a0dbd28, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: Unlock the Double Jump Explorer
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114751741297282252}
+--- !u!114 &114465650938121474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Jetpack Explorer
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 61
+    y: 338
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: cb16a666a23ef7944a2671747a0dbd28, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: Unlock the Jetpack Explorer.
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114834686301805296}
+--- !u!114 &114588502085780866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18962e5781387be42968e80823f11f33, type: 3}
+  m_Name: Tier 1
+  m_EditorClassIdentifier: 
+  parentTree: {fileID: 11400000}
+  editorColor: {r: 0, g: 0, b: 1, a: 1}
+  description: 
+--- !u!114 &114682349474266738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Dash Explorer
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 63
+    y: 606
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: cb16a666a23ef7944a2671747a0dbd28, type: 3}
+  DisabledImage: {fileID: 0}
+  isValid: 0
+  description: Unlock the Dash Explorer
+  explanation: 
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114973228208866446}
+--- !u!114 &114751741297282252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Embers
+  m_EditorClassIdentifier: 
+  Cost: 0
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114834686301805296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Embers
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114925111441998562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
+--- !u!114 &114973228208866446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Embers
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: 

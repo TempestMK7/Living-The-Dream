@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
 		// General movement params.
 		public float maxSpeed = 7f;
 		public float dashFactor = 3f;
+		public bool wallReflection = true;
 		public float wallSpeedReflectionFactor = -0.75f;
 
         // Flyer movement params.
@@ -30,7 +31,6 @@ namespace Com.Tempest.Nightmare {
 		public float wallJumpFactor = 1.5f;
 		public float wallSlideFactor = 0.5f;
 		public float wallJumpControlFactor = 6f;
-        public float jumpFactorUpgradeModifier = 0.1f;
 
 		// Physics hit calculation params.
 		public float rayBoundShrinkage = 0.001f;
@@ -52,7 +52,8 @@ namespace Com.Tempest.Nightmare {
         private bool facingRight;
 
         // Self initialized gravity bound variables.
-		private bool actionHeld;
+		private bool actionPrimaryHeld;
+		private bool actionSecondaryHeld;
 		private bool grabHeld;
 
         protected abstract bool IsFlyer();
@@ -69,7 +70,7 @@ namespace Com.Tempest.Nightmare {
 			baseAcceleration = accelerationFactor * maxSpeed;
 			snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
 			facingRight = false;
-			actionHeld = false;
+			actionPrimaryHeld = false;
 			grabHeld = false;
         }
 
@@ -193,7 +194,7 @@ namespace Com.Tempest.Nightmare {
 
 			// If we hit anything horizontally, reflect or stop x axis movement.
 			if (hitX) {
-				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || currentState == MovementState.DASHING) {
+				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || (currentState == MovementState.DASHING && wallReflection)) {
 					currentSpeed.x *= wallSpeedReflectionFactor;
 					currentOffset.x *= wallSpeedReflectionFactor;
 				} else {
@@ -232,10 +233,9 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitY) {
-				if ((currentState == MovementState.DASHING || 
-						currentState == MovementState.DAMAGED || 
-						currentState == MovementState.DYING) && 
-								Mathf.Abs(currentSpeed.y) > MaxSpeed()) {
+				if ((currentState == MovementState.DAMAGED || currentState == MovementState.DYING ||
+						(currentState == MovementState.DASHING && wallReflection)) && 
+						Mathf.Abs(currentSpeed.y) > MaxSpeed()) {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
 				} else {
@@ -401,7 +401,7 @@ namespace Com.Tempest.Nightmare {
 					currentState = MovementState.FALLING;
 				}
 			}
-			if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionHeld)) {
+			if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionPrimaryHeld)) {
 				currentState = MovementState.FALLING;
 			}
 		}
@@ -421,19 +421,19 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public virtual void ActionPrimaryPressed() {
-			actionHeld = true;
+			actionPrimaryHeld = true;
 		}
 
 		public virtual void ActionPrimaryReleased() {
-			actionHeld = false;
+			actionPrimaryHeld = false;
 		}
 
 		public virtual void ActionSecondaryPressed() {
-			// ignored callback.
+			actionSecondaryHeld = true;
 		}
 
 		public virtual void ActionSecondaryReleased() {
-			// ignored callback.
+			actionSecondaryHeld = false;
 		}
 
 		public virtual void LightTogglePressed() {
@@ -474,10 +474,10 @@ namespace Com.Tempest.Nightmare {
 			timerStart = Time.time;
 
 			if (currentControllerState.magnitude == 0f) {
-				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * dashFactor;
+				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * DashFactor();
 			} else {
             	Vector3 direction = currentControllerState * MaxSpeed() / currentControllerState.magnitude;
-            	currentSpeed = direction * dashFactor;
+            	currentSpeed = direction * DashFactor();
 			}
 		}
 
@@ -511,6 +511,10 @@ namespace Com.Tempest.Nightmare {
             return wallJumpFactor;
         }
 
+		protected virtual float DashFactor() {
+			return dashFactor;
+		}
+
 		protected virtual float GetCurrentAcceleration() {
 			return baseAcceleration;
 		}
@@ -523,14 +527,14 @@ namespace Com.Tempest.Nightmare {
 				stream.SendNext(transform.position);
 				stream.SendNext(currentSpeed);
 				stream.SendNext(currentControllerState);
-				stream.SendNext(actionHeld);
+				stream.SendNext(actionPrimaryHeld);
 				stream.SendNext(grabHeld);
 			} else {
 				currentState = (MovementState)stream.ReceiveNext();
 				Vector3 networkPosition = (Vector3)stream.ReceiveNext();
 				currentSpeed = (Vector3)stream.ReceiveNext();
 				currentControllerState = (Vector3)stream.ReceiveNext();
-				actionHeld = (bool)stream.ReceiveNext();
+				actionPrimaryHeld = (bool)stream.ReceiveNext();
 				grabHeld = (bool)stream.ReceiveNext();
 
 				currentOffset = networkPosition - transform.position;

@@ -1818,7 +1818,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Unspent Embers: 100000000'
+  m_Text: 'Unspent Embers: 10000'
 --- !u!222 &1415603711
 CanvasRenderer:
   m_ObjectHideFlags: 0

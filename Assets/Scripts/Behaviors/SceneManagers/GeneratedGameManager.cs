@@ -28,6 +28,7 @@ namespace Com.Tempest.Nightmare {
 		
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
+		public GameObject dashPrefab;
 
 		public GameObject bonfirePrefab;
 		public GameObject shrinePrefab;
@@ -189,6 +190,10 @@ namespace Com.Tempest.Nightmare {
 					break;
 				case PlayerStateContainer.JETPACK_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, spawnLocation, Quaternion.identity, 0)
+						.GetComponent<BaseExplorer>();
+					break;
+				case PlayerStateContainer.DASH_EXPLORER:
+					Explorer = PhotonNetwork.Instantiate(dashPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorer>();
 					break;
 				}

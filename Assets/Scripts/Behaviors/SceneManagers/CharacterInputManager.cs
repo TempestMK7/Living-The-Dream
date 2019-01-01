@@ -35,16 +35,22 @@ namespace Com.Tempest.Nightmare {
 			actionSet.Down.AddDefaultBinding(InputControlType.LeftStickDown);
 
 			actionSet.ActionPrimary.AddDefaultBinding(Key.Space);
+			actionSet.ActionPrimary.AddDefaultBinding(Mouse.LeftButton);
 			actionSet.ActionPrimary.AddDefaultBinding(InputControlType.Action1);
 
-			actionSet.ActionSecondary.AddDefaultBinding(Mouse.LeftButton);
+			actionSet.ActionSecondary.AddDefaultBinding(Key.Backspace);
+			actionSet.ActionSecondary.AddDefaultBinding(Mouse.RightButton);
 			actionSet.ActionSecondary.AddDefaultBinding(InputControlType.Action2);
 
 			actionSet.ActivateLight.AddDefaultBinding(Key.Control);
+			actionSet.ActivateLight.AddDefaultBinding(Mouse.MiddleButton);
 			actionSet.ActivateLight.AddDefaultBinding(InputControlType.LeftBumper);
+			actionSet.ActivateLight.AddDefaultBinding(InputControlType.LeftTrigger);
 
 			actionSet.Grab.AddDefaultBinding(Key.Shift);
+			actionSet.Grab.AddDefaultBinding(Mouse.Button4);
 			actionSet.Grab.AddDefaultBinding(InputControlType.RightBumper);
+			actionSet.Grab.AddDefaultBinding(InputControlType.RightTrigger);
 		}
 
 		private void OnDestroy() {

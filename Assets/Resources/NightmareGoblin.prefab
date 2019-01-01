@@ -151,13 +151,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71a7a65876fe48c4b9361be62dc8b0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  powerupDuration: 40
+  powerupDuration: 30
   wallJumpRecovery: 0.2
   dashDuration: 0.15
   damageRecovery: 1
   deathAnimationTime: 3
   maxSpeed: 9
   dashFactor: 3
+  wallReflection: 1
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.5
   snapToMaxThresholdFactor: 0.1
@@ -168,7 +169,6 @@ MonoBehaviour:
   wallJumpFactor: 1.6
   wallSlideFactor: 0.5
   wallJumpControlFactor: 6
-  jumpFactorUpgradeModifier: 0.1
   rayBoundShrinkage: 0.001
   numRays: 4
   whatIsSolid:
