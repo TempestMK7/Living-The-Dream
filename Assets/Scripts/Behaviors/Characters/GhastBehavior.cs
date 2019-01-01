@@ -42,6 +42,7 @@ namespace Com.Tempest.Nightmare {
                 associatedBehavior.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
+                photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);
             }
         }
 

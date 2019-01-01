@@ -84,8 +84,8 @@ namespace Com.Tempest.Nightmare {
 
 		public class GraphWall {
 	
-			public GraphNode SourceNode { get; }
-			public WallDirection Direction { get; }
+			public GraphNode SourceNode { get; set; }
+			public WallDirection Direction { get; set; }
 
 			public GraphWall(GraphNode sourceNode, WallDirection direction) {
 				SourceNode = sourceNode;
@@ -112,7 +112,6 @@ namespace Com.Tempest.Nightmare {
 		private int height;
 		private int bonfireFrequency;
 		private float torchProbability;
-		private Random random;
 		private GraphNode[,] levelGraph;
 
 		public LevelGenerator(int width, int height, int bonfireFrequency, float torchProbability) {
@@ -120,7 +119,6 @@ namespace Com.Tempest.Nightmare {
 			this.height = height;
 			this.bonfireFrequency = bonfireFrequency;
 			this.torchProbability = torchProbability;
-			random = new Random();
 			InitializeLevelGraph();
 			BuildLevelGraph();
 			RestoreOuterWallsToLevelGraph();

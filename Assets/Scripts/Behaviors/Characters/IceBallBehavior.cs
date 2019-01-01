@@ -23,6 +23,8 @@ namespace Com.Tempest.Nightmare {
 
         private List<BaseExplorer> playersHit;
 
+        public CryoBehavior CryoLauncherBehavior { get; set; }
+
         public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed) {
             currentSpeed = currentControllerState;
             if (currentSpeed.magnitude == 0f) currentSpeed = new Vector3(0f, -20f);
@@ -77,6 +79,7 @@ namespace Com.Tempest.Nightmare {
                 if (explorer != null && !explorer.IsOutOfHealth() && !playersHit.Contains(explorer)) {
                     playersHit.Add(explorer);
                     explorer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
+                    CryoLauncherBehavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);
                 }
             }
         }

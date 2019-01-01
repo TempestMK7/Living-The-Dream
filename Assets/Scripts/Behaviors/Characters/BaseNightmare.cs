@@ -45,5 +45,17 @@ namespace Com.Tempest.Nightmare {
 				Powerup.HALF_ABILITY_COOLDOWN
 			};
 		}
+
+		[PunRPC]
+		public void ReceiveObjectiveEmbers(float embers) {
+			if (!photonView.isMine) return;
+			PlayerStateContainer.Instance.ObjectiveEmbers += embers;
+		}
+
+		[PunRPC]
+		public void ReceiveUpgradeEmbers(int embers) {
+			if (!photonView.isMine)  return;
+			PlayerStateContainer.Instance.UpgradeEmbers += embers;
+		}
     }
 }

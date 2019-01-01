@@ -70,27 +70,23 @@ namespace Com.Tempest.Nightmare {
 			Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
 			foreach (Collider2D fireCollider in bonfires) {
 				BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
-				if (behavior == null)
-					continue;
-				if (behavior.IsLit()) {
+				if (behavior != null && behavior.IsLit()) {
 					ableToRes = true;
 				}
 			}
-			if (IsDead()) {
-				Collider2D[] players = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsExplorer);
-				foreach (Collider2D collider in players) {
-					BaseExplorer behavior = collider.gameObject.GetComponent<BaseExplorer>();
-					if (behavior == null)
-						continue;
-					if (!behavior.IsOutOfHealth()) {
-						ableToRes = true;
-					}
+			Collider2D[] players = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsExplorer);
+			foreach (Collider2D collider in players) {
+				BaseExplorer behavior = collider.gameObject.GetComponent<BaseExplorer>();
+				if (behavior != null && !behavior.IsOutOfHealth()) {
+					ableToRes = true;
+					behavior.photonView.RPC("ReceiveRescueEmbers", PhotonTargets.All, 10);
 				}
 			}
 			if (ableToRes) {
 				currentHealth = maxHealth;
 				GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", GlobalPlayerContainer.EXPLORER);
+				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", PlayerStateContainer.EXPLORER);
+				behavior.DisplayAlert("You have been saved!  Your light shines once more.", PlayerStateContainer.EXPLORER);
 			}
 		}
 
@@ -98,7 +94,7 @@ namespace Com.Tempest.Nightmare {
 		private void HandleLifeState() {
 			lightBox.IsDead = IsDead();
 			if (IsDead()) {
-				bool amNightmare = GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE;
+				bool amNightmare = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE;
 				gameObject.layer = LayerMask.NameToLayer("Death");
 				positiveHealthBar.fillAmount = 0f;
 				healthCanvas.SetActive(!amNightmare);
@@ -173,12 +169,12 @@ namespace Com.Tempest.Nightmare {
 				if (photonView.isMine) {
 					GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
 					if (IsOutOfLives()) {
-						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", GlobalPlayerContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", GlobalPlayerContainer.EXPLORER);
+						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", PlayerStateContainer.EXPLORER);
+						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", PlayerStateContainer.EXPLORER);
 						DeleteSelf();
 					} else {
-						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", GlobalPlayerContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", GlobalPlayerContainer.EXPLORER);
+						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", PlayerStateContainer.EXPLORER);
+						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", PlayerStateContainer.EXPLORER);
 					}
 				}
 			}
@@ -215,6 +211,24 @@ namespace Com.Tempest.Nightmare {
 				Powerup.THIRD_JUMP,
 				Powerup.DOUBLE_OBJECTIVE_SPEED
 			};
+		}
+
+		[PunRPC]
+		public void ReceiveObjectiveEmbers(float embers) {
+			if (!photonView.isMine) return;
+			PlayerStateContainer.Instance.ObjectiveEmbers += embers;
+		}
+
+		[PunRPC]
+		public void ReceiveRescueEmbers(int embers) {
+			if (!photonView.isMine) return;
+			PlayerStateContainer.Instance.ObjectiveEmbers += embers;
+		}
+
+		[PunRPC]
+		public void ReceiveUpgradeEmbers(int embers) {
+			if (!photonView.isMine)  return;
+			PlayerStateContainer.Instance.UpgradeEmbers += embers;
 		}
     }
 }

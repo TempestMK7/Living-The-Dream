@@ -46,11 +46,17 @@ namespace Com.Tempest.Nightmare {
             Collider2D[] nightmares = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsNightmare);
             if (nightmares.Length != 0) {
                 photonView.RPC("NotifyTaken", PhotonTargets.All, true);
+				foreach (Collider2D nightmare in nightmares) {
+					nightmare.gameObject.GetComponent<BaseNightmare>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 2);
+				}
                 return;
             }
             Collider2D[] explorers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsExplorer);
             if (explorers.Length != 0) {
                 photonView.RPC("NotifyTaken", PhotonTargets.All, false);
+				foreach (Collider2D explorer in explorers) {
+					explorer.gameObject.GetComponent<BaseExplorer>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 2);
+				}
             }
         }
 

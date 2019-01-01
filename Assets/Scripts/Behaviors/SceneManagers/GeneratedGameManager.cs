@@ -15,6 +15,7 @@ namespace Com.Tempest.Nightmare {
 		// UI objects.
 		public Text bonfireText;
 		public Text dreamerText;
+		public Text embersText;
 		public Text upgradesText;
 
 		public Tilemap borderMap;
@@ -176,17 +177,17 @@ namespace Com.Tempest.Nightmare {
 
 		[PunRPC]
 		public void InstantiateCharacter() {
-			GlobalPlayerContainer playerContainer = GlobalPlayerContainer.Instance;
-			if (playerContainer.TeamSelection == GlobalPlayerContainer.EXPLORER) {
+			PlayerStateContainer playerContainer = PlayerStateContainer.Instance;
+			if (playerContainer.TeamSelection == PlayerStateContainer.EXPLORER) {
 				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
 				float spawnLocationY = (UnityEngine.Random.Range(levelChunks.GetLength(1) / 2, levelChunks.GetLength(1)) * 16) + 2;
 				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.ExplorerSelection) {
-				case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
+				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorer>();
 					break;
-				case GlobalPlayerContainer.JETPACK_EXPLORER:
+				case PlayerStateContainer.JETPACK_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorer>();
 					break;
@@ -195,20 +196,20 @@ namespace Com.Tempest.Nightmare {
 					Camera.main.transform.position = Explorer.transform.position;
 				}
 				ChangeMaskColor(0f);
-			} else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
+			} else if (playerContainer.TeamSelection == PlayerStateContainer.NIGHTMARE) {
 				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
 				float spawnLocationY = (UnityEngine.Random.Range(0, levelChunks.GetLength(1) / 2) * 16) + 2;
 				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.NightmareSelection) {
-					case GlobalPlayerContainer.GHAST:
+					case PlayerStateContainer.GHAST:
 						Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
 							.GetComponent<BaseNightmare>();
 						break;
-					case GlobalPlayerContainer.CRYO:
+					case PlayerStateContainer.CRYO:
 						Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
 							.GetComponent<BaseNightmare>();
 						break;
-					case GlobalPlayerContainer.GOBLIN:
+					case PlayerStateContainer.GOBLIN:
 						Nightmare = PhotonNetwork.Instantiate(goblinPrefab.name, spawnLocation, Quaternion.identity, 0)
 							.GetComponent<BaseNightmare>();
 						break;
@@ -226,6 +227,7 @@ namespace Com.Tempest.Nightmare {
 			HandleBonfires();
 			HandlePlayers();
 			HandleUpgrades();
+			HandleEmbers();
 		}
 
 		private void HandleBonfires() {
@@ -237,7 +239,7 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (firesLit >= Bonfires.Count - bonfiresAllowedIncomplete) {
-					BeginEndingSequence(GlobalPlayerContainer.EXPLORER);
+					BeginEndingSequence(PlayerStateContainer.EXPLORER);
 				}
 				bonfireText.text = "Bonfires Remaining: " + (Bonfires.Count - firesLit - bonfiresAllowedIncomplete);
 			}
@@ -266,7 +268,7 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (aliveExplorers == 0) {
-					BeginEndingSequence(GlobalPlayerContainer.NIGHTMARE);
+					BeginEndingSequence(PlayerStateContainer.NIGHTMARE);
 				}
 				dreamerText.text = "Explorers Alive: " + aliveExplorers + " / " + Explorers.Count;    
 			}
@@ -280,6 +282,10 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
+		private void HandleEmbers() {
+			embersText.text = "Embers: " + PlayerStateContainer.Instance.TotalEmbers();
+		}
+
 		private void BeginEndingSequence(int winningTeam) {
 			StartCoroutine(EndingSequence(winningTeam));
 		}
@@ -290,7 +296,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void EndTheGame(int winningTeam) {
-			GlobalPlayerContainer.Instance.IsWinner = winningTeam == GlobalPlayerContainer.Instance.TeamSelection;
+			PlayerStateContainer.Instance.IsWinner = winningTeam == PlayerStateContainer.Instance.TeamSelection;
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.LoadLevel("VictoryScene");
 			}
@@ -336,8 +342,8 @@ namespace Com.Tempest.Nightmare {
 
 		[PunRPC]
 		public void DisplayAlert(string alertText, int targets) {
-			if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.OBSERVER ||
-			    targets == GlobalPlayerContainer.Instance.TeamSelection) {
+			if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER ||
+			    targets == PlayerStateContainer.Instance.TeamSelection) {
 				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
 			}
 		}

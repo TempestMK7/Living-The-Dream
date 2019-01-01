@@ -56,8 +56,8 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void HandlePlayerEvents() {
-            Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
             if (photonView.isMine && currentCharges < requiredCharges) {
+                Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
                 if (otherPlayers.Length == 0) {
                     currentCharges -= Time.deltaTime;
                     currentCharges = Mathf.Max(currentCharges, 0f);
@@ -65,9 +65,13 @@ namespace Com.Tempest.Nightmare {
                     float multiplier = otherPlayers.Length;
                     foreach (Collider2D collider in otherPlayers) {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
-                        if (behavior != null && behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
+                        if (behavior == null) continue;
+                        float embers = Time.deltaTime;
+                        if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             multiplier += 1f;
+                            embers *= 2;
                         }
+                        behavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, embers);
                     }
                     currentCharges += Time.deltaTime * multiplier;
                     if (currentCharges >= requiredCharges) {

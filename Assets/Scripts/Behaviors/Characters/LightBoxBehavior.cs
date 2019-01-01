@@ -23,7 +23,7 @@ namespace Com.Tempest.Nightmare {
                 spriteRenderer.enabled = true;
                 transform.localScale = ActiveScale;
             } else {
-                bool amNightmare = GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE;
+                bool amNightmare = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE;
                 spriteRenderer.enabled = IsMine || (IsDead && !amNightmare);
                 transform.localScale = DefaultScale;
             }

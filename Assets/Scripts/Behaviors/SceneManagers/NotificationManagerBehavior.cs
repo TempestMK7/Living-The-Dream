@@ -34,8 +34,8 @@ namespace Com.Tempest.Nightmare {
 
 		private void HandleNotifications() {
 			List<GameObject> objectsToDisplay = new List<GameObject>();
-			switch (GlobalPlayerContainer.Instance.TeamSelection) {
-			case GlobalPlayerContainer.EXPLORER:
+			switch (PlayerStateContainer.Instance.TeamSelection) {
+			case PlayerStateContainer.EXPLORER:
 				BaseExplorer explorer = gameManagerBehavior.Explorer;
 				if (explorer != null) {
 					if (!explorer.IsDead()) {
@@ -46,7 +46,7 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				break;
-			case GlobalPlayerContainer.NIGHTMARE:
+			case PlayerStateContainer.NIGHTMARE:
 				BaseNightmare nightmare = gameManagerBehavior.Nightmare;
 				if (nightmare != null) {
 					if (nightmare.HasPowerup(Powerup.DREAMER_VISION)) {

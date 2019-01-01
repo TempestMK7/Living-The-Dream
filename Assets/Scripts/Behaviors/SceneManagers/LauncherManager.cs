@@ -8,7 +8,7 @@ namespace Com.Tempest.Nightmare {
 
     public class LauncherManager : Photon.PunBehaviour {
 
-        public PhotonLogLevel logLevel = PhotonLogLevel.Informational;
+        public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
         public GameObject startPanel;
         public GameObject connectPanel;
         public GameObject progressLabel;
@@ -26,7 +26,8 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(true);
             connectPanel.SetActive(false);
             progressLabel.SetActive(false);
-            versionText.text = "Game Version: " + GlobalPlayerContainer.GAME_VERSION;
+            versionText.text = "Game Version: " + Constants.GAME_VERSION;
+            PlayerStateContainer.ResetInstance();
         }
 
         public void ExitGame() {
@@ -44,17 +45,17 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void ConnectAsExplorer() {
-            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.EXPLORER;
+            PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.EXPLORER;
             Connect();
         }
 
         public void ConnectAsNightmare() {
-            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.NIGHTMARE;
+            PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.NIGHTMARE;
             Connect();
         }
 
         public void ConnectAsObserver() {
-            GlobalPlayerContainer.Instance.TeamSelection = GlobalPlayerContainer.OBSERVER;
+            PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
             Connect();
         }
 
@@ -63,7 +64,7 @@ namespace Com.Tempest.Nightmare {
             connectPanel.SetActive(false);
             progressLabel.SetActive(true);
             if (!PhotonNetwork.connected) {
-                PhotonNetwork.ConnectUsingSettings(GlobalPlayerContainer.GAME_VERSION);
+                PhotonNetwork.ConnectUsingSettings(Constants.GAME_VERSION);
             } else {
                 JoinLobby();
             }
@@ -77,16 +78,16 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void JoinLobby() {
-            PhotonNetwork.JoinLobby(new TypedLobby(GlobalPlayerContainer.LOBBY_NAME, LobbyType.SqlLobby));
+            PhotonNetwork.JoinLobby(new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));
         }
 
         public override void OnJoinedLobby() {
-            if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.EXPLORER) {
+            if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
                 string filter = "C0 = 1";
-                PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, new TypedLobby(GlobalPlayerContainer.LOBBY_NAME, LobbyType.SqlLobby), filter);
-            } else if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
+                PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby), filter);
+            } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
                 string filter = "C1 = 1";
-                PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, new TypedLobby(GlobalPlayerContainer.LOBBY_NAME, LobbyType.SqlLobby), filter);
+                PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby), filter);
             } else {
                 PhotonNetwork.JoinRandomRoom();
             }
@@ -106,7 +107,7 @@ namespace Com.Tempest.Nightmare {
             options.MaxPlayers = 0;
             options.CustomRoomPropertiesForLobby = new string[]{ "C0", "C1" };
             options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable(){{ "C0", 1 }, { "C1", 1 }};
-            PhotonNetwork.CreateRoom(null, options, new TypedLobby(GlobalPlayerContainer.LOBBY_NAME, LobbyType.SqlLobby));
+            PhotonNetwork.CreateRoom(null, options, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));
         }
 
         public override void OnJoinedRoom() {
@@ -117,4 +118,3 @@ namespace Com.Tempest.Nightmare {
         }
     }
 }
-

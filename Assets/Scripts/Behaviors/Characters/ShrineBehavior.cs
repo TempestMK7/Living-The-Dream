@@ -56,6 +56,9 @@ namespace Com.Tempest.Nightmare {
 			if (dreamerCharges >= requiredCharges) {
 				dreamerCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, true);
+				foreach (Collider2D dreamer in dreamers) {
+					dreamer.gameObject.GetComponent<BaseExplorer>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
+				}
 			}
 		}
 
@@ -73,6 +76,9 @@ namespace Com.Tempest.Nightmare {
 			if (nightmareCharges >= requiredCharges) {
 				nightmareCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, false);
+				foreach (Collider2D nightmare in nightmares) {
+					nightmare.gameObject.GetComponent<BaseNightmare>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
+				}
 			}
 		}
 

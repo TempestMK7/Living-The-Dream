@@ -20,7 +20,7 @@ namespace Com.Tempest.Nightmare {
 		public void AddPowerup(Powerup p) {
 			powerupDictionary[p] = Time.time;
 			if (photonView.isMine) {
-				FindObjectOfType<GeneratedGameManager>().DisplayAlert("You have been granted " + p.ToString(), GlobalPlayerContainer.Instance.TeamSelection);
+				FindObjectOfType<GeneratedGameManager>().DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
 			}
 		}
 
@@ -39,7 +39,7 @@ namespace Com.Tempest.Nightmare {
 
 		public void AddUpgrade() {
 			NumUpgrades += 1;
-			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", GlobalPlayerContainer.Instance.TeamSelection);
+			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
 		}
 	}
 }
