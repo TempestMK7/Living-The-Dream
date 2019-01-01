@@ -347,11 +347,11 @@ namespace Com.Tempest.Nightmare {
 			// Use raycasts to decide if we hit anything vertically.
 			if (distanceForFrame.y != 0) {
 				float rayInterval = (bottomRight.x - bottomLeft.x) / (float)numRays;
-				Vector3 rayOriginBase = currentSpeed.y > 0 ? topLeft : bottomLeft;
-				float rayOriginCorrection = currentSpeed.y > 0 ? rayBoundShrinkage : rayBoundShrinkage * -1f;
+				Vector3 rayOriginBase = goingUp ? topLeft : bottomLeft;
+				float rayOriginCorrection = goingUp ? rayBoundShrinkage : rayBoundShrinkage * -1f;
 				for (int x = 0; x <= numRays; x++) {
 					Vector3 rayOrigin = new Vector3(rayOriginBase.x + rayInterval * (float)x, rayOriginBase.y + rayOriginCorrection);
-					RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, distanceForFrame.y > 0 ? Vector3.up : Vector3.down, Mathf.Abs(distanceForFrame.y), whatIsSolid);
+					RaycastHit2D rayCast = Physics2D.Raycast(rayOrigin, goingUp ? Vector3.up : Vector3.down, Mathf.Abs(distanceForFrame.y), whatIsSolid);
 					if (rayCast) {
 						hitY = true;
 						distanceForFrame.y = rayCast.point.y - rayOrigin.y;

@@ -7,13 +7,29 @@ namespace Com.Tempest.Nightmare {
 
         public Text victoryText;
 
-        // Use this for initialization
-        void Start() {
+        public Text rescueText;
+        public Text objectiveText;
+        public Text upgradeText;
+        public Text totalText;
+
+        public void Awake() {
             if (PlayerStateContainer.Instance.IsWinner) {
                 victoryText.text = "Victory";
             } else {
                 victoryText.text = "Defeat";
             }
+
+            rescueText.text = "Rescue Embers: " + PlayerStateContainer.Instance.RescueEmbers;
+            objectiveText.text = "Objective Embers: " + (int) PlayerStateContainer.Instance.ObjectiveEmbers;
+            upgradeText.text = "Upgrade Embers: " + PlayerStateContainer.Instance.UpgradeEmbers;
+            totalText.text = "Total Embers: " + PlayerStateContainer.Instance.TotalEmbers();
+
+            if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+                rescueText.enabled = false;
+            }
+
+            AccountStateContainer.getInstance().unspentEmbers += PlayerStateContainer.Instance.TotalEmbers();
+            AccountStateContainer.SaveInstance();
         }
 
         public void LeaveRoom() {

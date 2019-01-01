@@ -1,22 +1,42 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class AccountStateContainer : MonoBehaviour {
+    [Serializable]
+    public class AccountStateContainer {
 
-        public int TotalEmbers { get; set; }
+        private static AccountStateContainer Instance;
 
-        public static AccountStateContainer Instance;
+        public int unspentEmbers;
 
-        public void Awake() {
-            if (Instance == null) {
-                DontDestroyOnLoad(gameObject);
-                Instance = this;
-            } else if (Instance != this) {
-                Destroy(gameObject);
+        public static void SaveInstance() {
+            string dataPath = Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_NAME);
+            using (StreamWriter writer = File.CreateText(dataPath)) {
+                writer.Write(JsonUtility.ToJson(Instance));
             }
+        }
+
+        public static void LoadInstance() {
+            string dataPath = Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_NAME);
+            if (File.Exists(dataPath)) {
+                using (StreamReader reader = File.OpenText(dataPath)) {
+                    string jsonString = reader.ReadToEnd();
+                    Instance = JsonUtility.FromJson<AccountStateContainer>(jsonString);
+                }
+            } else {
+                Instance = new AccountStateContainer();
+            }
+        }
+
+        public static AccountStateContainer getInstance() {
+            if (Instance == null) {
+                LoadInstance();
+            }
+            return Instance;
         }
     }
 }

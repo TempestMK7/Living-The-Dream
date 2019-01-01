@@ -11,8 +11,11 @@ namespace Com.Tempest.Nightmare {
         public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
         public GameObject startPanel;
         public GameObject connectPanel;
+        public GameObject progressionPanel;
+
         public GameObject progressLabel;
         public Text versionText;
+        public Text unspentEmberText;
 
         private bool isConnecting;
         
@@ -23,25 +26,41 @@ namespace Com.Tempest.Nightmare {
             PhotonNetwork.autoCleanUpPlayerObjects = true;
             PhotonNetwork.sendRate = 20;
             PhotonNetwork.sendRateOnSerialize = 20;
-            startPanel.SetActive(true);
-            connectPanel.SetActive(false);
+            OpenStartPanel();
             progressLabel.SetActive(false);
             versionText.text = "Game Version: " + Constants.GAME_VERSION;
             PlayerStateContainer.ResetInstance();
+            AccountStateContainer.getInstance();
         }
 
         public void ExitGame() {
             Application.Quit();
         }
 
+        public void OpenStartPanel() {
+            startPanel.SetActive(true);
+            connectPanel.SetActive(false);
+            progressionPanel.SetActive(false);
+        }
+
         public void OpenConnectPanel() {
             startPanel.SetActive(false);
             connectPanel.SetActive(true);
+            progressionPanel.SetActive(false);
         }
 
-        public void CloseConnectPanel() {
-            startPanel.SetActive(true);
+        public void OpenProgressionPanel() {
+            startPanel.SetActive(false);
             connectPanel.SetActive(false);
+            progressionPanel.SetActive(true);
+
+            unspentEmberText.text = "Unspent Embers: " + AccountStateContainer.getInstance().unspentEmbers;
+        }
+
+        public void CloseAllPanels() {
+            startPanel.SetActive(false);
+            connectPanel.SetActive(false);
+            progressionPanel.SetActive(false);
         }
 
         public void ConnectAsExplorer() {
@@ -61,7 +80,7 @@ namespace Com.Tempest.Nightmare {
 
         private void Connect() {
             isConnecting = true;
-            connectPanel.SetActive(false);
+            CloseAllPanels();
             progressLabel.SetActive(true);
             if (!PhotonNetwork.connected) {
                 PhotonNetwork.ConnectUsingSettings(Constants.GAME_VERSION);
