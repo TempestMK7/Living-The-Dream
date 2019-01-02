@@ -19,7 +19,10 @@ namespace Com.Tempest.Nightmare {
 
         private bool isConnecting;
         
-	    public void Start() {
+	    public void Awake() {
+            Application.targetFrameRate = 60;
+            QualitySettings.vSyncCount = 0;
+
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;

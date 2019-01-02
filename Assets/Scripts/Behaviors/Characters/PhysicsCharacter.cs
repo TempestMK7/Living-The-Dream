@@ -71,6 +71,7 @@ namespace Com.Tempest.Nightmare {
 			snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
 			facingRight = false;
 			actionPrimaryHeld = false;
+			actionSecondaryHeld = false;
 			grabHeld = false;
         }
 
@@ -528,6 +529,7 @@ namespace Com.Tempest.Nightmare {
 				stream.SendNext(currentSpeed);
 				stream.SendNext(currentControllerState);
 				stream.SendNext(actionPrimaryHeld);
+				stream.SendNext(actionSecondaryHeld);
 				stream.SendNext(grabHeld);
 			} else {
 				currentState = (MovementState)stream.ReceiveNext();
@@ -535,6 +537,7 @@ namespace Com.Tempest.Nightmare {
 				currentSpeed = (Vector3)stream.ReceiveNext();
 				currentControllerState = (Vector3)stream.ReceiveNext();
 				actionPrimaryHeld = (bool)stream.ReceiveNext();
+				actionSecondaryHeld = (bool)stream.ReceiveNext();
 				grabHeld = (bool)stream.ReceiveNext();
 
 				currentOffset = networkPosition - transform.position;

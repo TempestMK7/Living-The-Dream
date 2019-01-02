@@ -179,7 +179,7 @@ MonoBehaviour:
     m_Bits: 1024
   lightBoxScale: 20
   collisionDebounceTime: 1
-  upgradeSpeedFactor: 0.15
+  upgradeSpeedFactor: 0.1
 --- !u!114 &114109434901271258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,7 +211,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 114008750949112002}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
