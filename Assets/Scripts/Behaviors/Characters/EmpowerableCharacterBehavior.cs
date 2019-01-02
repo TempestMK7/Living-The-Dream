@@ -20,7 +20,12 @@ namespace Com.Tempest.Nightmare {
 		public void AddPowerup(Powerup p) {
 			powerupDictionary[p] = Time.time;
 			if (photonView.isMine) {
-				FindObjectOfType<GeneratedGameManager>().DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
+				GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
+				if (manager != null) {
+					manager.DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
+				} else {
+					FindObjectOfType<DemoSceneManager>().DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
+				}
 			}
 		}
 
@@ -39,7 +44,12 @@ namespace Com.Tempest.Nightmare {
 
 		public void AddUpgrade() {
 			NumUpgrades += 1;
-			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
+			GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
+			if (manager != null) {
+				manager.DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
+			} else {
+				FindObjectOfType<DemoSceneManager>().DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
+			}
 		}
 	}
 }

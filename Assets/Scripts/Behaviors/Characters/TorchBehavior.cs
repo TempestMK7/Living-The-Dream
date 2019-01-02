@@ -66,9 +66,14 @@ namespace Com.Tempest.Nightmare {
             if (!photonView.isMine) 
                 return;
             GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-            if (behavior == null)
-                return;
-            behavior.photonView.RPC("AddUpgradeToCharacter", PhotonTargets.All, nightmaresWon);
+            if (behavior != null) {
+                behavior.photonView.RPC("AddUpgradeToCharacter", PhotonTargets.All, nightmaresWon);
+            } else {
+                DemoSceneManager demoBehavior = FindObjectOfType<DemoSceneManager>();
+                if (demoBehavior != null) {
+                    demoBehavior.photonView.RPC("AddUpgradeToCharacter", PhotonTargets.All, nightmaresWon);
+                }
+            }
         }
 
         private void HandleSprite() {

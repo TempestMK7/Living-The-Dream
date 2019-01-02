@@ -54,11 +54,13 @@ namespace Com.Tempest.Nightmare {
         }
 
         public static void ResetInstance() {
-            Instance.IsReady = STATUS_NOT_READY;
-            Instance.ObjectiveEmbers = 0;
-            Instance.RescueEmbers = 0;
-            Instance.UpgradeEmbers = 0;
-            Instance.VictoryEmbers = 0;
+            if (Instance != null) {
+                Instance.IsReady = STATUS_NOT_READY;
+                Instance.ObjectiveEmbers = 0;
+                Instance.RescueEmbers = 0;
+                Instance.UpgradeEmbers = 0;
+                Instance.VictoryEmbers = 0;
+            }
         }
     }
 }

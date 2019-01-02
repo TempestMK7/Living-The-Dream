@@ -22,13 +22,14 @@ namespace Com.Tempest.Nightmare {
 	    public void Awake() {
             Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 0;
+            PhotonNetwork.offlineMode = false;
 
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.autoCleanUpPlayerObjects = true;
-            PhotonNetwork.sendRate = 20;
-            PhotonNetwork.sendRateOnSerialize = 20;
+            PhotonNetwork.sendRate = 30;
+            PhotonNetwork.sendRateOnSerialize = 30;
             OpenStartPanel();
             progressLabel.SetActive(false);
             versionText.text = "Game Version: " + Constants.GAME_VERSION;
@@ -56,7 +57,6 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(true);
-
             unspentEmberText.text = "Unspent Embers: " + AccountStateContainer.getInstance().unspentEmbers;
         }
 
@@ -64,6 +64,10 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(false);
+        }
+
+        public void LaunchDemoScene() {
+            SceneManager.LoadScene("DemoScene");
         }
 
         public void ConnectAsExplorer() {

@@ -173,7 +173,6 @@ namespace Com.Tempest.Nightmare {
 					Shrines.Add(go.GetComponent<ShrineBehavior>());
 				}
 			}
-
 		}
 
 		[PunRPC]
@@ -337,10 +336,10 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void AddUpgradeToCharacter(bool nightmaresWon) {
-			if (!nightmaresWon && Explorer != null) {
+		public void AddUpgradeToCharacter(bool isNightmare) {
+			if (!isNightmare && Explorer != null) {
 				Explorer.AddUpgrade();
-			} else if (nightmaresWon && Nightmare != null) {
+			} else if (isNightmare && Nightmare != null) {
 				Nightmare.AddUpgrade();
 			}
 		}

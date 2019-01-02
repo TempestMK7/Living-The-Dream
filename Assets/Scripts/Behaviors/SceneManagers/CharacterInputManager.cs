@@ -6,12 +6,14 @@ namespace Com.Tempest.Nightmare {
 	public class CharacterInputManager : Photon.MonoBehaviour {
 
 		private GeneratedGameManager managerBehavior;
+		private DemoSceneManager demoBehavior;
 		private ActionSet actionSet;
 
 		private void Awake() {
 			GetComponent<TouchManager>().enabled = Application.platform == RuntimePlatform.Android;
 
 			managerBehavior = GetComponent<GeneratedGameManager>();
+			demoBehavior = GetComponent<DemoSceneManager>();
 			actionSet = new ActionSet();
 
 			actionSet.Left.AddDefaultBinding(Key.LeftArrow);
@@ -61,7 +63,13 @@ namespace Com.Tempest.Nightmare {
 			InputDevice inputDevice = InputManager.ActiveDevice;
 			if (inputDevice == null)
 				return;
-			IControllable controllable = managerBehavior.GetControllableCharacter();
+			IControllable controllable = null;
+			if (managerBehavior != null) {
+				controllable = managerBehavior.GetControllableCharacter();
+			} else if (demoBehavior != null) {
+				controllable = demoBehavior.GetControllableCharacter();
+			}
+
 			if (controllable == null) {
 				Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
 			} else {

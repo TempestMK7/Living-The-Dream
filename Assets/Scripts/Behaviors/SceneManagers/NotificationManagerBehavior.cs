@@ -22,7 +22,9 @@ namespace Com.Tempest.Nightmare {
 
 		// Use this for initialization
 		void Awake() {
-			gameManagerBehavior = gameManagerObject.GetComponent<GeneratedGameManager>();
+			if (gameManagerObject != null) {
+				gameManagerBehavior = gameManagerObject.GetComponent<GeneratedGameManager>();
+			}
 			notificationImages = new Image[0];
 		}
 
@@ -33,6 +35,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void HandleNotifications() {
+			if (gameManagerBehavior == null) return;
 			List<GameObject> objectsToDisplay = new List<GameObject>();
 			switch (PlayerStateContainer.Instance.TeamSelection) {
 			case PlayerStateContainer.EXPLORER:
@@ -173,7 +176,10 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public void HandleCameraFilter() {
-			bool showMyst = gameManagerBehavior.Explorer != null && gameManagerBehavior.Explorer.IsDead();
+			bool showMyst = false;
+			if (gameManagerBehavior != null) {
+				showMyst = gameManagerBehavior.Explorer != null && gameManagerBehavior.Explorer.IsDead();
+			}
 			Camera.main.GetComponent<CameraFilterPack_3D_Myst>().enabled = showMyst;
 		}
 	}

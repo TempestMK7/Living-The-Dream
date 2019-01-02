@@ -96,9 +96,14 @@ namespace Com.Tempest.Nightmare {
 			if (!photonView.isMine)
 				return;
 			GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-			if (behavior == null)
-				return;
-			behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+			if (behavior != null) {
+				behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+			} else {
+				DemoSceneManager demoBehavior = FindObjectOfType<DemoSceneManager>();
+				if (demoBehavior != null) {
+					demoBehavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+				}
+			}
 		}
 
 		private void ResetIfAppropriate() {
