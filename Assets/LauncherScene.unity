@@ -289,6 +289,7 @@ MonoBehaviour:
   connectPanel: {fileID: 378162626}
   progressionPanel: {fileID: 1657714592}
   progressLabel: {fileID: 1306814203}
+  exitButton: {fileID: 1000662461}
   versionText: {fileID: 916420934}
   unspentEmberText: {fileID: 1415603710}
 --- !u!1 &378162626

@@ -14,16 +14,18 @@ namespace Com.Tempest.Nightmare {
         public GameObject progressionPanel;
 
         public GameObject progressLabel;
+        public Button exitButton;
         public Text versionText;
         public Text unspentEmberText;
 
         private bool isConnecting;
         
 	    public void Awake() {
-            Application.targetFrameRate = 60;
+            exitButton.gameObject.SetActive(
+                Application.platform == RuntimePlatform.WindowsPlayer ||
+                Application.platform == RuntimePlatform.OSXPlayer ||
+                Application.platform == RuntimePlatform.LinuxPlayer);
             QualitySettings.vSyncCount = 0;
-            PhotonNetwork.offlineMode = false;
-
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
@@ -45,18 +47,21 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(true);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(false);
+            progressLabel.SetActive(false);
         }
 
         public void OpenConnectPanel() {
             startPanel.SetActive(false);
             connectPanel.SetActive(true);
             progressionPanel.SetActive(false);
+            progressLabel.SetActive(false);
         }
 
         public void OpenProgressionPanel() {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(true);
+            progressLabel.SetActive(false);
             unspentEmberText.text = "Unspent Embers: " + AccountStateContainer.getInstance().unspentEmbers;
         }
 
@@ -98,7 +103,6 @@ namespace Com.Tempest.Nightmare {
 
         public override void OnConnectedToMaster() {
             if (isConnecting) {
-                Debug.Log("Successfully connected to master. Joining random room.");
                 JoinLobby();
             }
         }
@@ -120,8 +124,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void OnDisconnectedFromPhoton() {
-            Debug.Log("Disconnected from Photon.");
-            connectPanel.SetActive(true);
+            OpenStartPanel();
             progressLabel.SetActive(false);
         }
 

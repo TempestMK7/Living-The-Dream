@@ -8,6 +8,7 @@ namespace Com.Tempest.Nightmare {
 		private GeneratedGameManager managerBehavior;
 		private DemoSceneManager demoBehavior;
 		private ActionSet actionSet;
+		private IControllable controllable;
 
 		private void Awake() {
 			GetComponent<TouchManager>().enabled = Application.platform == RuntimePlatform.Android;
@@ -63,11 +64,12 @@ namespace Com.Tempest.Nightmare {
 			InputDevice inputDevice = InputManager.ActiveDevice;
 			if (inputDevice == null)
 				return;
-			IControllable controllable = null;
-			if (managerBehavior != null) {
-				controllable = managerBehavior.GetControllableCharacter();
-			} else if (demoBehavior != null) {
-				controllable = demoBehavior.GetControllableCharacter();
+			if (controllable == null) {
+				if (managerBehavior != null) {
+					controllable = managerBehavior.GetControllableCharacter();
+				} else if (demoBehavior != null) {
+					controllable = demoBehavior.GetControllableCharacter();
+				}
 			}
 
 			if (controllable == null) {
@@ -93,5 +95,3 @@ namespace Com.Tempest.Nightmare {
 		}
 	}
 }
-
-    

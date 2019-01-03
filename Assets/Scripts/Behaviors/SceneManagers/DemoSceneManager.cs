@@ -24,12 +24,22 @@ namespace Com.Tempest.Nightmare {
         private BaseExplorer explorer;
 
         public void Awake() {
-            PhotonNetwork.Disconnect();
-            PhotonNetwork.offlineMode = true;
+            if (PhotonNetwork.connected) {
+                CreateInvisibleRoom();
+            } else {
+                PhotonNetwork.ConnectUsingSettings(Constants.GAME_VERSION);
+            }
+        }
+
+        public override void OnConnectedToMaster() {
+            CreateInvisibleRoom();
+        }
+
+        private void CreateInvisibleRoom() {
             RoomOptions options = new RoomOptions();
             options.IsOpen = true;
             options.IsVisible = true;
-            options.MaxPlayers = 0;
+            options.MaxPlayers = 1;
             PhotonNetwork.CreateRoom(null, options, TypedLobby.Default);
         }
 
@@ -82,8 +92,12 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void QuitDemo() {
-            SceneManager.LoadScene("LauncherScene");
+			PhotonNetwork.LeaveRoom();
         }
+
+		public override void OnLeftRoom() {
+			SceneManager.LoadScene("LauncherScene");
+		}
 
         public IControllable GetControllableCharacter() {
             return explorer;
