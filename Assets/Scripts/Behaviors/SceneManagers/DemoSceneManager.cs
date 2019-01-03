@@ -19,11 +19,15 @@ namespace Com.Tempest.Nightmare {
 
         public Text upgradesText;
 
+        public GameObject objectivePanel;
+        public GameObject controlPanel;
+
         private GameObject[,] levelChunks;
 
         private BaseExplorer explorer;
 
         public void Awake() {
+            ClosePanels();
             if (PhotonNetwork.connected) {
                 CreateInvisibleRoom();
             } else {
@@ -98,6 +102,21 @@ namespace Com.Tempest.Nightmare {
 		public override void OnLeftRoom() {
 			SceneManager.LoadScene("LauncherScene");
 		}
+
+        public void ClosePanels() {
+            objectivePanel.SetActive(false);
+            controlPanel.SetActive(false);
+        }
+
+        public void OpenObjectivesPanel() {
+            objectivePanel.SetActive(true);
+            controlPanel.SetActive(false);
+        }
+
+        public void OpenControlsPanel() {
+            controlPanel.SetActive(true);
+            objectivePanel.SetActive(false);
+        }
 
         public IControllable GetControllableCharacter() {
             return explorer;

@@ -6,7 +6,6 @@ namespace Com.Tempest.Nightmare {
 
     public class GhastBehavior : BaseNightmare {
 
-        public float dashCooldown = 1f;
         public float collisionDebounceTime = 1f;
         public float upgradeAccelerationFactor = 0.03f;
     
@@ -20,10 +19,7 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionPrimaryPressed() {
             base.ActionPrimaryPressed();
-            if (Time.time - dashStart >= EffectiveDashCooldown()) {
-                DashPhysics();
-                dashStart = Time.time;
-            }
+            DashPhysics();
         }
 
         private float EffectiveDashCooldown() {

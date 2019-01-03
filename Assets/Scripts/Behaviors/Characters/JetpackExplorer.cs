@@ -11,6 +11,7 @@ namespace Com.Tempest.Nightmare {
         public float maxJetpackTime = 1f;
         public float jetpackTimeUpgradeMod = 0.1f;
         public float fallingJetpackForceFactor = 1.5f;
+        public float aerialJetpackReloadFactor = 0.2f;
 
         private GameObject fuelBarCanvas;
         private Image positiveFuelImage;
@@ -43,10 +44,12 @@ namespace Com.Tempest.Nightmare {
                     jetpackTimeRemaining = 0f;
                     jetpackOn = false;
                 }
-            } else {
+            } else if (currentState == MovementState.GROUNDED || currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
                 jetpackTimeRemaining += Time.deltaTime;
-                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
+            } else {
+                jetpackTimeRemaining += Time.deltaTime * aerialJetpackReloadFactor;
             }
+            jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
         }
 
         private void HandleFuelBar() {

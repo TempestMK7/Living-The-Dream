@@ -16,9 +16,11 @@ namespace Com.Tempest.Nightmare {
             base.Update();
             switch (currentState) {
                 case MovementState.GROUNDED:
+                    hasUsedDash = false;
+                    hasUsedSecondDash = false;
+                    break;
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
-                    hasUsedDash = false;
                     hasUsedSecondDash = false;
                     break;
             }

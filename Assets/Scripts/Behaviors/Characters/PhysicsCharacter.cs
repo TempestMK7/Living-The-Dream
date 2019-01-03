@@ -12,6 +12,7 @@ namespace Com.Tempest.Nightmare {
 		public float dashDuration = 0.5f;
 		public float damageRecovery = 1f;
 		public float deathAnimationTime = 3f;
+		public float dashCooldown = 0.65f;
 
 		// General movement params.
 		public float maxSpeed = 7f;
@@ -195,9 +196,19 @@ namespace Com.Tempest.Nightmare {
 
 			// If we hit anything horizontally, reflect or stop x axis movement.
 			if (hitX) {
-				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || (currentState == MovementState.DASHING && wallReflection)) {
+				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING ) {
 					currentSpeed.x *= wallSpeedReflectionFactor;
 					currentOffset.x *= wallSpeedReflectionFactor;
+				} else if (currentState == MovementState.DASHING) {
+					if (wallReflection) {
+						currentSpeed.x *= wallSpeedReflectionFactor;
+						currentOffset.x *= wallSpeedReflectionFactor;
+					} else {
+						float magnitude = Mathf.Abs(currentSpeed.magnitude);
+						currentSpeed.x = 0f;
+						currentOffset.x = 0f;
+						currentSpeed.y = goingUp ? magnitude : magnitude * -1f;
+					}
 				} else {
 					currentSpeed.x = 0f;
 					currentOffset.x = 0f;
@@ -225,7 +236,7 @@ namespace Com.Tempest.Nightmare {
 					if (rayCast) {
 						hitY = true;
 						distanceForFrame.y = rayCast.point.y - rayOrigin.y;
-						if (!goingUp && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
+						if (!goingUp && currentState != MovementState.DAMAGED && currentState != MovementState.DYING && currentState != MovementState.DASHING) {
 							currentState = MovementState.GROUNDED;
 						}
 					}
@@ -234,11 +245,19 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitY) {
-				if ((currentState == MovementState.DAMAGED || currentState == MovementState.DYING ||
-						(currentState == MovementState.DASHING && wallReflection)) && 
-						Mathf.Abs(currentSpeed.y) > MaxSpeed()) {
+				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING) {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
+				} else if (currentState == MovementState.DASHING) {
+					if (wallReflection) {
+						currentSpeed.y *= wallSpeedReflectionFactor;
+						currentOffset.y *= wallSpeedReflectionFactor;
+					} else {
+						float magnitude = Mathf.Abs(currentSpeed.magnitude);
+						currentSpeed.y = 0f;
+						currentOffset.y = 0f;
+						currentSpeed.x = goingRight ? magnitude : magnitude * -1f;
+					}
 				} else {
 					currentSpeed.y = 0f;
 					currentOffset.y = 0f;
@@ -470,7 +489,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected void DashPhysics() {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING)  return;
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - timerStart < dashCooldown)  return;
 			currentState = MovementState.DASHING;
 			timerStart = Time.time;
 
