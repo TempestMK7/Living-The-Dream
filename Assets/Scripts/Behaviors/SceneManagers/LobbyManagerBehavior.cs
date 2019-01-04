@@ -8,13 +8,13 @@ namespace Com.Tempest.Nightmare {
 
 		public Text pingDisplay;
 		public Button readyButton;
-		public Dropdown teamDropdown;
-		public GameObject explorerPanel;
-		public Dropdown explorerSelect;
-		public GameObject nightmarePanel;
-		public Dropdown nightmareSelect;
 		public VerticalLayoutGroup playerListContent;
 		public Text textPrefab;
+
+		public GameObject explorerPanel;
+		public GameObject nightmarePanel;
+		public Text explorerSelectionText;
+		public Text nightmareSelectionText;
 
 		private float lastListRefresh;
 		private int numExplorers;
@@ -26,27 +26,89 @@ namespace Com.Tempest.Nightmare {
 			}
 			PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_NOT_READY;
 			InitializePlayerStateWithPhoton();
-			InitializePlayerSelections();
 			HandlePanels();
 		}
 
 		public void InitializePlayerStateWithPhoton() {
 			PhotonPlayer player = PhotonNetwork.player;
 			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-			teamDropdown.value = PlayerStateContainer.Instance.TeamSelection;
 			properties[PlayerStateContainer.TEAM_SELECTION] = PlayerStateContainer.Instance.TeamSelection;
 			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
 			player.SetCustomProperties(properties);
 		}
 
-		public void InitializePlayerSelections() {
-			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.DOUBLE_JUMP_EXPLORER;
-			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.GHAST;
-		}
-
 		public void HandlePanels() {
 			explorerPanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER);
 			nightmarePanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE);
+			switch (PlayerStateContainer.Instance.ExplorerSelection) {
+				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
+					explorerSelectionText.text = "Double Jump";
+					break;
+				case PlayerStateContainer.JETPACK_EXPLORER:
+					explorerSelectionText.text = "Jetpack";
+					break;
+				case PlayerStateContainer.DASH_EXPLORER:
+					explorerSelectionText.text = "Dash";
+					break;
+			}
+			switch (PlayerStateContainer.Instance.NightmareSelection) {
+				case PlayerStateContainer.GHAST:
+					nightmareSelectionText.text = "Ghast";
+					break;
+				case PlayerStateContainer.CRYO:
+					nightmareSelectionText.text = "Cryo";
+					break;
+				case PlayerStateContainer.GOBLIN:
+					nightmareSelectionText.text = "Goblin";
+					break;
+			}
+		}
+
+		public void SelectExplorer() {
+			if (numExplorers == Constants.MAX_EXPLORERS) return;
+			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.EXPLORER;
+			HandlePanels();
+		}
+
+		public void SelectNightmare() {
+			if (numNightmares == Constants.MAX_NIGHTMARES) return;
+			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.NIGHTMARE;
+			HandlePanels();
+		}
+
+		public void SelectObserver() {
+			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
+			HandlePanels();
+		}
+
+		public void SelectDoubleJump() {
+			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.DOUBLE_JUMP_EXPLORER;
+			HandlePanels();
+		}
+
+		public void SelectJetpack() {
+			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.JETPACK_EXPLORER;
+			HandlePanels();
+		}
+
+		public void SelectDash() {
+			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.DASH_EXPLORER;
+			HandlePanels();
+		}
+
+		public void SelectGhast() {
+			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.GHAST;
+			HandlePanels();
+		}
+
+		public void SelectCryo() {
+			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.CRYO;
+			HandlePanels();
+		}
+
+		public void SelectGoblin() {
+			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.GOBLIN;
+			HandlePanels();
 		}
 
 		private void Update() {
@@ -136,28 +198,6 @@ namespace Com.Tempest.Nightmare {
 			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
 			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
 			PhotonNetwork.player.SetCustomProperties(properties);
-		}
-
-		public void OnTeamSelectChanged() {
-			int teamChoice = teamDropdown.value;
-			if (teamChoice != PlayerStateContainer.Instance.TeamSelection) {
-				if ((teamChoice == PlayerStateContainer.NIGHTMARE && numNightmares == Constants.MAX_NIGHTMARES) || 
-						(teamChoice == PlayerStateContainer.EXPLORER && numExplorers == Constants.MAX_EXPLORERS)) {
-					teamChoice = PlayerStateContainer.OBSERVER;
-					PlayerStateContainer.Instance.TeamSelection = teamChoice;
-					teamDropdown.value = teamChoice;
-				} else {
-					PlayerStateContainer.Instance.TeamSelection = teamChoice;
-				}
-				HandlePanels();
-			}
-		}
-
-		public void OnCharacterSelectChanged() {
-			int explorerChoice = explorerSelect.value;
-			int nightmareChoice = nightmareSelect.value;
-			PlayerStateContainer.Instance.ExplorerSelection = explorerChoice;
-			PlayerStateContainer.Instance.NightmareSelection = nightmareChoice;
 		}
 
 		public void LeaveRoom() {

@@ -68,8 +68,8 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        public override void ActionSecondaryPressed() {
-            base.ActionSecondaryPressed();
+        public override void ActionSecondaryPressed(Vector3 mouseDirection) {
+            base.ActionSecondaryPressed(mouseDirection);
             jetpackOn = true;
         }
 

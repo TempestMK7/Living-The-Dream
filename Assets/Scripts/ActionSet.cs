@@ -12,6 +12,7 @@ public class ActionSet : PlayerActionSet {
 
     public PlayerAction ActionPrimary;
     public PlayerAction ActionSecondary;
+    public PlayerAction ActionSecondaryMouse;
     public PlayerAction ActivateLight;
     public PlayerAction Grab;
 
@@ -25,6 +26,8 @@ public class ActionSet : PlayerActionSet {
         Down = CreatePlayerAction("Move Down");
         ActionPrimary = CreatePlayerAction("ActionPrimary");
         ActionSecondary = CreatePlayerAction("ActionSecondary");
+        ActionSecondaryMouse = CreatePlayerAction("ActionSecondaryMouse");
+        
         ActivateLight = CreatePlayerAction("ActivateLight");
         Grab = CreatePlayerAction("Grab");
         MoveX = CreateOneAxisPlayerAction(Left, Right);

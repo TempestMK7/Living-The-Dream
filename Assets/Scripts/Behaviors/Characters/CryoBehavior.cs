@@ -28,17 +28,12 @@ namespace Com.Tempest.Nightmare {
             return Time.time - fireballTime < fireballAttackAnimation;
         }
 
-        public override void ActionPrimaryPressed() {
-            base.ActionPrimaryPressed();
-            LaunchIceBall();
+        public override void ActionSecondaryPressed(Vector3 mouseDirection) {
+            base.ActionSecondaryPressed(mouseDirection);
+            LaunchIceBall(mouseDirection);
         }
 
-        public override void ActionSecondaryPressed() {
-            base.ActionSecondaryPressed();
-            LaunchIceBall();
-        }
-
-        public void LaunchIceBall() {
+        public void LaunchIceBall(Vector3 mouseDirection) {
             if (photonView.isMine) {    
                 float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
                 if (Time.time - fireballTime < usableAttackCooldown) return;
@@ -46,7 +41,8 @@ namespace Com.Tempest.Nightmare {
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();
-                iceBall.SetStartingDirection(currentControllerState, fireballSpeed + (fireballUpgradeSpeed * (float) NumUpgrades));
+                    Vector3 direction = mouseDirection.magnitude == 0f ? currentControllerState : mouseDirection;
+                iceBall.SetStartingDirection(direction, fireballSpeed + (fireballUpgradeSpeed * (float) NumUpgrades));
                 iceBall.CryoLauncherBehavior = this;
             }
         }

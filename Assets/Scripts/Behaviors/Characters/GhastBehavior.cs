@@ -17,9 +17,9 @@ namespace Com.Tempest.Nightmare {
             animator.SetBool("IsAttacking", IsAttacking());
         }
 
-        public override void ActionPrimaryPressed() {
-            base.ActionPrimaryPressed();
-            DashPhysics();
+        public override void ActionSecondaryPressed(Vector3 mouseDirection) {
+            base.ActionSecondaryPressed(mouseDirection);
+            DashPhysics(mouseDirection);
         }
 
         private float EffectiveDashCooldown() {

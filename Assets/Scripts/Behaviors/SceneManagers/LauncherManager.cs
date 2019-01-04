@@ -25,6 +25,7 @@ namespace Com.Tempest.Nightmare {
                 Application.platform == RuntimePlatform.WindowsPlayer ||
                 Application.platform == RuntimePlatform.OSXPlayer ||
                 Application.platform == RuntimePlatform.LinuxPlayer);
+            Application.targetFrameRate = 60;
             QualitySettings.vSyncCount = 0;
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;

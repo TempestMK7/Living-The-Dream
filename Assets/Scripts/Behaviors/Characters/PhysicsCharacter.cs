@@ -448,7 +448,7 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 		}
 
-		public virtual void ActionSecondaryPressed() {
+		public virtual void ActionSecondaryPressed(Vector3 mouseDirection) {
 			actionSecondaryHeld = true;
 		}
 
@@ -488,16 +488,17 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		protected void DashPhysics() {
+		protected void DashPhysics(Vector3 mouseDirection) {
 			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - timerStart < dashCooldown)  return;
 			currentState = MovementState.DASHING;
 			timerStart = Time.time;
 
-			if (currentControllerState.magnitude == 0f) {
-				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * DashFactor();
+			if (mouseDirection.magnitude != 0f) {
+				currentSpeed = mouseDirection * MaxSpeed() * DashFactor() / mouseDirection.magnitude;
+			} else if (currentControllerState.magnitude != 0f) {
+            	currentSpeed = currentControllerState * MaxSpeed() * DashFactor() / currentControllerState.magnitude;
 			} else {
-            	Vector3 direction = currentControllerState * MaxSpeed() / currentControllerState.magnitude;
-            	currentSpeed = direction * DashFactor();
+				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * DashFactor();
 			}
 		}
 

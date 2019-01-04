@@ -42,7 +42,7 @@ namespace Com.Tempest.Nightmare {
 			actionSet.ActionPrimary.AddDefaultBinding(InputControlType.Action1);
 
 			actionSet.ActionSecondary.AddDefaultBinding(Key.Backspace);
-			actionSet.ActionSecondary.AddDefaultBinding(Mouse.RightButton);
+			actionSet.ActionSecondaryMouse.AddDefaultBinding(Mouse.RightButton);
 			actionSet.ActionSecondary.AddDefaultBinding(InputControlType.Action2);
 
 			actionSet.ActivateLight.AddDefaultBinding(Key.Control);
@@ -83,7 +83,11 @@ namespace Com.Tempest.Nightmare {
 					controllable.ActionPrimaryReleased();
 				}
 				if (actionSet.ActionSecondary.WasPressed) {
-					controllable.ActionSecondaryPressed();
+					controllable.ActionSecondaryPressed(new Vector3());
+				}
+				if (actionSet.ActionSecondaryMouse.WasPressed) {
+					Vector3 direction = new Vector3(Input.mousePosition.x - (Screen.width / 2f), Input.mousePosition.y - (Screen.height / 2f));
+					controllable.ActionSecondaryPressed(direction);
 				}
 				if (actionSet.ActionSecondary.WasReleased) {
 					controllable.ActionSecondaryReleased();
