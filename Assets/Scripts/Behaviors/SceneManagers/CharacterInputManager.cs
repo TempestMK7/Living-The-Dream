@@ -92,6 +92,9 @@ namespace Com.Tempest.Nightmare {
 				if (actionSet.ActionSecondary.WasReleased) {
 					controllable.ActionSecondaryReleased();
 				}
+				if (actionSet.ActionSecondaryMouse.WasReleased) {
+					controllable.ActionSecondaryReleased();
+				}
 				if (actionSet.ActivateLight.WasPressed) {
 					controllable.LightTogglePressed();
 				}

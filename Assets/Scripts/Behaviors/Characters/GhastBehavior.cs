@@ -22,8 +22,8 @@ namespace Com.Tempest.Nightmare {
             DashPhysics(mouseDirection);
         }
 
-        private float EffectiveDashCooldown() {
-            return HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? dashCooldown / 2f : dashCooldown;
+        protected override float DashCooldown() {
+            return HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? base.DashCooldown() / 2f : base.DashCooldown();
         }
 
         public bool IsAttacking() {

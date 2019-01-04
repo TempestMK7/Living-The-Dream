@@ -489,7 +489,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected void DashPhysics(Vector3 mouseDirection) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - timerStart < dashCooldown)  return;
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - timerStart < DashCooldown())  return;
 			currentState = MovementState.DASHING;
 			timerStart = Time.time;
 
@@ -538,6 +538,10 @@ namespace Com.Tempest.Nightmare {
 
 		protected virtual float GetCurrentAcceleration() {
 			return baseAcceleration;
+		}
+
+		protected virtual float DashCooldown() {
+			return dashCooldown;
 		}
 
 		#endregion

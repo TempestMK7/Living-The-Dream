@@ -258,12 +258,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   powerupDuration: 30
   wallJumpRecovery: 0.2
-  dashDuration: 0.2
+  dashDuration: 0.12
   damageRecovery: 1
   deathAnimationTime: 3
   dashCooldown: 1
   maxSpeed: 10
-  dashFactor: 3
+  dashFactor: 5
   wallReflection: 1
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.3
@@ -309,8 +309,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114869240577281766}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114963600998936260
