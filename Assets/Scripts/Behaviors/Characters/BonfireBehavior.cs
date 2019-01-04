@@ -13,10 +13,8 @@ namespace Com.Tempest.Nightmare {
         public float lightBoxScaleBase = 1f;
         public float lightBoxScaleUnlit = 4f;
         public float lightBoxScaleLit = 10f;
-
-        public Sprite unlitSprite;
-        public Sprite partLitSprite;
-        public Sprite litSprite;
+        
+        public Animator fireAnimator;
 
         public LayerMask whatIsPlayer;
         public LayerMask whatIsDeadPlayer;
@@ -83,13 +81,8 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void HandleSprite() {
-            if (IsLit()) {
-                spriteRenderer.sprite = litSprite;
-            } else if (currentCharges != 0) {
-                spriteRenderer.sprite = partLitSprite;
-            } else {
-                spriteRenderer.sprite = unlitSprite;
-            }
+            fireAnimator.SetBool("InProgress", currentCharges != 0);
+            fireAnimator.SetBool("Complete", IsLit());
         }
 
         private void HandleProgressBar() {
@@ -113,10 +106,6 @@ namespace Com.Tempest.Nightmare {
         public void NotifyLit() {
             currentCharges = requiredCharges;
             timeLit = Time.time;
-        }
-
-        public Sprite GetCurrentSprite() {
-            return spriteRenderer.sprite;
         }
 
         public bool IsLit() {

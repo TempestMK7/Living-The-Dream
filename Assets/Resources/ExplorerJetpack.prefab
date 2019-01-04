@@ -473,6 +473,7 @@ MonoBehaviour:
   maxJetpackTime: 1
   jetpackTimeUpgradeMod: 0.1
   fallingJetpackForceFactor: 2
+  aerialJetpackReloadFactor: 0.2
 --- !u!114 &114366234931332242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,8 +497,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114424361840156852}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114474839814186338
