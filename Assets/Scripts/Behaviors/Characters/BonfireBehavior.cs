@@ -8,6 +8,7 @@ namespace Com.Tempest.Nightmare {
     public class BonfireBehavior : Photon.PunBehaviour, IPunObservable {
 
         public float requiredCharges = 30f;
+        public float regressionFactor = 0.2f;
         public float litNotificationDuration = 5f;
 
         public float lightBoxScaleBase = 1f;
@@ -57,7 +58,7 @@ namespace Com.Tempest.Nightmare {
             if (photonView.isMine && currentCharges < requiredCharges) {
                 Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
                 if (otherPlayers.Length == 0) {
-                    currentCharges -= Time.deltaTime;
+                    currentCharges -= Time.deltaTime * regressionFactor;
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
                     float multiplier = otherPlayers.Length;

@@ -328,11 +328,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6c0d214a696804a826d8fccf6af134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredCharges: 30
+  requiredCharges: 20
   litNotificationDuration: 5
-  lightBoxScaleBase: 15
-  lightBoxScaleUnlit: 60
-  lightBoxScaleLit: 150
+  lightBoxScaleBase: 10
+  lightBoxScaleUnlit: 50
+  lightBoxScaleLit: 100
   fireAnimator: {fileID: 5990749741525769867}
   whatIsPlayer:
     serializedVersion: 2
@@ -363,8 +363,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114390298047075664}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!95 &5990749741525769867
