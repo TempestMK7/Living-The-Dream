@@ -46,6 +46,8 @@ namespace Com.Tempest.Nightmare {
 		protected Vector3 currentControllerState;
 		private Vector3 currentOffset;
 		private float timerStart;
+		private float jumpTimerStart;
+		private float dashTimerStart;
 
         // Self initialized flyer variables.
 		private float baseAcceleration;
@@ -415,9 +417,9 @@ namespace Com.Tempest.Nightmare {
 					currentState = MovementState.FALLING;
 				} else if (currentState == MovementState.DYING && Time.time - timerStart > deathAnimationTime) {
 					currentState = MovementState.FALLING;
-				} else if (currentState == MovementState.WALL_JUMP && Time.time - timerStart > wallJumpRecovery) {
+				} else if (currentState == MovementState.WALL_JUMP && Time.time - jumpTimerStart > wallJumpRecovery) {
 					currentState = MovementState.JUMPING;
-				} else if (currentState == MovementState.DASHING && Time.time - timerStart > dashDuration) {
+				} else if (currentState == MovementState.DASHING && Time.time - dashTimerStart > dashDuration) {
 					currentState = MovementState.FALLING;
 				}
 			}
@@ -476,22 +478,22 @@ namespace Com.Tempest.Nightmare {
 				case MovementState.WALL_SLIDE_LEFT:
                 	currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
                 	currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
-					timerStart = Time.time;
+					jumpTimerStart = Time.time;
 					currentState = MovementState.WALL_JUMP;
 					break;
 				case MovementState.WALL_SLIDE_RIGHT:
                 	currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
                 	currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
-					timerStart = Time.time;
+					jumpTimerStart = Time.time;
 					currentState = MovementState.WALL_JUMP;
 					break;
 			}
 		}
 
 		protected void DashPhysics(Vector3 mouseDirection) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - timerStart < DashCooldown())  return;
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - dashTimerStart < DashCooldown())  return;
 			currentState = MovementState.DASHING;
-			timerStart = Time.time;
+			dashTimerStart = Time.time;
 
 			if (mouseDirection.magnitude != 0f) {
 				currentSpeed = mouseDirection * MaxSpeed() * DashFactor() / mouseDirection.magnitude;
