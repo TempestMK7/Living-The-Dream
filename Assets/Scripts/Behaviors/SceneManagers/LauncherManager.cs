@@ -1,5 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+
+using InControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -8,17 +12,30 @@ namespace Com.Tempest.Nightmare {
 
     public class LauncherManager : Photon.PunBehaviour {
 
+        private const int JUMP = 0;
+        private const int ACTION = 1;
+        private const int LIGHT = 2;
+        private const int CLING = 3;
+
         public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
         public GameObject startPanel;
         public GameObject connectPanel;
         public GameObject progressionPanel;
+        public GameObject settingsPanel;
 
         public GameObject progressLabel;
         public Button exitButton;
         public Text versionText;
         public Text unspentEmberText;
 
+        public Button keyboardJump;
+        public Button keyboardAction;
+        public Button keyboardLight;
+        public Button keyboardCling;
+
         private bool isConnecting;
+        private bool isRebinding;
+        private int inputRebinding;
         
 	    public void Awake() {
             exitButton.gameObject.SetActive(
@@ -40,14 +57,22 @@ namespace Com.Tempest.Nightmare {
             AccountStateContainer.getInstance();
         }
 
+        public void Update() {
+            if (isRebinding) {
+                CheckForRebinds();
+            }
+        }
+
         public void ExitGame() {
             Application.Quit();
         }
 
         public void OpenStartPanel() {
+            isRebinding = false;
             startPanel.SetActive(true);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(false);
+            settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
         }
 
@@ -55,6 +80,7 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(false);
             connectPanel.SetActive(true);
             progressionPanel.SetActive(false);
+            settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
         }
 
@@ -62,14 +88,69 @@ namespace Com.Tempest.Nightmare {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(true);
+            settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
             unspentEmberText.text = "Unspent Embers: " + AccountStateContainer.getInstance().unspentEmbers;
+        }
+
+        public void OpenSettingsPanel() {
+            startPanel.SetActive(false);
+            connectPanel.SetActive(false);
+            progressionPanel.SetActive(false);
+            settingsPanel.SetActive(true);
+            progressLabel.SetActive(false);
+
+            ControlBindingContainer container = ControlBindingContainer.GetInstance();
+            keyboardJump.GetComponentInChildren<Text>().text = container.jumpKey.ToString();
+            keyboardAction.GetComponentInChildren<Text>().text = container.actionKey.ToString();
+            keyboardLight.GetComponentInChildren<Text>().text = container.lightKey.ToString();
+            keyboardCling.GetComponentInChildren<Text>().text = container.clingKey.ToString();
         }
 
         public void CloseAllPanels() {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
             progressionPanel.SetActive(false);
+            settingsPanel.SetActive(false);
+        }
+
+        public void ResetBindings() {
+            isRebinding = false;
+            ControlBindingContainer.ResetInstance();
+            OpenSettingsPanel();
+        }
+
+        public void ListenForKeyBind(int inputType) {
+            isRebinding = true;
+            inputRebinding = inputType;
+        }
+
+        private void CheckForRebinds() {
+            Key selectedKey = Key.None;
+            foreach (KeyCode keyCode in Enum.GetValues(typeof(KeyCode))) {
+                if (Input.GetKeyDown(keyCode)) {
+                    selectedKey = Array.Find(KeyInfo.KeyList, keyInfo => Array.Exists(keyInfo.keyCodes, containedCode => containedCode == keyCode)).Key;
+                }
+            }
+            if (selectedKey != Key.None) {
+                switch (inputRebinding) {
+                    case JUMP:
+                        ControlBindingContainer.GetInstance().jumpKey = selectedKey;
+                        break;
+                    case ACTION:
+                        ControlBindingContainer.GetInstance().actionKey = selectedKey;
+                        break;
+                    case LIGHT:
+                        ControlBindingContainer.GetInstance().lightKey = selectedKey;
+                        break;
+                    case CLING:
+                        ControlBindingContainer.GetInstance().clingKey = selectedKey;
+                        break;
+                }
+                ControlBindingContainer.SaveInstance();
+                isRebinding = false;
+                OpenSettingsPanel();
+            }
         }
 
         public void LaunchDemoScene() {

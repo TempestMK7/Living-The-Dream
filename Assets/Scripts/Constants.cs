@@ -12,5 +12,6 @@ namespace Com.Tempest.Nightmare {
         public const string GAME_VERSION = "0.16";
 
         public const string SAVE_FILE_NAME = "LlomSaveData_" + GAME_VERSION + ".txt";
+        public const string CONTROL_FILE_NAME = "LlomControlData_" + GAME_VERSION + ".txt";
     }
 }

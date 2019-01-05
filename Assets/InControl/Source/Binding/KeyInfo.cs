@@ -5,10 +5,10 @@
 
 	public struct KeyInfo
 	{
-		private readonly Key key;
+		public readonly Key key;
 		private readonly string name;
 		private readonly string macName;
-		private readonly KeyCode[] keyCodes;
+		public readonly KeyCode[] keyCodes;
 
 
 		private KeyInfo( Key key, string name, params KeyCode[] keyCodes )
