@@ -111,8 +111,15 @@ namespace Com.Tempest.Nightmare {
 		// Toggles base renderer and health canvas if necessary.
 		// Prevents multiple calls to change enabled state.
 		private void ToggleRenderers(bool enabled) {
-			if (myRenderer.enabled != enabled)
+			if (myRenderer.enabled != enabled) {
 				myRenderer.enabled = enabled;
+				Renderer[] childRenderers = gameObject.GetComponentsInChildren<Renderer>();
+				foreach (Renderer childRenderer in childRenderers) {
+					if (childRenderer.gameObject.GetComponent<LightBoxBehavior>() == null) {
+						childRenderer.enabled = enabled;
+					}
+				}
+			}
 		}
 
         private void HandlePowerupState() {

@@ -18,14 +18,14 @@ namespace Com.Tempest.Nightmare {
 		public GameObject gameManagerObject;
 
 		private GeneratedGameManager gameManagerBehavior;
-		private Image[] notificationImages;
+		private Image[,] notificationImages;
 
 		// Use this for initialization
 		void Awake() {
 			if (gameManagerObject != null) {
 				gameManagerBehavior = gameManagerObject.GetComponent<GeneratedGameManager>();
 			}
-			notificationImages = new Image[0];
+			notificationImages = new Image[0,0];
 		}
 
 		// Update is called once per frame
@@ -43,6 +43,9 @@ namespace Com.Tempest.Nightmare {
 				if (explorer != null) {
 					if (!explorer.IsDead()) {
 						objectsToDisplay.AddRange(GetDeadExplorerNotifications());
+					} else {
+						objectsToDisplay.AddRange(GetLiveExplorerNotifications());
+						objectsToDisplay.AddRange(GetAllLitBonfires());
 					}
 					if (explorer.HasPowerup(Powerup.NIGHTMARE_VISION)) {
 						objectsToDisplay.AddRange(GetNightmareNotifications());
@@ -70,9 +73,11 @@ namespace Com.Tempest.Nightmare {
 				foreach (Image image in notificationImages) {
 					Destroy(image);
 				}
-				notificationImages = new Image[gameObjects.Count];
-				for (int x = 0; x < notificationImages.Length; x++) {
-					notificationImages[x] = Instantiate<Image>(notificationImagePrefab, uiCanvas.transform, false);
+				notificationImages = new Image[gameObjects.Count, 10];
+				for (int x = 0; x < gameObjects.Count; x++) {
+					for (int y = 0; y < 10; y++) {
+						notificationImages[x, y] = Instantiate<Image>(notificationImagePrefab, uiCanvas.transform, false);
+					}
 				}
 			}
 
@@ -87,7 +92,7 @@ namespace Com.Tempest.Nightmare {
 
 			for (int x = 0; x < gameObjects.Count; x++) {
 				GameObject notifier = gameObjects[x];
-				Image notification = notificationImages[x];
+				Image notification = notificationImages[x, 0];
 				notification.sprite = notifier.GetComponent<SpriteRenderer>().sprite;
 				Vector3 distance = notifier.transform.position - cameraBounds.center;
 				float angle = Mathf.Atan2(distance.y, distance.x);
@@ -96,6 +101,20 @@ namespace Com.Tempest.Nightmare {
 				canvasOffset.y = Mathf.Clamp(canvasOffset.y, canvasHeight * -1, canvasHeight);
 				notification.rectTransform.localPosition = canvasOffset;
 				notification.enabled = !cameraBounds.Contains(notifier.transform.position);
+				
+				SpriteRenderer[] childRenderers = notifier.GetComponentsInChildren<SpriteRenderer>();
+				for (int y = 1; y < 10; y++) {
+					int childIndex = y - 1;
+					Image childNotification = notificationImages[x, y];
+					if (childRenderers.Length > childIndex) {
+						bool isLightBox = childRenderers[childIndex].gameObject.GetComponent<LightBoxBehavior>() != null;
+						childNotification.sprite = childRenderers[childIndex].sprite;
+						childNotification.rectTransform.localPosition = canvasOffset;
+						childNotification.enabled = !isLightBox && !cameraBounds.Contains(notifier.transform.position);
+					} else {
+						childNotification.enabled = false;
+					}
+				}
 			}
 		}
 
@@ -117,6 +136,18 @@ namespace Com.Tempest.Nightmare {
 				return output;
 			foreach (BonfireBehavior behavior in gameManagerBehavior.Bonfires) {
 				if (behavior.ShowLitNotification()) {
+					output.Add(behavior.gameObject);
+				}
+			}
+			return output;
+		}
+
+		private List<GameObject> GetAllLitBonfires() {
+			List<GameObject> output = new List<GameObject>();
+			if (gameManagerBehavior.Bonfires == null)
+				return output;
+			foreach (BonfireBehavior behavior in gameManagerBehavior.Bonfires) {
+				if (behavior.IsLit()) {
 					output.Add(behavior.gameObject);
 				}
 			}
@@ -153,6 +184,18 @@ namespace Com.Tempest.Nightmare {
 				return output;
 			foreach (BaseExplorer behavior in gameManagerBehavior.Explorers) {
 				if (behavior.IsDead()) {
+					output.Add(behavior.gameObject);
+				}
+			}
+			return output;
+		}
+
+		private List<GameObject> GetLiveExplorerNotifications() {
+			List<GameObject> output = new List<GameObject>();
+			if (gameManagerBehavior.Explorers == null || gameManagerBehavior.Explorers.Count == 0)
+				return output;
+			foreach (BaseExplorer behavior in gameManagerBehavior.Explorers) {
+				if (!behavior.IsDead()) {
 					output.Add(behavior.gameObject);
 				}
 			}
