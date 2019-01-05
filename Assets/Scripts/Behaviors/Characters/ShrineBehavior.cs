@@ -16,7 +16,6 @@ namespace Com.Tempest.Nightmare {
 
 		private GameObject progressCanvas;
 		private Image positiveProgressBar;
-		private SpriteRenderer spriteRenderer;
 		private CircleCollider2D circleCollider;
 
 		private float dreamerCharges;
@@ -27,7 +26,6 @@ namespace Com.Tempest.Nightmare {
 		void Awake() {
 			progressCanvas = transform.Find("ShrineCanvas").gameObject;
 			positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
-			spriteRenderer = GetComponent<SpriteRenderer>();
 			circleCollider = GetComponent<CircleCollider2D>();
 			dreamerCharges = 0f;
 			nightmareCharges = 0f;

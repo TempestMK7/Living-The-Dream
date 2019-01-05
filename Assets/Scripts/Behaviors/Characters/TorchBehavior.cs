@@ -10,13 +10,10 @@ namespace Com.Tempest.Nightmare {
         public float respawnTimer = 60f;
         public float lightBoxScale = 1f;
 
-        public Sprite unlitSprite;
-        public Sprite litSprite;
-
         public LayerMask whatIsNightmare;
         public LayerMask whatIsExplorer;
 
-        private SpriteRenderer spriteRenderer;
+        private Animator animator;
         private CircleCollider2D circleCollider;
         private LightBoxBehavior lightBox;
 
@@ -29,7 +26,7 @@ namespace Com.Tempest.Nightmare {
             lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
             lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
 
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            animator = GetComponent<Animator>();
             circleCollider = GetComponent<CircleCollider2D>();
             timeTaken = respawnTimer * -1f;
         }
@@ -77,11 +74,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void HandleSprite() {
-            if (IsLit()) {
-                spriteRenderer.sprite = litSprite;
-            } else {
-                spriteRenderer.sprite = unlitSprite;
-            }
+            animator.SetBool("IsLit", IsLit());
         }
 
         private void HandleLightBox() {

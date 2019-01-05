@@ -36,7 +36,6 @@ namespace Com.Tempest.Nightmare {
         // Use this for initialization
         void Awake() {
             animator = GetComponent<Animator>();
-            if (currentSpeed == null) currentSpeed = new Vector3();
             playersHit = new List<BaseExplorer>();
 
             lightBox = GetComponentInChildren<LightBoxBehavior>();

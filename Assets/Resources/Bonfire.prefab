@@ -329,10 +329,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredCharges: 20
+  regressionFactor: 0.2
   litNotificationDuration: 5
   lightBoxScaleBase: 10
-  lightBoxScaleUnlit: 50
-  lightBoxScaleLit: 100
+  lightBoxScaleUnlit: 60
+  lightBoxScaleLit: 120
   fireAnimator: {fileID: 5990749741525769867}
   whatIsPlayer:
     serializedVersion: 2

@@ -45,10 +45,11 @@ namespace Com.Tempest.Nightmare {
 		public void AddUpgrade() {
 			NumUpgrades += 1;
 			GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
+			string message = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE ? "Your attack has been upgraded." : "Your movement has been upgraded.";
 			if (manager != null) {
-				manager.DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
+				manager.DisplayAlert(message, PlayerStateContainer.Instance.TeamSelection);
 			} else {
-				FindObjectOfType<DemoSceneManager>().DisplayAlert("Your light has grown.", PlayerStateContainer.Instance.TeamSelection);
+				FindObjectOfType<DemoSceneManager>().DisplayAlert(message, PlayerStateContainer.Instance.TeamSelection);
 			}
 		}
 	}

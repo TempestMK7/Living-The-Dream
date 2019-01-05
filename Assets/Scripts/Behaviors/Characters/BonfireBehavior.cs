@@ -23,7 +23,6 @@ namespace Com.Tempest.Nightmare {
         private LightBoxBehavior lightBox;
         private GameObject progressCanvas;
         private Image positiveProgressBar;
-        private SpriteRenderer spriteRenderer;
         private CircleCollider2D circleCollider;
         private float currentCharges;
         private float timeLit;
@@ -40,7 +39,6 @@ namespace Com.Tempest.Nightmare {
 
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
-            spriteRenderer = GetComponent<SpriteRenderer>();
             circleCollider = GetComponent<CircleCollider2D>();
             currentCharges = 0f;
             timeLit = 0f;
