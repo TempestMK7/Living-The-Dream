@@ -28,6 +28,11 @@ namespace Com.Tempest.Nightmare {
         public Text versionText;
         public Text unspentEmberText;
 
+        public InputField inputField;
+		public Button connectExplorerButton;
+		public Button connectNightmareButton;
+		public Button connectObserverButton;
+
         public Button keyboardJump;
         public Button keyboardAction;
         public Button keyboardLight;
@@ -61,6 +66,14 @@ namespace Com.Tempest.Nightmare {
             if (isRebinding) {
                 CheckForRebinds();
             }
+            HandleConnectButtons();
+        }
+
+        private void HandleConnectButtons() {
+            bool nameEntered = inputField.text.Length != 0;
+            connectExplorerButton.gameObject.SetActive(nameEntered);
+            connectNightmareButton.gameObject.SetActive(nameEntered);
+            connectObserverButton.gameObject.SetActive(nameEntered);
         }
 
         public void ExitGame() {

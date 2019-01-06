@@ -20,7 +20,7 @@ namespace Com.Tempest.Nightmare {
 		private int numExplorers;
 		private int numNightmares;
 
-		void Start() {
+		public void Awake() {
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = true;
 			}
@@ -113,6 +113,7 @@ namespace Com.Tempest.Nightmare {
 
 		private void Update() {
 			pingDisplay.text = string.Format("Ping: {0:D4} ms", PhotonNetwork.GetPing());
+			readyButton.GetComponentInChildren<Text>().text = PlayerStateContainer.Instance.IsReady.Equals(PlayerStateContainer.STATUS_READY) ? "Unready" : "Ready";
 			ResendPlayerInfoIfWrong();
 			RefreshPlayerList();
 			UpdateRoomCounts();
@@ -121,7 +122,7 @@ namespace Com.Tempest.Nightmare {
 		public void ResendPlayerInfoIfWrong() {
 			PhotonPlayer player = PhotonNetwork.player;
 			if ((int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION] != PlayerStateContainer.Instance.TeamSelection ||
-			    	PlayerStateContainer.Instance.IsReady.Equals(player.CustomProperties[PlayerStateContainer.IS_READY])) {
+			    	!PlayerStateContainer.Instance.IsReady.Equals(player.CustomProperties[PlayerStateContainer.IS_READY])) {
 				InitializePlayerStateWithPhoton();
 			}
 		}
