@@ -69,7 +69,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void DrawNotifications(List<GameObject> gameObjects) {
-			if (gameObjects.Count != notificationImages.Length) {
+			if (gameObjects.Count != notificationImages.GetLength(0)) {
 				foreach (Image image in notificationImages) {
 					Destroy(image);
 				}
