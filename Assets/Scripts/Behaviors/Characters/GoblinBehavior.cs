@@ -41,18 +41,8 @@ namespace Com.Tempest.Nightmare {
 
         public override void ActionSecondaryPressed(Vector3 mouseDirection) {
             base.ActionSecondaryPressed(mouseDirection);
-            switch (currentState) {
-                case MovementState.GROUNDED:
-                case MovementState.WALL_SLIDE_LEFT:
-                case MovementState.WALL_SLIDE_RIGHT:
-                case MovementState.JUMPING:
-                case MovementState.FALLING:
-                case MovementState.WALL_JUMP:
-                    if (!hasUsedDash) {
-                        DashPhysics(mouseDirection);
-                        hasUsedDash = true;
-                    }
-                    break;
+            if (!hasUsedDash && DashPhysics(mouseDirection)) {
+                hasUsedDash = true;
             }
         }
 

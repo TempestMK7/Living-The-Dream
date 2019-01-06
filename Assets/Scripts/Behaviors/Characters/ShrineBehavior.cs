@@ -11,12 +11,16 @@ namespace Com.Tempest.Nightmare {
 		public float captureNotificationDuration = 5f;
 		public float cooldownTime = 180f;
 
+		public Sprite chestClosed;
+		public Sprite chestOpen;
+
 		public LayerMask whatIsNightmare;
 		public LayerMask whatIsDreamer;
 
 		private GameObject progressCanvas;
 		private Image positiveProgressBar;
 		private CircleCollider2D circleCollider;
+		private SpriteRenderer spriteRenderer;
 
 		private float dreamerCharges;
 		private float nightmareCharges;
@@ -27,6 +31,7 @@ namespace Com.Tempest.Nightmare {
 			progressCanvas = transform.Find("ShrineCanvas").gameObject;
 			positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
 			circleCollider = GetComponent<CircleCollider2D>();
+			spriteRenderer = GetComponent<SpriteRenderer>();
 			dreamerCharges = 0f;
 			nightmareCharges = 0f;
 			timeLit = 0f;
@@ -38,6 +43,7 @@ namespace Com.Tempest.Nightmare {
 			HandleNightmareProximity();
 			ResetIfAppropriate();
 			HandleProgressBar();
+			HandleImage();
 		}
 
 		private void HandleDreamerProximity() {
@@ -124,6 +130,14 @@ namespace Com.Tempest.Nightmare {
 				} else {
 					positiveProgressBar.fillAmount = Mathf.Max(dreamerCharges, nightmareCharges) / requiredCharges;
 				}
+			}
+		}
+
+		private void HandleImage() {
+			if (IsLit()) {
+				spriteRenderer.sprite = chestOpen;
+			} else {
+				spriteRenderer.sprite = chestClosed;
 			}
 		}
 

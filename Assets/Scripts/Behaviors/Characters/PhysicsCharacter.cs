@@ -490,8 +490,10 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		protected void DashPhysics(Vector3 mouseDirection) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - dashTimerStart < DashCooldown())  return;
+		protected bool DashPhysics(Vector3 mouseDirection) {
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - dashTimerStart < DashCooldown())  {
+				return false;
+			}
 			currentState = MovementState.DASHING;
 			dashTimerStart = Time.time;
 
@@ -502,6 +504,7 @@ namespace Com.Tempest.Nightmare {
 			} else {
 				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * DashFactor();
 			}
+			return true;
 		}
 
 		protected void AttackPhysics() {
