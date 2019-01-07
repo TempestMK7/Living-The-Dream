@@ -7,6 +7,7 @@ using InControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
 
@@ -18,6 +19,7 @@ namespace Com.Tempest.Nightmare {
         private const int CLING = 3;
 
         public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
+        public GameObject talentManager;
         public GameObject startPanel;
         public GameObject connectPanel;
         public GameObject progressionPanel;
@@ -27,6 +29,11 @@ namespace Com.Tempest.Nightmare {
         public Button exitButton;
         public Text versionText;
         public Text unspentEmberText;
+
+        public Text talentNameText;
+        public Text talentExplanationText;
+        public Text talentCurrentText;
+        public Text talentNextText;
 
         public InputField inputField;
 		public Button connectExplorerButton;
@@ -41,22 +48,27 @@ namespace Com.Tempest.Nightmare {
         private bool isConnecting;
         private bool isRebinding;
         private int inputRebinding;
+
+        private TalentManagerBehavior talentBehavior;
         
 	    public void Awake() {
+            Application.targetFrameRate = 60;
+            QualitySettings.vSyncCount = 0;
             exitButton.gameObject.SetActive(
                 Application.platform == RuntimePlatform.WindowsPlayer ||
                 Application.platform == RuntimePlatform.OSXPlayer ||
                 Application.platform == RuntimePlatform.LinuxPlayer);
-            Application.targetFrameRate = 60;
-            QualitySettings.vSyncCount = 0;
+            
+            talentBehavior = talentManager.GetComponent<TalentManagerBehavior>();
+            
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;
             PhotonNetwork.automaticallySyncScene = true;
             PhotonNetwork.autoCleanUpPlayerObjects = true;
             PhotonNetwork.sendRate = 30;
             PhotonNetwork.sendRateOnSerialize = 30;
+
             OpenStartPanel();
-            progressLabel.SetActive(false);
             versionText.text = "Game Version: " + Constants.GAME_VERSION;
             PlayerStateContainer.ResetInstance();
             AccountStateContainer.getInstance();
@@ -67,7 +79,10 @@ namespace Com.Tempest.Nightmare {
                 CheckForRebinds();
             }
             HandleConnectButtons();
+            UpdateEmberCount();
         }
+
+        #region Panel and Button Handling
 
         private void HandleConnectButtons() {
             bool nameEntered = inputField.text.Length != 0;
@@ -103,7 +118,8 @@ namespace Com.Tempest.Nightmare {
             progressionPanel.SetActive(true);
             settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
-            unspentEmberText.text = "Unspent Embers: " + AccountStateContainer.getInstance().unspentEmbers;
+
+            talentBehavior.Start();
         }
 
         public void OpenSettingsPanel() {
@@ -126,6 +142,39 @@ namespace Com.Tempest.Nightmare {
             progressionPanel.SetActive(false);
             settingsPanel.SetActive(false);
         }
+
+        private void UpdateEmberCount() {
+            unspentEmberText.text = "Unspent Embers: " + talentBehavior.GetUnspentPoints();
+        }
+
+        #endregion
+
+        #region Progression Panel
+
+        public void ApplyTalents() {
+            talentBehavior.Apply();
+            OpenStartPanel();
+        }
+
+        public void CancelTalents() {
+            talentBehavior.Revert();
+            OpenStartPanel();
+        }
+
+        public void RefundTalents() {
+            talentBehavior.RefundAll();
+        }
+
+        public void OnTalentClick(TalentTreeNodeBase talent) {
+            talentNameText.text = talent.Name;
+            talentExplanationText.text = talent.Explanation;
+            talentCurrentText.text = "";
+            talentNextText.text = "";
+        }
+
+        #endregion
+
+        #region Key Bindings.
 
         public void ResetBindings() {
             isRebinding = false;
@@ -165,6 +214,10 @@ namespace Com.Tempest.Nightmare {
                 OpenSettingsPanel();
             }
         }
+
+        #endregion
+
+        #region Photon Connection
 
         public void LaunchDemoScene() {
             SceneManager.LoadScene("DemoScene");
@@ -240,5 +293,7 @@ namespace Com.Tempest.Nightmare {
                 PhotonNetwork.LoadLevel("LobbyScene");
             }
         }
+
+        #endregion
     }
 }

@@ -206,6 +206,23 @@ namespace com.cygnusprojects.TalentTree
             Evaluate();
         }
 
+        public int RefundAll(params string[] excluded) {
+            int refunded = 0;
+            if (talents != null && talents.Count > 0) {
+                foreach (var t in talents) {
+                    if (Array.Exists(excluded, e => t.Name.Equals(e))) continue;
+                    foreach (var c in t.Cost) {
+                        if (c.Bought) {
+                            c.Bought = false;
+                            refunded += c.Cost;
+                        }
+                    }
+                }
+            }
+            Evaluate();
+            return refunded;
+        }
+
         public void CleanUp()
         {
             if (talents != null)

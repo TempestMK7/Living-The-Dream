@@ -6,6 +6,8 @@ namespace Com.Tempest.Nightmare {
 
 	public class LobbyManagerBehavior : Photon.PunBehaviour {
 
+		public GameObject talentManager;
+
 		public Text pingDisplay;
 		public Button readyButton;
 		public VerticalLayoutGroup playerListContent;
@@ -15,16 +17,24 @@ namespace Com.Tempest.Nightmare {
 		public GameObject nightmarePanel;
 		public Text explorerSelectionText;
 		public Text nightmareSelectionText;
+		public Button doubleJumpButton;
+		public Button jetpackButton;
+		public Button dashButton;
+
+		private TalentManagerBehavior talentBehavior;
 
 		private float lastListRefresh;
 		private int numExplorers;
 		private int numNightmares;
 
 		public void Awake() {
+			talentBehavior = talentManager.GetComponent<TalentManagerBehavior>();
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = true;
 			}
 			PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_NOT_READY;
+			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.DOUBLE_JUMP_EXPLORER;
+			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.GHAST;
 			InitializePlayerStateWithPhoton();
 			HandlePanels();
 		}
@@ -40,6 +50,11 @@ namespace Com.Tempest.Nightmare {
 		public void HandlePanels() {
 			explorerPanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER);
 			nightmarePanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE);
+
+			doubleJumpButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Double Jump Explorer") != 0);
+			jetpackButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Jetpack Explorer") != 0);
+			dashButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Dash Explorer") != 0);
+
 			switch (PlayerStateContainer.Instance.ExplorerSelection) {
 				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
 					explorerSelectionText.text = "Double Jump";
@@ -51,6 +66,7 @@ namespace Com.Tempest.Nightmare {
 					explorerSelectionText.text = "Dash";
 					break;
 			}
+
 			switch (PlayerStateContainer.Instance.NightmareSelection) {
 				case PlayerStateContainer.GHAST:
 					nightmareSelectionText.text = "Ghast";

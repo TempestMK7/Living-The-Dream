@@ -12,6 +12,7 @@ namespace Com.Tempest.Nightmare {
         private static AccountStateContainer Instance;
 
         public int unspentEmbers;
+        public string talentState;
 
         public static void SaveInstance() {
             string dataPath = Path.Combine(Application.persistentDataPath, Constants.SAVE_FILE_NAME);

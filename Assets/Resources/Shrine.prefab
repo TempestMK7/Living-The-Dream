@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requiredCharges: 5
   captureNotificationDuration: 5
-  cooldownTime: 120
+  cooldownTime: 90
   chestClosed: {fileID: 21300010, guid: ae3918a914038694d852d0bb81f62473, type: 3}
   chestOpen: {fileID: 21300012, guid: ae3918a914038694d852d0bb81f62473, type: 3}
   whatIsNightmare:
