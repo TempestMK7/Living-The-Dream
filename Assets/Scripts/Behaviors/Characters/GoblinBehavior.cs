@@ -76,5 +76,41 @@ namespace Com.Tempest.Nightmare {
         protected override bool IsFlyer() {
             return false;
         }
+
+		protected override int GetSightRange() {
+            return 0;
+        }
+
+		protected override int GetShrineDuration() {
+            return 0;
+        }
+
+		protected override int GetBonfireSpeed() {
+            return 0;
+        }
+
+		protected override int GetUpgradeModifier() {
+            return 0;
+        }
+
+		protected override int GetJumpHeight() {
+            return 0;
+        }
+
+		protected override int GetMovementSpeed() {
+            return 0;
+        }
+
+		protected override int GetReducedGravity() {
+            return 0;
+        }
+
+		protected override int GetJetpackForce() {
+            return 0;
+        }
+
+		protected override int GetResetDashOnWallSlide() {
+            return 0;
+        }
     }
 }

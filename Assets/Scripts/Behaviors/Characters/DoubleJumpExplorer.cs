@@ -55,5 +55,48 @@ namespace Com.Tempest.Nightmare {
         protected override bool IsFlyer() {
             return false;
         }
+
+		protected override int GetSightRange() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
+        }
+
+		protected override int GetShrineDuration() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.CHEST_DURATION);
+        }
+
+		protected override int GetBonfireSpeed() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
+        }
+
+		protected override int GetUpgradeModifier() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.UPGRADES);
+        }
+
+		protected override int GetJumpHeight() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
+        }
+
+		protected override int GetMovementSpeed() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
+        }
+
+		protected override int GetReducedGravity() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.REDUCED_GRAVITY);
+        }
+
+		protected override int GetJetpackForce() {
+            return 0;
+        }
+
+		protected override int GetResetDashOnWallSlide() {
+            return 0;
+        }
     }
 }

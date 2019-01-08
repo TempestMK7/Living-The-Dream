@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
 
@@ -9,11 +10,15 @@ namespace Com.Tempest.Nightmare {
 		public float powerupDuration = 60f;
 
 		private Dictionary<Powerup, float> powerupDictionary;
+		protected TalentManagerBehavior talentManager;
 
 		public int NumUpgrades { get; set; }
 
 		public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
+			if (photonView.isMine) {
+				talentManager = FindObjectOfType<TalentManagerBehavior>();
+			}
 		}
 
 		[PunRPC]
@@ -52,5 +57,15 @@ namespace Com.Tempest.Nightmare {
 				FindObjectOfType<DemoSceneManager>().DisplayAlert(message, PlayerStateContainer.Instance.TeamSelection);
 			}
 		}
+
+		protected abstract int GetSightRange();
+		protected abstract int GetShrineDuration();
+		protected abstract int GetBonfireSpeed();
+		protected abstract int GetUpgradeModifier();
+		protected abstract int GetJumpHeight();
+		protected abstract int GetMovementSpeed();
+		protected abstract int GetReducedGravity();
+		protected abstract int GetJetpackForce();
+		protected abstract int GetResetDashOnWallSlide();
 	}
 }

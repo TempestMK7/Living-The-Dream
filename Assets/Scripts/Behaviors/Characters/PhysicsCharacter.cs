@@ -97,7 +97,8 @@ namespace Com.Tempest.Nightmare {
 		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
 			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
-				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
+				float upgradeGravityBackoff = 1.0f - (0.1f * GetReducedGravity());
+				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * upgradeGravityBackoff * Time.deltaTime;
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				if (grabHeld && currentSpeed.y <= 0f) {
 					currentSpeed.y = 0f;

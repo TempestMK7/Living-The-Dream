@@ -120,6 +120,14 @@ namespace Com.Tempest.Nightmare {
             progressLabel.SetActive(false);
 
             talentBehavior.Start();
+            ClearProgressionDescriptions();
+        }
+
+        private void ClearProgressionDescriptions() {
+            talentNameText.text = "None Selected.";
+            talentExplanationText.text = "Click on a talent to view its description.";
+            talentCurrentText.text = "";
+            talentNextText.text = "";
         }
 
         public void OpenSettingsPanel() {
@@ -163,13 +171,22 @@ namespace Com.Tempest.Nightmare {
 
         public void RefundTalents() {
             talentBehavior.RefundAll();
+            ClearProgressionDescriptions();
         }
 
         public void OnTalentClick(TalentTreeNodeBase talent) {
             talentNameText.text = talent.Name;
             talentExplanationText.text = talent.Explanation;
-            talentCurrentText.text = "";
-            talentNextText.text = "";
+            talentCurrentText.text = "Current Level:\nNo Effect.";
+            talentNextText.text = "Next Level:\nNot Available.";
+            foreach (var c in talent.Cost) {
+                if (c.Bought || c.WillBuy) {
+                    talentCurrentText.text = "Current Level:\n" + c.Description;
+                } else {
+                    talentNextText.text = "Next Level:\n" + c.Description;
+                    break;
+                }
+            }
         }
 
         #endregion

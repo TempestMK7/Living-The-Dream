@@ -21,6 +21,9 @@ namespace Com.Tempest.Nightmare {
                     break;
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
+                    if (GetResetDashOnWallSlide() != 0) {
+                        hasUsedDash = false;
+                    }
                     hasUsedSecondDash = false;
                     break;
             }
@@ -57,6 +60,49 @@ namespace Com.Tempest.Nightmare {
 
         protected override bool IsFlyer() {
             return false;
+        }
+
+		protected override int GetSightRange() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
+        }
+
+		protected override int GetShrineDuration() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.CHEST_DURATION);
+        }
+
+		protected override int GetBonfireSpeed() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
+        }
+
+		protected override int GetUpgradeModifier() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.UPGRADES);
+        }
+
+		protected override int GetJumpHeight() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
+        }
+
+		protected override int GetMovementSpeed() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
+        }
+
+		protected override int GetReducedGravity() {
+            return 0;
+        }
+
+		protected override int GetJetpackForce() {
+            return 0;
+        }
+
+		protected override int GetResetDashOnWallSlide() {
+            if (talentManager == null) return 0;
+            return talentManager.GetTalentLevel(TalentManagerBehavior.RESET_DASH);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Com.Tempest.Nightmare;
 
 namespace com.cygnusprojects.TalentTree
 {
@@ -120,6 +121,7 @@ namespace com.cygnusprojects.TalentTree
             {
                 revertButton.gameObject.SetActive(true);
             }
+            GetComponentInChildren<TalentClickBehavior>().OnClick();
         }
 
         public void DoRevert()

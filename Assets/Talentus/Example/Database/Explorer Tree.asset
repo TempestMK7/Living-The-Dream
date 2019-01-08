@@ -78,7 +78,7 @@ MonoBehaviour:
   PanY: 52
   mouseOverProperties: 0
   propertyWidth: 466.75
-  PointsToAssign: 600
+  PointsToAssign: 5600
 --- !u!114 &114011631135390376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Add progress to bonfires 5% faster.
 --- !u!114 &114018795963102274
@@ -197,7 +197,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your jetpack fuel size.
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114092604484016052
@@ -466,7 +466,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases vision range while light is off.
   explanation: This only increases your base sight range while your light is off.
     This will not extend the range of your light while it is on.
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 800
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces the effects fo gravity 20% while rising.
 --- !u!114 &114166659135453022
@@ -654,7 +654,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -952,7 +952,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -1126,7 +1126,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases vision range while light is off.
   explanation: This only increases your base sight range while your light is off.
     This will not extend the range of your light while it is on.
@@ -1190,7 +1190,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases Shrine powerup duration.
   explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
     normally affect you for 30 seconds when taken by any member of your team.
@@ -1228,7 +1228,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114368366492469488
@@ -1269,7 +1269,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: c6f79a43d6f66814489333d8bd37c2f8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Reduces the effects of gravity while jumping.
   explanation: The Double Jump Explorer is affected less by gravity while rising during
     a jump.  This further reduces tof gravity only while rising.  Falling speed is
@@ -1308,7 +1308,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114378004381808576
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114411865510366542
@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 5% more jetpack fuel.
 --- !u!114 &114492189562177526
@@ -1792,7 +1792,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -1830,9 +1830,9 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 800
-  Bought: 0
+  Bought: 1
   WillBuy: 0
-  Description: Increases jetpack force by 20%
+  Description: Increases jetpack force by 80%
 --- !u!114 &114548328116359656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,7 +1856,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: eadfbb63ee41b244f9d2d11112dc6b77, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Raises the force of your jetpack.
   explanation: Your jetpack will cause you to rise faster.
   isInResearch: 0
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces the effects of gravity by 10% while rising.
 --- !u!114 &114563979786146130
@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 5% more jumping power.
 --- !u!114 &114585285821799666
@@ -2075,7 +2075,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases Shrine powerup duration.
   explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
     normally affect you for 30 seconds when taken by any member of your team.
@@ -2123,7 +2123,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your jump power slightly.
@@ -2192,7 +2192,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114682349474266738
@@ -2487,7 +2487,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114803871699498284
@@ -2503,7 +2503,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Add progress to bonfires 5% faster.
 --- !u!114 &114805852296556676
@@ -2575,7 +2575,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114834686301805296
@@ -2645,7 +2645,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 100
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: 
 --- !u!114 &114836959947756934
@@ -2755,9 +2755,9 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
-  Description: Increases jetpack force by 10%
+  Description: Increases jetpack force by 40%
 --- !u!114 &114907791409305456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2796,7 +2796,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -2834,7 +2834,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114929301449094324
@@ -2992,7 +2992,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 100
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: 
 --- !u!114 &114979047914005604
