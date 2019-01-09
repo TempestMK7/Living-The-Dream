@@ -38,6 +38,30 @@ MonoBehaviour:
   - {fileID: 114574998198721192}
   - {fileID: 114548328116359656}
   - {fileID: 114513077343933742}
+  - {fileID: 114219657352761090}
+  - {fileID: 114500917323138738}
+  - {fileID: 114347496946909442}
+  - {fileID: 114086201772953136}
+  - {fileID: 114790570456530362}
+  - {fileID: 114939336702389684}
+  - {fileID: 114679647232296266}
+  - {fileID: 114902160916815340}
+  - {fileID: 114509403207824412}
+  - {fileID: 114740911295850856}
+  - {fileID: 114218591282618104}
+  - {fileID: 114908792565155068}
+  - {fileID: 114330856459276106}
+  - {fileID: 114384633104603796}
+  - {fileID: 114851145502249964}
+  - {fileID: 114069442739663270}
+  - {fileID: 114097172326967452}
+  - {fileID: 114306723074243710}
+  - {fileID: 114947693359649344}
+  - {fileID: 114558638403815138}
+  - {fileID: 114053793189694880}
+  - {fileID: 114922866420479072}
+  - {fileID: 114143036175401608}
+  - {fileID: 114540641314072962}
   connections:
   - {fileID: 114522691789337882}
   - {fileID: 114692373953458280}
@@ -63,6 +87,30 @@ MonoBehaviour:
   - {fileID: 114043259329331758}
   - {fileID: 114047512956337082}
   - {fileID: 114346595924520254}
+  - {fileID: 114659571512291868}
+  - {fileID: 114065460036498464}
+  - {fileID: 114224317521253982}
+  - {fileID: 114848909707915940}
+  - {fileID: 114955106569684098}
+  - {fileID: 114018150638315020}
+  - {fileID: 114147232932909588}
+  - {fileID: 114337444708331180}
+  - {fileID: 114365427115820898}
+  - {fileID: 114856205836920630}
+  - {fileID: 114622725045006282}
+  - {fileID: 114690451209867814}
+  - {fileID: 114268593359482512}
+  - {fileID: 114970376795357984}
+  - {fileID: 114154311708984004}
+  - {fileID: 114239727076913716}
+  - {fileID: 114005569643432082}
+  - {fileID: 114845983096359120}
+  - {fileID: 114433766916561370}
+  - {fileID: 114712663963535380}
+  - {fileID: 114434194384138164}
+  - {fileID: 114870870092409026}
+  - {fileID: 114969342434736412}
+  - {fileID: 114338953463026372}
   tiers:
   - {fileID: 114588502085780866}
   - {fileID: 114805852296556676}
@@ -72,14 +120,14 @@ MonoBehaviour:
   selectedNode: {fileID: 0}
   selectedConnection: {fileID: 0}
   wantsConnection: 0
-  connectionNode: {fileID: 114465650938121474}
+  connectionNode: {fileID: 114143036175401608}
   showProperties: 0
   PanX: 0
-  PanY: 52
+  PanY: -684
   mouseOverProperties: 0
   propertyWidth: 466.75
-  PointsToAssign: 5600
---- !u!114 &114011631135390376
+  PointsToAssign: 9650
+--- !u!114 &114004965294590626
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,6 +143,69 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
+--- !u!114 &114005569643432082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GoblinNightmare_GOSightRange
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114347496946909442}
+  toNode: {fileID: 114306723074243710}
+  curvePoints:
+  - {x: 118, y: 1536, z: 0}
+  - {x: 130.96297, y: 1533.9424, z: 0}
+  - {x: 137.7037, y: 1528.4281, z: 0}
+  - {x: 139.99997, y: 1520.4442, z: 0}
+  - {x: 139.62964, y: 1510.9797, z: 0}
+  - {x: 138.37038, y: 1501.0205, z: 0}
+  - {x: 138, y: 1491.5555, z: 0}
+  - {x: 140.2963, y: 1483.572, z: 0}
+  - {x: 147.03705, y: 1478.0577, z: 0}
+  - {x: 160, y: 1476, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114605364925233514}
+  connectionType: 0
+--- !u!114 &114010719753138330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 15% more dash speed.
+--- !u!114 &114011631135390376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 1
+  WillBuy: 0
+  Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114014542173943904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,9 +219,56 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 5% faster.
+--- !u!114 &114017094368120054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 15%.
+--- !u!114 &114018150638315020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNSightRange_GNCooldownReduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114086201772953136}
+  toNode: {fileID: 114908792565155068}
+  curvePoints:
+  - {x: 256, y: 916, z: 0}
+  - {x: 269.03156, y: 916.00006, z: 0}
+  - {x: 275.95612, y: 916, z: 0}
+  - {x: 278.5185, y: 915.9999, z: 0}
+  - {x: 278.46368, y: 916.0001, z: 0}
+  - {x: 277.53635, y: 916, z: 0}
+  - {x: 277.4815, y: 916, z: 0}
+  - {x: 280.04388, y: 916, z: 0}
+  - {x: 286.96844, y: 916, z: 0}
+  - {x: 300, y: 916, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114724496182614324}
+  connectionType: 0
 --- !u!114 &114018795963102274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +285,22 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases range by 15%.
+--- !u!114 &114020264439821864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases jump power by 15%.
 --- !u!114 &114022752652815300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,6 +317,21 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Upgrades give you 10% more dash speed.
+--- !u!114 &114024833608520670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Ghast Nightmare must be active.
 --- !u!114 &114024893577704492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +363,38 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114290738221498918}
   connectionType: 0
+--- !u!114 &114029202157845072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 3%.
+--- !u!114 &114032362992202968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 3%.
 --- !u!114 &114033814598873444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +418,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your jetpack fuel size.
@@ -269,6 +490,21 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114951136070863184}
   connectionType: 0
+--- !u!114 &114043939700349472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Ghast Nightmare must be active.
 --- !u!114 &114047512956337082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +536,54 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114709396410876968}
   connectionType: 0
+--- !u!114 &114048698692660912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Sight Range must be active.
+--- !u!114 &114053793189694880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Upgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 1560
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Attack upgrades affect you more.
+  explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
+    upgrades increase your dash speed slightly.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114106518037149070}
+  - {fileID: 114331105062318926}
+  - {fileID: 114010719753138330}
 --- !u!114 &114059041532521114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +647,85 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114385416100504374}
   connectionType: 0
+--- !u!114 &114063886571919446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 6%.
+--- !u!114 &114065460036498464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GhastNightmare_GNChestDuration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114219657352761090}
+  toNode: {fileID: 114790570456530362}
+  curvePoints:
+  - {x: 116, y: 986, z: 0}
+  - {x: 129.03156, y: 988.4006, z: 0}
+  - {x: 135.9561, y: 994.8341, z: 0}
+  - {x: 138.5185, y: 1004.1481, z: 0}
+  - {x: 138.46367, y: 1015.19086, z: 0}
+  - {x: 137.53635, y: 1026.8093, z: 0}
+  - {x: 137.48148, y: 1037.8518, z: 0}
+  - {x: 140.04388, y: 1047.166, z: 0}
+  - {x: 146.96846, y: 1053.5995, z: 0}
+  - {x: 160, y: 1056, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114024833608520670}
+  connectionType: 0
+--- !u!114 &114069442739663270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Movement Speed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 1280
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases movement speed.
+  explanation: You move faster than normally.  This is probably going to be game-breaking.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114395171367709384}
+  - {fileID: 114674951010958022}
+  - {fileID: 114628736632750808}
 --- !u!114 &114069803866225136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +742,54 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 15% faster.
+--- !u!114 &114083611794540012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 15%.
+--- !u!114 &114086201772953136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Sight Range
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 860
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases sight range.
+  explanation: Increases your sight range at all times.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114718809509088282}
+  - {fileID: 114114130594473620}
+  - {fileID: 114168664863599636}
 --- !u!114 &114088474629877128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -392,7 +803,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114092604484016052
@@ -443,6 +854,53 @@ MonoBehaviour:
   parentTree: {fileID: 11400000}
   editorColor: {r: 0, g: 1, b: 1, a: 1}
   description: Very strong talents.
+--- !u!114 &114097172326967452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Cancel Projectile Gravity
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 580
+    y: 1210
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 2130d181f250c094dadf797408241e47, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Cancels effects of gravity on projectiles.
+  explanation: This will stop your projectiles from falling downwards after being
+    fired allowing for more precise shots.
+  isInResearch: 0
+  tier: {fileID: 114190687291757190}
+  cost:
+  - {fileID: 114226314044791918}
+--- !u!114 &114098050067419896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 100
+  Bought: 0
+  WillBuy: 0
+  Description: Unlocks the Goblin Nightmare.
 --- !u!114 &114099720810997612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,7 +911,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Sight Range
+  m_Name: DE Sight Range
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -476,6 +934,54 @@ MonoBehaviour:
   - {fileID: 114236506198596616}
   - {fileID: 114059041532521114}
   - {fileID: 114383130570573362}
+--- !u!114 &114106518037149070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 5% more dash speed.
+--- !u!114 &114114130594473620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 10%.
+--- !u!114 &114114424919260600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 5%.
 --- !u!114 &114135323889816616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,6 +1043,38 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Jetpack Explorer must be active.
+--- !u!114 &114143036175401608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Movement Speed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 1560
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases movement speed.
+  explanation: You move faster than normally.  This is probably going to be game-breaking.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114032362992202968}
+  - {fileID: 114063886571919446}
+  - {fileID: 114537681845023176}
 --- !u!114 &114144793604114440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -567,6 +1105,67 @@ MonoBehaviour:
   Name: 
   Conditions:
   - {fileID: 114166659135453022}
+  connectionType: 0
+--- !u!114 &114147232932909588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNCooldownReduction_GNAcceleration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114908792565155068}
+  toNode: {fileID: 114384633104603796}
+  curvePoints:
+  - {x: 396, y: 916, z: 0}
+  - {x: 409.03156, y: 916.00006, z: 0}
+  - {x: 415.95612, y: 916, z: 0}
+  - {x: 418.51846, y: 915.9999, z: 0}
+  - {x: 418.4637, y: 916.0001, z: 0}
+  - {x: 417.53635, y: 916, z: 0}
+  - {x: 417.48148, y: 916, z: 0}
+  - {x: 420.0439, y: 916, z: 0}
+  - {x: 426.96844, y: 916, z: 0}
+  - {x: 440, y: 916, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions: []
+  connectionType: 0
+--- !u!114 &114154311708984004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNAcceleration_CancelProjectileGravity
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114851145502249964}
+  toNode: {fileID: 114097172326967452}
+  curvePoints:
+  - {x: 536, y: 1196, z: 0}
+  - {x: 549.03156, y: 1198.4004, z: 0}
+  - {x: 555.9561, y: 1204.834, z: 0}
+  - {x: 558.5185, y: 1214.148, z: 0}
+  - {x: 558.46375, y: 1225.1908, z: 0}
+  - {x: 557.5363, y: 1236.8093, z: 0}
+  - {x: 557.48145, y: 1247.8518, z: 0}
+  - {x: 560.0439, y: 1257.166, z: 0}
+  - {x: 566.96844, y: 1263.5994, z: 0}
+  - {x: 580, y: 1266, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114850302534140606}
   connectionType: 0
 --- !u!114 &114154429952392434
 MonoBehaviour:
@@ -613,7 +1212,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 800
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces the effects fo gravity 20% while rising.
 --- !u!114 &114166659135453022
@@ -631,6 +1230,22 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Movement Speed must be active.
+--- !u!114 &114168664863599636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 15%.
 --- !u!114 &114181446479964186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +1269,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -773,6 +1388,85 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 40 seconds.
+--- !u!114 &114218591282618104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Upgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 1280
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Attack upgrades affect you more.
+  explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
+    upgrades increase your projectile speed slightly.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114487541573520498}
+  - {fileID: 114693799721117888}
+  - {fileID: 114883786685464282}
+--- !u!114 &114219657352761090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Ghast Nightmare
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 20
+    y: 930
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: eaa69c964fdb1e745aee988eea45464d, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 1
+  description: Unlock the Ghast nightmare.
+  explanation: The Ghast can fly around and dash into Explorers to inflict damage.
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114266491412495186}
+--- !u!114 &114220102469460458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 5% more dash speed.
 --- !u!114 &114221908153030834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -789,6 +1483,53 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
+--- !u!114 &114224317521253982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNChestDuration_GNUpgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114790570456530362}
+  toNode: {fileID: 114939336702389684}
+  curvePoints:
+  - {x: 256, y: 1056, z: 0}
+  - {x: 269.03156, y: 1056.0001, z: 0}
+  - {x: 275.95612, y: 1056.0001, z: 0}
+  - {x: 278.5185, y: 1055.9999, z: 0}
+  - {x: 278.46368, y: 1056.0001, z: 0}
+  - {x: 277.53635, y: 1056, z: 0}
+  - {x: 277.4815, y: 1056, z: 0}
+  - {x: 280.04388, y: 1056, z: 0}
+  - {x: 286.96844, y: 1056, z: 0}
+  - {x: 300, y: 1056, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114487039383593126}
+  connectionType: 0
+--- !u!114 &114226314044791918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 1000
+  Bought: 0
+  WillBuy: 0
+  Description: Projectiles are no longer affected by gravity.
 --- !u!114 &114236506198596616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,7 +1543,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114237934008179394
@@ -820,6 +1561,83 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Shrine Duration must be active.
+--- !u!114 &114239727076913716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNMovementSpeed_CancelProjectileGravity
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114069442739663270}
+  toNode: {fileID: 114097172326967452}
+  curvePoints:
+  - {x: 536, y: 1336, z: 0}
+  - {x: 549.03156, y: 1333.5994, z: 0}
+  - {x: 555.9561, y: 1327.166, z: 0}
+  - {x: 558.5185, y: 1317.8518, z: 0}
+  - {x: 558.46375, y: 1306.8094, z: 0}
+  - {x: 557.5363, y: 1295.1907, z: 0}
+  - {x: 557.48145, y: 1284.1482, z: 0}
+  - {x: 560.0439, y: 1274.834, z: 0}
+  - {x: 566.96844, y: 1268.4005, z: 0}
+  - {x: 580, y: 1266, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114240969775968092}
+  connectionType: 0
+--- !u!114 &114240969775968092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Movement Speed must be active.
+--- !u!114 &114244341641469692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Sight Range must be active.
+--- !u!114 &114246843908501190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 15%.
 --- !u!114 &114260940107286048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,6 +1654,53 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 6%.
+--- !u!114 &114266491412495186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 0
+  Bought: 0
+  WillBuy: 0
+  Description: You start with this already unlocked.
+--- !u!114 &114268593359482512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNUpgrades_CNMovementSpeed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114218591282618104}
+  toNode: {fileID: 114069442739663270}
+  curvePoints:
+  - {x: 396, y: 1336, z: 0}
+  - {x: 409.03156, y: 1336, z: 0}
+  - {x: 415.95612, y: 1336, z: 0}
+  - {x: 418.51846, y: 1335.9999, z: 0}
+  - {x: 418.4637, y: 1336.0001, z: 0}
+  - {x: 417.53635, y: 1335.9999, z: 0}
+  - {x: 417.48148, y: 1336.0001, z: 0}
+  - {x: 420.0439, y: 1336, z: 0}
+  - {x: 426.96844, y: 1336.0001, z: 0}
+  - {x: 440, y: 1336, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114924391717796966}
+  connectionType: 0
 --- !u!114 &114279120224535468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +1794,22 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Sight must be active.
+--- !u!114 &114292403054891136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 10%.
 --- !u!114 &114294770045498152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -952,7 +1833,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -1008,6 +1889,69 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 15% faster.
+--- !u!114 &114297998896880546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Movement Speed must be active.
+--- !u!114 &114306723074243710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Sight Range
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 1420
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases sight range.
+  explanation: Increases your sight range at all times.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114331017248657866}
+  - {fileID: 114432933071442820}
+  - {fileID: 114246843908501190}
+--- !u!114 &114308338371331254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 5%.
 --- !u!114 &114309881603301384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1039,6 +1983,21 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114190880078235438}
   connectionType: 0
+--- !u!114 &114320069048529262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Cryo Nightmare must be active.
 --- !u!114 &114322440926253498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,7 +2008,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Jump Height
+  m_Name: DE Jump Height
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -1087,6 +2046,102 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more dash speed.
+--- !u!114 &114330856459276106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Cooldown Reduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 1140
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Reduces your action cooldown.
+  explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
+    allowing you to attack more often.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114977757715761160}
+  - {fileID: 114574272025992168}
+  - {fileID: 114347517048522098}
+--- !u!114 &114331017248657866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 5%.
+--- !u!114 &114331105062318926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 10% more dash speed.
+--- !u!114 &114337444708331180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNAcceleration_CancelWallReflection
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114384633104603796}
+  toNode: {fileID: 114902160916815340}
+  curvePoints:
+  - {x: 536, y: 916, z: 0}
+  - {x: 549.03156, y: 918.40063, z: 0}
+  - {x: 555.9561, y: 924.83405, z: 0}
+  - {x: 558.5185, y: 934.1481, z: 0}
+  - {x: 558.46375, y: 945.19086, z: 0}
+  - {x: 557.5363, y: 956.8094, z: 0}
+  - {x: 557.48145, y: 967.85187, z: 0}
+  - {x: 560.0439, y: 977.166, z: 0}
+  - {x: 566.96844, y: 983.5995, z: 0}
+  - {x: 580, y: 986, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114759797594330792}
+  connectionType: 0
 --- !u!114 &114338405450699570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,6 +2158,37 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 10% faster.
+--- !u!114 &114338953463026372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOMovementSpeed_Talent/Skill
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114143036175401608}
+  toNode: {fileID: 114540641314072962}
+  curvePoints:
+  - {x: 536, y: 1616, z: 0}
+  - {x: 549.03156, y: 1613.2565, z: 0}
+  - {x: 555.9561, y: 1605.904, z: 0}
+  - {x: 558.5185, y: 1595.259, z: 0}
+  - {x: 558.46375, y: 1582.6393, z: 0}
+  - {x: 557.5363, y: 1569.3607, z: 0}
+  - {x: 557.48145, y: 1556.7407, z: 0}
+  - {x: 560.0439, y: 1546.0961, z: 0}
+  - {x: 566.96844, y: 1538.7434, z: 0}
+  - {x: 580, y: 1536, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114723835581697822}
+  connectionType: 0
 --- !u!114 &114346324446737048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1167,6 +2253,22 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114137665657786576}
   connectionType: 0
+--- !u!114 &114346623150109306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
 --- !u!114 &114347249704834204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1177,7 +2279,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Chest Duration
+  m_Name: DE Chest Duration
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -1200,6 +2302,70 @@ MonoBehaviour:
   - {fileID: 114011631135390376}
   - {fileID: 114970674023031996}
   - {fileID: 114414785416639798}
+--- !u!114 &114347496946909442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Goblin Nightmare
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 22
+    y: 1480
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 0d8ccb0be02698542869bb8b71b8ce5f, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 1
+  description: Unlocks the Goblin Nightmare.
+  explanation: The Goblin Nightmare walks like an Explorer, but moves very quickly
+    and can dash into Explorers to inflict damage.  After dashing, he must land to
+    dash again.
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114098050067419896}
+--- !u!114 &114347517048522098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 15%.
+--- !u!114 &114348549641318236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 15%.
 --- !u!114 &114348826030477152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1228,9 +2394,56 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
+--- !u!114 &114356793082251698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 10%.
+--- !u!114 &114365427115820898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CryoNightmare_CNSightRange
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114500917323138738}
+  toNode: {fileID: 114509403207824412}
+  curvePoints:
+  - {x: 116, y: 1266, z: 0}
+  - {x: 129.03156, y: 1263.5995, z: 0}
+  - {x: 135.9561, y: 1257.166, z: 0}
+  - {x: 138.5185, y: 1247.8517, z: 0}
+  - {x: 138.46367, y: 1236.8094, z: 0}
+  - {x: 137.53635, y: 1225.1907, z: 0}
+  - {x: 137.48148, y: 1214.1482, z: 0}
+  - {x: 140.04388, y: 1204.834, z: 0}
+  - {x: 146.96846, y: 1198.4005, z: 0}
+  - {x: 160, y: 1196, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114320069048529262}
+  connectionType: 0
 --- !u!114 &114368366492469488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1246,6 +2459,37 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Sight must be active.
+--- !u!114 &114373417927558490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Jump Height must be active.
+--- !u!114 &114376009325670688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
 --- !u!114 &114376727339073418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1269,7 +2513,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: c6f79a43d6f66814489333d8bd37c2f8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Reduces the effects of gravity while jumping.
   explanation: The Double Jump Explorer is affected less by gravity while rising during
     a jump.  This further reduces tof gravity only while rising.  Falling speed is
@@ -1308,7 +2552,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114378004381808576
@@ -1334,7 +2578,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -1343,6 +2587,22 @@ MonoBehaviour:
   - {fileID: 114792374102875116}
   - {fileID: 114575911636227642}
   - {fileID: 114585285821799666}
+--- !u!114 &114382361521291762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
 --- !u!114 &114383130570573362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,6 +2619,39 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases range by 15%.
+--- !u!114 &114384633104603796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Acceleration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 860
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases acceleration and turn speed.
+  explanation: Increases your acceleration value, allowing you to change directions
+    faster and reach your maximum speed in less time.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114777442200797826}
+  - {fileID: 114842043264961746}
+  - {fileID: 114611257370747794}
 --- !u!114 &114385416100504374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1405,6 +2698,22 @@ MonoBehaviour:
   tier: {fileID: 114588502085780866}
   cost:
   - {fileID: 114751741297282252}
+--- !u!114 &114395171367709384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 3%.
 --- !u!114 &114404692310166374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1418,7 +2727,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114411865510366542
@@ -1431,7 +2740,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Bonfire Speed
+  m_Name: DE Bonfire Speed
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -1444,7 +2753,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -1470,6 +2779,22 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 45 seconds.
+--- !u!114 &114425787712248178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 40 seconds.
 --- !u!114 &114427027449770324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1486,6 +2811,84 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 10%.
+--- !u!114 &114432933071442820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 10%.
+--- !u!114 &114433766916561370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOSightRange_GOCooldownReduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114306723074243710}
+  toNode: {fileID: 114558638403815138}
+  curvePoints:
+  - {x: 256, y: 1476, z: 0}
+  - {x: 269.03156, y: 1476.0001, z: 0}
+  - {x: 275.95612, y: 1476.0001, z: 0}
+  - {x: 278.5185, y: 1475.9999, z: 0}
+  - {x: 278.46368, y: 1476.0002, z: 0}
+  - {x: 277.53635, y: 1476, z: 0}
+  - {x: 277.4815, y: 1476, z: 0}
+  - {x: 280.04388, y: 1476, z: 0}
+  - {x: 286.96844, y: 1476.0001, z: 0}
+  - {x: 300, y: 1476, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114048698692660912}
+  connectionType: 0
+--- !u!114 &114434194384138164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOUpgrades_GOMovementSpeed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114053793189694880}
+  toNode: {fileID: 114143036175401608}
+  curvePoints:
+  - {x: 396, y: 1616, z: 0}
+  - {x: 409.03156, y: 1615.9999, z: 0}
+  - {x: 415.95612, y: 1616.0001, z: 0}
+  - {x: 418.51846, y: 1615.9998, z: 0}
+  - {x: 418.4637, y: 1616.0001, z: 0}
+  - {x: 417.53635, y: 1615.9999, z: 0}
+  - {x: 417.48148, y: 1616, z: 0}
+  - {x: 420.0439, y: 1616, z: 0}
+  - {x: 426.96844, y: 1616, z: 0}
+  - {x: 440, y: 1616, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114640210556223478}
+  connectionType: 0
 --- !u!114 &114437535464840654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1593,9 +2996,40 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more jetpack fuel.
+--- !u!114 &114487039383593126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Chest Duration must be active.
+--- !u!114 &114487541573520498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 5% more projectile speed.
 --- !u!114 &114492189562177526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1612,6 +3046,38 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Upgrades give you 15% more jetpack fuel.
+--- !u!114 &114500917323138738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Cryo Nightmare
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 20
+    y: 1210
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 1ca09a78e9652a443bab8a2c4a36fa61, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 1
+  description: Unlock the Cryo Nightmare.
+  explanation: The Cryo Nightmare can fly and fire projectiles at Explorers to inflict
+    damage.  Projectiles explode on contact with a surface or Explorer and do damage
+    in an area around them.
+  isInResearch: 0
+  tier: {fileID: 114588502085780866}
+  cost:
+  - {fileID: 114922039787897982}
 --- !u!114 &114503431636149018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1628,6 +3094,38 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Upgrades give you 10% more jetpack fuel.
+--- !u!114 &114509403207824412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Sight Range
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 1140
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases sight range.
+  explanation: Increases your sight range at all times.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114947821348799602}
+  - {fileID: 114984766665516420}
+  - {fileID: 114017094368120054}
 --- !u!114 &114513077343933742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1675,6 +3173,21 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases jump power by 15%.
+--- !u!114 &114522392726207976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Chest Duration must be active.
 --- !u!114 &114522691789337882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1792,7 +3305,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -1802,6 +3315,53 @@ MonoBehaviour:
   - {fileID: 114803871699498284}
   - {fileID: 114563979786146130}
   - {fileID: 114744835809396038}
+--- !u!114 &114537681845023176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 10%.
+--- !u!114 &114540641314072962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Wall Climb
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 580
+    y: 1480
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 38d98c3571eb61440897872ca1a8618d, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Climb walls.
+  explanation: This will allow you to climb up and down walls instead of wall sliding
+    downwards.
+  isInResearch: 0
+  tier: {fileID: 114190687291757190}
+  cost:
+  - {fileID: 114975062955388208}
 --- !u!114 &114541890440330944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,7 +3390,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 800
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jetpack force by 80%
 --- !u!114 &114548328116359656
@@ -1856,7 +3416,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: eadfbb63ee41b244f9d2d11112dc6b77, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Raises the force of your jetpack.
   explanation: Your jetpack will cause you to rise faster.
   isInResearch: 0
@@ -1864,6 +3424,22 @@ MonoBehaviour:
   cost:
   - {fileID: 114884297945241674}
   - {fileID: 114547446201304574}
+--- !u!114 &114551133727767002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 40 seconds.
 --- !u!114 &114552342654746924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1907,9 +3483,42 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces the effects of gravity by 10% while rising.
+--- !u!114 &114558638403815138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Cooldown Reduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 1420
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Reduces your action cooldown.
+  explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
+    allowing you to attack more often.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114667305324572448}
+  - {fileID: 114652191564538940}
+  - {fileID: 114753330941313672}
 --- !u!114 &114563979786146130
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,6 +3566,22 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114907791409305456}
   connectionType: 0
+--- !u!114 &114574272025992168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 10%.
 --- !u!114 &114574998198721192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,7 +3592,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Movement Speed
+  m_Name: DE Movement Speed
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -2033,7 +3658,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more jumping power.
 --- !u!114 &114585285821799666
@@ -2123,7 +3748,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your jump power slightly.
@@ -2133,6 +3758,37 @@ MonoBehaviour:
   - {fileID: 114582978970627232}
   - {fileID: 114377190463908318}
   - {fileID: 114042653265079630}
+--- !u!114 &114605364925233514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Goblin Nightmare must be active.
+--- !u!114 &114611257370747794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 15%.
 --- !u!114 &114612910650525016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2149,6 +3805,68 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 5% faster.
+--- !u!114 &114622725045006282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNSightRange_CNCooldownReduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114509403207824412}
+  toNode: {fileID: 114330856459276106}
+  curvePoints:
+  - {x: 256, y: 1196, z: 0}
+  - {x: 269.03156, y: 1196, z: 0}
+  - {x: 275.95612, y: 1196, z: 0}
+  - {x: 278.5185, y: 1195.9999, z: 0}
+  - {x: 278.46368, y: 1196.0001, z: 0}
+  - {x: 277.53635, y: 1196, z: 0}
+  - {x: 277.4815, y: 1196, z: 0}
+  - {x: 280.04388, y: 1196, z: 0}
+  - {x: 286.96844, y: 1196, z: 0}
+  - {x: 300, y: 1196, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114244341641469692}
+  connectionType: 0
+--- !u!114 &114628736632750808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 500
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 10%.
+--- !u!114 &114640210556223478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Upgrades must be active.
 --- !u!114 &114644570908739498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2164,6 +3882,22 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Double Jump Explorer must be active.
+--- !u!114 &114652191564538940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 10%.
 --- !u!114 &114652536870042558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,9 +3926,120 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 3%.
+--- !u!114 &114658474175269760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 45 seconds.
+--- !u!114 &114659571512291868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GhastNightmare_GNSightRange
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114219657352761090}
+  toNode: {fileID: 114086201772953136}
+  curvePoints:
+  - {x: 116, y: 986, z: 0}
+  - {x: 129.03156, y: 983.5995, z: 0}
+  - {x: 135.9561, y: 977.166, z: 0}
+  - {x: 138.5185, y: 967.85175, z: 0}
+  - {x: 138.46367, y: 956.80945, z: 0}
+  - {x: 137.53635, y: 945.1907, z: 0}
+  - {x: 137.48148, y: 934.1482, z: 0}
+  - {x: 140.04388, y: 924.834, z: 0}
+  - {x: 146.96846, y: 918.4006, z: 0}
+  - {x: 160, y: 916, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114043939700349472}
+  connectionType: 0
+--- !u!114 &114667305324572448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 5%.
+--- !u!114 &114674951010958022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 6%.
+--- !u!114 &114679647232296266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Movement Speed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 1000
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases movement speed.
+  explanation: You move faster than normally.  This is probably going to be game-breaking.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114029202157845072}
+  - {fileID: 114772323370796228}
+  - {fileID: 114292403054891136}
 --- !u!114 &114682349474266738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,6 +4117,37 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114137773654659880}
   connectionType: 0
+--- !u!114 &114690451209867814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNChestDuration_CNUpgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114740911295850856}
+  toNode: {fileID: 114218591282618104}
+  curvePoints:
+  - {x: 256, y: 1336, z: 0}
+  - {x: 269.03156, y: 1336, z: 0}
+  - {x: 275.95612, y: 1336, z: 0}
+  - {x: 278.5185, y: 1335.9999, z: 0}
+  - {x: 278.46368, y: 1336.0001, z: 0}
+  - {x: 277.53635, y: 1335.9999, z: 0}
+  - {x: 277.4815, y: 1336.0001, z: 0}
+  - {x: 280.04388, y: 1336, z: 0}
+  - {x: 286.96844, y: 1336.0001, z: 0}
+  - {x: 300, y: 1336, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114522392726207976}
+  connectionType: 0
 --- !u!114 &114692373953458280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,6 +4210,38 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114368366492469488}
   connectionType: 0
+--- !u!114 &114693799721117888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 10% more projectile speed.
+--- !u!114 &114695552458191568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114709396410876968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2349,6 +4257,98 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Jump Height must be active.
+--- !u!114 &114712663963535380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOChestDuration_GOUpgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114947693359649344}
+  toNode: {fileID: 114053793189694880}
+  curvePoints:
+  - {x: 256, y: 1616, z: 0}
+  - {x: 269.03156, y: 1615.9999, z: 0}
+  - {x: 275.95612, y: 1616.0001, z: 0}
+  - {x: 278.5185, y: 1615.9998, z: 0}
+  - {x: 278.46368, y: 1616.0001, z: 0}
+  - {x: 277.53635, y: 1615.9999, z: 0}
+  - {x: 277.4815, y: 1616, z: 0}
+  - {x: 280.04388, y: 1616, z: 0}
+  - {x: 286.96844, y: 1616, z: 0}
+  - {x: 300, y: 1616, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114961309179014992}
+  connectionType: 0
+--- !u!114 &114718809509088282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 5%.
+--- !u!114 &114723835581697822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Movement Speed must be active.
+--- !u!114 &114723981198221546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Cooldown Reduction must be active.
+--- !u!114 &114724496182614324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Sight Range must be active.
 --- !u!114 &114739076091286292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,6 +4365,39 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 10% faster.
+--- !u!114 &114740911295850856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Chest Duration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 1280
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases Shrine powerup duration.
+  explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
+    normally affect you for 30 seconds when taken by any member of your team.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114809729017443722}
+  - {fileID: 114551133727767002}
+  - {fileID: 114971196269127440}
 --- !u!114 &114744835809396038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2397,6 +4430,84 @@ MonoBehaviour:
   Bought: 1
   WillBuy: 0
   Description: You start with this already unlocked.
+--- !u!114 &114752654948119540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Cryo Nightmare must be active.
+--- !u!114 &114753330941313672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 15%.
+--- !u!114 &114759797594330792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Acceleration must be active.
+--- !u!114 &114761632348511728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases jump power by 5%.
+--- !u!114 &114762987450028538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 15% more dash speed.
 --- !u!114 &114769734062364968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2412,6 +4523,38 @@ MonoBehaviour:
   parentTree: {fileID: 11400000}
   editorColor: {r: 1, g: 0, b: 0, a: 1}
   description: Strong talents.
+--- !u!114 &114772323370796228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases movement speed by 6%.
+--- !u!114 &114777442200797826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 5%.
 --- !u!114 &114779292770046724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2459,6 +4602,55 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases jump power by 10%.
+--- !u!114 &114783059006331860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 45 seconds.
+--- !u!114 &114790570456530362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Chest Duration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 1000
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases Shrine powerup duration.
+  explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
+    normally affect you for 30 seconds when taken by any member of your team.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114004965294590626}
+  - {fileID: 114425787712248178}
+  - {fileID: 114783059006331860}
 --- !u!114 &114791817323911768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2487,7 +4679,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114803871699498284
@@ -2503,7 +4695,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Add progress to bonfires 5% faster.
 --- !u!114 &114805852296556676
@@ -2552,6 +4744,22 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114578693313635428}
   connectionType: 0
+--- !u!114 &114809729017443722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114810967135904784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2575,7 +4783,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -2585,6 +4793,38 @@ MonoBehaviour:
   - {fileID: 114014542173943904}
   - {fileID: 114739076091286292}
   - {fileID: 114297621226332464}
+--- !u!114 &114812020625127828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases jump power by 10%.
+--- !u!114 &114815692325823724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 40 seconds.
 --- !u!114 &114816106700023092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2629,7 +4869,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114834686301805296
@@ -2647,7 +4887,7 @@ MonoBehaviour:
   Cost: 100
   Bought: 1
   WillBuy: 0
-  Description: 
+  Description: Unlocks the Jetpack Explorer.
 --- !u!114 &114836959947756934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2664,6 +4904,22 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
+--- !u!114 &114842043264961746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 300
+  Bought: 0
+  WillBuy: 0
+  Description: Increases acceleration by 10%.
 --- !u!114 &114845401060060938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2695,6 +4951,146 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114552342654746924}
   connectionType: 0
+--- !u!114 &114845983096359120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GoblinNightmare_GOChestDuration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114347496946909442}
+  toNode: {fileID: 114947693359649344}
+  curvePoints:
+  - {x: 118, y: 1536, z: 0}
+  - {x: 130.96297, y: 1538.7434, z: 0}
+  - {x: 137.7037, y: 1546.0962, z: 0}
+  - {x: 139.99997, y: 1556.7405, z: 0}
+  - {x: 139.62964, y: 1569.361, z: 0}
+  - {x: 138.37038, y: 1582.6393, z: 0}
+  - {x: 138, y: 1595.2593, z: 0}
+  - {x: 140.2963, y: 1605.9039, z: 0}
+  - {x: 147.03705, y: 1613.2565, z: 0}
+  - {x: 160, y: 1616, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114984771241682880}
+  connectionType: 0
+--- !u!114 &114848909707915940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNUpgrades_GNMovementSpeed
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114939336702389684}
+  toNode: {fileID: 114679647232296266}
+  curvePoints:
+  - {x: 396, y: 1056, z: 0}
+  - {x: 409.03156, y: 1056.0001, z: 0}
+  - {x: 415.95612, y: 1056.0001, z: 0}
+  - {x: 418.51846, y: 1055.9999, z: 0}
+  - {x: 418.4637, y: 1056.0001, z: 0}
+  - {x: 417.53635, y: 1056, z: 0}
+  - {x: 417.48148, y: 1056, z: 0}
+  - {x: 420.0439, y: 1056, z: 0}
+  - {x: 426.96844, y: 1056, z: 0}
+  - {x: 440, y: 1056, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions: []
+  connectionType: 0
+--- !u!114 &114850302534140606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Acceleration must be active.
+--- !u!114 &114851145502249964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: CN Acceleration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 1140
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases acceleration and turn speed.
+  explanation: Increases your acceleration value, allowing you to change directions
+    faster and reach your maximum speed in less time.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114114424919260600}
+  - {fileID: 114356793082251698}
+  - {fileID: 114083611794540012}
+--- !u!114 &114856205836920630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CryoNightmare_CNChestDuration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114500917323138738}
+  toNode: {fileID: 114740911295850856}
+  curvePoints:
+  - {x: 116, y: 1266, z: 0}
+  - {x: 129.03156, y: 1268.4005, z: 0}
+  - {x: 135.9561, y: 1274.834, z: 0}
+  - {x: 138.5185, y: 1284.148, z: 0}
+  - {x: 138.46367, y: 1295.1908, z: 0}
+  - {x: 137.53635, y: 1306.8092, z: 0}
+  - {x: 137.48148, y: 1317.8519, z: 0}
+  - {x: 140.04388, y: 1327.166, z: 0}
+  - {x: 146.96846, y: 1333.5996, z: 0}
+  - {x: 160, y: 1336, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114752654948119540}
+  connectionType: 0
 --- !u!114 &114858763908744128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,6 +5107,68 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
+--- !u!114 &114870870092409026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOCooldownReduction_GOJumpHeight
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114558638403815138}
+  toNode: {fileID: 114922866420479072}
+  curvePoints:
+  - {x: 396, y: 1476, z: 0}
+  - {x: 409.03156, y: 1476.0001, z: 0}
+  - {x: 415.95612, y: 1476.0001, z: 0}
+  - {x: 418.51846, y: 1475.9999, z: 0}
+  - {x: 418.4637, y: 1476.0002, z: 0}
+  - {x: 417.53635, y: 1476, z: 0}
+  - {x: 417.48148, y: 1476, z: 0}
+  - {x: 420.0439, y: 1476, z: 0}
+  - {x: 426.96844, y: 1476.0001, z: 0}
+  - {x: 440, y: 1476, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114872466504392196}
+  connectionType: 0
+--- !u!114 &114872466504392196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Cooldown Reduction must be active.
+--- !u!114 &114877742314214002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 10%.
 --- !u!114 &114882706854908878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2742,6 +5200,22 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114541890440330944}
   connectionType: 0
+--- !u!114 &114883786685464282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 400
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 15% more projectile speed.
 --- !u!114 &114884297945241674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2755,9 +5229,41 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jetpack force by 40%
+--- !u!114 &114902160916815340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: Cancel Wall Reflection
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 580
+    y: 930
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 3344581ed01b1f946bb241cab7463780, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Cancels wall reflection when dashing.
+  explanation: Instead of reflecting off of a wall when dashing into it, you will
+    turn and slide along the wall giving you more control over your character around
+    corners.
+  isInResearch: 0
+  tier: {fileID: 114190687291757190}
+  cost:
+  - {fileID: 114918254269154550}
 --- !u!114 &114907791409305456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2773,6 +5279,55 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Bonfire Speed must be active.
+--- !u!114 &114908792565155068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Cooldown Reduction
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 860
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Reduces your action cooldown.
+  explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
+    allowing you to attack more often.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114308338371331254}
+  - {fileID: 114877742314214002}
+  - {fileID: 114348549641318236}
+--- !u!114 &114909246562961404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Default Cost
+  m_EditorClassIdentifier: 
+  Cost: 1
+  Bought: 0
+  WillBuy: 0
+  Description: 
 --- !u!114 &114910964916334354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2796,7 +5351,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -2821,6 +5376,85 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Upgrades give you 15% more dash speed.
+--- !u!114 &114918254269154550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 1000
+  Bought: 0
+  WillBuy: 0
+  Description: You will no longer reflect off of walls while dashing.
+--- !u!114 &114922039787897982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 100
+  Bought: 0
+  WillBuy: 0
+  Description: Unlocks the Cryo Nightmare.
+--- !u!114 &114922866420479072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Jump Height
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 440
+    y: 1420
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases jumping power.
+  explanation: Increases your jumping power, causing you to jump higher and faster.
+  isInResearch: 0
+  tier: {fileID: 114094239811921252}
+  cost:
+  - {fileID: 114761632348511728}
+  - {fileID: 114812020625127828}
+  - {fileID: 114020264439821864}
+--- !u!114 &114924391717796966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: CN Upgrades must be active.
 --- !u!114 &114925111441998562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2834,7 +5468,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114929301449094324
@@ -2868,6 +5502,88 @@ MonoBehaviour:
   Conditions:
   - {fileID: 114652536870042558}
   connectionType: 0
+--- !u!114 &114939336702389684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GN Upgrades
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 300
+    y: 1000
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Attack upgrades affect you more.
+  explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
+    upgrades increase your dash speed slightly.
+  isInResearch: 0
+  tier: {fileID: 114769734062364968}
+  cost:
+  - {fileID: 114220102469460458}
+  - {fileID: 114985587413398776}
+  - {fileID: 114762987450028538}
+--- !u!114 &114947693359649344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
+  m_Name: GO Chest Duration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  nodeRect:
+    serializedVersion: 2
+    x: 160
+    y: 1560
+    width: 96
+    height: 112
+  parentTree: {fileID: 11400000}
+  nodeType: 0
+  Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
+  DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
+  isValid: 0
+  description: Increases Shrine powerup duration.
+  explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
+    normally affect you for 30 seconds when taken by any member of your team.
+  isInResearch: 0
+  tier: {fileID: 114805852296556676}
+  cost:
+  - {fileID: 114695552458191568}
+  - {fileID: 114815692325823724}
+  - {fileID: 114658474175269760}
+--- !u!114 &114947821348799602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 75
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 5%.
 --- !u!114 &114951136070863184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2883,6 +5599,52 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Movement Speed must be active.
+--- !u!114 &114955106569684098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GNMovementSpeed_CancelWallReflection
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114679647232296266}
+  toNode: {fileID: 114902160916815340}
+  curvePoints:
+  - {x: 536, y: 1056, z: 0}
+  - {x: 549.03156, y: 1053.5995, z: 0}
+  - {x: 555.9561, y: 1047.1661, z: 0}
+  - {x: 558.5185, y: 1037.8518, z: 0}
+  - {x: 558.46375, y: 1026.8094, z: 0}
+  - {x: 557.5363, y: 1015.19073, z: 0}
+  - {x: 557.48145, y: 1004.1482, z: 0}
+  - {x: 560.0439, y: 994.83405, z: 0}
+  - {x: 566.96844, y: 988.4006, z: 0}
+  - {x: 580, y: 986, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114297998896880546}
+  connectionType: 0
+--- !u!114 &114961309179014992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GO Chest Duration must be active.
 --- !u!114 &114966602855322940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2909,7 +5671,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98f9ce8f8d72a2c468f63aec748721cc, type: 3}
-  m_Name: D Upgrades
+  m_Name: DE Upgrades
   m_EditorClassIdentifier: 
   isSelected: 0
   nodeRect:
@@ -2922,7 +5684,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your dash speed slightly.
@@ -2932,6 +5694,68 @@ MonoBehaviour:
   - {fileID: 114323343546840220}
   - {fileID: 114022752652815300}
   - {fileID: 114917351844674442}
+--- !u!114 &114969342434736412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: GOJumpHeight_Talent/Skill
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114922866420479072}
+  toNode: {fileID: 114540641314072962}
+  curvePoints:
+  - {x: 536, y: 1476, z: 0}
+  - {x: 549.03156, y: 1478.0577, z: 0}
+  - {x: 555.9561, y: 1483.5721, z: 0}
+  - {x: 558.5185, y: 1491.5554, z: 0}
+  - {x: 558.46375, y: 1501.0206, z: 0}
+  - {x: 557.5363, y: 1510.9794, z: 0}
+  - {x: 557.48145, y: 1520.4443, z: 0}
+  - {x: 560.0439, y: 1528.428, z: 0}
+  - {x: 566.96844, y: 1533.9424, z: 0}
+  - {x: 580, y: 1536, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114373417927558490}
+  connectionType: 0
+--- !u!114 &114970376795357984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eef7559b44c1dfd4993445312a298f30, type: 3}
+  m_Name: CNCooldownReduction_CNAcceleration
+  m_EditorClassIdentifier: 
+  isSelected: 0
+  fromNode: {fileID: 114330856459276106}
+  toNode: {fileID: 114851145502249964}
+  curvePoints:
+  - {x: 396, y: 1196, z: 0}
+  - {x: 409.03156, y: 1196, z: 0}
+  - {x: 415.95612, y: 1196, z: 0}
+  - {x: 418.51846, y: 1195.9999, z: 0}
+  - {x: 418.4637, y: 1196.0001, z: 0}
+  - {x: 417.53635, y: 1196, z: 0}
+  - {x: 417.48148, y: 1196, z: 0}
+  - {x: 420.0439, y: 1196, z: 0}
+  - {x: 426.96844, y: 1196, z: 0}
+  - {x: 440, y: 1196, z: 0}
+  curGraph: {fileID: 11400000}
+  Name: 
+  Conditions:
+  - {fileID: 114723981198221546}
+  connectionType: 0
 --- !u!114 &114970674023031996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2948,6 +5772,22 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 40 seconds.
+--- !u!114 &114971196269127440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 3
+  m_EditorClassIdentifier: 
+  Cost: 200
+  Bought: 0
+  WillBuy: 0
+  Description: Increases Shrine duration to 45 seconds.
 --- !u!114 &114971740217076386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2994,7 +5834,39 @@ MonoBehaviour:
   Cost: 100
   Bought: 1
   WillBuy: 0
-  Description: 
+  Description: Unlocks the Dash Explorer.
+--- !u!114 &114975062955388208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Unlock
+  m_EditorClassIdentifier: 
+  Cost: 1000
+  Bought: 0
+  WillBuy: 0
+  Description: Climb up and down walls on contact.
+--- !u!114 &114977757715761160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 1
+  m_EditorClassIdentifier: 
+  Cost: 150
+  Bought: 0
+  WillBuy: 0
+  Description: Reduces attack cooldown by 5%.
 --- !u!114 &114979047914005604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3011,6 +5883,53 @@ MonoBehaviour:
   Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 6%.
+--- !u!114 &114984766665516420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 125
+  Bought: 0
+  WillBuy: 0
+  Description: Increases range by 10%.
+--- !u!114 &114984771241682880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: Goblin Nightmare must be active.
+--- !u!114 &114985587413398776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75df8525b622e5843ade7cf6f3703b93, type: 3}
+  m_Name: Level 2
+  m_EditorClassIdentifier: 
+  Cost: 250
+  Bought: 0
+  WillBuy: 0
+  Description: Upgrades give you 10% more dash speed.
 --- !u!114 &114994710775363236
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3700,6 +3700,9 @@ MonoBehaviour:
   doubleJumpButton: {fileID: 1179837423}
   jetpackButton: {fileID: 1638193290}
   dashButton: {fileID: 683265233}
+  ghastButton: {fileID: 1191315656}
+  cryoButton: {fileID: 1653041345}
+  goblinButton: {fileID: 388891911}
 --- !u!4 &2075702497
 Transform:
   m_ObjectHideFlags: 0

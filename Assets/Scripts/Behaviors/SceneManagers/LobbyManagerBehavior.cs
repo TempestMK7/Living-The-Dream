@@ -20,6 +20,9 @@ namespace Com.Tempest.Nightmare {
 		public Button doubleJumpButton;
 		public Button jetpackButton;
 		public Button dashButton;
+		public Button ghastButton;
+		public Button cryoButton;
+		public Button goblinButton;
 
 		private TalentManagerBehavior talentBehavior;
 
@@ -66,6 +69,10 @@ namespace Com.Tempest.Nightmare {
 					explorerSelectionText.text = "Dash";
 					break;
 			}
+
+			ghastButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Ghast Nightmare") != 0);
+			cryoButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Cryo Nightmare") != 0);
+			goblinButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Goblin Nightmare") != 0);
 
 			switch (PlayerStateContainer.Instance.NightmareSelection) {
 				case PlayerStateContainer.GHAST:

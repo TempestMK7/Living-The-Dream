@@ -63,4 +63,6 @@ MonoBehaviour:
   - ReceiveRescueEmbers
   - ReceiveUpgradeEmbers
   - ReceiveTalents
+  - ReceiveExplorerTalents
+  - ReceiveNightmareTalents
   DisableAutoOpenWizard: 1

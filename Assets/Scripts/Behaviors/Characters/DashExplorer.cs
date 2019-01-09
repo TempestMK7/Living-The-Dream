@@ -72,7 +72,7 @@ namespace Com.Tempest.Nightmare {
             int reducedGravity = 0;
             int jetpackForce = 0;
             int resetDash = talentManager.GetTalentLevel(TalentManagerBehavior.RESET_DASH);
-            photonView.RPC("ReceiveTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
+            photonView.RPC("ReceiveExplorerTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
         }
     }
 }

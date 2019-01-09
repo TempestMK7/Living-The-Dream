@@ -20,9 +20,15 @@ namespace Com.Tempest.Nightmare {
 		protected int networkUpgradeModifier = 0;
 		protected int networkJumpHeight = 0;
 		protected int networkMovementSpeed = 0;
+		protected int networkCooldownReduction = 0;
+		protected int networkAcceleration = 0;
+
 		protected int networkReducedGravity = 0;
 		protected int networkJetpackForce = 0;
 		protected int networkResetDash = 0;
+		protected int networkWallReflection = 0;
+		protected int networkProjectileGravity = 0;
+		protected int networkWallClimb = 0;
 
 		public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
@@ -73,7 +79,7 @@ namespace Com.Tempest.Nightmare {
 		public abstract void SendTalentsToNetwork();
 
 		[PunRPC]
-		public void ReceiveTalents(int sightRange, int shrineDuration, int bonfireSpeed, int upgradeModifier, int jumpHeight, int movementSpeed, int reducedGravity, int jetpackForce, int resetDash) {
+		public void ReceiveExplorerTalents(int sightRange, int shrineDuration, int bonfireSpeed, int upgradeModifier, int jumpHeight, int movementSpeed, int reducedGravity, int jetpackForce, int resetDash) {
 			networkSightRange = sightRange;
 			networkShrineDuration = shrineDuration;
 			networkBonfireSpeed = bonfireSpeed;
@@ -83,6 +89,11 @@ namespace Com.Tempest.Nightmare {
 			networkReducedGravity = reducedGravity;
 			networkJetpackForce = jetpackForce;
 			networkResetDash = resetDash;
+		}
+
+		[PunRPC]
+		public void ReceiveNightmareTalents(int sightRange, int shrineDuration, int cooldownReduction, int upgradeModifier, int acceleration, int jumpHeight, int movementSpeed, int wallReflection, int projectileGravity, int wallClimb) {
+
 		}
 
 		public int GetBonfireSpeed() {
