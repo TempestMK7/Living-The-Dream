@@ -49,47 +49,15 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float GetCurrentAcceleration() {
-            return base.GetCurrentAcceleration() + (upgradeAccelerationFactor * (float) NumUpgrades);
+            return base.GetCurrentAcceleration() + (upgradeAccelerationFactor * GetNumUpgrades());
         }
 
         protected override bool IsFlyer() {
             return true;
         }
+        
+        public override void SendTalentsToNetwork() {
 
-		protected override int GetSightRange() {
-            return 0;
-        }
-
-		protected override int GetShrineDuration() {
-            return 0;
-        }
-
-		protected override int GetBonfireSpeed() {
-            return 0;
-        }
-
-		protected override int GetUpgradeModifier() {
-            return 0;
-        }
-
-		protected override int GetJumpHeight() {
-            return 0;
-        }
-
-		protected override int GetMovementSpeed() {
-            return 0;
-        }
-
-		protected override int GetReducedGravity() {
-            return 0;
-        }
-
-		protected override int GetJetpackForce() {
-            return 0;
-        }
-
-		protected override int GetResetDashOnWallSlide() {
-            return 0;
         }
     }
 }

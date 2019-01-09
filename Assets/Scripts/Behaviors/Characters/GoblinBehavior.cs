@@ -65,7 +65,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float MaxSpeed() {
-            return base.MaxSpeed() + (upgradeSpeedFactor * NumUpgrades);
+            return base.MaxSpeed() + (upgradeSpeedFactor * GetNumUpgrades());
         }
 
         // Override this to remove perfect acceleration powerup.
@@ -76,41 +76,9 @@ namespace Com.Tempest.Nightmare {
         protected override bool IsFlyer() {
             return false;
         }
+        
+        public override void SendTalentsToNetwork() {
 
-		protected override int GetSightRange() {
-            return 0;
-        }
-
-		protected override int GetShrineDuration() {
-            return 0;
-        }
-
-		protected override int GetBonfireSpeed() {
-            return 0;
-        }
-
-		protected override int GetUpgradeModifier() {
-            return 0;
-        }
-
-		protected override int GetJumpHeight() {
-            return 0;
-        }
-
-		protected override int GetMovementSpeed() {
-            return 0;
-        }
-
-		protected override int GetReducedGravity() {
-            return 0;
-        }
-
-		protected override int GetJetpackForce() {
-            return 0;
-        }
-
-		protected override int GetResetDashOnWallSlide() {
-            return 0;
         }
     }
 }

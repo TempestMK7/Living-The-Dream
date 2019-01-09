@@ -41,7 +41,7 @@ namespace Com.Tempest.Nightmare {
 			lightBox.IsMine = photonView.isMine;
 			lightBox.IsActive = false;
 			lightBox.IsDead = false;
-			lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
+			lightBox.DefaultScale = new Vector3(GetDefaultScale(), GetDefaultScale());
 			lightBox.ActiveScale = new Vector3(activeScale, activeScale);
 
 			// Setup internal components and initialize object variables.
@@ -124,9 +124,9 @@ namespace Com.Tempest.Nightmare {
 
         private void HandlePowerupState() {
 			if (HasPowerup(Powerup.BETTER_VISION)) {
-				lightBox.DefaultScale = new Vector3(defaultScale * 3f, defaultScale * 3f);
+				lightBox.DefaultScale = new Vector3(GetDefaultScale() * 3f, GetDefaultScale() * 3f);
 			} else {
-				lightBox.DefaultScale = new Vector3(defaultScale, defaultScale);
+				lightBox.DefaultScale = new Vector3(GetDefaultScale(), GetDefaultScale());
 			}
 		}
 
@@ -218,6 +218,11 @@ namespace Com.Tempest.Nightmare {
 				Powerup.THIRD_JUMP,
 				Powerup.DOUBLE_OBJECTIVE_SPEED
 			};
+		}
+
+		public float GetDefaultScale() {
+			float defaultScaleModifier = (networkSightRange * 0.05f) + 1.0f;
+			return defaultScale * defaultScaleModifier;
 		}
 
 		[PunRPC]

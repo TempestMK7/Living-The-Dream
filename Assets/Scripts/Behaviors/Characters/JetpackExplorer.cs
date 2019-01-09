@@ -33,7 +33,7 @@ namespace Com.Tempest.Nightmare {
         protected override void HandleVerticalMovementGravityBound() {
             base.HandleVerticalMovementGravityBound();
             if (jetpackOn && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
-                float jetpackForce = (GetJetpackForce() * 0.4f) + 1.0f;
+                float jetpackForce = (networkJetpackForce * 0.4f) + 1.0f;
                 if (currentSpeed.y <= 0f) {
                     currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * jetpackForce * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
@@ -80,54 +80,24 @@ namespace Com.Tempest.Nightmare {
         }
 
         private float UpgradedMaxJetpackTime() {
-            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades);
+            return maxJetpackTime + (jetpackTimeUpgradeMod * GetNumUpgrades());
         }
 
         protected override bool IsFlyer() {
             return false;
         }
 
-		protected override int GetSightRange() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
-        }
-
-		protected override int GetShrineDuration() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.CHEST_DURATION);
-        }
-
-		protected override int GetBonfireSpeed() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
-        }
-
-		protected override int GetUpgradeModifier() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.UPGRADES);
-        }
-
-		protected override int GetJumpHeight() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
-        }
-
-		protected override int GetMovementSpeed() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
-        }
-
-		protected override int GetReducedGravity() {
-            return 0;
-        }
-
-		protected override int GetJetpackForce() {
-            if (talentManager == null) return 0;
-            return talentManager.GetTalentLevel(TalentManagerBehavior.INCREASED_JETPACK_FORCE);
-        }
-
-		protected override int GetResetDashOnWallSlide() {
-            return 0;
+        public override void SendTalentsToNetwork() {
+            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
+            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.CHEST_DURATION);
+            int bonfireSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
+            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.UPGRADES);
+            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
+            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
+            int reducedGravity = 0;
+            int jetpackForce = talentManager.GetTalentLevel(TalentManagerBehavior.INCREASED_JETPACK_FORCE);
+            int resetDash = 0;
+            photonView.RPC("ReceiveTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
         }
     }
 }

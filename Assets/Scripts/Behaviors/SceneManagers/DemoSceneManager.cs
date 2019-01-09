@@ -84,6 +84,7 @@ namespace Com.Tempest.Nightmare {
             container.TeamSelection = PlayerStateContainer.EXPLORER;
             container.ExplorerSelection = PlayerStateContainer.DOUBLE_JUMP_EXPLORER;
             explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, new Vector3(2, 2), Quaternion.identity, 0).GetComponent<BaseExplorer>();
+            explorer.SendTalentsToNetwork();
             Camera.main.transform.position = explorer.transform.position;
         }
 
@@ -92,7 +93,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
         public void Update() {
-            if (explorer != null) upgradesText.text = "Upgrades: " + explorer.NumUpgrades;
+            if (explorer != null) upgradesText.text = "Upgrades: " + explorer.GetUnmodifiedUpgrades();
         }
 
         public void QuitDemo() {

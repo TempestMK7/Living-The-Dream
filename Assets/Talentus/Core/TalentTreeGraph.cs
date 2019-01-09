@@ -223,6 +223,18 @@ namespace com.cygnusprojects.TalentTree
             return refunded;
         }
 
+        public void ResetAll(params string[] excluded) {
+            if (talents != null && talents.Count > 0) {
+                foreach (var t in talents) {
+                    if (Array.Exists(excluded, e => t.Name.Equals(e))) continue;
+                    foreach (var c in t.Cost) {
+                        c.Bought = false;
+                    }
+                }
+            }
+            Evaluate();
+        }
+
         public void CleanUp()
         {
             if (talents != null)

@@ -197,6 +197,7 @@ namespace Com.Tempest.Nightmare {
 					break;
 				}
 				if (Explorer != null) {
+					Explorer.SendTalentsToNetwork();
 					Camera.main.transform.position = Explorer.transform.position;
 				}
 				ChangeMaskColor(0f);
@@ -219,6 +220,7 @@ namespace Com.Tempest.Nightmare {
 						break;
 				}
 				if (Nightmare != null) {
+					Nightmare.SendTalentsToNetwork();
 					Camera.main.transform.position = Nightmare.gameObject.transform.position;
 				}
 				ChangeMaskColor(0f);
@@ -280,9 +282,9 @@ namespace Com.Tempest.Nightmare {
 
 		private void HandleUpgrades() {
 			if (Explorer != null) {
-				upgradesText.text = "Upgrades: " + Explorer.NumUpgrades;
+				upgradesText.text = "Upgrades: " + Explorer.GetUnmodifiedUpgrades();
 			} else if (Nightmare != null) {
-				upgradesText.text = "Upgrades: " + Nightmare.NumUpgrades;
+				upgradesText.text = "Upgrades: " + Nightmare.GetUnmodifiedUpgrades();
 			}
 		}
 

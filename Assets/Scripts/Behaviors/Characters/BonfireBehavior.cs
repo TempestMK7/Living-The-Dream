@@ -59,15 +59,16 @@ namespace Com.Tempest.Nightmare {
                     currentCharges -= Time.deltaTime * regressionFactor;
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
-                    float multiplier = otherPlayers.Length;
+                    float multiplier = 0;
                     foreach (Collider2D collider in otherPlayers) {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
                         if (behavior == null) continue;
-                        float embers = Time.deltaTime;
+                        float explorerModifier = 1.0f + (behavior.GetBonfireSpeed() * 0.05f);
                         if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
-                            multiplier += 1f;
-                            embers *= 2;
+                            explorerModifier *= 2f;
                         }
+                        float embers = Time.deltaTime * explorerModifier;
+                        multiplier += explorerModifier;
                         behavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, embers);
                     }
                     currentCharges += Time.deltaTime * multiplier;

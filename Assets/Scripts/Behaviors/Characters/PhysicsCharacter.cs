@@ -97,7 +97,7 @@ namespace Com.Tempest.Nightmare {
 		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
 			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
-				float upgradeGravityBackoff = 1.0f - (0.1f * GetReducedGravity());
+				float upgradeGravityBackoff = 1.0f - (0.1f * networkReducedGravity);
 				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * upgradeGravityBackoff * Time.deltaTime;
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
 				if (grabHeld && currentSpeed.y <= 0f) {
@@ -300,16 +300,16 @@ namespace Com.Tempest.Nightmare {
                 return;
             }
 
-			Vector3 newMax = new Vector3(maxSpeed * currentControllerState.x, maxSpeed * currentControllerState.y);
-			if (newMax.magnitude > maxSpeed) {
-				newMax *= maxSpeed / newMax.magnitude;
+			Vector3 newMax = new Vector3(MaxSpeed() * currentControllerState.x, MaxSpeed() * currentControllerState.y);
+			if (newMax.magnitude > MaxSpeed()) {
+				newMax *= MaxSpeed() / newMax.magnitude;
 			}
-			if (currentSpeed.magnitude > maxSpeed) {
-				currentSpeed *= maxSpeed / currentSpeed.magnitude;
+			if (currentSpeed.magnitude > MaxSpeed()) {
+				currentSpeed *= MaxSpeed() / currentSpeed.magnitude;
 			}
 			// This is how far we are from that speed.
 			Vector3 difference = newMax - currentSpeed;
-			float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? maxSpeed : GetCurrentAcceleration();
+			float usableAcceleratior = HasPowerup(Powerup.PERFECT_ACCELERATION) ? MaxSpeed() : GetCurrentAcceleration();
 			if (Mathf.Abs(difference.x) > snapToMaxThreshold) {
 				difference.x *= usableAcceleratior * Time.deltaTime;
 			}
@@ -358,7 +358,7 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitX) {
-				if (Mathf.Abs(currentSpeed.x) > maxSpeed) {
+				if (Mathf.Abs(currentSpeed.x) > MaxSpeed()) {
 					currentSpeed.x *= wallSpeedReflectionFactor;
 					currentOffset.x *= wallSpeedReflectionFactor;
 				} else {
@@ -527,15 +527,18 @@ namespace Com.Tempest.Nightmare {
 		// used in the base physics calculations.
 
 		protected virtual float MaxSpeed() {
-			return maxSpeed;
+			float speedModifier = 1.0f + (networkMovementSpeed * 0.03f);
+			return maxSpeed * speedModifier;
 		}
 
         protected virtual float JumpFactor() {
-            return jumpFactor;
+			float modifier = 1.0f + (0.05f * networkJumpHeight);
+            return jumpFactor * modifier;
         }
 
         protected virtual float WallJumpFactor() {
-            return wallJumpFactor;
+			float modifier = 1.0f + (0.05f * networkJumpHeight);
+            return wallJumpFactor * modifier;
         }
 
 		protected virtual float DashFactor() {

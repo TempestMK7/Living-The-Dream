@@ -25,6 +25,9 @@ namespace Com.Tempest.Nightmare {
             string savedState = AccountStateContainer.getInstance().talentState;
             if (savedState != null && savedState.Length != 0) {
                 LoadFromString(savedState);
+            } else {
+                TalentTree.ResetAll("Double Jump Explorer");
+                AccountStateContainer.getInstance().talentState = SaveToString();
             }
             AvailableSkillPoints = AccountStateContainer.getInstance().unspentEmbers;
             base.Start();
