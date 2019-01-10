@@ -123,10 +123,10 @@ MonoBehaviour:
   connectionNode: {fileID: 114143036175401608}
   showProperties: 0
   PanX: 0
-  PanY: -684
+  PanY: -953
   mouseOverProperties: 0
   propertyWidth: 466.75
-  PointsToAssign: 9650
+  PointsToAssign: 89325
 --- !u!114 &114004965294590626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114005569643432082
@@ -159,15 +159,15 @@ MonoBehaviour:
   fromNode: {fileID: 114347496946909442}
   toNode: {fileID: 114306723074243710}
   curvePoints:
-  - {x: 118, y: 1536, z: 0}
-  - {x: 130.96297, y: 1533.9424, z: 0}
-  - {x: 137.7037, y: 1528.4281, z: 0}
-  - {x: 139.99997, y: 1520.4442, z: 0}
-  - {x: 139.62964, y: 1510.9797, z: 0}
-  - {x: 138.37038, y: 1501.0205, z: 0}
-  - {x: 138, y: 1491.5555, z: 0}
-  - {x: 140.2963, y: 1483.572, z: 0}
-  - {x: 147.03705, y: 1478.0577, z: 0}
+  - {x: 118, y: 1546, z: 0}
+  - {x: 130.96297, y: 1543.5996, z: 0}
+  - {x: 137.7037, y: 1537.1661, z: 0}
+  - {x: 139.99997, y: 1527.8517, z: 0}
+  - {x: 139.62964, y: 1516.8096, z: 0}
+  - {x: 138.37038, y: 1505.1907, z: 0}
+  - {x: 138, y: 1494.1482, z: 0}
+  - {x: 140.2963, y: 1484.834, z: 0}
+  - {x: 147.03705, y: 1478.4006, z: 0}
   - {x: 160, y: 1476, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114014542173943904
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 15%.
 --- !u!114 &114018150638315020
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases jump power by 15%.
 --- !u!114 &114022752652815300
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114033814598873444
@@ -574,7 +574,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your dash speed slightly.
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 6%.
 --- !u!114 &114065460036498464
@@ -717,7 +717,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases acceleration by 15%.
 --- !u!114 &114086201772953136
@@ -781,7 +781,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases sight range.
   explanation: Increases your sight range at all times.
   isInResearch: 0
@@ -877,7 +877,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 2130d181f250c094dadf797408241e47, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Cancels effects of gravity on projectiles.
   explanation: This will stop your projectiles from falling downwards after being
     fired allowing for more precise shots.
@@ -898,7 +898,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 100
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Unlocks the Goblin Nightmare.
 --- !u!114 &114099720810997612
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 5% more dash speed.
 --- !u!114 &114114130594473620
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 10%.
 --- !u!114 &114114424919260600
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases acceleration by 5%.
 --- !u!114 &114135323889816616
@@ -1066,7 +1066,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -1134,7 +1134,8 @@ MonoBehaviour:
   - {x: 440, y: 916, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
-  Conditions: []
+  Conditions:
+  - {fileID: 114553608116441120}
   connectionType: 0
 --- !u!114 &114154311708984004
 MonoBehaviour:
@@ -1243,7 +1244,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 15%.
 --- !u!114 &114181446479964186
@@ -1411,7 +1412,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your projectile speed slightly.
@@ -1464,7 +1465,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 5% more dash speed.
 --- !u!114 &114221908153030834
@@ -1527,7 +1528,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 1000
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Projectiles are no longer affected by gravity.
 --- !u!114 &114236506198596616
@@ -1543,7 +1544,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114237934008179394
@@ -1667,7 +1668,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 0
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: You start with this already unlocked.
 --- !u!114 &114268593359482512
@@ -1927,7 +1928,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases sight range.
   explanation: Increases your sight range at all times.
   isInResearch: 0
@@ -1949,7 +1950,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114309881603301384
@@ -2069,7 +2070,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -2092,7 +2093,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114331105062318926
@@ -2175,15 +2176,15 @@ MonoBehaviour:
   toNode: {fileID: 114540641314072962}
   curvePoints:
   - {x: 536, y: 1616, z: 0}
-  - {x: 549.03156, y: 1613.2565, z: 0}
-  - {x: 555.9561, y: 1605.904, z: 0}
-  - {x: 558.5185, y: 1595.259, z: 0}
-  - {x: 558.46375, y: 1582.6393, z: 0}
-  - {x: 557.5363, y: 1569.3607, z: 0}
-  - {x: 557.48145, y: 1556.7407, z: 0}
-  - {x: 560.0439, y: 1546.0961, z: 0}
-  - {x: 566.96844, y: 1538.7434, z: 0}
-  - {x: 580, y: 1536, z: 0}
+  - {x: 549.03156, y: 1613.5994, z: 0}
+  - {x: 555.9561, y: 1607.166, z: 0}
+  - {x: 558.5185, y: 1597.8517, z: 0}
+  - {x: 558.46375, y: 1586.8094, z: 0}
+  - {x: 557.5363, y: 1575.1907, z: 0}
+  - {x: 557.48145, y: 1564.1482, z: 0}
+  - {x: 560.0439, y: 1554.834, z: 0}
+  - {x: 566.96844, y: 1548.4006, z: 0}
+  - {x: 580, y: 1546, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2318,7 +2319,7 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 22
-    y: 1480
+    y: 1490
     width: 96
     height: 112
   parentTree: {fileID: 11400000}
@@ -2347,7 +2348,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 15%.
 --- !u!114 &114348549641318236
@@ -2363,7 +2364,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 15%.
 --- !u!114 &114348826030477152
@@ -2410,7 +2411,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases acceleration by 10%.
 --- !u!114 &114365427115820898
@@ -2642,7 +2643,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases acceleration and turn speed.
   explanation: Increases your acceleration value, allowing you to change directions
     faster and reach your maximum speed in less time.
@@ -2711,7 +2712,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114404692310166374
@@ -2753,7 +2754,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Complete bonfires faster.
   explanation: Increases the rate of speed at which you add progress to bonfires.  It
     normally takes 20 seconds to completely light a bonfire.
@@ -3027,7 +3028,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 5% more projectile speed.
 --- !u!114 &114492189562177526
@@ -3117,7 +3118,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases sight range.
   explanation: Increases your sight range at all times.
   isInResearch: 0
@@ -3157,6 +3158,21 @@ MonoBehaviour:
   tier: {fileID: 114190687291757190}
   cost:
   - {fileID: 114162049911587500}
+--- !u!114 &114515508404892222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Upgrades must be active.
 --- !u!114 &114519268135685460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3328,7 +3344,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 10%.
 --- !u!114 &114540641314072962
@@ -3347,14 +3363,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 1480
+    y: 1490
     width: 96
     height: 112
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 38d98c3571eb61440897872ca1a8618d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Climb walls.
   explanation: This will allow you to climb up and down walls instead of wall sliding
     downwards.
@@ -3437,7 +3453,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 40 seconds.
 --- !u!114 &114552342654746924
@@ -3470,6 +3486,21 @@ MonoBehaviour:
   ConditionType: 0
   Value: 1
   Description: Increased Bonfire Speed must be active.
+--- !u!114 &114553608116441120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f33da2dfabdea48bfd7bb631388197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConditionType: 0
+  Value: 1
+  Description: GN Cooldown Reduction must be active.
 --- !u!114 &114555040765066620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3509,7 +3540,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -3579,7 +3610,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 10%.
 --- !u!114 &114574998198721192
@@ -3849,7 +3880,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 10%.
 --- !u!114 &114640210556223478
@@ -3989,7 +4020,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114674951010958022
@@ -4005,7 +4036,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases movement speed by 6%.
 --- !u!114 &114679647232296266
@@ -4031,7 +4062,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -4223,7 +4254,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 10% more projectile speed.
 --- !u!114 &114695552458191568
@@ -4239,7 +4270,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114709396410876968
@@ -4301,7 +4332,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114723835581697822
@@ -4388,7 +4419,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases Shrine powerup duration.
   explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
     normally affect you for 30 seconds when taken by any member of your team.
@@ -4489,7 +4520,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114762987450028538
@@ -4641,7 +4672,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases Shrine powerup duration.
   explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
     normally affect you for 30 seconds when taken by any member of your team.
@@ -4757,7 +4788,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114810967135904784
@@ -4806,7 +4837,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases jump power by 10%.
 --- !u!114 &114815692325823724
@@ -4967,15 +4998,15 @@ MonoBehaviour:
   fromNode: {fileID: 114347496946909442}
   toNode: {fileID: 114947693359649344}
   curvePoints:
-  - {x: 118, y: 1536, z: 0}
-  - {x: 130.96297, y: 1538.7434, z: 0}
-  - {x: 137.7037, y: 1546.0962, z: 0}
-  - {x: 139.99997, y: 1556.7405, z: 0}
-  - {x: 139.62964, y: 1569.361, z: 0}
-  - {x: 138.37038, y: 1582.6393, z: 0}
-  - {x: 138, y: 1595.2593, z: 0}
-  - {x: 140.2963, y: 1605.9039, z: 0}
-  - {x: 147.03705, y: 1613.2565, z: 0}
+  - {x: 118, y: 1546, z: 0}
+  - {x: 130.96297, y: 1548.4006, z: 0}
+  - {x: 137.7037, y: 1554.8342, z: 0}
+  - {x: 139.99997, y: 1564.148, z: 0}
+  - {x: 139.62964, y: 1575.1908, z: 0}
+  - {x: 138.37038, y: 1586.8093, z: 0}
+  - {x: 138, y: 1597.8518, z: 0}
+  - {x: 140.2963, y: 1607.166, z: 0}
+  - {x: 147.03705, y: 1613.5994, z: 0}
   - {x: 160, y: 1616, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
@@ -5010,7 +5041,8 @@ MonoBehaviour:
   - {x: 440, y: 1056, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
-  Conditions: []
+  Conditions:
+  - {fileID: 114515508404892222}
   connectionType: 0
 --- !u!114 &114850302534140606
 MonoBehaviour:
@@ -5050,7 +5082,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases acceleration and turn speed.
   explanation: Increases your acceleration value, allowing you to change directions
     faster and reach your maximum speed in less time.
@@ -5166,7 +5198,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 10%.
 --- !u!114 &114882706854908878
@@ -5213,7 +5245,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Upgrades give you 15% more projectile speed.
 --- !u!114 &114884297945241674
@@ -5302,7 +5334,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -5405,7 +5437,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 100
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Unlocks the Cryo Nightmare.
 --- !u!114 &114922866420479072
@@ -5431,7 +5463,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -5525,7 +5557,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your dash speed slightly.
@@ -5558,7 +5590,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 0
+  isValid: 1
   description: Increases Shrine powerup duration.
   explanation: Increases the amount of time that Shrine powerups persist before expiring.  Shrines
     normally affect you for 30 seconds when taken by any member of your team.
@@ -5581,7 +5613,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114951136070863184
@@ -5684,7 +5716,7 @@ MonoBehaviour:
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Movement upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets a movement upgrade.  These
     upgrades increase your dash speed slightly.
@@ -5711,15 +5743,15 @@ MonoBehaviour:
   toNode: {fileID: 114540641314072962}
   curvePoints:
   - {x: 536, y: 1476, z: 0}
-  - {x: 549.03156, y: 1478.0577, z: 0}
-  - {x: 555.9561, y: 1483.5721, z: 0}
-  - {x: 558.5185, y: 1491.5554, z: 0}
-  - {x: 558.46375, y: 1501.0206, z: 0}
-  - {x: 557.5363, y: 1510.9794, z: 0}
-  - {x: 557.48145, y: 1520.4443, z: 0}
-  - {x: 560.0439, y: 1528.428, z: 0}
-  - {x: 566.96844, y: 1533.9424, z: 0}
-  - {x: 580, y: 1536, z: 0}
+  - {x: 549.03156, y: 1478.4006, z: 0}
+  - {x: 555.9561, y: 1484.8341, z: 0}
+  - {x: 558.5185, y: 1494.1481, z: 0}
+  - {x: 558.46375, y: 1505.1908, z: 0}
+  - {x: 557.5363, y: 1516.8093, z: 0}
+  - {x: 557.48145, y: 1527.8518, z: 0}
+  - {x: 560.0439, y: 1537.166, z: 0}
+  - {x: 566.96844, y: 1543.5996, z: 0}
+  - {x: 580, y: 1546, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5785,7 +5817,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases Shrine duration to 45 seconds.
 --- !u!114 &114971740217076386
@@ -5848,7 +5880,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 1000
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Climb up and down walls on contact.
 --- !u!114 &114977757715761160
@@ -5864,7 +5896,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114979047914005604
@@ -5896,7 +5928,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 0
+  Bought: 1
   WillBuy: 0
   Description: Increases range by 10%.
 --- !u!114 &114984771241682880

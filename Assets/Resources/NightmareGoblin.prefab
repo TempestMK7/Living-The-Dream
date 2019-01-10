@@ -261,7 +261,7 @@ MonoBehaviour:
   dashDuration: 0.15
   damageRecovery: 1
   deathAnimationTime: 3
-  dashCooldown: 0.65
+  dashCooldown: 1.15
   maxSpeed: 8
   dashFactor: 3
   wallReflection: 1

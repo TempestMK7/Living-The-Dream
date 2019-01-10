@@ -11,7 +11,6 @@ namespace Com.Tempest.Nightmare {
 		private IControllable controllable;
 
 		private void Awake() {
-			GetComponent<TouchManager>().enabled = Application.platform == RuntimePlatform.Android;
 			managerBehavior = GetComponent<GeneratedGameManager>();
 			demoBehavior = GetComponent<DemoSceneManager>();
 			actionSet = ControlBindingContainer.GetInstance().GetActionSet();

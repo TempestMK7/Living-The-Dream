@@ -36,13 +36,14 @@ namespace Com.Tempest.Nightmare {
         public void LaunchIceBall(Vector3 mouseDirection) {
             if (photonView.isMine) {    
                 float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
+                usableAttackCooldown *= 1.0f - (networkCooldownReduction * 0.05f);
                 if (Time.time - fireballTime < usableAttackCooldown) return;
                 fireballTime = Time.time;
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();
                     Vector3 direction = mouseDirection.magnitude == 0f ? currentControllerState : mouseDirection;
-                iceBall.SetStartingDirection(direction, fireballSpeed + (fireballUpgradeSpeed * GetNumUpgrades()));
+                iceBall.SetStartingDirection(direction, fireballSpeed + (fireballUpgradeSpeed * GetNumUpgrades()), networkProjectileGravity == 0);
                 iceBall.CryoLauncherBehavior = this;
             }
         }
@@ -57,7 +58,18 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void SendTalentsToNetwork() {
-
+            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
+            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.CHEST_DURATION);
+            int cooldownReduction = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.COOLDOWN_REDUCTION);
+            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.UPGRADES);
+            int accelerationModifier = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.ACCELERATION);
+            int jumpHeight = 0;
+            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.CRYO_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
+            int wallReflection = 0;
+            int projectileGravity = talentManager.GetTalentLevel(TalentManagerBehavior.CANCEL_PROJECTILE_GRAVITY);
+            int wallClimb = 0;
+            photonView.RPC("ReceiveNightmareTalents", PhotonTargets.All, sightRange, chestDuration, cooldownReduction,
+                    upgradeModifier, accelerationModifier, jumpHeight, movementSpeed, wallReflection, projectileGravity, wallClimb);
         }
     }
 }

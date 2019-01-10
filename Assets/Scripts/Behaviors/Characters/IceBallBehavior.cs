@@ -19,18 +19,20 @@ namespace Com.Tempest.Nightmare {
         private LightBoxBehavior lightBox;
 
         private Vector3 currentSpeed;
+        private bool gravity;
         private float explosionTime;
 
         private List<BaseExplorer> playersHit;
 
         public CryoBehavior CryoLauncherBehavior { get; set; }
 
-        public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed) {
+        public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed, bool gravity) {
             currentSpeed = currentControllerState;
             if (currentSpeed.magnitude == 0f) currentSpeed = new Vector3(0f, -20f);
             float ratio = startingSpeed / currentSpeed.magnitude;
             currentSpeed.x *= ratio;
             currentSpeed.y *= ratio;
+            this.gravity = gravity;
         }
 
         // Use this for initialization
@@ -57,7 +59,9 @@ namespace Com.Tempest.Nightmare {
                 currentSpeed = new Vector3();
                 return;
             }
-            currentSpeed.y -= gravityFactor * Time.deltaTime;
+            if (gravity) {
+                currentSpeed.y -= gravityFactor * Time.deltaTime;
+            }
             transform.position += currentSpeed * Time.deltaTime;
         }
 

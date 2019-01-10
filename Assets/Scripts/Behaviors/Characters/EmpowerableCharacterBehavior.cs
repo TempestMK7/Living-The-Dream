@@ -93,7 +93,16 @@ namespace Com.Tempest.Nightmare {
 
 		[PunRPC]
 		public void ReceiveNightmareTalents(int sightRange, int shrineDuration, int cooldownReduction, int upgradeModifier, int acceleration, int jumpHeight, int movementSpeed, int wallReflection, int projectileGravity, int wallClimb) {
-
+			networkSightRange = sightRange;
+			networkShrineDuration = shrineDuration;
+			networkCooldownReduction = cooldownReduction;
+			networkUpgradeModifier = upgradeModifier;
+			networkAcceleration = acceleration;
+			networkJumpHeight = jumpHeight;
+			networkMovementSpeed = movementSpeed;
+			networkWallReflection = wallReflection;
+			networkProjectileGravity = projectileGravity;
+			networkWallClimb = wallClimb;
 		}
 
 		public int GetBonfireSpeed() {
