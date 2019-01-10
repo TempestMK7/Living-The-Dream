@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Com.Tempest.Nightmare {
 
-    public class LobbyMusicBehavior : MonoBehaviour {
+    public class LobbyMusicBehavior : Photon.PunBehaviour {
 
         private static LobbyMusicBehavior instance;
 
@@ -32,5 +32,7 @@ namespace Com.Tempest.Nightmare {
             source.Stop();
             isPlaying = false;
         }
+
+
     }
 }
