@@ -18,6 +18,11 @@ namespace Com.Tempest.Nightmare {
         private const int LIGHT = 2;
         private const int CLING = 3;
 
+        private const int UP = 4;
+        private const int DOWN = 5;
+        private const int LEFT = 6;
+        private const int RIGHT = 7;
+
         public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
         public GameObject talentManager;
         public GameObject startPanel;
@@ -40,6 +45,13 @@ namespace Com.Tempest.Nightmare {
 		public Button connectNightmareButton;
 		public Button connectObserverButton;
 
+        public Slider musicSlider;
+
+        public Button keyboardUp;
+        public Button keyboardDown;
+        public Button keyboardLeft;
+        public Button keyboardRight;
+
         public Button keyboardJump;
         public Button keyboardAction;
         public Button keyboardLight;
@@ -50,6 +62,7 @@ namespace Com.Tempest.Nightmare {
         private int inputRebinding;
 
         private TalentManagerBehavior talentBehavior;
+        private LobbyMusicBehavior lobbyMusicBehavior;
         
 	    public void Awake() {
             Application.targetFrameRate = 60;
@@ -73,7 +86,8 @@ namespace Com.Tempest.Nightmare {
             PlayerStateContainer.ResetInstance();
             AccountStateContainer.getInstance();
 
-            FindObjectOfType<LobbyMusicBehavior>().StartMusic();
+            lobbyMusicBehavior = FindObjectOfType<LobbyMusicBehavior>();
+            lobbyMusicBehavior.StartMusic();
         }
 
         public void Update() {
@@ -140,6 +154,15 @@ namespace Com.Tempest.Nightmare {
             progressLabel.SetActive(false);
 
             ControlBindingContainer container = ControlBindingContainer.GetInstance();
+
+            musicSlider.minValue = 0f;
+            musicSlider.maxValue = 1f;
+            musicSlider.value = container.musicVolume;
+            
+            keyboardUp.GetComponentInChildren<Text>().text = container.upKey.ToString();
+            keyboardDown.GetComponentInChildren<Text>().text = container.downKey.ToString();
+            keyboardLeft.GetComponentInChildren<Text>().text = container.leftKey.ToString();
+            keyboardRight.GetComponentInChildren<Text>().text = container.rightKey.ToString();
             keyboardJump.GetComponentInChildren<Text>().text = container.jumpKey.ToString();
             keyboardAction.GetComponentInChildren<Text>().text = container.actionKey.ToString();
             keyboardLight.GetComponentInChildren<Text>().text = container.lightKey.ToString();
@@ -215,6 +238,18 @@ namespace Com.Tempest.Nightmare {
             }
             if (selectedKey != Key.None) {
                 switch (inputRebinding) {
+                    case UP:
+                        ControlBindingContainer.GetInstance().upKey = selectedKey;
+                        break;
+                    case DOWN:
+                        ControlBindingContainer.GetInstance().downKey = selectedKey;
+                        break;
+                    case LEFT:
+                        ControlBindingContainer.GetInstance().leftKey = selectedKey;
+                        break;
+                    case RIGHT:
+                        ControlBindingContainer.GetInstance().rightKey = selectedKey;
+                        break;
                     case JUMP:
                         ControlBindingContainer.GetInstance().jumpKey = selectedKey;
                         break;
@@ -232,6 +267,12 @@ namespace Com.Tempest.Nightmare {
                 isRebinding = false;
                 OpenSettingsPanel();
             }
+        }
+
+        public void SetVolume() {
+            ControlBindingContainer.GetInstance().musicVolume = musicSlider.value;
+            ControlBindingContainer.SaveInstance();
+            lobbyMusicBehavior.LoadVolume();
         }
 
         #endregion

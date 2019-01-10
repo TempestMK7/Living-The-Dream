@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
             if (instance == null) {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
+                LoadVolume();
             } else if (instance != this) {
                 Destroy(gameObject);
             }
@@ -33,6 +34,8 @@ namespace Com.Tempest.Nightmare {
             isPlaying = false;
         }
 
-
+        public void LoadVolume() {
+            source.volume = ControlBindingContainer.GetInstance().musicVolume;
+        }
     }
 }

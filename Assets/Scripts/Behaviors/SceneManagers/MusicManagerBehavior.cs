@@ -26,6 +26,9 @@ namespace Com.Tempest.Nightmare {
             gameManager = FindObjectOfType<GeneratedGameManager>();
             isExplorer = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER;
             musicIntensity = SAFE;
+            safeSource.volume = ControlBindingContainer.GetInstance().musicVolume;
+            dangerSource.volume = 0f;
+            chaseSource.volume = 0f;
         }
 
         public void Update() {
@@ -47,7 +50,26 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             Vector3 difference = explorerPosition - closestNightmare;
-            Debug.Log("Difference magnitude is: " + difference.magnitude);
+            if (difference.magnitude > 30f) {
+                SetMusicIntensity(SAFE);
+            } else if (difference.magnitude > 10f) {
+                SetMusicIntensity(DANGER);
+            } else {
+                SetMusicIntensity(CHASE);
+            }
+        }
+
+        private void SetMusicIntensityNightmare() {
+            if (gameManager.Nightmare == null || gameManager.Explorers == null || gameManager.Explorers.Count == 0) return;
+            if (Time.time - lastTransition < minimumTransitionTime) return;
+            Vector3 nightmarePosition = gameManager.Nightmare.transform.position;
+            Vector3 closestExplorer = new Vector3(float.MaxValue, float.MaxValue);
+            foreach (BaseExplorer explorer in gameManager.Explorers) {
+                if (!explorer.IsDead() && Vector3.Distance(nightmarePosition, explorer.transform.position) < Vector3.Distance(nightmarePosition, closestExplorer)) {
+                    closestExplorer = explorer.transform.position;
+                }
+            }
+            Vector3 difference = nightmarePosition - closestExplorer;
             if (difference.magnitude > 30f) {
                 SetMusicIntensity(SAFE);
             } else if (difference.magnitude > 10f) {
@@ -84,10 +106,11 @@ namespace Com.Tempest.Nightmare {
             if (source == null) {
                 yield return null;
             } else {
-                while (source.volume < 1f) {
-                    float newVolume = Mathf.Min(Time.time - startTime, 1f);
-                    source.volume = newVolume;
-                    Debug.Log("New Volume: " + newVolume);
+                float volumeMultiplier = ControlBindingContainer.GetInstance().musicVolume;
+                float volumePercentage = 0f;
+                while (volumePercentage < 1f) {
+                    volumePercentage = Mathf.Min(Time.time - startTime, 1f);
+                    source.volume = volumePercentage * volumeMultiplier;
                     yield return null;
                 }
             }
@@ -110,18 +133,14 @@ namespace Com.Tempest.Nightmare {
             if (source == null) {
                 yield return null;
             } else {
-                while (source.volume > 0f) {
-                    float newVolume = 1f - Mathf.Min(Time.time - startTime, 1f);
-                    source.volume = newVolume;
+                float volumeMultiplier = ControlBindingContainer.GetInstance().musicVolume;
+                float volumePercentage = 1f;
+                while (volumePercentage > 0f) {
+                    volumePercentage = 1f - Mathf.Min(Time.time - startTime, 1f);
+                    source.volume = volumePercentage * volumeMultiplier;
                     yield return null;
                 }
             }
-        }
-
-        private void SetMusicIntensityNightmare() {
-            safeSource.volume = 0f;
-            dangerSource.volume = 0f;
-            chaseSource.volume = 0f;
         }
     }
 }

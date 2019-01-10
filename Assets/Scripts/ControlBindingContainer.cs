@@ -33,6 +33,8 @@ namespace Com.Tempest.Nightmare {
         public InputControlType lightController;
         public InputControlType clingController;
 
+        public float musicVolume;
+
         public ControlBindingContainer() {
             upKey = Key.W;
             downKey = Key.S;
@@ -53,6 +55,8 @@ namespace Com.Tempest.Nightmare {
             actionController = InputControlType.Action2;
             lightController = InputControlType.LeftBumper;
             clingController = InputControlType.RightBumper;
+
+            musicVolume = 0.5f;
         }
 
         public ActionSet GetActionSet() {
