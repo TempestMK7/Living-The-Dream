@@ -65,4 +65,5 @@ MonoBehaviour:
   - ReceiveTalents
   - ReceiveExplorerTalents
   - ReceiveNightmareTalents
+  - StopMusic
   DisableAutoOpenWizard: 1

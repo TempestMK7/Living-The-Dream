@@ -72,6 +72,8 @@ namespace Com.Tempest.Nightmare {
             versionText.text = "Game Version: " + Constants.GAME_VERSION;
             PlayerStateContainer.ResetInstance();
             AccountStateContainer.getInstance();
+
+            FindObjectOfType<LobbyMusicBehavior>().StartMusic();
         }
 
         public void Update() {

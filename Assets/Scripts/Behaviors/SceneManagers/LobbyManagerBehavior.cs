@@ -208,9 +208,15 @@ namespace Com.Tempest.Nightmare {
 
 		private void StartGame() {
 			if (PhotonNetwork.isMasterClient) {
+				photonView.RPC("StopMusic", PhotonTargets.All);
 				PhotonNetwork.room.IsOpen = false;
 				PhotonNetwork.LoadLevel("GeneratedGameScene");
 			}
+		}
+
+		[PunRPC]
+		public void StopMusic() {
+			FindObjectOfType<LobbyMusicBehavior>().StopMusic();
 		}
 
 		public void ToggleReady() {
