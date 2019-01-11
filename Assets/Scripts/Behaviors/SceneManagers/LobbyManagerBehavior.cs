@@ -24,6 +24,27 @@ namespace Com.Tempest.Nightmare {
 		public Button cryoButton;
 		public Button goblinButton;
 
+		public Image nightmareImage;
+		public Image explorerHairImage;
+		public Image explorerChestImage;
+		public Image explorerEyeImage;
+
+		public Sprite ghastSprite;
+		public Sprite cryoSprite;
+		public Sprite goblinSprite;
+
+		public Sprite doubleJumpHair;
+		public Sprite doubleJumpChest;
+		public Sprite doubleJumpEye;
+
+		public Sprite jetpackHair;
+		public Sprite jetpackChest;
+		public Sprite jetpackEye;
+
+		public Sprite dashHair;
+		public Sprite dashChest;
+		public Sprite dashEye;
+
 		private TalentManagerBehavior talentBehavior;
 
 		private float lastListRefresh;
@@ -61,12 +82,21 @@ namespace Com.Tempest.Nightmare {
 			switch (PlayerStateContainer.Instance.ExplorerSelection) {
 				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
 					explorerSelectionText.text = "Double Jump";
+					explorerHairImage.sprite = doubleJumpHair;
+					explorerChestImage.sprite = doubleJumpChest;
+					explorerEyeImage.sprite = doubleJumpEye;
 					break;
 				case PlayerStateContainer.JETPACK_EXPLORER:
 					explorerSelectionText.text = "Jetpack";
+					explorerHairImage.sprite = jetpackHair;
+					explorerChestImage.sprite = jetpackChest;
+					explorerEyeImage.sprite = jetpackEye;
 					break;
 				case PlayerStateContainer.DASH_EXPLORER:
 					explorerSelectionText.text = "Dash";
+					explorerHairImage.sprite = dashHair;
+					explorerChestImage.sprite = dashChest;
+					explorerEyeImage.sprite = dashEye;
 					break;
 			}
 
@@ -77,12 +107,15 @@ namespace Com.Tempest.Nightmare {
 			switch (PlayerStateContainer.Instance.NightmareSelection) {
 				case PlayerStateContainer.GHAST:
 					nightmareSelectionText.text = "Ghast";
+					nightmareImage.sprite = ghastSprite;
 					break;
 				case PlayerStateContainer.CRYO:
 					nightmareSelectionText.text = "Cryo";
+					nightmareImage.sprite = cryoSprite;
 					break;
 				case PlayerStateContainer.GOBLIN:
 					nightmareSelectionText.text = "Goblin";
+					nightmareImage.sprite = goblinSprite;
 					break;
 			}
 		}
@@ -184,7 +217,7 @@ namespace Com.Tempest.Nightmare {
 					break;
 				}
 				if (player.IsMasterClient) {
-					playerText.text += " (Host)";
+					playerText.text += " (MC)";
 				}
 				if (!PlayerStateContainer.STATUS_READY.Equals(readyStatus)) {
 					allPlayersReady = false;

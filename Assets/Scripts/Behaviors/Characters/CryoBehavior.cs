@@ -13,7 +13,14 @@ namespace Com.Tempest.Nightmare {
 
         public GameObject fireballPrefab;
 
+        private AudioSource launchSource;
         private float fireballTime;
+
+        public override void Awake() {
+            base.Awake();
+            launchSource = GetComponent<AudioSource>();
+            launchSource.volume = ControlBindingContainer.GetInstance().effectVolume;
+        }
 
         protected override void Flip() {
             // Do nothing here to prevent the base behavior from manually flipping our sprite.
@@ -34,10 +41,10 @@ namespace Com.Tempest.Nightmare {
         }
 
         public void LaunchIceBall(Vector3 mouseDirection) {
-            if (photonView.isMine) {    
-                float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
-                usableAttackCooldown *= 1.0f - (networkCooldownReduction * 0.05f);
-                if (Time.time - fireballTime < usableAttackCooldown) return;
+            float usableAttackCooldown = HasPowerup(Powerup.HALF_ABILITY_COOLDOWN) ? fireballCooldown / 2f : fireballCooldown;
+            usableAttackCooldown *= 1.0f - (networkCooldownReduction * 0.05f);
+            if (Time.time - fireballTime < usableAttackCooldown) return;
+            if (photonView.isMine) {
                 fireballTime = Time.time;
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
@@ -45,7 +52,14 @@ namespace Com.Tempest.Nightmare {
                     Vector3 direction = mouseDirection.magnitude == 0f ? currentControllerState : mouseDirection;
                 iceBall.SetStartingDirection(direction, fireballSpeed + (fireballUpgradeSpeed * GetNumUpgrades()), networkProjectileGravity == 0);
                 iceBall.CryoLauncherBehavior = this;
+                launchSource.Play();
+                photonView.RPC("PlayLaunchSound", PhotonTargets.Others);
             }
+        }
+
+        [PunRPC]
+        public void PlayLaunchSound() {
+            launchSource.Play();
         }
 
         // Override this to remove perfect acceleration powerup.

@@ -16,6 +16,7 @@ namespace Com.Tempest.Nightmare {
         public float lightBoxScaleLit = 10f;
         
         public Animator fireAnimator;
+        public AudioSource soundSource;
 
         public LayerMask whatIsPlayer;
         public LayerMask whatIsDeadPlayer;
@@ -50,6 +51,7 @@ namespace Com.Tempest.Nightmare {
             HandleSprite();
             HandleProgressBar();
             HandleLightBox();
+            HandleSound();
         }
 
         private void HandlePlayerEvents() {
@@ -100,6 +102,14 @@ namespace Com.Tempest.Nightmare {
             lightBox.DefaultScale = new Vector3(unlitScale + lightBoxScaleBase, unlitScale + lightBoxScaleBase);
             lightBox.IsMine = currentCharges > 0f;
             lightBox.IsActive = currentCharges >= requiredCharges;
+        }
+
+        private void HandleSound() {
+            if (currentCharges > 0) {
+                soundSource.volume = ControlBindingContainer.GetInstance().effectVolume;
+            } else {
+                soundSource.volume = 0f;
+            }
         }
 
         [PunRPC]

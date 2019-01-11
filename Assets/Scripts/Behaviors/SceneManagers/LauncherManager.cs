@@ -46,6 +46,7 @@ namespace Com.Tempest.Nightmare {
 		public Button connectObserverButton;
 
         public Slider musicSlider;
+        public Slider effectSlider;
 
         public Button keyboardUp;
         public Button keyboardDown;
@@ -158,6 +159,9 @@ namespace Com.Tempest.Nightmare {
             musicSlider.minValue = 0f;
             musicSlider.maxValue = 1f;
             musicSlider.value = container.musicVolume;
+            effectSlider.minValue = 0f;
+            effectSlider.maxValue = 1f;
+            effectSlider.value = container.effectVolume;
             
             keyboardUp.GetComponentInChildren<Text>().text = container.upKey.ToString();
             keyboardDown.GetComponentInChildren<Text>().text = container.downKey.ToString();
@@ -273,6 +277,11 @@ namespace Com.Tempest.Nightmare {
             ControlBindingContainer.GetInstance().musicVolume = musicSlider.value;
             ControlBindingContainer.SaveInstance();
             lobbyMusicBehavior.LoadVolume();
+        }
+
+        public void SetEffectVolume() {
+            ControlBindingContainer.GetInstance().effectVolume = effectSlider.value;
+            ControlBindingContainer.SaveInstance();
         }
 
         #endregion

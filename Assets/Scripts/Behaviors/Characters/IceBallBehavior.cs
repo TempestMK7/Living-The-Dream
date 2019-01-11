@@ -10,6 +10,7 @@ namespace Com.Tempest.Nightmare {
         public float explosionTriggerRadius = .5f;
         public float explosionRadius = 2f;
         public float explosionDuration = 0.5f;
+        public float lingerDuration = 4.0f;
         public float lightBoxScale = 1f;
 
         public LayerMask whatIsExplosionTrigger;
@@ -17,6 +18,7 @@ namespace Com.Tempest.Nightmare {
 
         private Animator animator;
         private LightBoxBehavior lightBox;
+        private AudioSource explosionSource;
 
         private Vector3 currentSpeed;
         private bool gravity;
@@ -39,6 +41,8 @@ namespace Com.Tempest.Nightmare {
         void Awake() {
             animator = GetComponent<Animator>();
             playersHit = new List<BaseExplorer>();
+            explosionSource = GetComponent<AudioSource>();
+            explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume;
 
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = false;
@@ -55,7 +59,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void UpdatePosition() {
-            if (IsExploding()) {
+            if (explosionTime != 0) {
                 currentSpeed = new Vector3();
                 return;
             }
@@ -71,6 +75,7 @@ namespace Com.Tempest.Nightmare {
             if (triggers.Length != 0) {
                 explosionTime = Time.time;
                 animator.SetBool("IsExploding", true);
+                explosionSource.Play();
             }
         }
 
@@ -88,7 +93,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void DestroyIfExpired() {
-            if (photonView.isMine && Time.time - explosionTime > explosionDuration && explosionTime != 0f) {
+            if (photonView.isMine && Time.time - explosionTime > lingerDuration && explosionTime != 0f) {
                 PhotonNetwork.Destroy(photonView);
             }
         }

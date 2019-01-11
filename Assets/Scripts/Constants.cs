@@ -9,9 +9,11 @@ namespace Com.Tempest.Nightmare {
         public const string ROOM_NEEDS_EXPLORERS = "room_needs_explorers";
         public const string ROOM_NEEDS_NIGHTMARES = "room_needs_nightmares";
 
-        public const string GAME_VERSION = "0.28";
+        public const string GAME_VERSION = "0.30";
+        public const string TALENT_VERSION = "2";
+        public const string SETTINGS_VERSION = "2";
 
-        public const string SAVE_FILE_NAME = "LlomSaveData_" + GAME_VERSION + ".txt";
-        public const string CONTROL_FILE_NAME = "LlomControlData_" + GAME_VERSION + ".txt";
+        public const string SAVE_FILE_NAME = "LlomSaveData_" + TALENT_VERSION + ".txt";
+        public const string CONTROL_FILE_NAME = "LlomControlData_" + SETTINGS_VERSION + ".txt";
     }
 }
