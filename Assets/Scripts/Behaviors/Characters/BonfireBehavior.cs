@@ -17,6 +17,8 @@ namespace Com.Tempest.Nightmare {
         
         public Animator fireAnimator;
         public AudioSource soundSource;
+        public AudioSource victorySource;
+        public AudioSource defeatSource;
 
         public LayerMask whatIsPlayer;
         public LayerMask whatIsDeadPlayer;
@@ -32,6 +34,9 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Awake() {
+            victorySource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
+            defeatSource.volume = victorySource.volume;
+
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = true;
             lightBox.IsActive = false;
@@ -77,6 +82,7 @@ namespace Com.Tempest.Nightmare {
                     if (currentCharges >= requiredCharges) {
                         currentCharges = requiredCharges;
                         photonView.RPC("NotifyLit", PhotonTargets.All);
+                        photonView.RPC("PlayLitSound", PhotonTargets.All);
                     }
                 }
             }
@@ -116,6 +122,15 @@ namespace Com.Tempest.Nightmare {
         public void NotifyLit() {
             currentCharges = requiredCharges;
             timeLit = Time.time;
+        }
+
+        [PunRPC]
+        public void PlayLitSound() {
+            if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+                defeatSource.Play();
+            } else {
+                victorySource.Play();
+            }
         }
 
         public bool IsLit() {

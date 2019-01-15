@@ -28,16 +28,16 @@ namespace Com.Tempest.Nightmare {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
-                    JumpPhysics();
+                    JumpPhysics(false);
                     break;
                 case MovementState.JUMPING:
                 case MovementState.FALLING:
                 case MovementState.WALL_JUMP:
                     if (!usedSecondJump) {
-                        JumpPhysics();
+                        JumpPhysics(true);
                         usedSecondJump = true;
                     } else if (!usedThirdJump && HasPowerup(Powerup.THIRD_JUMP)) {
-                        JumpPhysics();
+                        JumpPhysics(true);
                         usedThirdJump = true;
                     }
                     break;

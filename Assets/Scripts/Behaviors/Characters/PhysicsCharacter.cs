@@ -38,6 +38,10 @@ namespace Com.Tempest.Nightmare {
 		public int numRays = 4;
 		public LayerMask whatIsSolid;
 
+		public AudioSource jumpSource;
+		public AudioSource doubleJumpSource;
+		public AudioSource dashSource;
+
         // Self initialized variables.
 		protected BoxCollider2D boxCollider;
 		protected Animator animator;
@@ -76,6 +80,9 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
 			grabHeld = false;
+			jumpSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.15f;;
+			doubleJumpSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.15f;;
+			dashSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;;
         }
 
         // Called by the system once per frame.
@@ -483,7 +490,7 @@ namespace Com.Tempest.Nightmare {
 
 		// These callbacks are not used by every character, so they should be called by children of this class when needed.
 
-		protected void JumpPhysics() {
+		protected void JumpPhysics(bool doubleJump) {
 			switch (currentState) {
 				case MovementState.GROUNDED:
 				case MovementState.JUMPING:
@@ -505,6 +512,19 @@ namespace Com.Tempest.Nightmare {
 					currentState = MovementState.WALL_JUMP;
 					break;
 			}
+			if (photonView.isMine) {
+				PlayJumpSound(doubleJump);
+				photonView.RPC("PlayJumpSound", PhotonTargets.Others, doubleJump);
+			}
+		}
+
+		[PunRPC]
+		public void PlayJumpSound(bool doubleJump) {
+			if (doubleJump) {
+				doubleJumpSource.Play();
+			} else {
+				jumpSource.Play();
+			}
 		}
 
 		protected bool DashPhysics(Vector3 mouseDirection) {
@@ -521,7 +541,17 @@ namespace Com.Tempest.Nightmare {
 			} else {
 				currentSpeed = new Vector3(0, -1f, 0) * MaxSpeed() * DashFactor();
 			}
+
+			if (photonView.isMine) {
+				PlayDashSound();
+				photonView.RPC("PlayDashSound", PhotonTargets.Others);
+			}
 			return true;
+		}
+
+		[PunRPC]
+		public void PlayDashSound() {
+			dashSource.Play();
 		}
 
 		protected void AttackPhysics() {

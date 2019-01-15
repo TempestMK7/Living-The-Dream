@@ -17,6 +17,8 @@ namespace Com.Tempest.Nightmare {
 		public LayerMask whatIsNightmare;
 		public LayerMask whatIsDreamer;
 
+		public AudioSource soundSource;
+
 		private GameObject progressCanvas;
 		private Image positiveProgressBar;
 		private CircleCollider2D circleCollider;
@@ -35,6 +37,7 @@ namespace Com.Tempest.Nightmare {
 			dreamerCharges = 0f;
 			nightmareCharges = 0f;
 			timeLit = 0f;
+			soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;
 		}
 
 		// Update is called once per frame
@@ -60,6 +63,7 @@ namespace Com.Tempest.Nightmare {
 			if (dreamerCharges >= requiredCharges) {
 				dreamerCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, true);
+				photonView.RPC("PlaySound", PhotonTargets.All, true);
 				foreach (Collider2D dreamer in dreamers) {
 					dreamer.gameObject.GetComponent<BaseExplorer>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
 				}
@@ -80,6 +84,7 @@ namespace Com.Tempest.Nightmare {
 			if (nightmareCharges >= requiredCharges) {
 				nightmareCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, false);
+				photonView.RPC("PlaySound", PhotonTargets.All, false);
 				foreach (Collider2D nightmare in nightmares) {
 					nightmare.gameObject.GetComponent<BaseNightmare>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
 				}
@@ -87,27 +92,38 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void NotifyLit(bool dreamersWon) {
-			if (dreamersWon)
+		public void NotifyLit(bool explorersWon) {
+			if (explorersWon)
 				dreamerCharges = requiredCharges;
 			else
 				nightmareCharges = requiredCharges;
 			timeLit = Time.time;
-			AwardPowerups(dreamersWon);
+			AwardPowerups(explorersWon);
 		}
 
-		private void AwardPowerups(bool dreamersWon) {
+		private void AwardPowerups(bool explorersWon) {
 			if (!photonView.isMine)
 				return;
 			GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
 			if (behavior != null) {
-				behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+				behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, explorersWon);
 			} else {
 				DemoSceneManager demoBehavior = FindObjectOfType<DemoSceneManager>();
 				if (demoBehavior != null) {
-					demoBehavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+					demoBehavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, explorersWon);
 				}
 			}
+		}
+
+		[PunRPC]
+		public void PlaySound(bool explorersWon) {
+            if (!explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+                soundSource.Play();
+            } else if (explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
+                soundSource.Play();
+            } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER) {
+                soundSource.Play();
+            }
 		}
 
 		private void ResetIfAppropriate() {

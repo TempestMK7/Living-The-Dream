@@ -35,7 +35,7 @@ namespace Com.Tempest.Nightmare {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
-                    JumpPhysics();
+                    JumpPhysics(false);
                     break;
             }
         }

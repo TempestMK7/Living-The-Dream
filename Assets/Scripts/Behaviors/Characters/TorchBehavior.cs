@@ -13,6 +13,8 @@ namespace Com.Tempest.Nightmare {
         public LayerMask whatIsNightmare;
         public LayerMask whatIsExplorer;
 
+        public AudioSource soundSource;
+
         private Animator animator;
         private CircleCollider2D circleCollider;
         private LightBoxBehavior lightBox;
@@ -26,6 +28,7 @@ namespace Com.Tempest.Nightmare {
             lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
             lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
 
+            soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
             animator = GetComponent<Animator>();
             circleCollider = GetComponent<CircleCollider2D>();
             timeTaken = respawnTimer * -1f;
@@ -70,6 +73,18 @@ namespace Com.Tempest.Nightmare {
                 if (demoBehavior != null) {
                     demoBehavior.photonView.RPC("AddUpgradeToCharacter", PhotonTargets.All, nightmaresWon);
                 }
+            }
+            photonView.RPC("PlaySound", PhotonTargets.All, nightmaresWon);
+        }
+
+        [PunRPC]
+        public void PlaySound(bool nightmaresWon) {
+            if (nightmaresWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+                soundSource.Play();
+            } else if (!nightmaresWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
+                soundSource.Play();
+            } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER) {
+                soundSource.Play();
             }
         }
 

@@ -67,4 +67,8 @@ MonoBehaviour:
   - ReceiveNightmareTalents
   - StopMusic
   - PlayLaunchSound
+  - PlayDashSound
+  - PlayJumpSound
+  - PlaySound
+  - PlayLitSound
   DisableAutoOpenWizard: 1
