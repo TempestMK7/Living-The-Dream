@@ -19,7 +19,7 @@ namespace Com.Tempest.Nightmare {
         public override void Awake() {
             base.Awake();
             launchSource = GetComponent<AudioSource>();
-            launchSource.volume = ControlBindingContainer.GetInstance().effectVolume;
+            launchSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
         }
 
         protected override void Flip() {

@@ -284,6 +284,9 @@ MonoBehaviour:
   jumpSource: {fileID: 5812362962391707348}
   doubleJumpSource: {fileID: 5076788225617851105}
   dashSource: {fileID: 4204275060186149871}
+  hitSource: {fileID: 8239449660658086076}
+  deathSource: {fileID: 6276661549145602242}
+  relightSource: {fileID: 8165818884187143987}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -420,6 +423,24 @@ AudioSource:
 --- !u!82 &4204275060186149871 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 387582125518087901, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 4555498807917679922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8239449660658086076 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5575462696387274126, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 4555498807917679922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6276661549145602242 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7503925430341807600, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 4555498807917679922}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &8165818884187143987 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5650525518030744065, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 4555498807917679922}
   m_PrefabAsset: {fileID: 0}

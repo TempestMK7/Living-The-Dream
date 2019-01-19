@@ -297,6 +297,9 @@ MonoBehaviour:
   jumpSource: {fileID: 1506044236969423061}
   doubleJumpSource: {fileID: 160860677114621152}
   dashSource: {fileID: 9085933035635174894}
+  hitSource: {fileID: 3897660828309286589}
+  deathSource: {fileID: 1392751914739148483}
+  relightSource: {fileID: 3827482519021691186}
   maxHealth: 2
   maxLives: 3
   healthBarFadeDelay: 1
@@ -984,6 +987,24 @@ AudioSource:
 --- !u!82 &9085933035635174894 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 387582125518087901, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 8896650057006091059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3897660828309286589 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5575462696387274126, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 8896650057006091059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &3827482519021691186 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5650525518030744065, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 8896650057006091059}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1392751914739148483 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7503925430341807600, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 8896650057006091059}
   m_PrefabAsset: {fileID: 0}

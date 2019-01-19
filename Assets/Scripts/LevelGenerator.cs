@@ -111,13 +111,15 @@ namespace Com.Tempest.Nightmare {
 		private int width;
 		private int height;
 		private int bonfireFrequency;
+		private int bonfireOffset;
 		private float torchProbability;
 		private GraphNode[,] levelGraph;
 
-		public LevelGenerator(int width, int height, int bonfireFrequency, float torchProbability) {
+		public LevelGenerator(int width, int height, int bonfireFrequency, int bonfireOffset, float torchProbability) {
 			this.width = width;
 			this.height = height;
 			this.bonfireFrequency = bonfireFrequency;
+			this.bonfireOffset = bonfireOffset;
 			this.torchProbability = torchProbability;
 			InitializeLevelGraph();
 			BuildLevelGraph();
@@ -188,7 +190,7 @@ namespace Com.Tempest.Nightmare {
 		private void AddBonfires() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					if (!IsCorner(x, y) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == 0)) {
+					if (!IsCorner(x, y) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == bonfireOffset)) {
 						levelGraph[x, y].IsBonfire = true;
 					}
 				}

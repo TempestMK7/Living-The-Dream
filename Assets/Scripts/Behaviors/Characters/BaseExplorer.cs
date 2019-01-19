@@ -56,17 +56,18 @@ namespace Com.Tempest.Nightmare {
 
         public override void Update() {
 			base.Update();
-
 			ResurrectIfAble();
 			HandleLifeState();
 			HandlePowerupState();
+			DeleteSelfIfAble();
         }
 
         // Brings the player back to life if they are within range of a bonfire that has living players near it.
 		private void ResurrectIfAble() {
 			if (!photonView.isMine || !IsDead() || IsOutOfLives())
 				return;
-				bool ableToRes = false;
+			bool ableToRes = false;
+			BaseExplorer savior = null;	
 			Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
 			foreach (Collider2D fireCollider in bonfires) {
 				BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
@@ -80,6 +81,7 @@ namespace Com.Tempest.Nightmare {
 				if (behavior != null && !behavior.IsOutOfHealth()) {
 					ableToRes = true;
 					behavior.photonView.RPC("ReceiveRescueEmbers", PhotonTargets.All, 10);
+					savior = behavior;
 				}
 			}
 			if (ableToRes) {
@@ -87,6 +89,8 @@ namespace Com.Tempest.Nightmare {
 				GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
 				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", PlayerStateContainer.EXPLORER);
 				behavior.DisplayAlert("You have been saved!  Your light shines once more.", PlayerStateContainer.EXPLORER);
+				PlayRelightSound();
+				photonView.RPC("PlayRelightSound", PhotonTargets.Others);
 			}
 		}
 
@@ -119,6 +123,20 @@ namespace Com.Tempest.Nightmare {
 						childRenderer.enabled = enabled;
 					}
 				}
+			}
+		}
+
+		[PunRPC]
+		public override void PlayJumpSound(bool doubleJump) {
+			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !IsOutOfHealth()) {
+				base.PlayJumpSound(doubleJump);
+			}
+		}
+
+		[PunRPC]
+		public override void PlayDashSound() {
+			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !IsOutOfHealth()) {
+				base.PlayDashSound();
 			}
 		}
 
@@ -160,12 +178,16 @@ namespace Com.Tempest.Nightmare {
 		// Called by a nightmare behavior when collision occurs.
 		[PunRPC]
 		public void TakeDamage(Vector3 currentSpeed) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || IsOutOfHealth())
-				return;
-			currentHealth -= 1;
+			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || IsOutOfHealth()) return;
 			damageTime = Time.time;
+			if (!photonView.isMine) return;
+			currentHealth -= 1;
 			DamagePhysics(currentSpeed, IsOutOfHealth());
 			DieIfAble();
+			if (!IsOutOfHealth()) {
+				PlayHitSound();
+				photonView.RPC("PlayHitSound", PhotonTargets.Others);
+			}
 		}
 
 		private void DieIfAble() {
@@ -174,11 +196,12 @@ namespace Com.Tempest.Nightmare {
 				currentState = MovementState.DYING;
 				currentLives--;
 				if (photonView.isMine) {
+					PlayDeathSound();
+					photonView.RPC("PlayDeathSound", PhotonTargets.Others);
 					GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
 					if (IsOutOfLives()) {
 						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", PlayerStateContainer.EXPLORER);
 						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", PlayerStateContainer.EXPLORER);
-						DeleteSelf();
 					} else {
 						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", PlayerStateContainer.EXPLORER);
 						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", PlayerStateContainer.EXPLORER);
@@ -187,13 +210,12 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		private void DeleteSelf() {
-			if (photonView.isMine && IsOutOfLives()) {
+		private void DeleteSelfIfAble() {
+			if (photonView.isMine && IsOutOfLives() && Time.time - damageTime > deathRenderTime) {
 				GeneratedGameManager gameManager = FindObjectOfType<GeneratedGameManager>();
 				gameManager.Explorer = null;
 				gameManager.ChangeMaskColor(0.5f);
 				PhotonNetwork.Destroy(photonView);
-				return;
 			}
 		}
 

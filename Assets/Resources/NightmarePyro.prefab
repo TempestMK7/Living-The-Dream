@@ -128,7 +128,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2458487999054166719}
+  - {fileID: 2338953103309261016}
   - {fileID: 50066}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -283,9 +283,12 @@ MonoBehaviour:
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 256
-  jumpSource: {fileID: 5756842921023485742}
-  doubleJumpSource: {fileID: 6429342073970453275}
-  dashSource: {fileID: 2672137161624578581}
+  jumpSource: {fileID: 2338953103309260863}
+  doubleJumpSource: {fileID: 2338953103309260851}
+  dashSource: {fileID: 2338953103309260826}
+  hitSource: {fileID: 2338953103309260836}
+  deathSource: {fileID: 2338953103309260861}
+  relightSource: {fileID: 2338953103309260837}
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -294,8 +297,7 @@ MonoBehaviour:
   fireballUpgradeSpeed: 0.5
   fireballAttackAnimation: 0.5
   fireballCooldown: 1.2
-  fireballPrefab: {fileID: 1810200678378276, guid: 4dc52bddebcd9ff41839b1018981c81f,
-    type: 3}
+  fireballPrefab: {fileID: 49078, guid: 4dc52bddebcd9ff41839b1018981c81f, type: 3}
 --- !u!114 &51594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -371,8 +373,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 8
-  MaxDistance: 22
+  MinDistance: 12
+  MaxDistance: 24
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -516,27 +518,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fff400e47ea1143afda36fc9a2bd89, type: 3}
---- !u!4 &2458487999054166719 stripped
+--- !u!4 &2338953103309261016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 174493301593093751, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 2338953103309212872}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &5756842921023485742 stripped
+--- !u!82 &2338953103309260863 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8039430380905348070, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 2338953103309212872}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &6429342073970453275 stripped
+--- !u!82 &2338953103309260851 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8740429120224126931, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 2338953103309212872}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &2672137161624578581 stripped
+--- !u!82 &2338953103309260826 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 387582125518087901, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 2338953103309212872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2338953103309260836 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5575462696387274126, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 2338953103309212872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2338953103309260861 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7503925430341807600, guid: c5fff400e47ea1143afda36fc9a2bd89,
+    type: 3}
+  m_PrefabInstance: {fileID: 2338953103309212872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2338953103309260837 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 5650525518030744065, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 2338953103309212872}
   m_PrefabAsset: {fileID: 0}

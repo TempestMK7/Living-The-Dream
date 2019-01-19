@@ -71,4 +71,7 @@ MonoBehaviour:
   - PlayJumpSound
   - PlaySound
   - PlayLitSound
+  - PlayHitSound
+  - PlayRelightSound
+  - PlayDeathSound
   DisableAutoOpenWizard: 1

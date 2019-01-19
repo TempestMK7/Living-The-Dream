@@ -40,10 +40,15 @@ namespace Com.Tempest.Nightmare {
         public Text talentCurrentText;
         public Text talentNextText;
 
-        public InputField inputField;
+        public InputField nameInputField;
+        public Text publicLabel;
 		public Button connectExplorerButton;
 		public Button connectNightmareButton;
 		public Button connectObserverButton;
+
+        public Text privateLabel;
+        public InputField lobbyInputField;
+        public Button connectPrivateButton;
 
         public Slider musicSlider;
         public Slider effectSlider;
@@ -59,6 +64,8 @@ namespace Com.Tempest.Nightmare {
         public Button keyboardCling;
 
         private bool isConnecting;
+        private bool isPrivate;
+        private string lobbyName;
         private bool isRebinding;
         private int inputRebinding;
 
@@ -102,10 +109,16 @@ namespace Com.Tempest.Nightmare {
         #region Panel and Button Handling
 
         private void HandleConnectButtons() {
-            bool nameEntered = inputField.text.Length != 0;
+            bool nameEntered = nameInputField.text.Length != 0;
+            publicLabel.gameObject.SetActive(nameEntered);
             connectExplorerButton.gameObject.SetActive(nameEntered);
             connectNightmareButton.gameObject.SetActive(nameEntered);
             connectObserverButton.gameObject.SetActive(nameEntered);
+            privateLabel.gameObject.SetActive(nameEntered);
+            lobbyInputField.gameObject.SetActive(nameEntered);
+
+            bool canConnectPrivate = nameEntered && lobbyInputField.text.Length != 0;
+            connectPrivateButton.gameObject.SetActive(canConnectPrivate);
         }
 
         public void ExitGame() {
@@ -294,17 +307,27 @@ namespace Com.Tempest.Nightmare {
 
         public void ConnectAsExplorer() {
             PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.EXPLORER;
+            isPrivate = false;
             Connect();
         }
 
         public void ConnectAsNightmare() {
             PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.NIGHTMARE;
+            isPrivate = false;
             Connect();
         }
 
         public void ConnectAsObserver() {
             PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
+            isPrivate = false;
             Connect();
+        }
+
+        public void ConnectAsPrivate() {
+            PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
+            isPrivate = true;
+            lobbyName = lobbyInputField.text;
+            if (lobbyName != null && lobbyName.Length != 0) Connect();
         }
 
         private void Connect() {
@@ -329,7 +352,15 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void OnJoinedLobby() {
-            if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
+            if (isPrivate) {
+                RoomOptions options = new RoomOptions();
+                options.IsOpen = true;
+                options.IsVisible = false;
+                options.MaxPlayers = 0;
+                options.CustomRoomPropertiesForLobby = new string[]{ "C0", "C1" };
+                options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable(){{ "C0", 1 }, { "C1", 1 }};
+                PhotonNetwork.JoinOrCreateRoom(lobbyName, options, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));
+            } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
                 string filter = "C0 = 1";
                 PhotonNetwork.JoinRandomRoom(null, 0, MatchmakingMode.FillRoom, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby), filter);
             } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {

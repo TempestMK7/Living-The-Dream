@@ -8,6 +8,7 @@ namespace Com.Tempest.Nightmare {
     public class BonfireBehavior : Photon.PunBehaviour, IPunObservable {
 
         public float requiredCharges = 30f;
+        public float soloMultiplier = 1.5f;
         public float regressionFactor = 0.2f;
         public float litNotificationDuration = 5f;
 
@@ -27,6 +28,11 @@ namespace Com.Tempest.Nightmare {
         private GameObject progressCanvas;
         private Image positiveProgressBar;
         private CircleCollider2D circleCollider;
+
+        private bool testingMode;
+        private bool soloMode;
+        private bool wasLitBefore;
+
         private float currentCharges;
         private float timeLit;
         private bool playersNearby;
@@ -46,12 +52,16 @@ namespace Com.Tempest.Nightmare {
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
             circleCollider = GetComponent<CircleCollider2D>();
+            testingMode = false;
+            soloMode = false;
+            wasLitBefore = false;
             currentCharges = 0f;
             timeLit = 0f;
         }
 
         // Update is called once per frame
         void Update() {
+            HandleNightmareCount();
             HandlePlayerEvents();
             HandleSprite();
             HandleProgressBar();
@@ -59,8 +69,19 @@ namespace Com.Tempest.Nightmare {
             HandleSound();
         }
 
+        private void HandleNightmareCount() {
+            BaseNightmare[] nightmares = FindObjectsOfType<BaseNightmare>();
+            testingMode = nightmares.Length == 0;
+            soloMode = nightmares.Length == 1;
+            
+            // If a nightmare leaves and makes the game solo mode, we do not want to unlight bonfires that are already lit.
+            if (wasLitBefore) {
+                currentCharges = GetRequiredCharges();
+            }
+        }
+
         private void HandlePlayerEvents() {
-            if (photonView.isMine && currentCharges < requiredCharges) {
+            if (photonView.isMine && currentCharges < GetRequiredCharges()) {
                 Collider2D[] otherPlayers = Physics2D.OverlapCircleAll(transform.position, circleCollider.radius * (transform.localScale.x + transform.localScale.y) / 2, whatIsPlayer);
                 if (otherPlayers.Length == 0) {
                     currentCharges -= Time.deltaTime * regressionFactor;
@@ -79,8 +100,9 @@ namespace Com.Tempest.Nightmare {
                         behavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, embers);
                     }
                     currentCharges += Time.deltaTime * multiplier;
-                    if (currentCharges >= requiredCharges) {
-                        currentCharges = requiredCharges;
+                    if (currentCharges >= GetRequiredCharges()) {
+                        wasLitBefore = true;
+                        currentCharges = GetRequiredCharges();
                         photonView.RPC("NotifyLit", PhotonTargets.All);
                         photonView.RPC("PlayLitSound", PhotonTargets.All);
                     }
@@ -98,16 +120,16 @@ namespace Com.Tempest.Nightmare {
                 progressCanvas.SetActive(false);
             } else {
                 progressCanvas.SetActive(true);
-                positiveProgressBar.fillAmount = currentCharges / requiredCharges;
+                positiveProgressBar.fillAmount = currentCharges / GetRequiredCharges();
             }
         }
 
         private void HandleLightBox() {
-            float completion = currentCharges / requiredCharges;
+            float completion = currentCharges / GetRequiredCharges();
             float unlitScale = completion * lightBoxScaleUnlit;
             lightBox.DefaultScale = new Vector3(unlitScale + lightBoxScaleBase, unlitScale + lightBoxScaleBase);
             lightBox.IsMine = currentCharges > 0f;
-            lightBox.IsActive = currentCharges >= requiredCharges;
+            lightBox.IsActive = currentCharges >= GetRequiredCharges();
         }
 
         private void HandleSound() {
@@ -120,7 +142,7 @@ namespace Com.Tempest.Nightmare {
 
         [PunRPC]
         public void NotifyLit() {
-            currentCharges = requiredCharges;
+            currentCharges = GetRequiredCharges();
             timeLit = Time.time;
         }
 
@@ -133,8 +155,14 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        private float GetRequiredCharges() {
+            if (testingMode) return 5f;
+            else if (soloMode) return requiredCharges * soloMultiplier;
+            else return requiredCharges;
+        }
+
         public bool IsLit() {
-            return currentCharges >= requiredCharges;
+            return currentCharges >= GetRequiredCharges();
         }
 
         public bool ShowLitNotification() {

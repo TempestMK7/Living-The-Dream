@@ -42,7 +42,7 @@ namespace Com.Tempest.Nightmare {
             animator = GetComponent<Animator>();
             playersHit = new List<BaseExplorer>();
             explosionSource = GetComponent<AudioSource>();
-            explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume;
+            explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
 
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = false;

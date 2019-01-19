@@ -39,6 +39,7 @@ namespace Com.Tempest.Nightmare {
 		public int levelWidth = 8;
 		public int levelHeight = 8;
 		public int bonfireFrequency = 4;
+		public int bonfireOffset = 1;
 		public float torchProbability = 0.3f;
 	
 		// Publicly accessible fields pertaining to game state.
@@ -82,13 +83,13 @@ namespace Com.Tempest.Nightmare {
 				return;
 			playersConnected++;
 			if (PhotonNetwork.playerList.Length == playersConnected) {
-				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, torchProbability);
+				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, bonfireOffset, torchProbability);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
 		}
 
-		private static int[,] GenerateLevelGraph(int width, int height, int bonfire, float torchProbability) {
-			LevelGenerator generator = new LevelGenerator(width, height, bonfire, torchProbability);
+		private static int[,] GenerateLevelGraph(int width, int height, int bonfire, int offset, float torchProbability) {
+			LevelGenerator generator = new LevelGenerator(width, height, bonfire, offset, torchProbability);
 			return generator.SerializeLevelGraph();
 		}
 

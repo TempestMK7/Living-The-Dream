@@ -42,6 +42,10 @@ namespace Com.Tempest.Nightmare {
 		public AudioSource doubleJumpSource;
 		public AudioSource dashSource;
 
+		public AudioSource hitSource;
+		public AudioSource deathSource;
+		public AudioSource relightSource;
+
         // Self initialized variables.
 		protected BoxCollider2D boxCollider;
 		protected Animator animator;
@@ -80,9 +84,14 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
 			grabHeld = false;
-			jumpSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.15f;;
-			doubleJumpSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.15f;;
-			dashSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;;
+
+			float volume = ControlBindingContainer.GetInstance().effectVolume;
+			jumpSource.volume = volume * 0.15f;
+			doubleJumpSource.volume = volume * 0.15f;
+			dashSource.volume = volume * 0.4f;
+			hitSource.volume = volume * 0.6f;
+			deathSource.volume = volume * 0.5f;
+			relightSource.volume = volume * 0.5f;
         }
 
         // Called by the system once per frame.
@@ -519,7 +528,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void PlayJumpSound(bool doubleJump) {
+		public virtual void PlayJumpSound(bool doubleJump) {
 			if (doubleJump) {
 				doubleJumpSource.Play();
 			} else {
@@ -550,7 +559,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void PlayDashSound() {
+		public virtual void PlayDashSound() {
 			dashSource.Play();
 		}
 
@@ -562,6 +571,21 @@ namespace Com.Tempest.Nightmare {
 			currentState = outOfHealth ? MovementState.DYING : MovementState.DAMAGED;
 			timerStart = Time.time;
 			currentSpeed = newSpeed;
+		}
+
+		[PunRPC]
+		public void PlayHitSound() {
+			hitSource.Play();
+		}
+
+		[PunRPC]
+		public void PlayDeathSound() {
+			deathSource.Play();
+		}
+
+		[PunRPC]
+		public void PlayRelightSound() {
+			relightSource.Play();
 		}
 
 		#endregion
