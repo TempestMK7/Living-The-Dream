@@ -216,6 +216,7 @@ namespace Com.Tempest.Nightmare {
 				gameManager.Explorer = null;
 				gameManager.ChangeMaskColor(0.5f);
 				PhotonNetwork.Destroy(photonView);
+				FindObjectOfType<CharacterInputManager>().ClearControllable();
 			}
 		}
 

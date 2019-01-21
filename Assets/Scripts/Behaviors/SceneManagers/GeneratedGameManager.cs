@@ -113,16 +113,13 @@ namespace Com.Tempest.Nightmare {
 				for (int y = 0; y < height; y++) {
 					int roomType = levelGraph[x, y];
 					Vector3 position = new Vector3(x * 16, y * 16);
-					if ((x == 0 || x == width - 1) && (y == 0 || y == height - 1)) {
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/ShrineChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else if (roomType < 0) {
-						roomType *= -1;
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else if (roomType >= 100) {
-						roomType -= 100;
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else {
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					bool isCorner = (x == 0 || x == width - 1) && (y == 0 || y == height - 1);
+					string path = LevelGenerator.ResourcePathForIndex(roomType, isCorner);
+					try {
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load(path), position, Quaternion.identity);
+					} catch (ArgumentException e) {
+						Debug.Log("Attempted to instantiate illegal path: " + path);
+						throw e;
 					}
 				}
 			}
@@ -145,15 +142,15 @@ namespace Com.Tempest.Nightmare {
 			foreach (GameObject chunk in levelChunks) {
 				Transform fireHolder = chunk.transform.Find("BonfirePlaceholder");
 				if (fireHolder != null) {
-					PhotonNetwork.Instantiate(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0);
+					PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
 				}
 				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
 				if (shrineHolder != null) {
-					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
+					PhotonNetwork.InstantiateSceneObject(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0, null);
 				}
 				Transform torchHolder = chunk.transform.Find("TorchPlaceholder");
 				if (torchHolder != null) {
-					PhotonNetwork.Instantiate(torchPrefab.name, torchHolder.position, Quaternion.identity, 0);
+					PhotonNetwork.InstantiateSceneObject(torchPrefab.name, torchHolder.position, Quaternion.identity, 0, null);
 				}
 			}
 		}

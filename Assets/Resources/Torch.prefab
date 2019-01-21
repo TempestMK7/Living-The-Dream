@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d21105f8e670314095c39385dee10a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnTimer: 40
+  respawnTimer: 30
   lightBoxScale: 6
   whatIsNightmare:
     serializedVersion: 2

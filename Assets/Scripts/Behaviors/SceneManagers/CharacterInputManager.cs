@@ -60,5 +60,9 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 		}
+
+		public void ClearControllable() {
+			controllable = null;
+		}
 	}
 }

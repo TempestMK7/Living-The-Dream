@@ -6,6 +6,25 @@ namespace Com.Tempest.Nightmare {
 
 	public class LevelGenerator {
 
+		public static string ResourcePathForIndex(int index, bool isCorner) {
+			string path = "LevelChunks/";
+			if (isCorner) {
+				path += "ShrineChunks/";
+			} else if (index > 2000) {
+				path += "TorchChunks/";
+			} else if (index > 1000) {
+				path += "BonfireChunks/";
+			}
+
+			index = index % 1000;
+			if (!isCorner) {
+				path += "Base" + (index / 100) + "/";
+			}
+
+			index = index % 100;
+			return path + "LevelChunk" + index;
+		}
+
 		public enum WallDirection {
 			NORTH,
 			SOUTH,
@@ -73,11 +92,14 @@ namespace Com.Tempest.Nightmare {
 				if (returnValue == 0) {
 					throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
 				}
+				
 				if (IsBonfire) {
-					returnValue *= -1;
+					returnValue += 1000;
 				} else if (IsTorch) {
-					returnValue += 100;
+					returnValue += 2000;
 				}
+				returnValue += 100 * Random.Range(1, 3);
+				
 				return returnValue;
 			}
 		}
