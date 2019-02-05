@@ -37,7 +37,6 @@ namespace Com.Tempest.Nightmare {
 			dreamerCharges = 0f;
 			nightmareCharges = 0f;
 			timeLit = 0f;
-			soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;
 		}
 
 		// Update is called once per frame
@@ -117,6 +116,7 @@ namespace Com.Tempest.Nightmare {
 
 		[PunRPC]
 		public void PlaySound(bool explorersWon) {
+			soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;
             if (!explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
                 soundSource.Play();
             } else if (explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {

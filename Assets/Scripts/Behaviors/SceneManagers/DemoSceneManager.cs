@@ -56,10 +56,10 @@ namespace Com.Tempest.Nightmare {
 
         private void InstantiateChunks() {
             levelChunks = new GameObject[2, 2];
-            levelChunks[0, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk10"), new Vector3(0, 0), Quaternion.identity);
+            levelChunks[0, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/Base1/LevelChunk10"), new Vector3(0, 0), Quaternion.identity);
             levelChunks[1, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/ShrineChunks/LevelChunk8"), new Vector3(16, 0), Quaternion.identity);
-            levelChunks[0, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/LevelChunk7"), new Vector3(0, 16), Quaternion.identity);
-            levelChunks[1, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/LevelChunk5"), new Vector3(16, 16), Quaternion.identity);
+            levelChunks[0, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/Base1/LevelChunk7"), new Vector3(0, 16), Quaternion.identity);
+            levelChunks[1, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/Base1/LevelChunk5"), new Vector3(16, 16), Quaternion.identity);
         }
 
         private void GenerateObjects() {

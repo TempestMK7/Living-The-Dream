@@ -33,6 +33,9 @@ namespace Com.Tempest.Nightmare {
         public InputControlType lightController;
         public InputControlType clingController;
 
+        public Key menuKey;
+        public InputControlType menuController;
+
         public float musicVolume;
         public float effectVolume;
 
@@ -56,6 +59,9 @@ namespace Com.Tempest.Nightmare {
             actionController = InputControlType.Action2;
             lightController = InputControlType.LeftBumper;
             clingController = InputControlType.RightBumper;
+
+            menuKey = Key.Escape;
+            menuController = InputControlType.Start;
 
             musicVolume = 0.5f;
             effectVolume = 0.5f;
@@ -95,6 +101,9 @@ namespace Com.Tempest.Nightmare {
 			aSet.Grab.AddDefaultBinding(clingKey);
 			aSet.Grab.AddDefaultBinding(clingMouse);
 			aSet.Grab.AddDefaultBinding(clingController);
+
+            aSet.Menu.AddDefaultBinding(menuKey);
+            aSet.Menu.AddDefaultBinding(menuController);
 
             return aSet;
         }

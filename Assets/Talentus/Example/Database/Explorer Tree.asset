@@ -123,10 +123,10 @@ MonoBehaviour:
   connectionNode: {fileID: 114143036175401608}
   showProperties: 0
   PanX: 0
-  PanY: -953
+  PanY: -1009
   mouseOverProperties: 0
   propertyWidth: 466.75
-  PointsToAssign: 89325
+  PointsToAssign: 90580
 --- !u!114 &114004965294590626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114005569643432082
@@ -159,16 +159,16 @@ MonoBehaviour:
   fromNode: {fileID: 114347496946909442}
   toNode: {fileID: 114306723074243710}
   curvePoints:
-  - {x: 118, y: 1546, z: 0}
-  - {x: 130.96297, y: 1543.5996, z: 0}
-  - {x: 137.7037, y: 1537.1661, z: 0}
-  - {x: 139.99997, y: 1527.8517, z: 0}
-  - {x: 139.62964, y: 1516.8096, z: 0}
-  - {x: 138.37038, y: 1505.1907, z: 0}
-  - {x: 138, y: 1494.1482, z: 0}
-  - {x: 140.2963, y: 1484.834, z: 0}
-  - {x: 147.03705, y: 1478.4006, z: 0}
-  - {x: 160, y: 1476, z: 0}
+  - {x: 122, y: 1880, z: 0}
+  - {x: 134.82579, y: 1877.0851, z: 0}
+  - {x: 141.19891, y: 1869.2732, z: 0}
+  - {x: 142.96295, y: 1857.9628, z: 0}
+  - {x: 141.96161, y: 1844.5542, z: 0}
+  - {x: 140.0384, y: 1830.4458, z: 0}
+  - {x: 139.03703, y: 1817.0371, z: 0}
+  - {x: 140.80109, y: 1805.7269, z: 0}
+  - {x: 147.17422, y: 1797.915, z: 0}
+  - {x: 160, y: 1795, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 15%.
 --- !u!114 &114018150638315020
@@ -254,16 +254,16 @@ MonoBehaviour:
   fromNode: {fileID: 114086201772953136}
   toNode: {fileID: 114908792565155068}
   curvePoints:
-  - {x: 256, y: 916, z: 0}
-  - {x: 269.03156, y: 916.00006, z: 0}
-  - {x: 275.95612, y: 916, z: 0}
-  - {x: 278.5185, y: 915.9999, z: 0}
-  - {x: 278.46368, y: 916.0001, z: 0}
-  - {x: 277.53635, y: 916, z: 0}
-  - {x: 277.4815, y: 916, z: 0}
-  - {x: 280.04388, y: 916, z: 0}
-  - {x: 286.96844, y: 916, z: 0}
-  - {x: 300, y: 916, z: 0}
+  - {x: 260, y: 1115, z: 0}
+  - {x: 272.89438, y: 1115, z: 0}
+  - {x: 279.45132, y: 1115, z: 0}
+  - {x: 281.48148, y: 1114.9999, z: 0}
+  - {x: 280.79565, y: 1115.0001, z: 0}
+  - {x: 279.2044, y: 1115, z: 0}
+  - {x: 278.51852, y: 1115, z: 0}
+  - {x: 280.5487, y: 1115, z: 0}
+  - {x: 287.10562, y: 1115, z: 0}
+  - {x: 300, y: 1115, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jump power by 15%.
 --- !u!114 &114022752652815300
@@ -348,16 +348,16 @@ MonoBehaviour:
   fromNode: {fileID: 114099720810997612}
   toNode: {fileID: 114411865510366542}
   curvePoints:
-  - {x: 256, y: 636, z: 0}
-  - {x: 269.03156, y: 636, z: 0}
-  - {x: 275.95612, y: 636.00006, z: 0}
-  - {x: 278.5185, y: 635.9999, z: 0}
-  - {x: 278.46368, y: 636.00006, z: 0}
-  - {x: 277.53635, y: 636, z: 0}
-  - {x: 277.4815, y: 636, z: 0}
-  - {x: 280.04388, y: 636, z: 0}
-  - {x: 286.96844, y: 636, z: 0}
-  - {x: 300, y: 636, z: 0}
+  - {x: 260, y: 775, z: 0}
+  - {x: 272.89438, y: 775.00006, z: 0}
+  - {x: 279.45132, y: 775.00006, z: 0}
+  - {x: 281.48148, y: 774.9999, z: 0}
+  - {x: 280.79565, y: 775.00006, z: 0}
+  - {x: 279.2044, y: 775, z: 0}
+  - {x: 278.51852, y: 775, z: 0}
+  - {x: 280.5487, y: 775, z: 0}
+  - {x: 287.10562, y: 775, z: 0}
+  - {x: 300, y: 775, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114033814598873444
@@ -411,9 +411,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 440
-    width: 96
-    height: 112
+    y: 530
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
@@ -475,16 +475,16 @@ MonoBehaviour:
   fromNode: {fileID: 114910964916334354}
   toNode: {fileID: 114548328116359656}
   curvePoints:
-  - {x: 536, y: 496, z: 0}
-  - {x: 549.03156, y: 493.59946, z: 0}
-  - {x: 555.9561, y: 487.166, z: 0}
-  - {x: 558.5185, y: 477.85178, z: 0}
-  - {x: 558.46375, y: 466.8094, z: 0}
-  - {x: 557.5363, y: 455.19067, z: 0}
-  - {x: 557.48145, y: 444.14813, z: 0}
-  - {x: 560.0439, y: 434.83405, z: 0}
-  - {x: 566.96844, y: 428.40057, z: 0}
-  - {x: 580, y: 426, z: 0}
+  - {x: 540, y: 605, z: 0}
+  - {x: 552.89435, y: 602.085, z: 0}
+  - {x: 559.4513, y: 594.273, z: 0}
+  - {x: 561.48145, y: 582.9629, z: 0}
+  - {x: 560.79565, y: 569.5542, z: 0}
+  - {x: 559.20435, y: 555.44586, z: 0}
+  - {x: 558.5185, y: 542.03705, z: 0}
+  - {x: 560.5487, y: 530.72705, z: 0}
+  - {x: 567.1056, y: 522.9149, z: 0}
+  - {x: 580, y: 520, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -521,16 +521,16 @@ MonoBehaviour:
   fromNode: {fileID: 114322440926253498}
   toNode: {fileID: 114513077343933742}
   curvePoints:
-  - {x: 536, y: 636, z: 0}
-  - {x: 549.03156, y: 638.4005, z: 0}
-  - {x: 555.9561, y: 644.8341, z: 0}
-  - {x: 558.5185, y: 654.148, z: 0}
-  - {x: 558.46375, y: 665.1907, z: 0}
-  - {x: 557.5363, y: 676.8093, z: 0}
-  - {x: 557.48145, y: 687.8518, z: 0}
-  - {x: 560.0439, y: 697.166, z: 0}
-  - {x: 566.96844, y: 703.5994, z: 0}
-  - {x: 580, y: 706, z: 0}
+  - {x: 540, y: 775, z: 0}
+  - {x: 552.89435, y: 777.915, z: 0}
+  - {x: 559.4513, y: 785.72705, z: 0}
+  - {x: 561.48145, y: 797.0369, z: 0}
+  - {x: 560.79565, y: 810.44586, z: 0}
+  - {x: 559.20435, y: 824.5542, z: 0}
+  - {x: 558.5185, y: 837.963, z: 0}
+  - {x: 560.5487, y: 849.273, z: 0}
+  - {x: 567.1056, y: 857.0851, z: 0}
+  - {x: 580, y: 860, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -567,14 +567,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 1560
-    width: 96
-    height: 112
+    y: 1890
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your dash speed slightly.
@@ -632,16 +632,16 @@ MonoBehaviour:
   fromNode: {fileID: 114411865510366542}
   toNode: {fileID: 114322440926253498}
   curvePoints:
-  - {x: 396, y: 636, z: 0}
-  - {x: 409.03156, y: 636, z: 0}
-  - {x: 415.95612, y: 636.00006, z: 0}
-  - {x: 418.51846, y: 635.9999, z: 0}
-  - {x: 418.4637, y: 636.00006, z: 0}
-  - {x: 417.53635, y: 636, z: 0}
-  - {x: 417.48148, y: 636, z: 0}
-  - {x: 420.0439, y: 636, z: 0}
-  - {x: 426.96844, y: 636, z: 0}
-  - {x: 440, y: 636, z: 0}
+  - {x: 400, y: 775, z: 0}
+  - {x: 412.8944, y: 775.00006, z: 0}
+  - {x: 419.4513, y: 775.00006, z: 0}
+  - {x: 421.4814, y: 774.9999, z: 0}
+  - {x: 420.7957, y: 775.00006, z: 0}
+  - {x: 419.20438, y: 775, z: 0}
+  - {x: 418.5185, y: 775, z: 0}
+  - {x: 420.5487, y: 775, z: 0}
+  - {x: 427.10562, y: 775, z: 0}
+  - {x: 440, y: 775, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 6%.
 --- !u!114 &114065460036498464
@@ -679,16 +679,16 @@ MonoBehaviour:
   fromNode: {fileID: 114219657352761090}
   toNode: {fileID: 114790570456530362}
   curvePoints:
-  - {x: 116, y: 986, z: 0}
-  - {x: 129.03156, y: 988.4006, z: 0}
-  - {x: 135.9561, y: 994.8341, z: 0}
-  - {x: 138.5185, y: 1004.1481, z: 0}
-  - {x: 138.46367, y: 1015.19086, z: 0}
-  - {x: 137.53635, y: 1026.8093, z: 0}
-  - {x: 137.48148, y: 1037.8518, z: 0}
-  - {x: 140.04388, y: 1047.166, z: 0}
-  - {x: 146.96846, y: 1053.5995, z: 0}
-  - {x: 160, y: 1056, z: 0}
+  - {x: 120, y: 1200, z: 0}
+  - {x: 132.89438, y: 1202.9149, z: 0}
+  - {x: 139.45131, y: 1210.727, z: 0}
+  - {x: 141.48148, y: 1222.037, z: 0}
+  - {x: 140.79564, y: 1235.4459, z: 0}
+  - {x: 139.20438, y: 1249.5541, z: 0}
+  - {x: 138.51852, y: 1262.9629, z: 0}
+  - {x: 140.5487, y: 1274.273, z: 0}
+  - {x: 147.10562, y: 1282.0851, z: 0}
+  - {x: 160, y: 1285, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -710,14 +710,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 1280
-    width: 96
-    height: 112
+    y: 1550
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -755,7 +755,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases acceleration by 15%.
 --- !u!114 &114086201772953136
@@ -774,9 +774,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 860
-    width: 96
-    height: 112
+    y: 1040
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -822,9 +822,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 160
-    width: 96
-    height: 112
+    y: 190
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -870,14 +870,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 1210
-    width: 96
-    height: 112
+    y: 1465
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 2130d181f250c094dadf797408241e47, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Cancels effects of gravity on projectiles.
   explanation: This will stop your projectiles from falling downwards after being
     fired allowing for more precise shots.
@@ -917,9 +917,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 580
-    width: 96
-    height: 112
+    y: 700
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more dash speed.
 --- !u!114 &114114130594473620
@@ -963,7 +963,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 10%.
 --- !u!114 &114114424919260600
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases acceleration by 5%.
 --- !u!114 &114135323889816616
@@ -998,16 +998,16 @@ MonoBehaviour:
   fromNode: {fileID: 114967223991181574}
   toNode: {fileID: 114574998198721192}
   curvePoints:
-  - {x: 396, y: 776, z: 0}
-  - {x: 409.03156, y: 775.99994, z: 0}
-  - {x: 415.95612, y: 776, z: 0}
-  - {x: 418.51846, y: 775.99994, z: 0}
-  - {x: 418.4637, y: 776.0001, z: 0}
-  - {x: 417.53635, y: 775.99994, z: 0}
-  - {x: 417.48148, y: 776.00006, z: 0}
-  - {x: 420.0439, y: 776, z: 0}
-  - {x: 426.96844, y: 776, z: 0}
-  - {x: 440, y: 776, z: 0}
+  - {x: 400, y: 945, z: 0}
+  - {x: 412.8944, y: 945.00006, z: 0}
+  - {x: 419.4513, y: 945, z: 0}
+  - {x: 421.4814, y: 944.9999, z: 0}
+  - {x: 420.7957, y: 945.00006, z: 0}
+  - {x: 419.20438, y: 945, z: 0}
+  - {x: 418.5185, y: 945, z: 0}
+  - {x: 420.5487, y: 945, z: 0}
+  - {x: 427.10562, y: 945, z: 0}
+  - {x: 440, y: 945, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1059,14 +1059,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 1560
-    width: 96
-    height: 112
+    y: 1890
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -1091,16 +1091,16 @@ MonoBehaviour:
   fromNode: {fileID: 114181446479964186}
   toNode: {fileID: 114376727339073418}
   curvePoints:
-  - {x: 536, y: 216, z: 0}
-  - {x: 549.03156, y: 213.59944, z: 0}
-  - {x: 555.9561, y: 207.16599, z: 0}
-  - {x: 558.5185, y: 197.85182, z: 0}
-  - {x: 558.46375, y: 186.80936, z: 0}
-  - {x: 557.5363, y: 175.19067, z: 0}
-  - {x: 557.48145, y: 164.14813, z: 0}
-  - {x: 560.0439, y: 154.83401, z: 0}
-  - {x: 566.96844, y: 148.40054, z: 0}
-  - {x: 580, y: 146, z: 0}
+  - {x: 540, y: 265, z: 0}
+  - {x: 552.89435, y: 262.08508, z: 0}
+  - {x: 559.4513, y: 254.273, z: 0}
+  - {x: 561.48145, y: 242.96294, z: 0}
+  - {x: 560.79565, y: 229.55421, z: 0}
+  - {x: 559.20435, y: 215.4458, z: 0}
+  - {x: 558.5185, y: 202.03705, z: 0}
+  - {x: 560.5487, y: 190.72702, z: 0}
+  - {x: 567.1056, y: 182.91496, z: 0}
+  - {x: 580, y: 180, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1122,16 +1122,16 @@ MonoBehaviour:
   fromNode: {fileID: 114908792565155068}
   toNode: {fileID: 114384633104603796}
   curvePoints:
-  - {x: 396, y: 916, z: 0}
-  - {x: 409.03156, y: 916.00006, z: 0}
-  - {x: 415.95612, y: 916, z: 0}
-  - {x: 418.51846, y: 915.9999, z: 0}
-  - {x: 418.4637, y: 916.0001, z: 0}
-  - {x: 417.53635, y: 916, z: 0}
-  - {x: 417.48148, y: 916, z: 0}
-  - {x: 420.0439, y: 916, z: 0}
-  - {x: 426.96844, y: 916, z: 0}
-  - {x: 440, y: 916, z: 0}
+  - {x: 400, y: 1115, z: 0}
+  - {x: 412.8944, y: 1115, z: 0}
+  - {x: 419.4513, y: 1115, z: 0}
+  - {x: 421.4814, y: 1114.9999, z: 0}
+  - {x: 420.7957, y: 1115.0001, z: 0}
+  - {x: 419.20438, y: 1115, z: 0}
+  - {x: 418.5185, y: 1115, z: 0}
+  - {x: 420.5487, y: 1115, z: 0}
+  - {x: 427.10562, y: 1115, z: 0}
+  - {x: 440, y: 1115, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1153,16 +1153,16 @@ MonoBehaviour:
   fromNode: {fileID: 114851145502249964}
   toNode: {fileID: 114097172326967452}
   curvePoints:
-  - {x: 536, y: 1196, z: 0}
-  - {x: 549.03156, y: 1198.4004, z: 0}
-  - {x: 555.9561, y: 1204.834, z: 0}
-  - {x: 558.5185, y: 1214.148, z: 0}
-  - {x: 558.46375, y: 1225.1908, z: 0}
-  - {x: 557.5363, y: 1236.8093, z: 0}
-  - {x: 557.48145, y: 1247.8518, z: 0}
-  - {x: 560.0439, y: 1257.166, z: 0}
-  - {x: 566.96844, y: 1263.5994, z: 0}
-  - {x: 580, y: 1266, z: 0}
+  - {x: 540, y: 1455, z: 0}
+  - {x: 552.89435, y: 1457.9149, z: 0}
+  - {x: 559.4513, y: 1465.7272, z: 0}
+  - {x: 561.48145, y: 1477.0367, z: 0}
+  - {x: 560.79565, y: 1490.446, z: 0}
+  - {x: 559.20435, y: 1504.5542, z: 0}
+  - {x: 558.5185, y: 1517.963, z: 0}
+  - {x: 560.5487, y: 1529.273, z: 0}
+  - {x: 567.1056, y: 1537.0851, z: 0}
+  - {x: 580, y: 1540, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1244,7 +1244,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 15%.
 --- !u!114 &114181446479964186
@@ -1263,9 +1263,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 160
-    width: 96
-    height: 112
+    y: 190
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
@@ -1295,16 +1295,16 @@ MonoBehaviour:
   fromNode: {fileID: 114682349474266738}
   toNode: {fileID: 114099720810997612}
   curvePoints:
-  - {x: 116, y: 706, z: 0}
-  - {x: 129.03156, y: 703.5994, z: 0}
-  - {x: 135.9561, y: 697.1661, z: 0}
-  - {x: 138.5185, y: 687.85175, z: 0}
-  - {x: 138.46367, y: 676.8094, z: 0}
-  - {x: 137.53635, y: 665.1907, z: 0}
-  - {x: 137.48148, y: 654.14813, z: 0}
-  - {x: 140.04388, y: 644.83405, z: 0}
-  - {x: 146.96846, y: 638.4005, z: 0}
-  - {x: 160, y: 636, z: 0}
+  - {x: 120, y: 860, z: 0}
+  - {x: 132.89438, y: 857.0851, z: 0}
+  - {x: 139.45131, y: 849.2731, z: 0}
+  - {x: 141.48148, y: 837.9629, z: 0}
+  - {x: 140.79564, y: 824.5542, z: 0}
+  - {x: 139.20438, y: 810.4458, z: 0}
+  - {x: 138.51852, y: 797.037, z: 0}
+  - {x: 140.5487, y: 785.727, z: 0}
+  - {x: 147.10562, y: 777.915, z: 0}
+  - {x: 160, y: 775, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1357,8 +1357,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 160
     y: 20
-    width: 96
-    height: 112
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -1405,14 +1405,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 1280
-    width: 96
-    height: 112
+    y: 1550
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your projectile speed slightly.
@@ -1438,9 +1438,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 20
-    y: 930
-    width: 96
-    height: 112
+    y: 1125
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: eaa69c964fdb1e745aee988eea45464d, type: 3}
@@ -1465,7 +1465,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more dash speed.
 --- !u!114 &114221908153030834
@@ -1500,16 +1500,16 @@ MonoBehaviour:
   fromNode: {fileID: 114790570456530362}
   toNode: {fileID: 114939336702389684}
   curvePoints:
-  - {x: 256, y: 1056, z: 0}
-  - {x: 269.03156, y: 1056.0001, z: 0}
-  - {x: 275.95612, y: 1056.0001, z: 0}
-  - {x: 278.5185, y: 1055.9999, z: 0}
-  - {x: 278.46368, y: 1056.0001, z: 0}
-  - {x: 277.53635, y: 1056, z: 0}
-  - {x: 277.4815, y: 1056, z: 0}
-  - {x: 280.04388, y: 1056, z: 0}
-  - {x: 286.96844, y: 1056, z: 0}
-  - {x: 300, y: 1056, z: 0}
+  - {x: 260, y: 1285, z: 0}
+  - {x: 272.89438, y: 1285.0001, z: 0}
+  - {x: 279.45132, y: 1285.0001, z: 0}
+  - {x: 281.48148, y: 1284.9999, z: 0}
+  - {x: 280.79565, y: 1285.0001, z: 0}
+  - {x: 279.2044, y: 1284.9999, z: 0}
+  - {x: 278.51852, y: 1285, z: 0}
+  - {x: 280.5487, y: 1285, z: 0}
+  - {x: 287.10562, y: 1285, z: 0}
+  - {x: 300, y: 1285, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1528,7 +1528,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 1000
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Projectiles are no longer affected by gravity.
 --- !u!114 &114236506198596616
@@ -1578,16 +1578,16 @@ MonoBehaviour:
   fromNode: {fileID: 114069442739663270}
   toNode: {fileID: 114097172326967452}
   curvePoints:
-  - {x: 536, y: 1336, z: 0}
-  - {x: 549.03156, y: 1333.5994, z: 0}
-  - {x: 555.9561, y: 1327.166, z: 0}
-  - {x: 558.5185, y: 1317.8518, z: 0}
-  - {x: 558.46375, y: 1306.8094, z: 0}
-  - {x: 557.5363, y: 1295.1907, z: 0}
-  - {x: 557.48145, y: 1284.1482, z: 0}
-  - {x: 560.0439, y: 1274.834, z: 0}
-  - {x: 566.96844, y: 1268.4005, z: 0}
-  - {x: 580, y: 1266, z: 0}
+  - {x: 540, y: 1625, z: 0}
+  - {x: 552.89435, y: 1622.0852, z: 0}
+  - {x: 559.4513, y: 1614.2731, z: 0}
+  - {x: 561.48145, y: 1602.9628, z: 0}
+  - {x: 560.79565, y: 1589.5544, z: 0}
+  - {x: 559.20435, y: 1575.4458, z: 0}
+  - {x: 558.5185, y: 1562.0371, z: 0}
+  - {x: 560.5487, y: 1550.727, z: 0}
+  - {x: 567.1056, y: 1542.915, z: 0}
+  - {x: 580, y: 1540, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1687,16 +1687,16 @@ MonoBehaviour:
   fromNode: {fileID: 114218591282618104}
   toNode: {fileID: 114069442739663270}
   curvePoints:
-  - {x: 396, y: 1336, z: 0}
-  - {x: 409.03156, y: 1336, z: 0}
-  - {x: 415.95612, y: 1336, z: 0}
-  - {x: 418.51846, y: 1335.9999, z: 0}
-  - {x: 418.4637, y: 1336.0001, z: 0}
-  - {x: 417.53635, y: 1335.9999, z: 0}
-  - {x: 417.48148, y: 1336.0001, z: 0}
-  - {x: 420.0439, y: 1336, z: 0}
-  - {x: 426.96844, y: 1336.0001, z: 0}
-  - {x: 440, y: 1336, z: 0}
+  - {x: 400, y: 1625, z: 0}
+  - {x: 412.8944, y: 1625.0002, z: 0}
+  - {x: 419.4513, y: 1625, z: 0}
+  - {x: 421.4814, y: 1624.9998, z: 0}
+  - {x: 420.7957, y: 1625.0002, z: 0}
+  - {x: 419.20438, y: 1624.9999, z: 0}
+  - {x: 418.5185, y: 1625, z: 0}
+  - {x: 420.5487, y: 1625, z: 0}
+  - {x: 427.10562, y: 1625.0001, z: 0}
+  - {x: 440, y: 1625, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1734,16 +1734,16 @@ MonoBehaviour:
   fromNode: {fileID: 114682349474266738}
   toNode: {fileID: 114347249704834204}
   curvePoints:
-  - {x: 116, y: 706, z: 0}
-  - {x: 129.03156, y: 708.40045, z: 0}
-  - {x: 135.9561, y: 714.8341, z: 0}
-  - {x: 138.5185, y: 724.1481, z: 0}
-  - {x: 138.46367, y: 735.19073, z: 0}
-  - {x: 137.53635, y: 746.8093, z: 0}
-  - {x: 137.48148, y: 757.85187, z: 0}
-  - {x: 140.04388, y: 767.16595, z: 0}
-  - {x: 146.96846, y: 773.5994, z: 0}
-  - {x: 160, y: 776, z: 0}
+  - {x: 120, y: 860, z: 0}
+  - {x: 132.89438, y: 862.915, z: 0}
+  - {x: 139.45131, y: 870.72705, z: 0}
+  - {x: 141.48148, y: 882.037, z: 0}
+  - {x: 140.79564, y: 895.44586, z: 0}
+  - {x: 139.20438, y: 909.5542, z: 0}
+  - {x: 138.51852, y: 922.96295, z: 0}
+  - {x: 140.5487, y: 934.27295, z: 0}
+  - {x: 147.10562, y: 942.0851, z: 0}
+  - {x: 160, y: 945, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1828,8 +1828,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 440
     y: 20
-    width: 96
-    height: 112
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
@@ -1859,16 +1859,16 @@ MonoBehaviour:
   fromNode: {fileID: 114092604484016052}
   toNode: {fileID: 114597007284260794}
   curvePoints:
-  - {x: 256, y: 216, z: 0}
-  - {x: 269.03156, y: 216, z: 0}
-  - {x: 275.95612, y: 216.00002, z: 0}
-  - {x: 278.5185, y: 215.99997, z: 0}
-  - {x: 278.46368, y: 216.00002, z: 0}
-  - {x: 277.53635, y: 216, z: 0}
-  - {x: 277.4815, y: 215.99998, z: 0}
-  - {x: 280.04388, y: 216, z: 0}
-  - {x: 286.96844, y: 216, z: 0}
-  - {x: 300, y: 216, z: 0}
+  - {x: 260, y: 265, z: 0}
+  - {x: 272.89438, y: 265.00003, z: 0}
+  - {x: 279.45132, y: 265, z: 0}
+  - {x: 281.48148, y: 264.99997, z: 0}
+  - {x: 280.79565, y: 265.00003, z: 0}
+  - {x: 279.2044, y: 265, z: 0}
+  - {x: 278.51852, y: 265, z: 0}
+  - {x: 280.5487, y: 265, z: 0}
+  - {x: 287.10562, y: 265, z: 0}
+  - {x: 300, y: 265, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -1921,9 +1921,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 1420
-    width: 96
-    height: 112
+    y: 1720
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -1950,7 +1950,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114309881603301384
@@ -1969,16 +1969,16 @@ MonoBehaviour:
   fromNode: {fileID: 114465650938121474}
   toNode: {fileID: 114346324446737048}
   curvePoints:
-  - {x: 116, y: 426, z: 0}
-  - {x: 129.03156, y: 423.59946, z: 0}
-  - {x: 135.9561, y: 417.166, z: 0}
-  - {x: 138.5185, y: 407.85178, z: 0}
-  - {x: 138.46367, y: 396.8094, z: 0}
-  - {x: 137.53635, y: 385.1907, z: 0}
-  - {x: 137.48148, y: 374.14813, z: 0}
-  - {x: 140.04388, y: 364.83405, z: 0}
-  - {x: 146.96846, y: 358.40057, z: 0}
-  - {x: 160, y: 356, z: 0}
+  - {x: 120, y: 520, z: 0}
+  - {x: 132.89438, y: 517.085, z: 0}
+  - {x: 139.45131, y: 509.27304, z: 0}
+  - {x: 141.48148, y: 497.96292, z: 0}
+  - {x: 140.79564, y: 484.55426, z: 0}
+  - {x: 139.20438, y: 470.4458, z: 0}
+  - {x: 138.51852, y: 457.03705, z: 0}
+  - {x: 140.5487, y: 445.72705, z: 0}
+  - {x: 147.10562, y: 437.91495, z: 0}
+  - {x: 160, y: 435, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2015,9 +2015,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 580
-    width: 96
-    height: 112
+    y: 700
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
@@ -2063,14 +2063,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 1140
-    width: 96
-    height: 112
+    y: 1380
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -2093,7 +2093,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114331105062318926
@@ -2128,16 +2128,16 @@ MonoBehaviour:
   fromNode: {fileID: 114384633104603796}
   toNode: {fileID: 114902160916815340}
   curvePoints:
-  - {x: 536, y: 916, z: 0}
-  - {x: 549.03156, y: 918.40063, z: 0}
-  - {x: 555.9561, y: 924.83405, z: 0}
-  - {x: 558.5185, y: 934.1481, z: 0}
-  - {x: 558.46375, y: 945.19086, z: 0}
-  - {x: 557.5363, y: 956.8094, z: 0}
-  - {x: 557.48145, y: 967.85187, z: 0}
-  - {x: 560.0439, y: 977.166, z: 0}
-  - {x: 566.96844, y: 983.5995, z: 0}
-  - {x: 580, y: 986, z: 0}
+  - {x: 540, y: 1115, z: 0}
+  - {x: 552.89435, y: 1117.915, z: 0}
+  - {x: 559.4513, y: 1125.727, z: 0}
+  - {x: 561.48145, y: 1137.037, z: 0}
+  - {x: 560.79565, y: 1150.4458, z: 0}
+  - {x: 559.20435, y: 1164.5542, z: 0}
+  - {x: 558.5185, y: 1177.9629, z: 0}
+  - {x: 560.5487, y: 1189.273, z: 0}
+  - {x: 567.1056, y: 1197.085, z: 0}
+  - {x: 580, y: 1200, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2175,16 +2175,16 @@ MonoBehaviour:
   fromNode: {fileID: 114143036175401608}
   toNode: {fileID: 114540641314072962}
   curvePoints:
-  - {x: 536, y: 1616, z: 0}
-  - {x: 549.03156, y: 1613.5994, z: 0}
-  - {x: 555.9561, y: 1607.166, z: 0}
-  - {x: 558.5185, y: 1597.8517, z: 0}
-  - {x: 558.46375, y: 1586.8094, z: 0}
-  - {x: 557.5363, y: 1575.1907, z: 0}
-  - {x: 557.48145, y: 1564.1482, z: 0}
-  - {x: 560.0439, y: 1554.834, z: 0}
-  - {x: 566.96844, y: 1548.4006, z: 0}
-  - {x: 580, y: 1546, z: 0}
+  - {x: 540, y: 1965, z: 0}
+  - {x: 552.89435, y: 1962.085, z: 0}
+  - {x: 559.4513, y: 1954.2731, z: 0}
+  - {x: 561.48145, y: 1942.9629, z: 0}
+  - {x: 560.79565, y: 1929.5543, z: 0}
+  - {x: 559.20435, y: 1915.4458, z: 0}
+  - {x: 558.5185, y: 1902.0371, z: 0}
+  - {x: 560.5487, y: 1890.727, z: 0}
+  - {x: 567.1056, y: 1882.915, z: 0}
+  - {x: 580, y: 1880, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2206,9 +2206,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 300
-    width: 96
-    height: 112
+    y: 360
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -2239,16 +2239,16 @@ MonoBehaviour:
   fromNode: {fileID: 114574998198721192}
   toNode: {fileID: 114513077343933742}
   curvePoints:
-  - {x: 536, y: 776, z: 0}
-  - {x: 549.03156, y: 773.5994, z: 0}
-  - {x: 555.9561, y: 767.166, z: 0}
-  - {x: 558.5185, y: 757.85175, z: 0}
-  - {x: 558.46375, y: 746.8094, z: 0}
-  - {x: 557.5363, y: 735.1907, z: 0}
-  - {x: 557.48145, y: 724.1482, z: 0}
-  - {x: 560.0439, y: 714.8341, z: 0}
-  - {x: 566.96844, y: 708.4005, z: 0}
-  - {x: 580, y: 706, z: 0}
+  - {x: 540, y: 945, z: 0}
+  - {x: 552.89435, y: 942.0851, z: 0}
+  - {x: 559.4513, y: 934.27295, z: 0}
+  - {x: 561.48145, y: 922.9628, z: 0}
+  - {x: 560.79565, y: 909.55426, z: 0}
+  - {x: 559.20435, y: 895.4458, z: 0}
+  - {x: 558.5185, y: 882.037, z: 0}
+  - {x: 560.5487, y: 870.72705, z: 0}
+  - {x: 567.1056, y: 862.9149, z: 0}
+  - {x: 580, y: 860, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2286,9 +2286,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 720
-    width: 96
-    height: 112
+    y: 870
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -2319,9 +2319,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 22
-    y: 1490
-    width: 96
-    height: 112
+    y: 1805
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 0d8ccb0be02698542869bb8b71b8ce5f, type: 3}
@@ -2348,7 +2348,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 15%.
 --- !u!114 &114348549641318236
@@ -2364,7 +2364,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 15%.
 --- !u!114 &114348826030477152
@@ -2411,7 +2411,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases acceleration by 10%.
 --- !u!114 &114365427115820898
@@ -2430,16 +2430,16 @@ MonoBehaviour:
   fromNode: {fileID: 114500917323138738}
   toNode: {fileID: 114509403207824412}
   curvePoints:
-  - {x: 116, y: 1266, z: 0}
-  - {x: 129.03156, y: 1263.5995, z: 0}
-  - {x: 135.9561, y: 1257.166, z: 0}
-  - {x: 138.5185, y: 1247.8517, z: 0}
-  - {x: 138.46367, y: 1236.8094, z: 0}
-  - {x: 137.53635, y: 1225.1907, z: 0}
-  - {x: 137.48148, y: 1214.1482, z: 0}
-  - {x: 140.04388, y: 1204.834, z: 0}
-  - {x: 146.96846, y: 1198.4005, z: 0}
-  - {x: 160, y: 1196, z: 0}
+  - {x: 120, y: 1540, z: 0}
+  - {x: 132.89438, y: 1537.0851, z: 0}
+  - {x: 139.45131, y: 1529.273, z: 0}
+  - {x: 141.48148, y: 1517.9629, z: 0}
+  - {x: 140.79564, y: 1504.5542, z: 0}
+  - {x: 139.20438, y: 1490.4458, z: 0}
+  - {x: 138.51852, y: 1477.0369, z: 0}
+  - {x: 140.5487, y: 1465.727, z: 0}
+  - {x: 147.10562, y: 1457.9149, z: 0}
+  - {x: 160, y: 1455, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2507,9 +2507,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 90
-    width: 96
-    height: 112
+    y: 105
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: c6f79a43d6f66814489333d8bd37c2f8, type: 3}
@@ -2572,9 +2572,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 300
-    width: 96
-    height: 112
+    y: 360
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
@@ -2636,14 +2636,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 860
-    width: 96
-    height: 112
+    y: 1040
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases acceleration and turn speed.
   explanation: Increases your acceleration value, allowing you to change directions
     faster and reach your maximum speed in less time.
@@ -2684,9 +2684,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 20
-    y: 90
-    width: 96
-    height: 112
+    y: 105
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
@@ -2712,7 +2712,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 3%.
 --- !u!114 &114404692310166374
@@ -2747,9 +2747,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 580
-    width: 96
-    height: 112
+    y: 700
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
@@ -2844,16 +2844,16 @@ MonoBehaviour:
   fromNode: {fileID: 114306723074243710}
   toNode: {fileID: 114558638403815138}
   curvePoints:
-  - {x: 256, y: 1476, z: 0}
-  - {x: 269.03156, y: 1476.0001, z: 0}
-  - {x: 275.95612, y: 1476.0001, z: 0}
-  - {x: 278.5185, y: 1475.9999, z: 0}
-  - {x: 278.46368, y: 1476.0002, z: 0}
-  - {x: 277.53635, y: 1476, z: 0}
-  - {x: 277.4815, y: 1476, z: 0}
-  - {x: 280.04388, y: 1476, z: 0}
-  - {x: 286.96844, y: 1476.0001, z: 0}
-  - {x: 300, y: 1476, z: 0}
+  - {x: 260, y: 1795, z: 0}
+  - {x: 272.89438, y: 1795, z: 0}
+  - {x: 279.45132, y: 1795, z: 0}
+  - {x: 281.48148, y: 1794.9998, z: 0}
+  - {x: 280.79565, y: 1795.0001, z: 0}
+  - {x: 279.2044, y: 1795, z: 0}
+  - {x: 278.51852, y: 1795.0001, z: 0}
+  - {x: 280.5487, y: 1794.9999, z: 0}
+  - {x: 287.10562, y: 1795, z: 0}
+  - {x: 300, y: 1795, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2875,16 +2875,16 @@ MonoBehaviour:
   fromNode: {fileID: 114053793189694880}
   toNode: {fileID: 114143036175401608}
   curvePoints:
-  - {x: 396, y: 1616, z: 0}
-  - {x: 409.03156, y: 1615.9999, z: 0}
-  - {x: 415.95612, y: 1616.0001, z: 0}
-  - {x: 418.51846, y: 1615.9998, z: 0}
-  - {x: 418.4637, y: 1616.0001, z: 0}
-  - {x: 417.53635, y: 1615.9999, z: 0}
-  - {x: 417.48148, y: 1616, z: 0}
-  - {x: 420.0439, y: 1616, z: 0}
-  - {x: 426.96844, y: 1616, z: 0}
-  - {x: 440, y: 1616, z: 0}
+  - {x: 400, y: 1965, z: 0}
+  - {x: 412.8944, y: 1965, z: 0}
+  - {x: 419.4513, y: 1965.0002, z: 0}
+  - {x: 421.4814, y: 1964.9999, z: 0}
+  - {x: 420.7957, y: 1965.0002, z: 0}
+  - {x: 419.20438, y: 1965, z: 0}
+  - {x: 418.5185, y: 1964.9999, z: 0}
+  - {x: 420.5487, y: 1965, z: 0}
+  - {x: 427.10562, y: 1965, z: 0}
+  - {x: 440, y: 1965, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -2953,9 +2953,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 20
-    y: 370
-    width: 96
-    height: 112
+    y: 445
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 1c81d77152ae9b6489db9b11f3fcedbd, type: 3}
@@ -3028,7 +3028,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 5% more projectile speed.
 --- !u!114 &114492189562177526
@@ -3063,9 +3063,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 20
-    y: 1210
-    width: 96
-    height: 112
+    y: 1465
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 1ca09a78e9652a443bab8a2c4a36fa61, type: 3}
@@ -3111,9 +3111,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 1140
-    width: 96
-    height: 112
+    y: 1380
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 8518ea0ae574462498b459a90b85ae24, type: 3}
@@ -3143,9 +3143,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 650
-    width: 96
-    height: 112
+    y: 785
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: c49e07a0fc7ffbe4e9d8d28a1c2e387e, type: 3}
@@ -3220,16 +3220,16 @@ MonoBehaviour:
   fromNode: {fileID: 114388731550925804}
   toNode: {fileID: 114192773692216888}
   curvePoints:
-  - {x: 116, y: 146, z: 0}
-  - {x: 129.03156, y: 143.59946, z: 0}
-  - {x: 135.9561, y: 137.16599, z: 0}
-  - {x: 138.5185, y: 127.85183, z: 0}
-  - {x: 138.46367, y: 116.80934, z: 0}
-  - {x: 137.53635, y: 105.19067, z: 0}
-  - {x: 137.48148, y: 94.14815, z: 0}
-  - {x: 140.04388, y: 84.834015, z: 0}
-  - {x: 146.96846, y: 78.40054, z: 0}
-  - {x: 160, y: 76, z: 0}
+  - {x: 120, y: 180, z: 0}
+  - {x: 132.89438, y: 177.08507, z: 0}
+  - {x: 139.45131, y: 169.273, z: 0}
+  - {x: 141.48148, y: 157.96295, z: 0}
+  - {x: 140.79564, y: 144.5542, z: 0}
+  - {x: 139.20438, y: 130.44582, z: 0}
+  - {x: 138.51852, y: 117.03703, z: 0}
+  - {x: 140.5487, y: 105.72702, z: 0}
+  - {x: 147.10562, y: 97.91495, z: 0}
+  - {x: 160, y: 95, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -3267,16 +3267,16 @@ MonoBehaviour:
   fromNode: {fileID: 114585529986558454}
   toNode: {fileID: 114033814598873444}
   curvePoints:
-  - {x: 256, y: 496, z: 0}
-  - {x: 269.03156, y: 496.00003, z: 0}
-  - {x: 275.95612, y: 496, z: 0}
-  - {x: 278.5185, y: 495.99994, z: 0}
-  - {x: 278.46368, y: 496.0001, z: 0}
-  - {x: 277.53635, y: 496, z: 0}
-  - {x: 277.4815, y: 496.00003, z: 0}
-  - {x: 280.04388, y: 496, z: 0}
-  - {x: 286.96844, y: 496, z: 0}
-  - {x: 300, y: 496, z: 0}
+  - {x: 260, y: 605, z: 0}
+  - {x: 272.89438, y: 604.99994, z: 0}
+  - {x: 279.45132, y: 605.00006, z: 0}
+  - {x: 281.48148, y: 604.99994, z: 0}
+  - {x: 280.79565, y: 605, z: 0}
+  - {x: 279.2044, y: 605, z: 0}
+  - {x: 278.51852, y: 605, z: 0}
+  - {x: 280.5487, y: 605, z: 0}
+  - {x: 287.10562, y: 605, z: 0}
+  - {x: 300, y: 605, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -3314,9 +3314,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 300
-    width: 96
-    height: 112
+    y: 360
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
@@ -3344,7 +3344,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 10%.
 --- !u!114 &114540641314072962
@@ -3363,14 +3363,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 1490
-    width: 96
-    height: 112
+    y: 1805
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 38d98c3571eb61440897872ca1a8618d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Climb walls.
   explanation: This will allow you to climb up and down walls instead of wall sliding
     downwards.
@@ -3425,9 +3425,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 370
-    width: 96
-    height: 112
+    y: 445
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: eadfbb63ee41b244f9d2d11112dc6b77, type: 3}
@@ -3453,7 +3453,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 40 seconds.
 --- !u!114 &114552342654746924
@@ -3533,14 +3533,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 1420
-    width: 96
-    height: 112
+    y: 1720
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -3582,16 +3582,16 @@ MonoBehaviour:
   fromNode: {fileID: 114810967135904784}
   toNode: {fileID: 114294770045498152}
   curvePoints:
-  - {x: 396, y: 76, z: 0}
-  - {x: 409.03156, y: 76.00001, z: 0}
-  - {x: 415.95612, y: 76, z: 0}
-  - {x: 418.51846, y: 75.99999, z: 0}
-  - {x: 418.4637, y: 76.000015, z: 0}
-  - {x: 417.53635, y: 76, z: 0}
-  - {x: 417.48148, y: 76, z: 0}
-  - {x: 420.0439, y: 76, z: 0}
-  - {x: 426.96844, y: 76, z: 0}
-  - {x: 440, y: 76, z: 0}
+  - {x: 400, y: 95, z: 0}
+  - {x: 412.8944, y: 95, z: 0}
+  - {x: 419.4513, y: 95.00001, z: 0}
+  - {x: 421.4814, y: 94.99999, z: 0}
+  - {x: 420.7957, y: 95.000015, z: 0}
+  - {x: 419.20438, y: 95, z: 0}
+  - {x: 418.5185, y: 95, z: 0}
+  - {x: 420.5487, y: 95, z: 0}
+  - {x: 427.10562, y: 95, z: 0}
+  - {x: 440, y: 95, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -3610,7 +3610,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 10%.
 --- !u!114 &114574998198721192
@@ -3629,9 +3629,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 720
-    width: 96
-    height: 112
+    y: 870
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
@@ -3724,9 +3724,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 440
-    width: 96
-    height: 112
+    y: 530
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -3772,9 +3772,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 160
-    width: 96
-    height: 112
+    y: 190
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
@@ -3852,16 +3852,16 @@ MonoBehaviour:
   fromNode: {fileID: 114509403207824412}
   toNode: {fileID: 114330856459276106}
   curvePoints:
-  - {x: 256, y: 1196, z: 0}
-  - {x: 269.03156, y: 1196, z: 0}
-  - {x: 275.95612, y: 1196, z: 0}
-  - {x: 278.5185, y: 1195.9999, z: 0}
-  - {x: 278.46368, y: 1196.0001, z: 0}
-  - {x: 277.53635, y: 1196, z: 0}
-  - {x: 277.4815, y: 1196, z: 0}
-  - {x: 280.04388, y: 1196, z: 0}
-  - {x: 286.96844, y: 1196, z: 0}
-  - {x: 300, y: 1196, z: 0}
+  - {x: 260, y: 1455, z: 0}
+  - {x: 272.89438, y: 1455, z: 0}
+  - {x: 279.45132, y: 1455, z: 0}
+  - {x: 281.48148, y: 1454.9998, z: 0}
+  - {x: 280.79565, y: 1455.0001, z: 0}
+  - {x: 279.2044, y: 1455, z: 0}
+  - {x: 278.51852, y: 1455, z: 0}
+  - {x: 280.5487, y: 1455, z: 0}
+  - {x: 287.10562, y: 1455, z: 0}
+  - {x: 300, y: 1455, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -3880,7 +3880,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 500
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 10%.
 --- !u!114 &114640210556223478
@@ -3992,16 +3992,16 @@ MonoBehaviour:
   fromNode: {fileID: 114219657352761090}
   toNode: {fileID: 114086201772953136}
   curvePoints:
-  - {x: 116, y: 986, z: 0}
-  - {x: 129.03156, y: 983.5995, z: 0}
-  - {x: 135.9561, y: 977.166, z: 0}
-  - {x: 138.5185, y: 967.85175, z: 0}
-  - {x: 138.46367, y: 956.80945, z: 0}
-  - {x: 137.53635, y: 945.1907, z: 0}
-  - {x: 137.48148, y: 934.1482, z: 0}
-  - {x: 140.04388, y: 924.834, z: 0}
-  - {x: 146.96846, y: 918.4006, z: 0}
-  - {x: 160, y: 916, z: 0}
+  - {x: 120, y: 1200, z: 0}
+  - {x: 132.89438, y: 1197.085, z: 0}
+  - {x: 139.45131, y: 1189.2731, z: 0}
+  - {x: 141.48148, y: 1177.9628, z: 0}
+  - {x: 140.79564, y: 1164.5543, z: 0}
+  - {x: 139.20438, y: 1150.4458, z: 0}
+  - {x: 138.51852, y: 1137.0371, z: 0}
+  - {x: 140.5487, y: 1125.727, z: 0}
+  - {x: 147.10562, y: 1117.9149, z: 0}
+  - {x: 160, y: 1115, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4020,7 +4020,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114674951010958022
@@ -4036,7 +4036,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases movement speed by 6%.
 --- !u!114 &114679647232296266
@@ -4055,14 +4055,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 1000
-    width: 96
-    height: 112
+    y: 1210
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases movement speed.
   explanation: You move faster than normally.  This is probably going to be game-breaking.
   isInResearch: 0
@@ -4087,9 +4087,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 20
-    y: 650
-    width: 96
-    height: 112
+    y: 785
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: cb6de966b2711e347a17acb2e03c82d5, type: 3}
@@ -4133,16 +4133,16 @@ MonoBehaviour:
   fromNode: {fileID: 114465650938121474}
   toNode: {fileID: 114585529986558454}
   curvePoints:
-  - {x: 116, y: 426, z: 0}
-  - {x: 129.03156, y: 428.40057, z: 0}
-  - {x: 135.9561, y: 434.83405, z: 0}
-  - {x: 138.5185, y: 444.14807, z: 0}
-  - {x: 138.46367, y: 455.1907, z: 0}
-  - {x: 137.53635, y: 466.80933, z: 0}
-  - {x: 137.48148, y: 477.85187, z: 0}
-  - {x: 140.04388, y: 487.166, z: 0}
-  - {x: 146.96846, y: 493.59943, z: 0}
-  - {x: 160, y: 496, z: 0}
+  - {x: 120, y: 520, z: 0}
+  - {x: 132.89438, y: 522.915, z: 0}
+  - {x: 139.45131, y: 530.7271, z: 0}
+  - {x: 141.48148, y: 542.037, z: 0}
+  - {x: 140.79564, y: 555.44586, z: 0}
+  - {x: 139.20438, y: 569.5542, z: 0}
+  - {x: 138.51852, y: 582.96295, z: 0}
+  - {x: 140.5487, y: 594.27295, z: 0}
+  - {x: 147.10562, y: 602.085, z: 0}
+  - {x: 160, y: 605, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4164,16 +4164,16 @@ MonoBehaviour:
   fromNode: {fileID: 114740911295850856}
   toNode: {fileID: 114218591282618104}
   curvePoints:
-  - {x: 256, y: 1336, z: 0}
-  - {x: 269.03156, y: 1336, z: 0}
-  - {x: 275.95612, y: 1336, z: 0}
-  - {x: 278.5185, y: 1335.9999, z: 0}
-  - {x: 278.46368, y: 1336.0001, z: 0}
-  - {x: 277.53635, y: 1335.9999, z: 0}
-  - {x: 277.4815, y: 1336.0001, z: 0}
-  - {x: 280.04388, y: 1336, z: 0}
-  - {x: 286.96844, y: 1336.0001, z: 0}
-  - {x: 300, y: 1336, z: 0}
+  - {x: 260, y: 1625, z: 0}
+  - {x: 272.89438, y: 1625.0002, z: 0}
+  - {x: 279.45132, y: 1625, z: 0}
+  - {x: 281.48148, y: 1624.9998, z: 0}
+  - {x: 280.79565, y: 1625.0002, z: 0}
+  - {x: 279.2044, y: 1624.9999, z: 0}
+  - {x: 278.51852, y: 1625, z: 0}
+  - {x: 280.5487, y: 1625, z: 0}
+  - {x: 287.10562, y: 1625.0001, z: 0}
+  - {x: 300, y: 1625, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4195,16 +4195,16 @@ MonoBehaviour:
   fromNode: {fileID: 114388731550925804}
   toNode: {fileID: 114092604484016052}
   curvePoints:
-  - {x: 116, y: 146, z: 0}
-  - {x: 129.03156, y: 148.40056, z: 0}
-  - {x: 135.9561, y: 154.83403, z: 0}
-  - {x: 138.5185, y: 164.14813, z: 0}
-  - {x: 138.46367, y: 175.19069, z: 0}
-  - {x: 137.53635, y: 186.80933, z: 0}
-  - {x: 137.48148, y: 197.85184, z: 0}
-  - {x: 140.04388, y: 207.16599, z: 0}
-  - {x: 146.96846, y: 213.59946, z: 0}
-  - {x: 160, y: 216, z: 0}
+  - {x: 120, y: 180, z: 0}
+  - {x: 132.89438, y: 182.91496, z: 0}
+  - {x: 139.45131, y: 190.72704, z: 0}
+  - {x: 141.48148, y: 202.03702, z: 0}
+  - {x: 140.79564, y: 215.44583, z: 0}
+  - {x: 139.20438, y: 229.55418, z: 0}
+  - {x: 138.51852, y: 242.96295, z: 0}
+  - {x: 140.5487, y: 254.27298, z: 0}
+  - {x: 147.10562, y: 262.08505, z: 0}
+  - {x: 160, y: 265, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4226,16 +4226,16 @@ MonoBehaviour:
   fromNode: {fileID: 114192773692216888}
   toNode: {fileID: 114810967135904784}
   curvePoints:
-  - {x: 256, y: 76, z: 0}
-  - {x: 269.03156, y: 76.00001, z: 0}
-  - {x: 275.95612, y: 76, z: 0}
-  - {x: 278.5185, y: 75.99999, z: 0}
-  - {x: 278.46368, y: 76.000015, z: 0}
-  - {x: 277.53635, y: 76, z: 0}
-  - {x: 277.4815, y: 76, z: 0}
-  - {x: 280.04388, y: 76, z: 0}
-  - {x: 286.96844, y: 76, z: 0}
-  - {x: 300, y: 76, z: 0}
+  - {x: 260, y: 95, z: 0}
+  - {x: 272.89438, y: 95, z: 0}
+  - {x: 279.45132, y: 95.00001, z: 0}
+  - {x: 281.48148, y: 94.99999, z: 0}
+  - {x: 280.79565, y: 95.000015, z: 0}
+  - {x: 279.2044, y: 95, z: 0}
+  - {x: 278.51852, y: 95, z: 0}
+  - {x: 280.5487, y: 95, z: 0}
+  - {x: 287.10562, y: 95, z: 0}
+  - {x: 300, y: 95, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4254,7 +4254,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 10% more projectile speed.
 --- !u!114 &114695552458191568
@@ -4270,7 +4270,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114709396410876968
@@ -4304,16 +4304,16 @@ MonoBehaviour:
   fromNode: {fileID: 114947693359649344}
   toNode: {fileID: 114053793189694880}
   curvePoints:
-  - {x: 256, y: 1616, z: 0}
-  - {x: 269.03156, y: 1615.9999, z: 0}
-  - {x: 275.95612, y: 1616.0001, z: 0}
-  - {x: 278.5185, y: 1615.9998, z: 0}
-  - {x: 278.46368, y: 1616.0001, z: 0}
-  - {x: 277.53635, y: 1615.9999, z: 0}
-  - {x: 277.4815, y: 1616, z: 0}
-  - {x: 280.04388, y: 1616, z: 0}
-  - {x: 286.96844, y: 1616, z: 0}
-  - {x: 300, y: 1616, z: 0}
+  - {x: 260, y: 1965, z: 0}
+  - {x: 272.89438, y: 1965, z: 0}
+  - {x: 279.45132, y: 1965.0002, z: 0}
+  - {x: 281.48148, y: 1964.9999, z: 0}
+  - {x: 280.79565, y: 1965.0002, z: 0}
+  - {x: 279.2044, y: 1965, z: 0}
+  - {x: 278.51852, y: 1964.9999, z: 0}
+  - {x: 280.5487, y: 1965, z: 0}
+  - {x: 287.10562, y: 1965, z: 0}
+  - {x: 300, y: 1965, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4332,7 +4332,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114723835581697822
@@ -4412,9 +4412,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 1280
-    width: 96
-    height: 112
+    y: 1550
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -4520,7 +4520,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jump power by 5%.
 --- !u!114 &114762987450028538
@@ -4602,16 +4602,16 @@ MonoBehaviour:
   fromNode: {fileID: 114347249704834204}
   toNode: {fileID: 114967223991181574}
   curvePoints:
-  - {x: 256, y: 776, z: 0}
-  - {x: 269.03156, y: 775.99994, z: 0}
-  - {x: 275.95612, y: 776, z: 0}
-  - {x: 278.5185, y: 775.99994, z: 0}
-  - {x: 278.46368, y: 776.0001, z: 0}
-  - {x: 277.53635, y: 775.99994, z: 0}
-  - {x: 277.4815, y: 776.00006, z: 0}
-  - {x: 280.04388, y: 776, z: 0}
-  - {x: 286.96844, y: 776, z: 0}
-  - {x: 300, y: 776, z: 0}
+  - {x: 260, y: 945, z: 0}
+  - {x: 272.89438, y: 945.00006, z: 0}
+  - {x: 279.45132, y: 945, z: 0}
+  - {x: 281.48148, y: 944.9999, z: 0}
+  - {x: 280.79565, y: 945.00006, z: 0}
+  - {x: 279.2044, y: 945, z: 0}
+  - {x: 278.51852, y: 945, z: 0}
+  - {x: 280.5487, y: 945, z: 0}
+  - {x: 287.10562, y: 945, z: 0}
+  - {x: 300, y: 945, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4665,9 +4665,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 1000
-    width: 96
-    height: 112
+    y: 1210
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -4760,16 +4760,16 @@ MonoBehaviour:
   fromNode: {fileID: 114033814598873444}
   toNode: {fileID: 114910964916334354}
   curvePoints:
-  - {x: 396, y: 496, z: 0}
-  - {x: 409.03156, y: 496.00003, z: 0}
-  - {x: 415.95612, y: 496, z: 0}
-  - {x: 418.51846, y: 495.99994, z: 0}
-  - {x: 418.4637, y: 496.0001, z: 0}
-  - {x: 417.53635, y: 496, z: 0}
-  - {x: 417.48148, y: 496.00003, z: 0}
-  - {x: 420.0439, y: 496, z: 0}
-  - {x: 426.96844, y: 496, z: 0}
-  - {x: 440, y: 496, z: 0}
+  - {x: 400, y: 605, z: 0}
+  - {x: 412.8944, y: 604.99994, z: 0}
+  - {x: 419.4513, y: 605.00006, z: 0}
+  - {x: 421.4814, y: 604.99994, z: 0}
+  - {x: 420.7957, y: 605, z: 0}
+  - {x: 419.20438, y: 605, z: 0}
+  - {x: 418.5185, y: 605, z: 0}
+  - {x: 420.5487, y: 605, z: 0}
+  - {x: 427.10562, y: 605, z: 0}
+  - {x: 440, y: 605, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4788,7 +4788,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 35 seconds.
 --- !u!114 &114810967135904784
@@ -4808,8 +4808,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 300
     y: 20
-    width: 96
-    height: 112
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 06a775de708279f40b1075a21eda318c, type: 3}
@@ -4837,7 +4837,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 300
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases jump power by 10%.
 --- !u!114 &114815692325823724
@@ -4872,16 +4872,16 @@ MonoBehaviour:
   fromNode: {fileID: 114597007284260794}
   toNode: {fileID: 114181446479964186}
   curvePoints:
-  - {x: 396, y: 216, z: 0}
-  - {x: 409.03156, y: 216, z: 0}
-  - {x: 415.95612, y: 216.00002, z: 0}
-  - {x: 418.51846, y: 215.99997, z: 0}
-  - {x: 418.4637, y: 216.00002, z: 0}
-  - {x: 417.53635, y: 216, z: 0}
-  - {x: 417.48148, y: 215.99998, z: 0}
-  - {x: 420.0439, y: 216, z: 0}
-  - {x: 426.96844, y: 216, z: 0}
-  - {x: 440, y: 216, z: 0}
+  - {x: 400, y: 265, z: 0}
+  - {x: 412.8944, y: 265.00003, z: 0}
+  - {x: 419.4513, y: 265, z: 0}
+  - {x: 421.4814, y: 264.99997, z: 0}
+  - {x: 420.7957, y: 265.00003, z: 0}
+  - {x: 419.20438, y: 265, z: 0}
+  - {x: 418.5185, y: 265, z: 0}
+  - {x: 420.5487, y: 265, z: 0}
+  - {x: 427.10562, y: 265, z: 0}
+  - {x: 440, y: 265, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4967,16 +4967,16 @@ MonoBehaviour:
   fromNode: {fileID: 114294770045498152}
   toNode: {fileID: 114376727339073418}
   curvePoints:
-  - {x: 536, y: 76, z: 0}
-  - {x: 549.03156, y: 78.40055, z: 0}
-  - {x: 555.9561, y: 84.834015, z: 0}
-  - {x: 558.5185, y: 94.14814, z: 0}
-  - {x: 558.46375, y: 105.19068, z: 0}
-  - {x: 557.5363, y: 116.809326, z: 0}
-  - {x: 557.48145, y: 127.85185, z: 0}
-  - {x: 560.0439, y: 137.16599, z: 0}
-  - {x: 566.96844, y: 143.59946, z: 0}
-  - {x: 580, y: 146, z: 0}
+  - {x: 540, y: 95, z: 0}
+  - {x: 552.89435, y: 97.91495, z: 0}
+  - {x: 559.4513, y: 105.727036, z: 0}
+  - {x: 561.48145, y: 117.037025, z: 0}
+  - {x: 560.79565, y: 130.44583, z: 0}
+  - {x: 559.20435, y: 144.55418, z: 0}
+  - {x: 558.5185, y: 157.96295, z: 0}
+  - {x: 560.5487, y: 169.27298, z: 0}
+  - {x: 567.1056, y: 177.08505, z: 0}
+  - {x: 580, y: 180, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -4998,16 +4998,16 @@ MonoBehaviour:
   fromNode: {fileID: 114347496946909442}
   toNode: {fileID: 114947693359649344}
   curvePoints:
-  - {x: 118, y: 1546, z: 0}
-  - {x: 130.96297, y: 1548.4006, z: 0}
-  - {x: 137.7037, y: 1554.8342, z: 0}
-  - {x: 139.99997, y: 1564.148, z: 0}
-  - {x: 139.62964, y: 1575.1908, z: 0}
-  - {x: 138.37038, y: 1586.8093, z: 0}
-  - {x: 138, y: 1597.8518, z: 0}
-  - {x: 140.2963, y: 1607.166, z: 0}
-  - {x: 147.03705, y: 1613.5994, z: 0}
-  - {x: 160, y: 1616, z: 0}
+  - {x: 122, y: 1880, z: 0}
+  - {x: 134.82579, y: 1882.915, z: 0}
+  - {x: 141.19891, y: 1890.7273, z: 0}
+  - {x: 142.96295, y: 1902.0369, z: 0}
+  - {x: 141.96161, y: 1915.4458, z: 0}
+  - {x: 140.0384, y: 1929.5541, z: 0}
+  - {x: 139.03703, y: 1942.9629, z: 0}
+  - {x: 140.80109, y: 1954.273, z: 0}
+  - {x: 147.17422, y: 1962.085, z: 0}
+  - {x: 160, y: 1965, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5029,16 +5029,16 @@ MonoBehaviour:
   fromNode: {fileID: 114939336702389684}
   toNode: {fileID: 114679647232296266}
   curvePoints:
-  - {x: 396, y: 1056, z: 0}
-  - {x: 409.03156, y: 1056.0001, z: 0}
-  - {x: 415.95612, y: 1056.0001, z: 0}
-  - {x: 418.51846, y: 1055.9999, z: 0}
-  - {x: 418.4637, y: 1056.0001, z: 0}
-  - {x: 417.53635, y: 1056, z: 0}
-  - {x: 417.48148, y: 1056, z: 0}
-  - {x: 420.0439, y: 1056, z: 0}
-  - {x: 426.96844, y: 1056, z: 0}
-  - {x: 440, y: 1056, z: 0}
+  - {x: 400, y: 1285, z: 0}
+  - {x: 412.8944, y: 1285.0001, z: 0}
+  - {x: 419.4513, y: 1285.0001, z: 0}
+  - {x: 421.4814, y: 1284.9999, z: 0}
+  - {x: 420.7957, y: 1285.0001, z: 0}
+  - {x: 419.20438, y: 1284.9999, z: 0}
+  - {x: 418.5185, y: 1285, z: 0}
+  - {x: 420.5487, y: 1285, z: 0}
+  - {x: 427.10562, y: 1285, z: 0}
+  - {x: 440, y: 1285, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5075,14 +5075,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 1140
-    width: 96
-    height: 112
+    y: 1380
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 4b724990fe0b2ad4cbbf10786072690d, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases acceleration and turn speed.
   explanation: Increases your acceleration value, allowing you to change directions
     faster and reach your maximum speed in less time.
@@ -5108,16 +5108,16 @@ MonoBehaviour:
   fromNode: {fileID: 114500917323138738}
   toNode: {fileID: 114740911295850856}
   curvePoints:
-  - {x: 116, y: 1266, z: 0}
-  - {x: 129.03156, y: 1268.4005, z: 0}
-  - {x: 135.9561, y: 1274.834, z: 0}
-  - {x: 138.5185, y: 1284.148, z: 0}
-  - {x: 138.46367, y: 1295.1908, z: 0}
-  - {x: 137.53635, y: 1306.8092, z: 0}
-  - {x: 137.48148, y: 1317.8519, z: 0}
-  - {x: 140.04388, y: 1327.166, z: 0}
-  - {x: 146.96846, y: 1333.5996, z: 0}
-  - {x: 160, y: 1336, z: 0}
+  - {x: 120, y: 1540, z: 0}
+  - {x: 132.89438, y: 1542.915, z: 0}
+  - {x: 139.45131, y: 1550.727, z: 0}
+  - {x: 141.48148, y: 1562.0369, z: 0}
+  - {x: 140.79564, y: 1575.446, z: 0}
+  - {x: 139.20438, y: 1589.5541, z: 0}
+  - {x: 138.51852, y: 1602.963, z: 0}
+  - {x: 140.5487, y: 1614.273, z: 0}
+  - {x: 147.10562, y: 1622.0852, z: 0}
+  - {x: 160, y: 1625, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5155,16 +5155,16 @@ MonoBehaviour:
   fromNode: {fileID: 114558638403815138}
   toNode: {fileID: 114922866420479072}
   curvePoints:
-  - {x: 396, y: 1476, z: 0}
-  - {x: 409.03156, y: 1476.0001, z: 0}
-  - {x: 415.95612, y: 1476.0001, z: 0}
-  - {x: 418.51846, y: 1475.9999, z: 0}
-  - {x: 418.4637, y: 1476.0002, z: 0}
-  - {x: 417.53635, y: 1476, z: 0}
-  - {x: 417.48148, y: 1476, z: 0}
-  - {x: 420.0439, y: 1476, z: 0}
-  - {x: 426.96844, y: 1476.0001, z: 0}
-  - {x: 440, y: 1476, z: 0}
+  - {x: 400, y: 1795, z: 0}
+  - {x: 412.8944, y: 1795, z: 0}
+  - {x: 419.4513, y: 1795, z: 0}
+  - {x: 421.4814, y: 1794.9998, z: 0}
+  - {x: 420.7957, y: 1795.0001, z: 0}
+  - {x: 419.20438, y: 1795, z: 0}
+  - {x: 418.5185, y: 1795.0001, z: 0}
+  - {x: 420.5487, y: 1794.9999, z: 0}
+  - {x: 427.10562, y: 1795, z: 0}
+  - {x: 440, y: 1795, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5198,7 +5198,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 250
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 10%.
 --- !u!114 &114882706854908878
@@ -5217,16 +5217,16 @@ MonoBehaviour:
   fromNode: {fileID: 114378004381808576}
   toNode: {fileID: 114548328116359656}
   curvePoints:
-  - {x: 536, y: 356, z: 0}
-  - {x: 549.03156, y: 358.40054, z: 0}
-  - {x: 555.9561, y: 364.83405, z: 0}
-  - {x: 558.5185, y: 374.1481, z: 0}
-  - {x: 558.46375, y: 385.1907, z: 0}
-  - {x: 557.5363, y: 396.80933, z: 0}
-  - {x: 557.48145, y: 407.8518, z: 0}
-  - {x: 560.0439, y: 417.166, z: 0}
-  - {x: 566.96844, y: 423.59946, z: 0}
-  - {x: 580, y: 426, z: 0}
+  - {x: 540, y: 435, z: 0}
+  - {x: 552.89435, y: 437.91498, z: 0}
+  - {x: 559.4513, y: 445.72705, z: 0}
+  - {x: 561.48145, y: 457.037, z: 0}
+  - {x: 560.79565, y: 470.44586, z: 0}
+  - {x: 559.20435, y: 484.5542, z: 0}
+  - {x: 558.5185, y: 497.96298, z: 0}
+  - {x: 560.5487, y: 509.273, z: 0}
+  - {x: 567.1056, y: 517.085, z: 0}
+  - {x: 580, y: 520, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5245,7 +5245,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 400
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Upgrades give you 15% more projectile speed.
 --- !u!114 &114884297945241674
@@ -5280,9 +5280,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 580
-    y: 930
-    width: 96
-    height: 112
+    y: 1125
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3344581ed01b1f946bb241cab7463780, type: 3}
@@ -5327,14 +5327,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 860
-    width: 96
-    height: 112
+    y: 1040
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 7a0ed0d33952e7f4eaf3f0eb789ac9c8, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Reduces your action cooldown.
   explanation: Your attack has a cooldown of 1 second.  This will decrease that cooldown,
     allowing you to attack more often.
@@ -5376,9 +5376,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 440
-    width: 96
-    height: 112
+    y: 530
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: e2a3ea81909ee774bb7df8b1a6c0f5a0, type: 3}
@@ -5456,14 +5456,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 440
-    y: 1420
-    width: 96
-    height: 112
+    y: 1720
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 5bfb91c5a6794fe4e9b53e42467dba76, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Increases jumping power.
   explanation: Increases your jumping power, causing you to jump higher and faster.
   isInResearch: 0
@@ -5519,16 +5519,16 @@ MonoBehaviour:
   fromNode: {fileID: 114346324446737048}
   toNode: {fileID: 114536963557623162}
   curvePoints:
-  - {x: 256, y: 356, z: 0}
-  - {x: 269.03156, y: 356, z: 0}
-  - {x: 275.95612, y: 356, z: 0}
-  - {x: 278.5185, y: 355.99997, z: 0}
-  - {x: 278.46368, y: 356.00006, z: 0}
-  - {x: 277.53635, y: 356, z: 0}
-  - {x: 277.4815, y: 356, z: 0}
-  - {x: 280.04388, y: 356, z: 0}
-  - {x: 286.96844, y: 356, z: 0}
-  - {x: 300, y: 356, z: 0}
+  - {x: 260, y: 435, z: 0}
+  - {x: 272.89438, y: 435, z: 0}
+  - {x: 279.45132, y: 435.00003, z: 0}
+  - {x: 281.48148, y: 434.99994, z: 0}
+  - {x: 280.79565, y: 435.00003, z: 0}
+  - {x: 279.2044, y: 435, z: 0}
+  - {x: 278.51852, y: 435, z: 0}
+  - {x: 280.5487, y: 435, z: 0}
+  - {x: 287.10562, y: 435, z: 0}
+  - {x: 300, y: 435, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5550,14 +5550,14 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 1000
-    width: 96
-    height: 112
+    y: 1210
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
   DisabledImage: {fileID: 2800000, guid: 4bd603705ead6cb46b6ae264ca2769ca, type: 3}
-  isValid: 1
+  isValid: 0
   description: Attack upgrades affect you more.
   explanation: Whenever you grab a torch, everybody on your team gets an attack upgrade.  These
     upgrades increase your dash speed slightly.
@@ -5583,9 +5583,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 160
-    y: 1560
-    width: 96
-    height: 112
+    y: 1890
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: 3b1ecfa1b85ac8b4fbe556cbffe87f5a, type: 3}
@@ -5613,7 +5613,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 75
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 5%.
 --- !u!114 &114951136070863184
@@ -5647,16 +5647,16 @@ MonoBehaviour:
   fromNode: {fileID: 114679647232296266}
   toNode: {fileID: 114902160916815340}
   curvePoints:
-  - {x: 536, y: 1056, z: 0}
-  - {x: 549.03156, y: 1053.5995, z: 0}
-  - {x: 555.9561, y: 1047.1661, z: 0}
-  - {x: 558.5185, y: 1037.8518, z: 0}
-  - {x: 558.46375, y: 1026.8094, z: 0}
-  - {x: 557.5363, y: 1015.19073, z: 0}
-  - {x: 557.48145, y: 1004.1482, z: 0}
-  - {x: 560.0439, y: 994.83405, z: 0}
-  - {x: 566.96844, y: 988.4006, z: 0}
-  - {x: 580, y: 986, z: 0}
+  - {x: 540, y: 1285, z: 0}
+  - {x: 552.89435, y: 1282.0852, z: 0}
+  - {x: 559.4513, y: 1274.2731, z: 0}
+  - {x: 561.48145, y: 1262.9628, z: 0}
+  - {x: 560.79565, y: 1249.5542, z: 0}
+  - {x: 559.20435, y: 1235.4458, z: 0}
+  - {x: 558.5185, y: 1222.0371, z: 0}
+  - {x: 560.5487, y: 1210.727, z: 0}
+  - {x: 567.1056, y: 1202.9149, z: 0}
+  - {x: 580, y: 1200, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5709,9 +5709,9 @@ MonoBehaviour:
   nodeRect:
     serializedVersion: 2
     x: 300
-    y: 720
-    width: 96
-    height: 112
+    y: 870
+    width: 100
+    height: 150
   parentTree: {fileID: 11400000}
   nodeType: 0
   Image: {fileID: 2800000, guid: faaff46377b35274eb620f91a124d70a, type: 3}
@@ -5742,16 +5742,16 @@ MonoBehaviour:
   fromNode: {fileID: 114922866420479072}
   toNode: {fileID: 114540641314072962}
   curvePoints:
-  - {x: 536, y: 1476, z: 0}
-  - {x: 549.03156, y: 1478.4006, z: 0}
-  - {x: 555.9561, y: 1484.8341, z: 0}
-  - {x: 558.5185, y: 1494.1481, z: 0}
-  - {x: 558.46375, y: 1505.1908, z: 0}
-  - {x: 557.5363, y: 1516.8093, z: 0}
-  - {x: 557.48145, y: 1527.8518, z: 0}
-  - {x: 560.0439, y: 1537.166, z: 0}
-  - {x: 566.96844, y: 1543.5996, z: 0}
-  - {x: 580, y: 1546, z: 0}
+  - {x: 540, y: 1795, z: 0}
+  - {x: 552.89435, y: 1797.915, z: 0}
+  - {x: 559.4513, y: 1805.7269, z: 0}
+  - {x: 561.48145, y: 1817.0369, z: 0}
+  - {x: 560.79565, y: 1830.4459, z: 0}
+  - {x: 559.20435, y: 1844.554, z: 0}
+  - {x: 558.5185, y: 1857.963, z: 0}
+  - {x: 560.5487, y: 1869.273, z: 0}
+  - {x: 567.1056, y: 1877.0851, z: 0}
+  - {x: 580, y: 1880, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5773,16 +5773,16 @@ MonoBehaviour:
   fromNode: {fileID: 114330856459276106}
   toNode: {fileID: 114851145502249964}
   curvePoints:
-  - {x: 396, y: 1196, z: 0}
-  - {x: 409.03156, y: 1196, z: 0}
-  - {x: 415.95612, y: 1196, z: 0}
-  - {x: 418.51846, y: 1195.9999, z: 0}
-  - {x: 418.4637, y: 1196.0001, z: 0}
-  - {x: 417.53635, y: 1196, z: 0}
-  - {x: 417.48148, y: 1196, z: 0}
-  - {x: 420.0439, y: 1196, z: 0}
-  - {x: 426.96844, y: 1196, z: 0}
-  - {x: 440, y: 1196, z: 0}
+  - {x: 400, y: 1455, z: 0}
+  - {x: 412.8944, y: 1455, z: 0}
+  - {x: 419.4513, y: 1455, z: 0}
+  - {x: 421.4814, y: 1454.9998, z: 0}
+  - {x: 420.7957, y: 1455.0001, z: 0}
+  - {x: 419.20438, y: 1455, z: 0}
+  - {x: 418.5185, y: 1455, z: 0}
+  - {x: 420.5487, y: 1455, z: 0}
+  - {x: 427.10562, y: 1455, z: 0}
+  - {x: 440, y: 1455, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5817,7 +5817,7 @@ MonoBehaviour:
   m_Name: Level 3
   m_EditorClassIdentifier: 
   Cost: 200
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases Shrine duration to 45 seconds.
 --- !u!114 &114971740217076386
@@ -5836,16 +5836,16 @@ MonoBehaviour:
   fromNode: {fileID: 114536963557623162}
   toNode: {fileID: 114378004381808576}
   curvePoints:
-  - {x: 396, y: 356, z: 0}
-  - {x: 409.03156, y: 356, z: 0}
-  - {x: 415.95612, y: 356, z: 0}
-  - {x: 418.51846, y: 355.99997, z: 0}
-  - {x: 418.4637, y: 356.00006, z: 0}
-  - {x: 417.53635, y: 356, z: 0}
-  - {x: 417.48148, y: 356, z: 0}
-  - {x: 420.0439, y: 356, z: 0}
-  - {x: 426.96844, y: 356, z: 0}
-  - {x: 440, y: 356, z: 0}
+  - {x: 400, y: 435, z: 0}
+  - {x: 412.8944, y: 435, z: 0}
+  - {x: 419.4513, y: 435.00003, z: 0}
+  - {x: 421.4814, y: 434.99994, z: 0}
+  - {x: 420.7957, y: 435.00003, z: 0}
+  - {x: 419.20438, y: 435, z: 0}
+  - {x: 418.5185, y: 435, z: 0}
+  - {x: 420.5487, y: 435, z: 0}
+  - {x: 427.10562, y: 435, z: 0}
+  - {x: 440, y: 435, z: 0}
   curGraph: {fileID: 11400000}
   Name: 
   Conditions:
@@ -5880,7 +5880,7 @@ MonoBehaviour:
   m_Name: Unlock
   m_EditorClassIdentifier: 
   Cost: 1000
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Climb up and down walls on contact.
 --- !u!114 &114977757715761160
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   Cost: 150
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Reduces attack cooldown by 5%.
 --- !u!114 &114979047914005604
@@ -5928,7 +5928,7 @@ MonoBehaviour:
   m_Name: Level 2
   m_EditorClassIdentifier: 
   Cost: 125
-  Bought: 1
+  Bought: 0
   WillBuy: 0
   Description: Increases range by 10%.
 --- !u!114 &114984771241682880

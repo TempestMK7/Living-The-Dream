@@ -9,7 +9,6 @@ namespace Com.Tempest.Nightmare {
 
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
-        public float jetpackTimeUpgradeMod = 0.1f;
         public float fallingJetpackForceFactor = 1.5f;
         public float aerialJetpackReloadFactor = 0.2f;
 
@@ -46,9 +45,9 @@ namespace Com.Tempest.Nightmare {
                     jetpackOn = false;
                 }
             } else if (currentState == MovementState.GROUNDED || currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
-                jetpackTimeRemaining += Time.deltaTime;
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f);
             } else {
-                jetpackTimeRemaining += Time.deltaTime * aerialJetpackReloadFactor;
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * aerialJetpackReloadFactor;
             }
             jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
         }
@@ -80,7 +79,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         private float UpgradedMaxJetpackTime() {
-            return maxJetpackTime + (jetpackTimeUpgradeMod * GetNumUpgrades());
+            return maxJetpackTime * GetSigmoidUpgradeMultiplier(1f, 2f);
         }
 
         protected override bool IsFlyer() {

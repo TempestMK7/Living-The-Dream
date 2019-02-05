@@ -7,7 +7,6 @@ namespace Com.Tempest.Nightmare {
     public class GoblinBehavior : BaseNightmare {
         
         public float collisionDebounceTime = 1f;
-        public float upgradeSpeedFactor = 0.2f;
 
         private bool hasUsedDash;
         private float lastCollisionTime;
@@ -64,8 +63,8 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        protected override float MaxSpeed() {
-            return base.MaxSpeed() + (upgradeSpeedFactor * GetNumUpgrades());
+        protected override float DashFactor() {
+            return base.DashFactor() * GetSigmoidUpgradeMultiplier(1f, 2f);
         }
 
         // Override this to remove perfect acceleration powerup.

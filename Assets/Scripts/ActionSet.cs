@@ -16,6 +16,8 @@ public class ActionSet : PlayerActionSet {
     public PlayerAction ActivateLight;
     public PlayerAction Grab;
 
+    public PlayerAction Menu;
+
     public PlayerOneAxisAction MoveX;
     public PlayerOneAxisAction MoveY;
 
@@ -32,5 +34,7 @@ public class ActionSet : PlayerActionSet {
         Grab = CreatePlayerAction("Grab");
         MoveX = CreateOneAxisPlayerAction(Left, Right);
         MoveY = CreateOneAxisPlayerAction(Down, Up);
+
+        Menu = CreatePlayerAction("OpenMenu");
     }
 }

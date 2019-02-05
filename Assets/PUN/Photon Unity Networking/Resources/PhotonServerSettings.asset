@@ -74,4 +74,5 @@ MonoBehaviour:
   - PlayHitSound
   - PlayRelightSound
   - PlayDeathSound
+  - ReceiveName
   DisableAutoOpenWizard: 1

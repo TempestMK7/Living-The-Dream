@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
@@ -11,6 +12,8 @@ namespace Com.Tempest.Nightmare {
 
 		private Dictionary<Powerup, float> powerupDictionary;
 		protected TalentManagerBehavior talentManager;
+
+		protected string playerName;
 
 		private int numUpgrades;
 
@@ -114,8 +117,29 @@ namespace Com.Tempest.Nightmare {
 			return numUpgrades * upgradeModifier;
 		}
 
+		// Returns the modifier that should be used when factoring in upgrades.
+		// Output will be between min and max values.
+		public float GetSigmoidUpgradeMultiplier(float minValue, float maxValue) {
+			float upgrades = GetNumUpgrades() / 10f;
+			float sigmoid = ((1 / (1 + (Mathf.Exp(upgrades * -1f)))) - 0.5f) * 2f;
+			float range = maxValue - minValue;
+			return minValue + (range * sigmoid);
+		}
+
 		public int GetUnmodifiedUpgrades() {
 			return numUpgrades;
+		}
+
+		public void SendNameToNetwork() {
+			string name = PhotonNetwork.playerName;
+			photonView.RPC("ReceiveName", PhotonTargets.Others, name);
+			ReceiveName(name);
+		}
+
+		[PunRPC]
+		public void ReceiveName(string name) {
+			playerName = name;
+			transform.Find("NameCanvas").transform.Find("NameText").GetComponent<Text>().text = name;
 		}
 	}
 }

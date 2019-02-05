@@ -5,8 +5,6 @@ using UnityEngine;
 namespace Com.Tempest.Nightmare {
 
     public class DoubleJumpExplorer : BaseExplorer {
-        
-        public float jumpFactorUpgradeModifier = 0.05f;
 
         private bool usedSecondJump;
         private bool usedThirdJump;
@@ -45,11 +43,11 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float JumpFactor() {
-            return base.JumpFactor() + (GetNumUpgrades() * jumpFactorUpgradeModifier);
+            return base.JumpFactor() * GetSigmoidUpgradeMultiplier(1f, 1.5f);
         }
 
         protected override float WallJumpFactor() {
-            return base.WallJumpFactor() + (GetNumUpgrades() * jumpFactorUpgradeModifier);
+            return base.WallJumpFactor() * GetSigmoidUpgradeMultiplier(1f, 1.5f);
         }
 
         protected override bool IsFlyer() {

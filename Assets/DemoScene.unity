@@ -1036,12 +1036,39 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Movement\nKeyboard: WASD or Arrow Keys\nController: Left Stick\n\nJump\nKeyboard:
-    Space\nMouse: Left Click\nController: A Button or Primary Fire\n\nAbility (Jetpack,
-    Dash, Shoot, etc.)\nKeyboard: Backspace\nMouse: Right Click \nController: B Button
-    or Secondary Fire\n\nToggle Light:\nKeyboard: Left Control\nMouse: Middle Click\nController:
-    Left Trigger or Left Bumper\n\nWall Cling:\nKeyboard: Shift\nMouse: Button 4 (Side
-    Button)\nController: Right Trigger or Right Bumper"
+  m_Text: 'KEYBOARD
+
+    Movement: WASD
+
+    Jump: Space
+
+    Attack/Ability: Backspace
+
+    Toggle Light: Control
+
+    Wall Cling: Shift
+
+
+    MOUSE
+
+    Jump: Left Click
+
+    Attack/Ability: Right Click (aim with mouse pointer)
+
+    Toggle Light: Middle Click
+
+    Wall Cling: Side Button
+
+
+    CONTROLLER
+
+    Movement: Left Stick
+
+    Attack/Ability: A Button or Button 1
+
+    Toggle Light: Right Bumper or Right Trigger
+
+    Wall Cling: Left Bumper or Left Trigger'
 --- !u!222 &741048359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1432,6 +1459,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913918273}
   m_CullTransparentMesh: 0
+--- !u!84 &929163848
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1079
+  m_Height: 606
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1143664726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1488,7 +1547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 1912863551}
+  spriteLightRT: {fileID: 929163848}
   intensity: 1
 --- !u!81 &1143664729
 AudioListener:
@@ -1829,7 +1888,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 1912863551}
+  m_TargetTexture: {fileID: 929163848}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1926,38 +1985,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &1912863551
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1024
-  m_Height: 593
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &1943945211
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ namespace Com.Tempest.Nightmare {
         // Self initialized variables.
 		protected BoxCollider2D boxCollider;
 		protected Animator animator;
+		protected GameObject nameCanvas;
 		protected MovementState currentState;
 		protected Vector3 currentSpeed;
 		protected Vector3 currentControllerState;
@@ -56,6 +57,7 @@ namespace Com.Tempest.Nightmare {
 		private float timerStart;
 		private float jumpTimerStart;
 		private float dashTimerStart;
+		private float lastVolume;
 
         // Self initialized flyer variables.
 		private float baseAcceleration;
@@ -74,6 +76,7 @@ namespace Com.Tempest.Nightmare {
             base.Awake();
 			boxCollider = GetComponent<BoxCollider2D>();
 			animator = GetComponent<Animator>();
+			nameCanvas = transform.Find("NameCanvas").gameObject;
 			currentSpeed = new Vector3();
 			currentControllerState = new Vector3();
 			currentOffset = new Vector3();
@@ -84,14 +87,6 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
 			grabHeld = false;
-
-			float volume = ControlBindingContainer.GetInstance().effectVolume;
-			jumpSource.volume = volume * 0.15f;
-			doubleJumpSource.volume = volume * 0.15f;
-			dashSource.volume = volume * 0.4f;
-			hitSource.volume = volume * 0.6f;
-			deathSource.volume = volume * 0.5f;
-			relightSource.volume = volume * 0.5f;
         }
 
         // Called by the system once per frame.
@@ -104,6 +99,7 @@ namespace Com.Tempest.Nightmare {
 			    HandleHorizontalMovementGravityBound();
 			    MoveAndUpdateStateGravityBound();
             }
+			ResetVolume();
 			UpdateStateFromTimers();
 			HandleAnimator();
         }
@@ -440,9 +436,25 @@ namespace Com.Tempest.Nightmare {
 			Vector3 currentScale = transform.localScale;
 			currentScale.x *= -1;
 			transform.localScale = currentScale;
+			Vector3 nameScale = nameCanvas.transform.localScale;
+			nameScale.x *= -1;
+			nameCanvas.transform.localScale = nameScale;
 		}
 
 		#endregion
+
+		private void ResetVolume() {
+			float volume = ControlBindingContainer.GetInstance().effectVolume;
+			if (volume != lastVolume) {
+				jumpSource.volume = volume * 0.15f;
+				doubleJumpSource.volume = volume * 0.15f;
+				dashSource.volume = volume * 0.4f;
+				hitSource.volume = volume * 0.6f;
+				deathSource.volume = volume * 0.5f;
+				relightSource.volume = volume * 0.5f;
+				lastVolume = volume;
+			}
+		}
 
 		private void UpdateStateFromTimers() {
 			if (photonView.isMine) {

@@ -7,7 +7,6 @@ namespace Com.Tempest.Nightmare {
     public class GhastBehavior : BaseNightmare {
 
         public float collisionDebounceTime = 1f;
-        public float upgradeAccelerationFactor = 0.03f;
     
         private float dashStart;
         private float lastCollisionTime;
@@ -49,7 +48,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float GetCurrentAcceleration() {
-            return base.GetCurrentAcceleration() + (upgradeAccelerationFactor * GetNumUpgrades());
+            return base.GetCurrentAcceleration() * GetSigmoidUpgradeMultiplier(1f, 2.5f);
         }
 
         protected override bool IsFlyer() {

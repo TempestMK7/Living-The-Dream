@@ -40,9 +40,6 @@ namespace Com.Tempest.Nightmare {
 
         // Use this for initialization
         void Awake() {
-            victorySource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
-            defeatSource.volume = victorySource.volume;
-
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = true;
             lightBox.IsActive = false;
@@ -148,6 +145,8 @@ namespace Com.Tempest.Nightmare {
 
         [PunRPC]
         public void PlayLitSound() {
+            victorySource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
+            defeatSource.volume = victorySource.volume;
             if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
                 defeatSource.Play();
             } else {

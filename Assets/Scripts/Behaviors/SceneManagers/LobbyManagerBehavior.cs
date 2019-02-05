@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -194,36 +196,80 @@ namespace Com.Tempest.Nightmare {
 			bool allPlayersReady = true;
 			numExplorers = 0;
 			numNightmares = 0;
+
+			ArrayList explorers = new ArrayList();
+			ArrayList nightmares = new ArrayList();
+			ArrayList observers = new ArrayList();
 			foreach (PhotonPlayer player in playerList) {
-				Text playerText = Instantiate(textPrefab) as Text;
 				if (!player.CustomProperties.ContainsKey(PlayerStateContainer.IS_READY) ||
 				 		!player.CustomProperties.ContainsKey(PlayerStateContainer.TEAM_SELECTION)) {
 					continue;
 				}
-				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
 				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
-				playerText.text = "(" + readyStatus + ") " + player.NickName;
 				switch (teamSelection) {
-				case PlayerStateContainer.NIGHTMARE:
-					playerText.text += ": Nightmare";
-					numNightmares++;
-					break;
-				case PlayerStateContainer.EXPLORER:
-					playerText.text += ": Explorer";
-					numExplorers++;
-					break;
-				default:
-					playerText.text += ": Observer";
-					break;
+					case PlayerStateContainer.NIGHTMARE:
+						nightmares.Add(player);
+						numNightmares++;
+						break;
+					case PlayerStateContainer.EXPLORER:
+						explorers.Add(player);
+						numExplorers++;
+						break;
+					case PlayerStateContainer.OBSERVER:
+						observers.Add(player);
+						break;
 				}
-				if (player.IsMasterClient) {
-					playerText.text += " (MC)";
-				}
+				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
 				if (!PlayerStateContainer.STATUS_READY.Equals(readyStatus)) {
 					allPlayersReady = false;
 				}
+			}
+
+			Text nightmareLabel = Instantiate(textPrefab) as Text;
+			nightmareLabel.fontSize += 2;
+			nightmareLabel.text = "Nightmares (" + nightmares.Count + " / " + Constants.MAX_NIGHTMARES + ")\n";
+			nightmareLabel.gameObject.transform.SetParent(playerListContent.transform);
+			foreach (PhotonPlayer player in nightmares) {
+				Text playerText = Instantiate(textPrefab) as Text;
+				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
+				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
+				playerText.text = "(" + readyStatus + ") " + player.NickName;
+				if (player.IsMasterClient) {
+					playerText.text += " (MC)";
+				}
 				playerText.gameObject.transform.SetParent(playerListContent.transform);
 			}
+
+			Text explorerLabel = Instantiate(textPrefab) as Text;
+			explorerLabel.fontSize += 2;
+			explorerLabel.text = "\nExplorers (" + explorers.Count + " / " + Constants.MAX_EXPLORERS + ")\n";
+			explorerLabel.gameObject.transform.SetParent(playerListContent.transform);
+			foreach (PhotonPlayer player in explorers) {
+				Text playerText = Instantiate(textPrefab) as Text;
+				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
+				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
+				playerText.text = "(" + readyStatus + ") " + player.NickName;
+				if (player.IsMasterClient) {
+					playerText.text += " (MC)";
+				}
+				playerText.gameObject.transform.SetParent(playerListContent.transform);
+			}
+
+			Text observerLabel = Instantiate(textPrefab) as Text;
+			observerLabel.fontSize += 2;
+			observerLabel.text = "\nObservers (" + observers.Count + ")\n";
+			observerLabel.gameObject.transform.SetParent(playerListContent.transform);
+			foreach (PhotonPlayer player in observers) {
+				Text playerText = Instantiate(textPrefab) as Text;
+				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
+				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
+				playerText.text = "(" + readyStatus + ") " + player.NickName;
+				if (player.IsMasterClient) {
+					playerText.text += " (MC)";
+				}
+				playerText.gameObject.transform.SetParent(playerListContent.transform);
+			}
+
 			lastListRefresh = Time.time;
 			if (allPlayersReady) {
 				StartGame();

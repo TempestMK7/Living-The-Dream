@@ -10,17 +10,36 @@ namespace Com.Tempest.Nightmare {
 		private ActionSet actionSet;
 		private IControllable controllable;
 
+		private bool isPaused = false;
+
 		private void Awake() {
 			managerBehavior = GetComponent<GeneratedGameManager>();
 			demoBehavior = GetComponent<DemoSceneManager>();
-			actionSet = ControlBindingContainer.GetInstance().GetActionSet();
+			ResetActionSet();
 		}
 
 		private void OnDestroy() {
 			actionSet.Destroy();
 		}
 
+		public void PauseInputs() {
+			isPaused = true;
+		}
+
+		public void UnpauseInputs() {
+			isPaused = false;
+		}
+
 		private void FixedUpdate() {
+			if (actionSet.Menu.WasPressed) {
+				if (managerBehavior != null) {
+					managerBehavior.ToggleSettingsPanel();
+				}
+			}
+
+			// This object can be paused by anything else that relies on player inputs such as the Settings Panel.
+			if (isPaused) return;
+
 			InputDevice inputDevice = InputManager.ActiveDevice;
 			if (inputDevice == null)
 				return;
@@ -63,6 +82,10 @@ namespace Com.Tempest.Nightmare {
 
 		public void ClearControllable() {
 			controllable = null;
+		}
+
+		public void ResetActionSet() {
+			actionSet = ControlBindingContainer.GetInstance().GetActionSet();
 		}
 	}
 }

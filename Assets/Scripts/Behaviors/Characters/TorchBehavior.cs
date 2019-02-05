@@ -28,7 +28,6 @@ namespace Com.Tempest.Nightmare {
             lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
             lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
 
-            soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
             animator = GetComponent<Animator>();
             circleCollider = GetComponent<CircleCollider2D>();
             timeTaken = respawnTimer * -1f;
@@ -79,6 +78,7 @@ namespace Com.Tempest.Nightmare {
 
         [PunRPC]
         public void PlaySound(bool nightmaresWon) {
+            soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.4f;
             if (nightmaresWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
                 soundSource.Play();
             } else if (!nightmaresWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {

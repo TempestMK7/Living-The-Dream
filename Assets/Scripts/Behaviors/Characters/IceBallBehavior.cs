@@ -42,7 +42,6 @@ namespace Com.Tempest.Nightmare {
             animator = GetComponent<Animator>();
             playersHit = new List<BaseExplorer>();
             explosionSource = GetComponent<AudioSource>();
-            explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
 
             lightBox = GetComponentInChildren<LightBoxBehavior>();
             lightBox.IsMine = false;
@@ -75,6 +74,7 @@ namespace Com.Tempest.Nightmare {
             if (triggers.Length != 0) {
                 explosionTime = Time.time;
                 animator.SetBool("IsExploding", true);
+                explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
                 explosionSource.Play();
             }
         }

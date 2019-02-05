@@ -7,8 +7,6 @@ namespace Com.Tempest.Nightmare {
 
     public class DashExplorer : BaseExplorer {
 
-        public float upgradeDashFactor = 0.1f;
-
         private bool hasUsedDash;
         private bool hasUsedSecondDash;
 
@@ -50,7 +48,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override float DashFactor() {
-            return base.DashFactor() + (upgradeDashFactor * GetNumUpgrades());
+            return base.DashFactor() * GetSigmoidUpgradeMultiplier(1f, 2f);
         }
 
         // Override this to remove perfect acceleration powerup.

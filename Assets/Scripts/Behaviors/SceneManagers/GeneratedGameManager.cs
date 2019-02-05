@@ -33,6 +33,9 @@ namespace Com.Tempest.Nightmare {
 		public GameObject bonfirePrefab;
 		public GameObject shrinePrefab;
 		public GameObject torchPrefab;
+
+		public GameObject settingsPanel;
+		public Button settingsButton;
 	
 		// Game parameters.
 		public int bonfiresAllowedIncomplete = 0;
@@ -59,10 +62,13 @@ namespace Com.Tempest.Nightmare {
 		private int levelsGenerated;
 		private GameObject[,] levelChunks;
 
+		#region Level Loading
+
 		public void Awake() {
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = false;
 			}
+			settingsPanel.gameObject.SetActive(false);
 		}
 
 		private void OnEnable() {
@@ -196,6 +202,7 @@ namespace Com.Tempest.Nightmare {
 				}
 				if (Explorer != null) {
 					Explorer.SendTalentsToNetwork();
+					Explorer.SendNameToNetwork();
 					Camera.main.transform.position = Explorer.transform.position;
 				}
 				ChangeMaskColor(0f);
@@ -219,6 +226,7 @@ namespace Com.Tempest.Nightmare {
 				}
 				if (Nightmare != null) {
 					Nightmare.SendTalentsToNetwork();
+					Nightmare.SendNameToNetwork();
 					Camera.main.transform.position = Nightmare.gameObject.transform.position;
 				}
 				ChangeMaskColor(0f);
@@ -226,6 +234,10 @@ namespace Com.Tempest.Nightmare {
 				ChangeMaskColor(0.5f);
 			}
 		}
+
+		#endregion
+
+		#region Scene Object Handling
 
 		public void Update() {
 			HandleBonfires();
@@ -310,6 +322,8 @@ namespace Com.Tempest.Nightmare {
 			maskCamera.backgroundColor = new Color(newValue, newValue, newValue);
 		}
 
+		#endregion
+
 		public void LeaveRoom() {
 			PhotonNetwork.LeaveRoom();
 		}
@@ -349,6 +363,18 @@ namespace Com.Tempest.Nightmare {
 			if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER ||
 			    targets == PlayerStateContainer.Instance.TeamSelection) {
 				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
+			}
+		}
+
+		public void ToggleSettingsPanel() {
+			bool isActive = settingsPanel.gameObject.GetActive();
+			settingsPanel.gameObject.SetActive(!isActive);
+			if (isActive) {
+				settingsPanel.GetComponent<SettingsManager>().OnPanelClose();
+				settingsButton.GetComponentInChildren<Text>().text = "Settings (Esc)";
+			} else {
+				settingsPanel.GetComponent<SettingsManager>().OnPanelLaunch(true);
+				settingsButton.GetComponentInChildren<Text>().text = "Back";
 			}
 		}
 	}

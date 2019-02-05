@@ -7,7 +7,6 @@ namespace Com.Tempest.Nightmare {
     public class CryoBehavior : BaseNightmare {
 
         public float fireballSpeed = 20f;
-        public float fireballUpgradeSpeed = 2f;
         public float fireballAttackAnimation = 0.5f;
         public float fireballCooldown = 1f;
 
@@ -19,7 +18,6 @@ namespace Com.Tempest.Nightmare {
         public override void Awake() {
             base.Awake();
             launchSource = GetComponent<AudioSource>();
-            launchSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
         }
 
         protected override void Flip() {
@@ -50,8 +48,9 @@ namespace Com.Tempest.Nightmare {
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
                     .GetComponent<IceBallBehavior>();
                     Vector3 direction = mouseDirection.magnitude == 0f ? currentControllerState : mouseDirection;
-                iceBall.SetStartingDirection(direction, fireballSpeed + (fireballUpgradeSpeed * GetNumUpgrades()), networkProjectileGravity == 0);
+                iceBall.SetStartingDirection(direction, fireballSpeed * GetSigmoidUpgradeMultiplier(1f, 1.7f), networkProjectileGravity == 0);
                 iceBall.CryoLauncherBehavior = this;
+                launchSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
                 launchSource.Play();
                 photonView.RPC("PlayLaunchSound", PhotonTargets.Others);
             }
@@ -59,6 +58,7 @@ namespace Com.Tempest.Nightmare {
 
         [PunRPC]
         public void PlayLaunchSound() {
+            launchSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
             launchSource.Play();
         }
 

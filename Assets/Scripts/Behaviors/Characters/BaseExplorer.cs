@@ -17,6 +17,8 @@ namespace Com.Tempest.Nightmare {
 
 		public LayerMask whatIsBonfire;
 		public LayerMask whatIsExplorer;
+
+		public CircleCollider2D saveCollider;
         
 		// Light box params.
 		public float defaultScale = 6f;
@@ -58,6 +60,7 @@ namespace Com.Tempest.Nightmare {
 			base.Update();
 			ResurrectIfAble();
 			HandleLifeState();
+			HandleNameState();
 			HandlePowerupState();
 			DeleteSelfIfAble();
         }
@@ -68,14 +71,14 @@ namespace Com.Tempest.Nightmare {
 				return;
 			bool ableToRes = false;
 			BaseExplorer savior = null;	
-			Collider2D[] bonfires = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsBonfire);
+			Collider2D[] bonfires = Physics2D.OverlapCircleAll(transform.position, saveCollider.radius, whatIsBonfire);
 			foreach (Collider2D fireCollider in bonfires) {
 				BonfireBehavior behavior = fireCollider.gameObject.GetComponent<BonfireBehavior>();
 				if (behavior != null && behavior.IsLit()) {
 					ableToRes = true;
 				}
 			}
-			Collider2D[] players = Physics2D.OverlapAreaAll(boxCollider.bounds.min, boxCollider.bounds.max, whatIsExplorer);
+			Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, saveCollider.radius, whatIsExplorer);
 			foreach (Collider2D collider in players) {
 				BaseExplorer behavior = collider.gameObject.GetComponent<BaseExplorer>();
 				if (behavior != null && !behavior.IsOutOfHealth()) {
@@ -109,6 +112,18 @@ namespace Com.Tempest.Nightmare {
 				positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
 				healthCanvas.SetActive(Time.time - damageTime < healthBarFadeDelay);
 				ToggleRenderers(true);
+			}
+		}
+
+		private void HandleNameState() {
+			if (photonView.isMine) {
+				nameCanvas.SetActive(false);
+			} else if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE) {
+				nameCanvas.SetActive(true);
+			} else if (Time.time - damageTime < healthBarFadeDelay) {
+				nameCanvas.SetActive(true);
+			} else {
+				nameCanvas.SetActive(false);
 			}
 		}
 

@@ -39,6 +39,20 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        public void ResetMusicVolume() {
+            switch (musicIntensity) {
+                case SAFE:
+                    safeSource.volume = ControlBindingContainer.GetInstance().musicVolume;
+                    break;
+                case DANGER:
+                    dangerSource.volume = ControlBindingContainer.GetInstance().musicVolume;
+                    break;
+                case CHASE:
+                    chaseSource.volume = ControlBindingContainer.GetInstance().musicVolume;
+                    break;
+            }
+        }
+
         private void SetMusicIntensityExplorer() {
             if (gameManager.Explorer == null || gameManager.Nightmares == null || gameManager.Nightmares.Count == 0) return;
             if (Time.time - lastTransition < minimumTransitionTime) return;
@@ -106,11 +120,10 @@ namespace Com.Tempest.Nightmare {
             if (source == null) {
                 yield return null;
             } else {
-                float volumeMultiplier = ControlBindingContainer.GetInstance().musicVolume;
                 float volumePercentage = 0f;
                 while (volumePercentage < 1f) {
                     volumePercentage = Mathf.Min(Time.time - startTime, 1f);
-                    source.volume = volumePercentage * volumeMultiplier;
+                    source.volume = volumePercentage * ControlBindingContainer.GetInstance().musicVolume;;
                     yield return null;
                 }
             }
@@ -133,11 +146,10 @@ namespace Com.Tempest.Nightmare {
             if (source == null) {
                 yield return null;
             } else {
-                float volumeMultiplier = ControlBindingContainer.GetInstance().musicVolume;
                 float volumePercentage = 1f;
                 while (volumePercentage > 0f) {
                     volumePercentage = 1f - Mathf.Min(Time.time - startTime, 1f);
-                    source.volume = volumePercentage * volumeMultiplier;
+                    source.volume = volumePercentage * ControlBindingContainer.GetInstance().musicVolume;
                     yield return null;
                 }
             }

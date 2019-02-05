@@ -11,6 +11,7 @@ namespace Com.Tempest.Nightmare {
 		public float lightBoxScale = 20f;
 
 		protected LightBoxBehavior lightBox;
+		private Text nameText;
 
         public override void Awake() {
             base.Awake();
@@ -20,11 +21,12 @@ namespace Com.Tempest.Nightmare {
 			lightBox.IsActive = true;
 			lightBox.DefaultScale = new Vector3(GetLightboxScale(), GetLightboxScale());
 			lightBox.ActiveScale = new Vector3(GetLightboxScale(), GetLightboxScale());
+			
+			if (photonView.isMine) nameCanvas.SetActive(false);
         }
 
         public override void Update() {
             base.Update();
-            
             HandlePowerupState();
         }
 
