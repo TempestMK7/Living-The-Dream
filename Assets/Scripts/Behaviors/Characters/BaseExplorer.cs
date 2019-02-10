@@ -90,8 +90,8 @@ namespace Com.Tempest.Nightmare {
 			if (ableToRes) {
 				currentHealth = maxHealth;
 				GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", PlayerStateContainer.EXPLORER);
-				behavior.DisplayAlert("You have been saved!  Your light shines once more.", PlayerStateContainer.EXPLORER);
+				behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has been saved!  His light shines once more.", false, PlayerStateContainer.EXPLORER);
+				behavior.DisplayAlert("You have been saved!  Your light shines once more.", false, PlayerStateContainer.EXPLORER);
 				PlayRelightSound();
 				photonView.RPC("PlayRelightSound", PhotonTargets.Others);
 			}
@@ -215,11 +215,11 @@ namespace Com.Tempest.Nightmare {
 					photonView.RPC("PlayDeathSound", PhotonTargets.Others);
 					GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
 					if (IsOutOfLives()) {
-						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", PlayerStateContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", PlayerStateContainer.EXPLORER);
+						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", false, PlayerStateContainer.EXPLORER);
+						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", false, PlayerStateContainer.EXPLORER);
 					} else {
-						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", PlayerStateContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", PlayerStateContainer.EXPLORER);
+						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", false, PlayerStateContainer.EXPLORER);
+						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", false, PlayerStateContainer.EXPLORER);
 					}
 				}
 			}

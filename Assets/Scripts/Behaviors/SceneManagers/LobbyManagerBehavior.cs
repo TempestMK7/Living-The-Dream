@@ -8,17 +8,26 @@ namespace Com.Tempest.Nightmare {
 
 	public class LobbyManagerBehavior : Photon.PunBehaviour {
 
+		public float countDownDuration = 30f;
+		public float countDownLockedDuration = 5f;
+
 		public GameObject talentManager;
 
 		public Text pingDisplay;
+		public Text countdownDisplay;
 		public Button readyButton;
 		public VerticalLayoutGroup playerListContent;
 		public Text textPrefab;
+		public GameObject lobbySynchronizerPrefab;
 
 		public GameObject explorerPanel;
 		public GameObject nightmarePanel;
 		public Text explorerSelectionText;
 		public Text nightmareSelectionText;
+
+		public Button nightmareButton;
+		public Button explorerButton;
+
 		public Button doubleJumpButton;
 		public Button jetpackButton;
 		public Button dashButton;
@@ -48,10 +57,16 @@ namespace Com.Tempest.Nightmare {
 		public Sprite dashEye;
 
 		private TalentManagerBehavior talentBehavior;
+		private LobbySynchronizerBehavior synchronizerBehavior;
 
 		private float lastListRefresh;
 		private int numExplorers;
 		private int numNightmares;
+		private bool allPlayersReady;
+		private float countDownStartTime;
+		private bool countingDown;
+
+		#region Intitialization.
 
 		public void Awake() {
 			talentBehavior = talentManager.GetComponent<TalentManagerBehavior>();
@@ -62,6 +77,8 @@ namespace Com.Tempest.Nightmare {
 			PlayerStateContainer.Instance.ExplorerSelection = PlayerStateContainer.DOUBLE_JUMP_EXPLORER;
 			PlayerStateContainer.Instance.NightmareSelection = PlayerStateContainer.GHAST;
 			InitializePlayerStateWithPhoton();
+			CreateSynchronizer();
+			RefreshPlayerInformation(false);
 			HandlePanels();
 		}
 
@@ -72,6 +89,15 @@ namespace Com.Tempest.Nightmare {
 			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
 			player.SetCustomProperties(properties);
 		}
+
+		public void CreateSynchronizer() {
+			synchronizerBehavior = PhotonNetwork.Instantiate(lobbySynchronizerPrefab.name, new Vector3(), Quaternion.identity, 0)
+					.GetComponent<LobbySynchronizerBehavior>();
+		}
+
+		#endregion
+
+		#region Button Callbacks.
 
 		public void HandlePanels() {
 			explorerPanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER);
@@ -125,17 +151,23 @@ namespace Com.Tempest.Nightmare {
 		public void SelectExplorer() {
 			if (numExplorers == Constants.MAX_EXPLORERS) return;
 			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.EXPLORER;
+			ResendPlayerInfoIfWrong();
+			synchronizerBehavior.NotifyTeamChange();
 			HandlePanels();
 		}
 
 		public void SelectNightmare() {
 			if (numNightmares == Constants.MAX_NIGHTMARES) return;
 			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.NIGHTMARE;
+			ResendPlayerInfoIfWrong();
+			synchronizerBehavior.NotifyTeamChange();
 			HandlePanels();
 		}
 
 		public void SelectObserver() {
 			PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
+			ResendPlayerInfoIfWrong();
+			synchronizerBehavior.NotifyTeamChange();
 			HandlePanels();
 		}
 
@@ -169,12 +201,16 @@ namespace Com.Tempest.Nightmare {
 			HandlePanels();
 		}
 
-		private void Update() {
+		#endregion
+
+		#region Room Constraints And Player Updates.
+
+		public void Update() {
 			pingDisplay.text = string.Format("Ping: {0:D4} ms", PhotonNetwork.GetPing());
 			readyButton.GetComponentInChildren<Text>().text = PlayerStateContainer.Instance.IsReady.Equals(PlayerStateContainer.STATUS_READY) ? "Unready" : "Ready";
 			ResendPlayerInfoIfWrong();
-			RefreshPlayerList();
-			UpdateRoomCounts();
+			RefreshPlayerInformation(true);
+			HandleCountDown();
 		}
 
 		public void ResendPlayerInfoIfWrong() {
@@ -185,15 +221,21 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		public void RefreshPlayerList() {
-			if (Time.time - lastListRefresh < 1f)
+		public void RefreshPlayerInformation(bool checkTimer) {
+			if (checkTimer && Time.time - lastListRefresh < 1f)
 				return;
+			CheckPlayerCounts();
+			UpdateRoomConstraints();
+			lastListRefresh = Time.time;
+		}
+
+		public void CheckPlayerCounts() {
 			PhotonPlayer[] playerList = PhotonNetwork.playerList;
 			Text[] childrenTexts = playerListContent.GetComponentsInChildren<Text>();
 			foreach (Text text in childrenTexts) {
 				Destroy(text.gameObject);
 			}
-			bool allPlayersReady = true;
+			allPlayersReady = true;
 			numExplorers = 0;
 			numNightmares = 0;
 
@@ -220,7 +262,10 @@ namespace Com.Tempest.Nightmare {
 						break;
 				}
 				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
-				if (!PlayerStateContainer.STATUS_READY.Equals(readyStatus)) {
+				// If the player is an observer, ignore their ready status unless the room is private.
+				// Private rooms should wait for all players to be ready, public rooms should not.
+				if ((teamSelection != PlayerStateContainer.OBSERVER || !PhotonNetwork.room.IsVisible) &&
+						!PlayerStateContainer.STATUS_READY.Equals(readyStatus)) {
 					allPlayersReady = false;
 				}
 			}
@@ -234,9 +279,6 @@ namespace Com.Tempest.Nightmare {
 				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
 				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
 				playerText.text = "(" + readyStatus + ") " + player.NickName;
-				if (player.IsMasterClient) {
-					playerText.text += " (MC)";
-				}
 				playerText.gameObject.transform.SetParent(playerListContent.transform);
 			}
 
@@ -249,9 +291,6 @@ namespace Com.Tempest.Nightmare {
 				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
 				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
 				playerText.text = "(" + readyStatus + ") " + player.NickName;
-				if (player.IsMasterClient) {
-					playerText.text += " (MC)";
-				}
 				playerText.gameObject.transform.SetParent(playerListContent.transform);
 			}
 
@@ -264,24 +303,73 @@ namespace Com.Tempest.Nightmare {
 				string readyStatus = player.CustomProperties[PlayerStateContainer.IS_READY].ToString();
 				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
 				playerText.text = "(" + readyStatus + ") " + player.NickName;
-				if (player.IsMasterClient) {
-					playerText.text += " (MC)";
-				}
 				playerText.gameObject.transform.SetParent(playerListContent.transform);
 			}
 
-			lastListRefresh = Time.time;
-			if (allPlayersReady) {
-				StartGame();
+			if (numNightmares > Constants.MAX_NIGHTMARES && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+				ResetSelection();
+			} else if (numExplorers > Constants.MAX_EXPLORERS && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
+				ResetSelection();
+			}
+			
+			if ((!PhotonNetwork.room.IsVisible && allPlayersReady) || (numExplorers == Constants.MAX_EXPLORERS && numNightmares == Constants.MAX_NIGHTMARES)) {
+				StartCountDown();
+			} else {
+				StopCountDown();
 			}
 		}
 
-		private void UpdateRoomCounts() {
+		private void ResetSelection() {
+			PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_NOT_READY;
+			SelectObserver();
+		}
+
+		private void UpdateRoomConstraints() {
 			if (PhotonNetwork.isMasterClient) {
 				int needsExplorers = numExplorers < Constants.MAX_EXPLORERS ? 1 : 0;
 				int needsNightmares = numNightmares < Constants.MAX_NIGHTMARES ? 1 : 0;
 				PhotonNetwork.room.SetPropertiesListedInLobby(new string[]{ "C0", "C1"});
 				PhotonNetwork.room.SetCustomProperties(new ExitGames.Client.Photon.Hashtable(){{"C0", needsExplorers}, {"C1", needsNightmares}});
+			}
+
+			if (numNightmares >= Constants.MAX_NIGHTMARES) {
+				nightmareButton.GetComponentInChildren<Text>().text = "Play Nightmare (Full)";
+			} else {
+				nightmareButton.GetComponentInChildren<Text>().text = "Play Nightmare";
+			}
+
+			if (numExplorers >= Constants.MAX_EXPLORERS) {
+				explorerButton.GetComponentInChildren<Text>().text = "Play Explorer (Full)";
+			} else {
+				explorerButton.GetComponentInChildren<Text>().text = "Play Explorer";
+			}
+		}
+
+		private void StartCountDown() {
+			if (!countingDown) {
+				countingDown = true;
+				countDownStartTime = Time.time;
+			}
+		}
+
+		private void StopCountDown() {
+			countingDown = false;
+			countDownStartTime = 0f;
+		}
+
+		private void HandleCountDown() {
+			if (!countingDown) {
+				countdownDisplay.text = "Waiting For Players";
+			} else {
+				float countDownElapsed = Time.time - countDownStartTime;
+				float countDownRemaining = (allPlayersReady ? countDownLockedDuration : countDownDuration) - countDownElapsed;
+				countDownRemaining = Mathf.Max(countDownRemaining, 0f);
+				if (countDownRemaining == 0f) {
+					countdownDisplay.text = "Loading Game...";
+					StartGame();
+				} else {
+					countdownDisplay.text = "Starting in " + Mathf.RoundToInt(countDownRemaining + 0.5f);
+				}
 			}
 		}
 
@@ -304,9 +392,8 @@ namespace Com.Tempest.Nightmare {
 			} else {
 				PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_READY;
 			}
-			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
-			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
-			PhotonNetwork.player.SetCustomProperties(properties);
+			ResendPlayerInfoIfWrong();
+			synchronizerBehavior.NotifyReadyChange();
 		}
 
 		public void LeaveRoom() {
@@ -316,5 +403,17 @@ namespace Com.Tempest.Nightmare {
 		public override void OnLeftRoom() {
 			SceneManager.LoadScene("LauncherScene");
 		}
+		
+		public override void OnPhotonPlayerConnected(PhotonPlayer player) {
+			base.OnPhotonPlayerConnected(player);
+			RefreshPlayerInformation(false);
+		}
+
+		public override void OnPhotonPlayerDisconnected(PhotonPlayer otherPlayer) {
+			base.OnPhotonPlayerDisconnected(otherPlayer);
+			RefreshPlayerInformation(false);
+		}
+
+		#endregion
 	}
 }

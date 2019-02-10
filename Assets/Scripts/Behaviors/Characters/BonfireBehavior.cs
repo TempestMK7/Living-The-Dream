@@ -85,9 +85,11 @@ namespace Com.Tempest.Nightmare {
                     currentCharges = Mathf.Max(currentCharges, 0f);
                 } else {
                     float multiplier = 0;
+                    HashSet<BaseExplorer> playerSet = new HashSet<BaseExplorer>();
                     foreach (Collider2D collider in otherPlayers) {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
-                        if (behavior == null) continue;
+                        if (behavior == null || playerSet.Contains(behavior)) continue;
+                        playerSet.Add(behavior);
                         float explorerModifier = 1.0f + (behavior.GetBonfireSpeed() * 0.05f);
                         if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             explorerModifier *= 2f;

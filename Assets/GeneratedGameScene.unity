@@ -777,7 +777,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 690482947}
+  m_TargetTexture: {fileID: 1197009185}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -891,38 +891,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3050f2328ca2e634d8302f630882e569, type: 3}
---- !u!84 &690482947
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1079
-  m_Height: 606
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &730342484
 GameObject:
   m_ObjectHideFlags: 0
@@ -1354,6 +1322,38 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!84 &1197009185
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1079
+  m_Height: 606
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &1217954016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,10 +1655,10 @@ MonoBehaviour:
   jetpackPrefab: {fileID: 1675080769810470, guid: 83fa5c1f25db27e48beac8311359e08e,
     type: 3}
   dashPrefab: {fileID: 1032768991862466, guid: 86676125d10c2274a9470e40641d2b4a, type: 3}
-  bonfirePrefab: {fileID: 49071, guid: e6e92c1194894864792dc0d996379d9b, type: 3}
+  bonfirePrefab: {fileID: 49074, guid: e6e92c1194894864792dc0d996379d9b, type: 3}
   shrinePrefab: {fileID: 1566424408462786, guid: c32c8ee3c1f761346a1b223c7fe38400,
     type: 3}
-  torchPrefab: {fileID: 49068, guid: f3e9e71dbb1a0f949be9c959a67f3da6, type: 3}
+  torchPrefab: {fileID: 49071, guid: f3e9e71dbb1a0f949be9c959a67f3da6, type: 3}
   settingsPanel: {fileID: 1244919478}
   settingsButton: {fileID: 150084460}
   bonfiresAllowedIncomplete: 3
@@ -1862,7 +1862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 690482947}
+  spriteLightRT: {fileID: 1197009185}
   intensity: 1
 --- !u!81 &1555642314
 AudioListener:

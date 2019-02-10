@@ -212,9 +212,10 @@ namespace Com.Tempest.Nightmare {
 			return output;
 		}
 
-		public void DisplayTextAlert(string alertText) {
+		public void DisplayTextAlert(string alertText, bool shortNotification) {
 			GameObject textPrefab = Instantiate(alertTextPrefab);
 			textPrefab.GetComponent<Text>().text = alertText;
+			textPrefab.GetComponent<AlertTextBehavior>().IsShortNotification = shortNotification;
 			textPrefab.transform.SetParent(notificationLayout.transform);
 		}
 

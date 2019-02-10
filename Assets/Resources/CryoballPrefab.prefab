@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gravityFactor: 8
-  explosionTriggerRadius: 0.5
+  explosionTriggerRadius: 0.4
   explosionRadius: 1.25
   explosionDuration: 0.5
   lingerDuration: 2
@@ -264,8 +264,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 51425}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!82 &50380

@@ -46,9 +46,9 @@ namespace Com.Tempest.Nightmare {
 			if (photonView.isMine) {
 				GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
 				if (manager != null) {
-					manager.DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
+					manager.DisplayAlert("You have been granted " + p.ToString(), true, PlayerStateContainer.Instance.TeamSelection);
 				} else {
-					FindObjectOfType<DemoSceneManager>().DisplayAlert("You have been granted " + p.ToString(), PlayerStateContainer.Instance.TeamSelection);
+					FindObjectOfType<DemoSceneManager>().DisplayAlert("You have been granted " + p.ToString(), true, PlayerStateContainer.Instance.TeamSelection);
 				}
 			}
 		}
@@ -72,9 +72,9 @@ namespace Com.Tempest.Nightmare {
 			GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
 			string message = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE ? "Your attack has been upgraded." : "Your movement has been upgraded.";
 			if (manager != null) {
-				manager.DisplayAlert(message, PlayerStateContainer.Instance.TeamSelection);
+				manager.DisplayAlert(message, true, PlayerStateContainer.Instance.TeamSelection);
 			} else {
-				FindObjectOfType<DemoSceneManager>().DisplayAlert(message, PlayerStateContainer.Instance.TeamSelection);
+				FindObjectOfType<DemoSceneManager>().DisplayAlert(message, true, PlayerStateContainer.Instance.TeamSelection);
 			}
 		}
 		

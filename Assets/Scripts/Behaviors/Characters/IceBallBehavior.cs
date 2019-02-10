@@ -7,7 +7,7 @@ namespace Com.Tempest.Nightmare {
     public class IceBallBehavior : Photon.PunBehaviour {
 
         public float gravityFactor = 4f;
-        public float explosionTriggerRadius = .5f;
+        public float explosionTriggerRadius = .4f;
         public float explosionRadius = 2f;
         public float explosionDuration = 0.5f;
         public float lingerDuration = 4.0f;

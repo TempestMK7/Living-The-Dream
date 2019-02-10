@@ -326,7 +326,7 @@ namespace Com.Tempest.Nightmare {
         public void ConnectAsPrivate() {
             PlayerStateContainer.Instance.TeamSelection = PlayerStateContainer.OBSERVER;
             isPrivate = true;
-            lobbyName = lobbyInputField.text;
+            lobbyName = lobbyInputField.text.ToLower();
             if (lobbyName != null && lobbyName.Length != 0) Connect();
         }
 
@@ -352,6 +352,12 @@ namespace Com.Tempest.Nightmare {
         }
 
         public override void OnJoinedLobby() {
+            PhotonPlayer player = PhotonNetwork.player;
+			ExitGames.Client.Photon.Hashtable properties = new ExitGames.Client.Photon.Hashtable();
+			properties[PlayerStateContainer.TEAM_SELECTION] = PlayerStateContainer.Instance.TeamSelection;
+            PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_NOT_READY;
+			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
+			player.SetCustomProperties(properties);
             if (isPrivate) {
                 RoomOptions options = new RoomOptions();
                 options.IsOpen = true;

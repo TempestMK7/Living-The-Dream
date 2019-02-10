@@ -134,10 +134,10 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void DisplayAlert(string alertText, int targets) {
+		public void DisplayAlert(string alertText, bool shortNotification, int targets) {
 			if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER ||
 			    targets == PlayerStateContainer.Instance.TeamSelection) {
-				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
+				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText, shortNotification);
 			}
 		}
     }
