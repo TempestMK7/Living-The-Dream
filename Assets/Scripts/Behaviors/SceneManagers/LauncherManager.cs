@@ -363,6 +363,7 @@ namespace Com.Tempest.Nightmare {
                 options.IsOpen = true;
                 options.IsVisible = false;
                 options.MaxPlayers = 0;
+                options.PublishUserId = true;
                 options.CustomRoomPropertiesForLobby = new string[]{ "C0", "C1" };
                 options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable(){{ "C0", 1 }, { "C1", 1 }};
                 PhotonNetwork.JoinOrCreateRoom(lobbyName, options, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));
@@ -388,6 +389,7 @@ namespace Com.Tempest.Nightmare {
             options.IsOpen = true;
             options.IsVisible = true;
             options.MaxPlayers = 0;
+            options.PublishUserId = true;
             options.CustomRoomPropertiesForLobby = new string[]{ "C0", "C1" };
             options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable(){{ "C0", 1 }, { "C1", 1 }};
             PhotonNetwork.CreateRoom(null, options, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));

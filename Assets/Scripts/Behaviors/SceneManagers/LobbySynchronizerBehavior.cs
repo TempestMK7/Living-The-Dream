@@ -42,6 +42,20 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        public void ResetTeamSelectionForPlayer(string userId) {
+            LobbySynchronizerBehavior[] synchronizers = FindObjectsOfType<LobbySynchronizerBehavior>();
+            foreach (LobbySynchronizerBehavior behavior in synchronizers) {
+                behavior.photonView.RPC("OnResetTeamSelection", PhotonTargets.All, userId);
+            }
+        }
+
+        [PunRPC]
+        public void OnResetTeamSelection(string userId) {
+            if (photonView.isMine && userId.Equals(PhotonNetwork.player.UserId)) {
+                lobbyBehavior.ResetSelection();
+            }
+        }
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
             
         }

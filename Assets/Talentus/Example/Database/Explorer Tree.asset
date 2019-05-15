@@ -123,7 +123,7 @@ MonoBehaviour:
   connectionNode: {fileID: 114143036175401608}
   showProperties: 0
   PanX: 0
-  PanY: -1009
+  PanY: 52
   mouseOverProperties: 0
   propertyWidth: 466.75
   PointsToAssign: 90580

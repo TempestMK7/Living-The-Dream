@@ -58,6 +58,7 @@ namespace Com.Tempest.Nightmare {
 
 		public List<BaseNightmare> Nightmares { get; set; }
 
+		private bool gameStarted;
 		private int playersConnected;
 		private int levelsGenerated;
 		private GameObject[,] levelChunks;
@@ -69,6 +70,7 @@ namespace Com.Tempest.Nightmare {
 				PhotonNetwork.room.IsOpen = false;
 			}
 			settingsPanel.gameObject.SetActive(false);
+			gameStarted = false;
 		}
 
 		private void OnEnable() {
@@ -88,7 +90,12 @@ namespace Com.Tempest.Nightmare {
 			if (!PhotonNetwork.isMasterClient)
 				return;
 			playersConnected++;
-			if (PhotonNetwork.playerList.Length == playersConnected) {
+			StartGameIfAble();
+		}
+
+		private void StartGameIfAble() {
+			if (PhotonNetwork.isMasterClient && !gameStarted && playersConnected >= PhotonNetwork.playerList.Length) {
+				gameStarted = true;
 				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, bonfireOffset, torchProbability);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
@@ -240,6 +247,7 @@ namespace Com.Tempest.Nightmare {
 		#region Scene Object Handling
 
 		public void Update() {
+			StartGameIfAble();
 			HandleBonfires();
 			HandlePlayers();
 			HandleUpgrades();
@@ -324,6 +332,8 @@ namespace Com.Tempest.Nightmare {
 
 		#endregion
 
+		#region Externally Called Methods
+
 		public void LeaveRoom() {
 			PhotonNetwork.LeaveRoom();
 		}
@@ -377,5 +387,7 @@ namespace Com.Tempest.Nightmare {
 				settingsButton.GetComponentInChildren<Text>().text = "Back";
 			}
 		}
+
+		#endregion
 	}
 }

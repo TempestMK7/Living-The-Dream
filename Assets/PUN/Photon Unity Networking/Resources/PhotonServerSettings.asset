@@ -78,4 +78,5 @@ MonoBehaviour:
   - NotifyTeamChange
   - OnNotifyTeamChange
   - OnNotifyReadyChange
+  - OnResetTeamSelection
   DisableAutoOpenWizard: 1

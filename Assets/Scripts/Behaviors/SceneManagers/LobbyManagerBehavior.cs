@@ -307,9 +307,9 @@ namespace Com.Tempest.Nightmare {
 			}
 
 			if (numNightmares > Constants.MAX_NIGHTMARES && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
-				ResetSelection();
+				BootLastNightmare();
 			} else if (numExplorers > Constants.MAX_EXPLORERS && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
-				ResetSelection();
+				BootLastExplorer();
 			}
 			
 			if ((!PhotonNetwork.room.IsVisible && allPlayersReady) || (numExplorers == Constants.MAX_EXPLORERS && numNightmares == Constants.MAX_NIGHTMARES)) {
@@ -319,9 +319,43 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
-		private void ResetSelection() {
+		public void ResetSelection() {
 			PlayerStateContainer.Instance.IsReady = PlayerStateContainer.STATUS_NOT_READY;
 			SelectObserver();
+		}
+
+		private void BootLastExplorer() {
+			if (!PhotonNetwork.isMasterClient) return;
+			PhotonPlayer[] playerList = PhotonNetwork.playerList;
+			for (int i = playerList.Length - 1; i >= 0; i--) {
+				PhotonPlayer player = playerList[i];
+				if (!player.CustomProperties.ContainsKey(PlayerStateContainer.IS_READY) ||
+				 		!player.CustomProperties.ContainsKey(PlayerStateContainer.TEAM_SELECTION)) {
+					continue;
+				}
+				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
+				if (teamSelection == PlayerStateContainer.EXPLORER) {
+					synchronizerBehavior.ResetTeamSelectionForPlayer(player.UserId);
+					return;
+				}
+			}
+		}
+
+		private void BootLastNightmare() {
+			if (!PhotonNetwork.isMasterClient) return;
+			PhotonPlayer[] playerList = PhotonNetwork.playerList;
+			for (int i = playerList.Length - 1; i >= 0; i--) {
+				PhotonPlayer player = playerList[i];
+				if (!player.CustomProperties.ContainsKey(PlayerStateContainer.IS_READY) ||
+				 		!player.CustomProperties.ContainsKey(PlayerStateContainer.TEAM_SELECTION)) {
+					continue;
+				}
+				int teamSelection = (int)player.CustomProperties[PlayerStateContainer.TEAM_SELECTION];
+				if (teamSelection == PlayerStateContainer.NIGHTMARE) {
+					synchronizerBehavior.ResetTeamSelectionForPlayer(player.UserId);
+					return;
+				}
+			}
 		}
 
 		private void UpdateRoomConstraints() {
@@ -413,6 +447,10 @@ namespace Com.Tempest.Nightmare {
 			base.OnPhotonPlayerDisconnected(otherPlayer);
 			RefreshPlayerInformation(false);
 		}
+
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+            
+        }
 
 		#endregion
 	}
