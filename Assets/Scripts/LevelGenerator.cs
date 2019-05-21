@@ -6,22 +6,14 @@ namespace Com.Tempest.Nightmare {
 
 	public class LevelGenerator {
 
-		public static string ResourcePathForIndex(int index, bool isCorner) {
+        public const int TOTAL_LAYERS = 3;
+        public const int CHUNK_INDEX_LAYER = 0;
+        public const int CHUNK_OBJECT_TYPE_LAYER = 1;
+        public const int CHUNK_RANDOMIZED_TYPE_LAYER = 2;
+
+		public static string ResourcePathForIndex(int index, int type) {
 			string path = "LevelChunks/";
-			if (isCorner) {
-				path += "ShrineChunks/";
-			} else if (index > 2000) {
-				path += "TorchChunks/";
-			} else if (index > 1000) {
-				path += "BonfireChunks/";
-			}
-
-			index = index % 1000;
-			if (!isCorner) {
-				path += "Base" + (index / 100) + "/";
-			}
-
-			index = index % 100;
+            path += "Base" + type + "/";
 			return path + "LevelChunk" + index;
 		}
 
@@ -33,12 +25,22 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public class GraphNode {
+
+            public const int BONFIRE = 1;
+            public const int CHEST = 2;
+            public const int TORCH = 3;
+            public const int MIRROR = 4;
+            public const int PORTAL = 5;
 	
 			public List<WallDirection> WallsRemaining { get; set; }
 			public int TimesVisited { get; set; }
 			public Vector2Int Coordinates { get; set; }
+            public int RandomizedType { get; set; }
 			public bool IsBonfire { get; set; }
+            public bool IsChest { get; set; }
 			public bool IsTorch { get; set; }
+            public bool IsMirror { get; set; }
+            public bool IsPortal { get; set; }
 
 			public GraphNode(Vector2Int coordinates) {
 				WallsRemaining = new List<WallDirection>();
@@ -47,61 +49,54 @@ namespace Com.Tempest.Nightmare {
 			}
 
 			public int GetLevelChunkIndex() {
-				int returnValue = 0;
 				if (WallsRemaining.Count == 0) {
-					returnValue = 11;
+					return 11;
 				}
 				if (WallsRemaining.Count == 1) {
 					switch (WallsRemaining[0]) {
 					case WallDirection.NORTH:
-						returnValue = 1;
-						break;
+                        return 1;
 					case WallDirection.EAST:
-						returnValue = 2;
-						break;
+                        return 2;
 					case WallDirection.SOUTH:
-						returnValue = 3;
-						break;
+                        return 3;
 					case WallDirection.WEST:
-						returnValue = 4;
-						break;
+                        return 4;
 					default:
 						throw new KeyNotFoundException("Illegal wall direction: " + WallsRemaining[0]);
 					}
 				}
 				if (WallsRemaining.Count == 2) {
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.EAST)) {
-						returnValue = 5;
+                        return 5;
 					}
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.SOUTH)) {
-						returnValue = 6;
+                        return 6;
 					}
 					if (WallsRemaining.Contains(WallDirection.NORTH) && WallsRemaining.Contains(WallDirection.WEST)) {
-						returnValue = 7;
+                        return 7;
 					}
 					if (WallsRemaining.Contains(WallDirection.EAST) && WallsRemaining.Contains(WallDirection.SOUTH)) {
-						returnValue = 8;
+                        return 8;
 					}
 					if (WallsRemaining.Contains(WallDirection.EAST) && WallsRemaining.Contains(WallDirection.WEST)) {
-						returnValue = 9;
+                        return 9;
 					}
 					if (WallsRemaining.Contains(WallDirection.SOUTH) && WallsRemaining.Contains(WallDirection.WEST)) {
-						returnValue = 10;
+                        return 10;
 					}
 				}
-				if (returnValue == 0) {
-					throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
-				}
-				
-				if (IsBonfire) {
-					returnValue += 1000;
-				} else if (IsTorch) {
-					returnValue += 2000;
-				}
-				returnValue += 100 * Random.Range(1, 3);
-				
-				return returnValue;
+			    throw new KeyNotFoundException("I can't decide which wall index I am: " + WallsRemaining.Count);
 			}
+
+            public int GetChunkType() {
+                if (IsBonfire) return BONFIRE;
+                if (IsChest) return CHEST;
+                if (IsTorch) return TORCH;
+                if (IsMirror) return MIRROR;
+                if (IsPortal) return PORTAL;
+                throw new System.Exception("Chunk was not assigned a type.");
+            }
 		}
 
 		public class GraphWall {
@@ -134,20 +129,24 @@ namespace Com.Tempest.Nightmare {
 		private int height;
 		private int bonfireFrequency;
 		private int bonfireOffset;
-		private float torchProbability;
+        private int numChests;
+        private int numMirrors;
 		private GraphNode[,] levelGraph;
 
-		public LevelGenerator(int width, int height, int bonfireFrequency, int bonfireOffset, float torchProbability) {
+		public LevelGenerator(int width, int height, int bonfireFrequency, int bonfireOffset, int numChests, int numMirrors) {
 			this.width = width;
 			this.height = height;
 			this.bonfireFrequency = bonfireFrequency;
 			this.bonfireOffset = bonfireOffset;
-			this.torchProbability = torchProbability;
+            this.numChests = numChests;
+            this.numMirrors = numMirrors;
 			InitializeLevelGraph();
 			BuildLevelGraph();
 			RestoreOuterWallsToLevelGraph();
+            AddPortals();
 			AddBonfires();
-			AddTorches();
+            AddObjects();
+            RandomizeTileTypes();
 		}
 
 		private void InitializeLevelGraph() {
@@ -209,29 +208,71 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
+        private void AddPortals() {
+            if (width < 4 || height < 4) return;
+            levelGraph[1, 1].IsPortal = true;
+            levelGraph[width - 2, 1].IsPortal = true;
+            levelGraph[1, height - 2].IsPortal = true;
+            levelGraph[width - 2, height - 2].IsPortal = true;
+        }
+
 		private void AddBonfires() {
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					if (!IsCorner(x, y) && ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == bonfireOffset)) {
-						levelGraph[x, y].IsBonfire = true;
+					if ((x + ((bonfireFrequency / 2) * y)) % bonfireFrequency == bonfireOffset) {
+                        GraphNode node = levelGraph[x, y];
+                        node.IsBonfire = !node.IsPortal;
 					}
 				}
 			}
 		}
 
-		private void AddTorches() {
-			for (int x = 0; x < width; x++) {
-				for (int y = 0; y < height; y++) {
-					levelGraph[x, y].IsTorch = !IsCorner(x, y) && !levelGraph[x, y].IsBonfire && Random.Range(0f, 1f) < torchProbability;
-				}
-			}
-		}
+        private void AddObjects() {
+            float remainingTiles = 0;
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    GraphNode node = levelGraph[x, y];
+                    if (!node.IsPortal && !node.IsBonfire) remainingTiles++;
+                }
+            }
+            float remainingMirrors = numMirrors;
+            float remainingChests = numChests;
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < width; y++) {
+                    GraphNode node = levelGraph[x, y];
+                    if (!node.IsPortal && !node.IsBonfire) {
+                        float chestProbability = remainingChests / (remainingTiles - remainingMirrors);
+                        float mirrorProbability = remainingMirrors / remainingTiles;
+                        if (Random.Range(0f, 1f) < mirrorProbability) {
+                            node.IsMirror = true;
+                            remainingMirrors--;
+                        } else if (Random.Range(0f, 1f) < chestProbability) {
+                            node.IsChest = true;
+                            remainingChests--;
+                        } else {
+                            node.IsTorch = true;
+                        }
+                        remainingTiles--;
+                    }
+                }
+            }
+        }
 
-		public int[,] SerializeLevelGraph() {
-			int[,] output = new int[width, height];
+        private void RandomizeTileTypes() {
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < width; y++) {
+                    levelGraph[x, y].RandomizedType = Random.Range(1, 3);
+                }
+            }
+        }
+
+		public int[,,] SerializeLevelGraph() {
+			int[,,] output = new int[TOTAL_LAYERS, width, height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					output[x, y] = levelGraph[x, y].GetLevelChunkIndex();
+					output[CHUNK_INDEX_LAYER, x, y] = levelGraph[x, y].GetLevelChunkIndex();
+                    output[CHUNK_OBJECT_TYPE_LAYER, x, y] = levelGraph[x, y].GetChunkType();
+                    output[CHUNK_RANDOMIZED_TYPE_LAYER, x, y] = levelGraph[x, y].RandomizedType;
 				}
 			}
 			return output;
@@ -252,10 +293,6 @@ namespace Com.Tempest.Nightmare {
 			default:
 				throw new KeyNotFoundException("Destination node called with illegal direction enum: " + wall.Direction);
 			}
-		}
-
-		private bool IsCorner(int x, int y) {
-			return (x == 0 || x == width - 1) && (y == 0 || y == height - 1);
 		}
 	}
 }

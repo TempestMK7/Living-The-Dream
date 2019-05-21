@@ -173,7 +173,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1739711720}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1215884516}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &9644713
 MonoBehaviour:
@@ -1007,7 +1007,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 911688961}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1117443671}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &45430581
 MonoBehaviour:
@@ -3270,7 +3270,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 237784868}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 74154696}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &162861541
 MonoBehaviour:
@@ -4004,7 +4004,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1587858684}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 702910866}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &194117811
 MonoBehaviour:
@@ -4391,7 +4391,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2132898704}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999595
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4625,7 +4625,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1087209598}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1991615554}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &232646193
 MonoBehaviour:
@@ -5096,7 +5096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000002013333, y: 0}
+  m_AnchoredPosition: {x: 0.000009101006, y: 0}
   m_SizeDelta: {x: 640, y: 2100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &261208168
@@ -6126,7 +6126,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1864805300}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1869016238}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &319765346
 MonoBehaviour:
@@ -6741,7 +6741,7 @@ MonoBehaviour:
   progressionPanel: {fileID: 1657714592}
   settingsPanel: {fileID: 1058909062}
   progressLabel: {fileID: 1306814203}
-  exitButton: {fileID: 1000662461}
+  exitButton: {fileID: 0}
   versionText: {fileID: 916420934}
   unspentEmberText: {fileID: 1415603710}
   talentNameText: {fileID: 826456887}
@@ -6750,22 +6750,22 @@ MonoBehaviour:
   talentNextText: {fileID: 1609988279}
   nameInputField: {fileID: 539602252}
   publicLabel: {fileID: 635401792}
-  connectExplorerButton: {fileID: 1421212536}
-  connectNightmareButton: {fileID: 1963024327}
-  connectObserverButton: {fileID: 1779833671}
+  connectExplorerButton: {fileID: 0}
+  connectNightmareButton: {fileID: 0}
+  connectObserverButton: {fileID: 0}
   privateLabel: {fileID: 424837585}
   lobbyInputField: {fileID: 272858607}
-  connectPrivateButton: {fileID: 498505589}
+  connectPrivateButton: {fileID: 0}
   musicSlider: {fileID: 527918132}
   effectSlider: {fileID: 1756413846}
-  keyboardUp: {fileID: 724933215}
-  keyboardDown: {fileID: 1382584631}
-  keyboardLeft: {fileID: 1364151606}
-  keyboardRight: {fileID: 19838454}
-  keyboardJump: {fileID: 502083350}
-  keyboardAction: {fileID: 876659934}
-  keyboardLight: {fileID: 325493885}
-  keyboardCling: {fileID: 1966584553}
+  keyboardUp: {fileID: 0}
+  keyboardDown: {fileID: 0}
+  keyboardLeft: {fileID: 0}
+  keyboardRight: {fileID: 0}
+  keyboardJump: {fileID: 0}
+  keyboardAction: {fileID: 0}
+  keyboardLight: {fileID: 0}
+  keyboardCling: {fileID: 0}
 --- !u!114 &347801738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7066,7 +7066,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1266857604}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 853355720}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &364337477
 MonoBehaviour:
@@ -7992,7 +7992,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1640578697}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 287082650}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &386409773
 MonoBehaviour:
@@ -9530,7 +9530,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 313465001}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 409208375}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &458070343
 MonoBehaviour:
@@ -10295,7 +10295,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 566273111}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 607489642}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &489281562
 MonoBehaviour:
@@ -11156,7 +11156,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 361108048}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 83715933}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &516341848
 MonoBehaviour:
@@ -12452,7 +12452,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 517549390}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 726203880}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &577599480
 MonoBehaviour:
@@ -14954,7 +14954,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1387705414}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1162552918}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &710412152
 MonoBehaviour:
@@ -16250,7 +16250,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 924860287}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 893896576}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &795776958
 MonoBehaviour:
@@ -17676,7 +17676,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1713234808}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 42891874}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &859517729
 MonoBehaviour:
@@ -17979,7 +17979,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1553330929}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 35558442}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &876733964
 MonoBehaviour:
@@ -18079,7 +18079,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1377476629}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1958296659}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &877936763
 MonoBehaviour:
@@ -20218,7 +20218,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1493379054}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 975646160}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &927860963
 MonoBehaviour:
@@ -21212,7 +21212,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 590068050}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 163525147}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &981451217
 MonoBehaviour:
@@ -21312,7 +21312,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1780195563}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 408243739}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &983172882
 MonoBehaviour:
@@ -21809,7 +21809,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1451866272}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1909317175}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1001978969
 MonoBehaviour:
@@ -22594,7 +22594,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1033507907}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 591199896}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1027825857
 MonoBehaviour:
@@ -22840,7 +22840,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1642947292}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 402907782}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1037851966
 MonoBehaviour:
@@ -23019,7 +23019,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1545898277}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1535235664}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1039314246
 MonoBehaviour:
@@ -24525,7 +24525,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 784824537}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1004815225}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1090696565
 MonoBehaviour:
@@ -25558,7 +25558,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1449493854}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1295322107}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1144054413
 MonoBehaviour:
@@ -27859,7 +27859,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1907582679}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1378919096}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1281293349
 MonoBehaviour:
@@ -28258,7 +28258,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1645179008}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 925340250}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1293827173
 MonoBehaviour:
@@ -29146,7 +29146,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 898812637}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1840989813}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1305759419
 MonoBehaviour:
@@ -36455,7 +36455,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1790505940}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1846258691}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1594674143
 MonoBehaviour:
@@ -36713,7 +36713,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1492259665}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 2055201262}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1598610774
 MonoBehaviour:
@@ -36966,7 +36966,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 979161208}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1299384004}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1601600503
 MonoBehaviour:
@@ -37372,7 +37372,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 2066138353}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 731427947}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1612697404
 MonoBehaviour:
@@ -38636,7 +38636,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 327308081}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 889195399}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1654536477
 MonoBehaviour:
@@ -39535,7 +39535,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1593351612}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1603003442}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1708121443
 MonoBehaviour:
@@ -40871,7 +40871,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1286660050}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1080831051}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1761469024
 MonoBehaviour:
@@ -41809,7 +41809,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1960868644}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 916027151}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1787236947
 MonoBehaviour:
@@ -43071,7 +43071,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1781212705}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 799982965}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1824884852
 MonoBehaviour:
@@ -43961,7 +43961,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1662657755}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1916083212}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1845008701
 MonoBehaviour:
@@ -44190,7 +44190,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 73949763}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1507510638}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1848841831
 MonoBehaviour:
@@ -44880,7 +44880,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1295960247}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 594203188}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1869632520
 MonoBehaviour:
@@ -46549,7 +46549,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1801147941}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 284608326}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1918279830
 MonoBehaviour:
@@ -46807,7 +46807,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 692643854}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 441255273}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &1952892791
 MonoBehaviour:
@@ -50530,7 +50530,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1057784542}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 831418436}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &2086429130
 MonoBehaviour:
@@ -50880,7 +50880,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1990515993}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1231562244}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &2110316868
 MonoBehaviour:
@@ -51059,7 +51059,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1857902683}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1966490067}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &2117266432
 MonoBehaviour:
@@ -51381,7 +51381,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1062367851}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 214223966}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &2134019844
 MonoBehaviour:
@@ -51578,7 +51578,7 @@ MonoBehaviour:
   TalentBackground: {fileID: 1794491381}
   EnabledColor: {r: 0.9264706, g: 0.9264706, b: 0.9264706, a: 1}
   DisabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  buyButton: {fileID: 1710976656}
+  buyButton: {fileID: 0}
   revertButton: {fileID: 0}
 --- !u!114 &2144987958
 MonoBehaviour:

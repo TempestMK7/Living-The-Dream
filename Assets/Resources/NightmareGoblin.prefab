@@ -518,6 +518,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4625629488989366}
     m_Modifications:
+    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundHolder
+      objectReference: {fileID: 0}
     - target: {fileID: 174493301593093751, guid: c5fff400e47ea1143afda36fc9a2bd89,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -572,11 +577,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
-        type: 3}
-      propertyPath: m_Name
-      value: SoundHolder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fff400e47ea1143afda36fc9a2bd89, type: 3}

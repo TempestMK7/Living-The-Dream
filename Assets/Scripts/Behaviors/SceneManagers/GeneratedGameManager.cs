@@ -33,17 +33,21 @@ namespace Com.Tempest.Nightmare {
 		public GameObject bonfirePrefab;
 		public GameObject shrinePrefab;
 		public GameObject torchPrefab;
+        public GameObject mirrorPrefab;
+        public GameObject portalPrefab;
 
 		public GameObject settingsPanel;
 		public Button settingsButton;
-	
-		// Game parameters.
+
+        // Game parameters.
+        public const int DEPTH = 3;
 		public int bonfiresAllowedIncomplete = 0;
 		public int levelWidth = 8;
 		public int levelHeight = 8;
 		public int bonfireFrequency = 4;
 		public int bonfireOffset = 1;
-		public float torchProbability = 0.3f;
+        public int numChests = 4;
+        public int numMirrors = 4;
 	
 		// Publicly accessible fields pertaining to game state.
 		public BaseExplorer Explorer { get; set; }
@@ -54,14 +58,21 @@ namespace Com.Tempest.Nightmare {
 
 		public List<ShrineBehavior> Shrines { get; set; }
 
+        public List<MirrorBehavior> Mirrors { get; set; }
+
+        public List<PortalBehavior> Portals { get; set; }
+
 		public List<BaseExplorer> Explorers { get; set; }
 
 		public List<BaseNightmare> Nightmares { get; set; }
 
+        public bool ShowMirrorNotifications { get; set; }
+
 		private bool gameStarted;
 		private int playersConnected;
 		private int levelsGenerated;
-		private GameObject[,] levelChunks;
+        private int[,,] levelGraph;
+        private GameObject[,] levelChunks;
 
 		#region Level Loading
 
@@ -96,38 +107,38 @@ namespace Com.Tempest.Nightmare {
 		private void StartGameIfAble() {
 			if (PhotonNetwork.isMasterClient && !gameStarted && playersConnected >= PhotonNetwork.playerList.Length) {
 				gameStarted = true;
-				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, bonfireOffset, torchProbability);
+				int[,,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, bonfireOffset, numChests, numMirrors);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
 		}
 
-		private static int[,] GenerateLevelGraph(int width, int height, int bonfire, int offset, float torchProbability) {
-			LevelGenerator generator = new LevelGenerator(width, height, bonfire, offset, torchProbability);
+		private static int[,,] GenerateLevelGraph(int width, int height, int bonfire, int offset, int numChests, int numMirrors) {
+			LevelGenerator generator = new LevelGenerator(width, height, bonfire, offset, numChests, numMirrors);
 			return generator.SerializeLevelGraph();
 		}
 
-		private static int[] TransformToOneDimension(int[,] array) {
+		private static int[] TransformToOneDimension(int[,,] array) {
 			int[] output = new int[array.Length];
 			Buffer.BlockCopy(array, 0, output, 0, array.Length * 4);
 			return output;
 		}
 
-		private static int[,] TransformToTwoDimension(int[] array, int width, int height) {
-			int[,] output = new int[width, height];
+		private static int[,,] TransformToThreeDimension(int[] array, int depth, int width, int height) {
+			int[,,] output = new int[depth, width, height];
 			Buffer.BlockCopy(array, 0, output, 0, output.Length * 4);
 			return output;
 		}
 
 		[PunRPC]
 		public void GenerateLevel(int width, int height, int[] singleDimensionGraph) {
-			int[,] levelGraph = TransformToTwoDimension(singleDimensionGraph, width, height);
+			levelGraph = TransformToThreeDimension(singleDimensionGraph, DEPTH, width, height);
 			levelChunks = new GameObject[width, height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					int roomType = levelGraph[x, y];
+					int roomType = levelGraph[LevelGenerator.CHUNK_INDEX_LAYER, x, y];
+                    int roomRandomizedType = levelGraph[LevelGenerator.CHUNK_RANDOMIZED_TYPE_LAYER, x, y];
 					Vector3 position = new Vector3(x * 16, y * 16);
-					bool isCorner = (x == 0 || x == width - 1) && (y == 0 || y == height - 1);
-					string path = LevelGenerator.ResourcePathForIndex(roomType, isCorner);
+					string path = LevelGenerator.ResourcePathForIndex(roomType, roomRandomizedType);
 					try {
 						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load(path), position, Quaternion.identity);
 					} catch (ArgumentException e) {
@@ -152,20 +163,30 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public void GenerateBonfires() {
-			foreach (GameObject chunk in levelChunks) {
-				Transform fireHolder = chunk.transform.Find("BonfirePlaceholder");
-				if (fireHolder != null) {
-					PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
-				}
-				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
-				if (shrineHolder != null) {
-					PhotonNetwork.InstantiateSceneObject(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0, null);
-				}
-				Transform torchHolder = chunk.transform.Find("TorchPlaceholder");
-				if (torchHolder != null) {
-					PhotonNetwork.InstantiateSceneObject(torchPrefab.name, torchHolder.position, Quaternion.identity, 0, null);
-				}
-			}
+            for (int x = 0; x < levelWidth; x++) {
+                for (int y = 0; y < levelHeight; y++) {
+                    int chunkObjectType = levelGraph[LevelGenerator.CHUNK_OBJECT_TYPE_LAYER, x, y];
+                    GameObject levelChunk = levelChunks[x, y];
+                    Transform fireHolder = levelChunk.transform.Find("BonfirePlaceholder");
+                    if (fireHolder != null) {
+                        if (chunkObjectType == LevelGenerator.GraphNode.BONFIRE) {
+                            PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.CHEST) {
+                            PhotonNetwork.InstantiateSceneObject(shrinePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.MIRROR) {
+                            PhotonNetwork.InstantiateSceneObject(mirrorPrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.PORTAL) {
+                            Vector3 position = fireHolder.position;
+                            position.y -= 0.5f;
+                            PhotonNetwork.InstantiateSceneObject(portalPrefab.name, position, Quaternion.identity, 0, null);
+                        } else {
+                            Vector3 position = fireHolder.position;
+                            position.y -= 0.5f;
+                            PhotonNetwork.InstantiateSceneObject(torchPrefab.name, position, Quaternion.identity, 0, null);
+                        }
+                    }
+                }
+            }
 		}
 
 		[PunRPC]
@@ -184,6 +205,13 @@ namespace Com.Tempest.Nightmare {
 					Shrines.Add(go.GetComponent<ShrineBehavior>());
 				}
 			}
+            HashSet<GameObject> mirrorSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(MirrorBehavior));
+            if (mirrorSet.Count != 0) {
+                Mirrors = new List<MirrorBehavior>();
+                foreach (GameObject go in mirrorSet) {
+                    Mirrors.Add(go.GetComponent<MirrorBehavior>());
+                }
+            }
 		}
 
 		[PunRPC]
@@ -252,6 +280,7 @@ namespace Com.Tempest.Nightmare {
 			HandlePlayers();
 			HandleUpgrades();
 			HandleEmbers();
+            HandleMirrors();
 		}
 
 		private void HandleBonfires() {
@@ -309,6 +338,17 @@ namespace Com.Tempest.Nightmare {
 		private void HandleEmbers() {
 			embersText.text = "Embers: " + PlayerStateContainer.Instance.TotalEmbers();
 		}
+
+        private void HandleMirrors() {
+            if (Mirrors == null || Mirrors.Count == 0) return;
+            bool explorersActive = false;
+            bool nightmaresActive = false;
+            foreach (MirrorBehavior mirror in Mirrors) {
+                if (mirror.ExplorersActive()) explorersActive = true;
+                if (mirror.NightmaresActive()) nightmaresActive = true;
+            }
+            ShowMirrorNotifications = (explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null);
+        }
 
 		private void BeginEndingSequence(int winningTeam) {
 			StartCoroutine(EndingSequence(winningTeam));

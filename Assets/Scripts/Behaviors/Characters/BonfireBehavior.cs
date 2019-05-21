@@ -28,6 +28,7 @@ namespace Com.Tempest.Nightmare {
         private GameObject progressCanvas;
         private Image positiveProgressBar;
         private CircleCollider2D circleCollider;
+        private SpriteRenderer spriteRenderer;
 
         private bool testingMode;
         private bool soloMode;
@@ -35,8 +36,6 @@ namespace Com.Tempest.Nightmare {
 
         private float currentCharges;
         private float timeLit;
-        private bool playersNearby;
-        private bool deadPlayersNearby;
 
         // Use this for initialization
         void Awake() {
@@ -49,6 +48,7 @@ namespace Com.Tempest.Nightmare {
             progressCanvas = transform.Find("BonfireCanvas").gameObject;
             positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
             circleCollider = GetComponent<CircleCollider2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             testingMode = false;
             soloMode = false;
             wasLitBefore = false;
@@ -112,6 +112,7 @@ namespace Com.Tempest.Nightmare {
         private void HandleSprite() {
             fireAnimator.SetBool("InProgress", currentCharges != 0);
             fireAnimator.SetBool("Complete", IsLit());
+            spriteRenderer.enabled = currentCharges > 0;
         }
 
         private void HandleProgressBar() {
