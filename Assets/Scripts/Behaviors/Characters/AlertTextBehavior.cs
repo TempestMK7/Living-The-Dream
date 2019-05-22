@@ -7,21 +7,25 @@ namespace Com.Tempest.Nightmare {
 
     public class AlertTextBehavior : MonoBehaviour {
 
-        public float totalDuration = 6f;
+        public float totalLongDuration = 6f;
+        public float totalShortDuration = 3f;
         public float fadeDuration = 1f;
         public Text alertText;
 
         private float creationTime;
         private float nonFadeTime;
 
+        public bool IsShortNotification { get; set; }
+
         // Use this for initialization
         void Awake() {
             creationTime = Time.time;
-            nonFadeTime = totalDuration - fadeDuration;
         }
 
         // Update is called once per frame
         void Update() {
+            float totalDuration = IsShortNotification ? totalShortDuration : totalLongDuration;
+            nonFadeTime = totalDuration - fadeDuration;
             if (Time.time - creationTime > totalDuration) {
                 Destroy(gameObject);
                 return;

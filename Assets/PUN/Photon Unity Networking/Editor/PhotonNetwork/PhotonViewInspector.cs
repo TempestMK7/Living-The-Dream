@@ -270,7 +270,7 @@ public class PhotonViewInspector : Editor
         return (EditorUtility.GetPrefabParent(mp) as GameObject);
         #else
         // Unity 3.5 uses PrefabUtility
-        return PrefabUtility.GetCorrespondingObjectFromSource(mp) as GameObject;
+        return PrefabUtility.GetPrefabParent(mp) as GameObject;
         #endif
     }
 }

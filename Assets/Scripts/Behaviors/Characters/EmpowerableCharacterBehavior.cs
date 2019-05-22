@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
 
@@ -9,18 +11,45 @@ namespace Com.Tempest.Nightmare {
 		public float powerupDuration = 60f;
 
 		private Dictionary<Powerup, float> powerupDictionary;
+		protected TalentManagerBehavior talentManager;
 
-		public int NumUpgrades { get; set; }
+		protected string playerName;
+
+		private int numUpgrades;
+
+		protected int networkSightRange = 0;
+		protected int networkShrineDuration = 0;
+		protected int networkBonfireSpeed = 0;
+		protected int networkUpgradeModifier = 0;
+		protected int networkJumpHeight = 0;
+		protected int networkMovementSpeed = 0;
+		protected int networkCooldownReduction = 0;
+		protected int networkAcceleration = 0;
+
+		protected int networkReducedGravity = 0;
+		protected int networkJetpackForce = 0;
+		protected int networkResetDash = 0;
+		protected int networkWallReflection = 0;
+		protected int networkProjectileGravity = 0;
+		protected int networkWallClimb = 0;
 
 		public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
+			if (photonView.isMine) {
+				talentManager = FindObjectOfType<TalentManagerBehavior>();
+			}
 		}
 
 		[PunRPC]
 		public void AddPowerup(Powerup p) {
 			powerupDictionary[p] = Time.time;
 			if (photonView.isMine) {
-				FindObjectOfType<GeneratedGameManager>().DisplayAlert("You have been granted " + p.ToString(), GlobalPlayerContainer.Instance.TeamSelection);
+				GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
+				if (manager != null) {
+					manager.DisplayAlert("You have been granted " + p.ToString(), true, PlayerStateContainer.Instance.TeamSelection);
+				} else {
+					FindObjectOfType<DemoSceneManager>().DisplayAlert("You have been granted " + p.ToString(), true, PlayerStateContainer.Instance.TeamSelection);
+				}
 			}
 		}
 
@@ -32,14 +61,85 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public bool HasPowerup(Powerup p) {
-			return powerupDictionary.ContainsKey(p) && Time.time - powerupDictionary[p] < powerupDuration;
+			float powerupExtension = networkShrineDuration * 5f;
+			return powerupDictionary.ContainsKey(p) && Time.time - powerupDictionary[p] < powerupDuration + powerupExtension;
 		}
 
 		protected abstract Powerup[] GetUsablePowerups();
 
 		public void AddUpgrade() {
-			NumUpgrades += 1;
-			FindObjectOfType<GeneratedGameManager>().DisplayAlert("Your light has grown.", GlobalPlayerContainer.Instance.TeamSelection);
+			numUpgrades++;
+			GeneratedGameManager manager = FindObjectOfType<GeneratedGameManager>();
+			string message = PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE ? "Your attack has been upgraded." : "Your movement has been upgraded.";
+			if (manager != null) {
+				manager.DisplayAlert(message, true, PlayerStateContainer.Instance.TeamSelection);
+			} else {
+				FindObjectOfType<DemoSceneManager>().DisplayAlert(message, true, PlayerStateContainer.Instance.TeamSelection);
+			}
+		}
+		
+		// This should be used to call the ReceiveTalents RPC with this character's version of each talent in the talent tree.
+		public abstract void SendTalentsToNetwork();
+
+		[PunRPC]
+		public void ReceiveExplorerTalents(int sightRange, int shrineDuration, int bonfireSpeed, int upgradeModifier, int jumpHeight, int movementSpeed, int reducedGravity, int jetpackForce, int resetDash) {
+			networkSightRange = sightRange;
+			networkShrineDuration = shrineDuration;
+			networkBonfireSpeed = bonfireSpeed;
+			networkUpgradeModifier = upgradeModifier;
+			networkJumpHeight = jumpHeight;
+			networkMovementSpeed = movementSpeed;
+			networkReducedGravity = reducedGravity;
+			networkJetpackForce = jetpackForce;
+			networkResetDash = resetDash;
+		}
+
+		[PunRPC]
+		public void ReceiveNightmareTalents(int sightRange, int shrineDuration, int cooldownReduction, int upgradeModifier, int acceleration, int jumpHeight, int movementSpeed, int wallReflection, int projectileGravity, int wallClimb) {
+			networkSightRange = sightRange;
+			networkShrineDuration = shrineDuration;
+			networkCooldownReduction = cooldownReduction;
+			networkUpgradeModifier = upgradeModifier;
+			networkAcceleration = acceleration;
+			networkJumpHeight = jumpHeight;
+			networkMovementSpeed = movementSpeed;
+			networkWallReflection = wallReflection;
+			networkProjectileGravity = projectileGravity;
+			networkWallClimb = wallClimb;
+		}
+
+		public int GetBonfireSpeed() {
+			return networkBonfireSpeed;
+		}
+
+		public float GetNumUpgrades() {
+			float upgradeModifier = 1.0f + (0.05f * networkUpgradeModifier);
+			return numUpgrades * upgradeModifier;
+		}
+
+		// Returns the modifier that should be used when factoring in upgrades.
+		// Output will be between min and max values.
+		public float GetSigmoidUpgradeMultiplier(float minValue, float maxValue) {
+			float upgrades = GetNumUpgrades() / 10f;
+			float sigmoid = ((1 / (1 + (Mathf.Exp(upgrades * -1f)))) - 0.5f) * 2f;
+			float range = maxValue - minValue;
+			return minValue + (range * sigmoid);
+		}
+
+		public int GetUnmodifiedUpgrades() {
+			return numUpgrades;
+		}
+
+		public void SendNameToNetwork() {
+			string name = PhotonNetwork.playerName;
+			photonView.RPC("ReceiveName", PhotonTargets.Others, name);
+			ReceiveName(name);
+		}
+
+		[PunRPC]
+		public void ReceiveName(string name) {
+			playerName = name;
+			transform.Find("NameCanvas").transform.Find("NameText").GetComponent<Text>().text = name;
 		}
 	}
 }

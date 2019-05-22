@@ -54,9 +54,6 @@ namespace Prime31
 		Transform _quadTransform;
 
 		RenderTexture _texture;
-		// we need to keep track of these so that if they change we update the RT
-		int _lastScreenWidth = -1;
-		int _lastScreenHeight = -1;
 
 		SpriteLightKitImageEffect _slkImageEffect;
 
@@ -94,14 +91,7 @@ namespace Prime31
 
 		void OnPreRender()
 		{
-			// if our camera orthoSize changes we need to change our orthoSize
-			if( mainCamera.orthographicSize != _previousCameraOrthoSize || _lastScreenWidth != Screen.width || _lastScreenHeight != Screen.height )
-			{
-				_spriteLightCamera.orthographicSize = mainCamera.orthographicSize;
-				_previousCameraOrthoSize = mainCamera.orthographicSize;
-
-				updateTexture();
-			}
+			updateTexture();
 		}
 
 
@@ -148,10 +138,6 @@ namespace Prime31
 					_texture.Release();
 					UnityEngine.Object.DestroyImmediate( _texture );
 				}
-
-				// keep track of these so we know when the resolution changes
-				_lastScreenWidth = Screen.width;
-				_lastScreenHeight = Screen.height;
 
 				// setup the width/height based on our multiplier
 				var rtWidth = Mathf.RoundToInt( _spriteLightCamera.pixelWidth * rtSizeMultiplier );

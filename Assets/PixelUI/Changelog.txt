@@ -1,0 +1,15 @@
+-- Changelog --
+
+Pixel UI V1.1 (Released: 12/8/2018)
+- Added 42 new pixel art icons exclusive to Pixel UI
+- Added 8 new UI alternatives for both Rounded and Square themes
+-- Internal-Invisible, Shadow Internal_Invisible, Internal-Highlight, Shadow Internal-Highlight
+- Added scrollviews to Pixel UI that were unintentionally left out
+- Added 3 new materials for text to give more control over text coloring
+-- Default (Pixel UI), Text (External), Text (Internal)
+- Changed the way the menu system works to make it easy to add new skinned UI themes
+- Fixed an issue where drop downs were not fully configured to use Pixel UI components
+- Fixed the slider handle in the rounded UI to better conform with the rounded UI theme
+- Changed Toggles to use the updated cross and checkmark icons
+- Changed the dropdown to use the updated arrow icon
+- Changed some minor settings on most control prefabs

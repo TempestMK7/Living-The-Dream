@@ -9,8 +9,8 @@ namespace Com.Tempest.Nightmare {
 
         public float jetpackVelocityFactor = 2f;
         public float maxJetpackTime = 1f;
-        public float jetpackTimeUpgradeMod = 0.1f;
         public float fallingJetpackForceFactor = 1.5f;
+        public float aerialJetpackReloadFactor = 0.2f;
 
         private GameObject fuelBarCanvas;
         private Image positiveFuelImage;
@@ -31,24 +31,25 @@ namespace Com.Tempest.Nightmare {
 
         protected override void HandleVerticalMovementGravityBound() {
             base.HandleVerticalMovementGravityBound();
-            if (jetpackOn && (currentState == MovementState.JUMPING ||
-                    currentState == MovementState.FALLING ||
-                    currentState == MovementState.WALL_JUMP)) {
+            if (jetpackOn && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
+                float jetpackForce = (networkJetpackForce * 0.4f) + 1.0f;
                 if (currentSpeed.y <= 0f) {
-                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * jetpackForce * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
-                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime;
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * jetpackForce * Time.deltaTime;
                 }
-                currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor);
+                currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor * jetpackForce);
                 jetpackTimeRemaining -= HasPowerup(Powerup.THIRD_JUMP) ? Time.deltaTime : Time.deltaTime * 2f;
                 if (jetpackTimeRemaining <= 0f) {
                     jetpackTimeRemaining = 0f;
                     jetpackOn = false;
                 }
+            } else if (currentState == MovementState.GROUNDED || currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f);
             } else {
-                jetpackTimeRemaining += Time.deltaTime;
-                jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * aerialJetpackReloadFactor;
             }
+            jetpackTimeRemaining = Mathf.Min(jetpackTimeRemaining, UpgradedMaxJetpackTime());
         }
 
         private void HandleFuelBar() {
@@ -56,34 +57,46 @@ namespace Com.Tempest.Nightmare {
             fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != UpgradedMaxJetpackTime());
         }
 
-        public override void ActionPressed() {
-            base.ActionPressed();
-
+        public override void ActionPrimaryPressed() {
+            base.ActionPrimaryPressed();
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
-                    JumpPhysics();
-                    break;
-                case MovementState.JUMPING:
-                case MovementState.FALLING:
-                case MovementState.WALL_JUMP:
-                    jetpackOn = true;
+                    JumpPhysics(false);
                     break;
             }
         }
 
-        public override void ActionReleased() {
-            base.ActionReleased();
+        public override void ActionSecondaryPressed(Vector3 mouseDirection) {
+            base.ActionSecondaryPressed(mouseDirection);
+            jetpackOn = true;
+        }
+
+        public override void ActionSecondaryReleased() {
+            base.ActionSecondaryReleased();
             jetpackOn = false;
         }
 
         private float UpgradedMaxJetpackTime() {
-            return maxJetpackTime + (jetpackTimeUpgradeMod * (float) NumUpgrades);
+            return maxJetpackTime * GetSigmoidUpgradeMultiplier(1f, 2f);
         }
 
         protected override bool IsFlyer() {
             return false;
+        }
+
+        public override void SendTalentsToNetwork() {
+            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
+            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.CHEST_DURATION);
+            int bonfireSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
+            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.UPGRADES);
+            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
+            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
+            int reducedGravity = 0;
+            int jetpackForce = talentManager.GetTalentLevel(TalentManagerBehavior.INCREASED_JETPACK_FORCE);
+            int resetDash = 0;
+            photonView.RPC("ReceiveExplorerTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
         }
     }
 }

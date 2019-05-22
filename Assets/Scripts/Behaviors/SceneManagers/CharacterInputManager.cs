@@ -6,70 +6,86 @@ namespace Com.Tempest.Nightmare {
 	public class CharacterInputManager : Photon.MonoBehaviour {
 
 		private GeneratedGameManager managerBehavior;
+		private DemoSceneManager demoBehavior;
 		private ActionSet actionSet;
+		private IControllable controllable;
+
+		private bool isPaused = false;
 
 		private void Awake() {
-			GetComponent<TouchManager>().enabled = Application.platform == RuntimePlatform.Android;
-
 			managerBehavior = GetComponent<GeneratedGameManager>();
-			actionSet = new ActionSet();
-
-			actionSet.Left.AddDefaultBinding(Key.LeftArrow);
-			actionSet.Left.AddDefaultBinding(Key.A);
-			actionSet.Left.AddDefaultBinding(InputControlType.DPadLeft);
-			actionSet.Left.AddDefaultBinding(InputControlType.LeftStickLeft);
-
-			actionSet.Right.AddDefaultBinding(Key.RightArrow);
-			actionSet.Right.AddDefaultBinding(Key.D);
-			actionSet.Right.AddDefaultBinding(InputControlType.DPadRight);
-			actionSet.Right.AddDefaultBinding(InputControlType.LeftStickRight);
-
-			actionSet.Up.AddDefaultBinding(Key.UpArrow);
-			actionSet.Up.AddDefaultBinding(Key.W);
-			actionSet.Up.AddDefaultBinding(InputControlType.DPadUp);
-			actionSet.Up.AddDefaultBinding(InputControlType.LeftStickUp);
-
-			actionSet.Down.AddDefaultBinding(Key.DownArrow);
-			actionSet.Down.AddDefaultBinding(Key.S);
-			actionSet.Down.AddDefaultBinding(InputControlType.DPadDown);
-			actionSet.Down.AddDefaultBinding(InputControlType.LeftStickDown);
-
-			actionSet.Action.AddDefaultBinding(Key.Space);
-			actionSet.Action.AddDefaultBinding(InputControlType.Action1);
-
-			actionSet.ActivateLight.AddDefaultBinding(Key.Control);
-			actionSet.ActivateLight.AddDefaultBinding(InputControlType.LeftBumper);
-			actionSet.ActivateLight.AddDefaultBinding(InputControlType.Action2);
-
-			actionSet.Grab.AddDefaultBinding(Key.Shift);
-			actionSet.Grab.AddDefaultBinding(InputControlType.RightBumper);
+			demoBehavior = GetComponent<DemoSceneManager>();
+			ResetActionSet();
 		}
 
 		private void OnDestroy() {
 			actionSet.Destroy();
 		}
 
+		public void PauseInputs() {
+			isPaused = true;
+		}
+
+		public void UnpauseInputs() {
+			isPaused = false;
+		}
+
 		private void FixedUpdate() {
+			if (actionSet.Menu.WasPressed) {
+				if (managerBehavior != null) {
+					managerBehavior.ToggleSettingsPanel();
+				}
+			}
+
+			// This object can be paused by anything else that relies on player inputs such as the Settings Panel.
+			if (isPaused) return;
+
 			InputDevice inputDevice = InputManager.ActiveDevice;
 			if (inputDevice == null)
 				return;
-			IControllable controllable = managerBehavior.GetControllableCharacter();
+			if (controllable == null) {
+				if (managerBehavior != null) {
+					controllable = managerBehavior.GetControllableCharacter();
+				} else if (demoBehavior != null) {
+					controllable = demoBehavior.GetControllableCharacter();
+				}
+			}
+
 			if (controllable == null) {
 				Camera.main.transform.position += new Vector3(actionSet.MoveX.Value / 2f, actionSet.MoveY.Value / 2f);
 			} else {
 				controllable.InputsReceived(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
-				if (actionSet.Action.WasPressed) {
-					controllable.ActionPressed();
+				if (actionSet.ActionPrimary.WasPressed) {
+					controllable.ActionPrimaryPressed();
 				}
-				if (actionSet.Action.WasReleased) {
-					controllable.ActionReleased();
+				if (actionSet.ActionPrimary.WasReleased) {
+					controllable.ActionPrimaryReleased();
+				}
+				if (actionSet.ActionSecondary.WasPressed) {
+					controllable.ActionSecondaryPressed(new Vector3());
+				}
+				if (actionSet.ActionSecondaryMouse.WasPressed) {
+					Vector3 direction = new Vector3(Input.mousePosition.x - (Screen.width / 2f), Input.mousePosition.y - (Screen.height / 2f));
+					controllable.ActionSecondaryPressed(direction);
+				}
+				if (actionSet.ActionSecondary.WasReleased) {
+					controllable.ActionSecondaryReleased();
+				}
+				if (actionSet.ActionSecondaryMouse.WasReleased) {
+					controllable.ActionSecondaryReleased();
 				}
 				if (actionSet.ActivateLight.WasPressed) {
 					controllable.LightTogglePressed();
 				}
 			}
 		}
+
+		public void ClearControllable() {
+			controllable = null;
+		}
+
+		public void ResetActionSet() {
+			actionSet = ControlBindingContainer.GetInstance().GetActionSet();
+		}
 	}
 }
-
-    

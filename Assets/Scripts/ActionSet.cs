@@ -10,9 +10,13 @@ public class ActionSet : PlayerActionSet {
     public PlayerAction Up;
     public PlayerAction Down;
 
-    public PlayerAction Action;
+    public PlayerAction ActionPrimary;
+    public PlayerAction ActionSecondary;
+    public PlayerAction ActionSecondaryMouse;
     public PlayerAction ActivateLight;
     public PlayerAction Grab;
+
+    public PlayerAction Menu;
 
     public PlayerOneAxisAction MoveX;
     public PlayerOneAxisAction MoveY;
@@ -22,10 +26,15 @@ public class ActionSet : PlayerActionSet {
         Right = CreatePlayerAction("Move Right");
         Up = CreatePlayerAction("Move Up");
         Down = CreatePlayerAction("Move Down");
-        Action = CreatePlayerAction("Action");
+        ActionPrimary = CreatePlayerAction("ActionPrimary");
+        ActionSecondary = CreatePlayerAction("ActionSecondary");
+        ActionSecondaryMouse = CreatePlayerAction("ActionSecondaryMouse");
+        
         ActivateLight = CreatePlayerAction("ActivateLight");
         Grab = CreatePlayerAction("Grab");
         MoveX = CreateOneAxisPlayerAction(Left, Right);
         MoveY = CreateOneAxisPlayerAction(Down, Up);
+
+        Menu = CreatePlayerAction("OpenMenu");
     }
 }

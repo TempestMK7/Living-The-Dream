@@ -15,6 +15,7 @@ namespace Com.Tempest.Nightmare {
 		// UI objects.
 		public Text bonfireText;
 		public Text dreamerText;
+		public Text embersText;
 		public Text upgradesText;
 
 		public Tilemap borderMap;
@@ -23,19 +24,30 @@ namespace Com.Tempest.Nightmare {
 		// Prefabs.
 		public GameObject ghastPrefab;
 		public GameObject cryoPrefab;
+		public GameObject goblinPrefab;
+		
 		public GameObject doubleJumpPrefab;
 		public GameObject jetpackPrefab;
+		public GameObject dashPrefab;
 
 		public GameObject bonfirePrefab;
 		public GameObject shrinePrefab;
 		public GameObject torchPrefab;
-	
-		// Game parameters.
+        public GameObject mirrorPrefab;
+        public GameObject portalPrefab;
+
+		public GameObject settingsPanel;
+		public Button settingsButton;
+
+        // Game parameters.
+        public const int DEPTH = 3;
 		public int bonfiresAllowedIncomplete = 0;
 		public int levelWidth = 8;
 		public int levelHeight = 8;
 		public int bonfireFrequency = 4;
-		public float torchProbability = 0.3f;
+		public int bonfireOffset = 1;
+        public int numChests = 4;
+        public int numMirrors = 4;
 	
 		// Publicly accessible fields pertaining to game state.
 		public BaseExplorer Explorer { get; set; }
@@ -46,18 +58,30 @@ namespace Com.Tempest.Nightmare {
 
 		public List<ShrineBehavior> Shrines { get; set; }
 
+        public List<MirrorBehavior> Mirrors { get; set; }
+
+        public List<PortalBehavior> Portals { get; set; }
+
 		public List<BaseExplorer> Explorers { get; set; }
 
 		public List<BaseNightmare> Nightmares { get; set; }
 
+        public bool ShowMirrorNotifications { get; set; }
+
+		private bool gameStarted;
 		private int playersConnected;
 		private int levelsGenerated;
-		private GameObject[,] levelChunks;
+        private int[,,] levelGraph;
+        private GameObject[,] levelChunks;
+
+		#region Level Loading
 
 		public void Awake() {
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = false;
 			}
+			settingsPanel.gameObject.SetActive(false);
+			gameStarted = false;
 		}
 
 		private void OnEnable() {
@@ -77,47 +101,49 @@ namespace Com.Tempest.Nightmare {
 			if (!PhotonNetwork.isMasterClient)
 				return;
 			playersConnected++;
-			if (PhotonNetwork.playerList.Length == playersConnected) {
-				int[,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, torchProbability);
+			StartGameIfAble();
+		}
+
+		private void StartGameIfAble() {
+			if (PhotonNetwork.isMasterClient && !gameStarted && playersConnected >= PhotonNetwork.playerList.Length) {
+				gameStarted = true;
+				int[,,] levelGraph = GenerateLevelGraph(levelWidth, levelHeight, bonfireFrequency, bonfireOffset, numChests, numMirrors);
 				photonView.RPC("GenerateLevel", PhotonTargets.All, levelWidth, levelHeight, TransformToOneDimension(levelGraph));
 			}
 		}
 
-		private static int[,] GenerateLevelGraph(int width, int height, int bonfire, float torchProbability) {
-			LevelGenerator generator = new LevelGenerator(width, height, bonfire, torchProbability);
+		private static int[,,] GenerateLevelGraph(int width, int height, int bonfire, int offset, int numChests, int numMirrors) {
+			LevelGenerator generator = new LevelGenerator(width, height, bonfire, offset, numChests, numMirrors);
 			return generator.SerializeLevelGraph();
 		}
 
-		private static int[] TransformToOneDimension(int[,] array) {
+		private static int[] TransformToOneDimension(int[,,] array) {
 			int[] output = new int[array.Length];
 			Buffer.BlockCopy(array, 0, output, 0, array.Length * 4);
 			return output;
 		}
 
-		private static int[,] TransformToTwoDimension(int[] array, int width, int height) {
-			int[,] output = new int[width, height];
+		private static int[,,] TransformToThreeDimension(int[] array, int depth, int width, int height) {
+			int[,,] output = new int[depth, width, height];
 			Buffer.BlockCopy(array, 0, output, 0, output.Length * 4);
 			return output;
 		}
 
 		[PunRPC]
 		public void GenerateLevel(int width, int height, int[] singleDimensionGraph) {
-			int[,] levelGraph = TransformToTwoDimension(singleDimensionGraph, width, height);
+			levelGraph = TransformToThreeDimension(singleDimensionGraph, DEPTH, width, height);
 			levelChunks = new GameObject[width, height];
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
-					int roomType = levelGraph[x, y];
+					int roomType = levelGraph[LevelGenerator.CHUNK_INDEX_LAYER, x, y];
+                    int roomRandomizedType = levelGraph[LevelGenerator.CHUNK_RANDOMIZED_TYPE_LAYER, x, y];
 					Vector3 position = new Vector3(x * 16, y * 16);
-					if ((x == 0 || x == width - 1) && (y == 0 || y == height - 1)) {
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/ShrineChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else if (roomType < 0) {
-						roomType *= -1;
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else if (roomType >= 100) {
-						roomType -= 100;
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/LevelChunk" + roomType), position, Quaternion.identity);
-					} else {
-						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load("LevelChunks/LevelChunk" + roomType), position, Quaternion.identity);
+					string path = LevelGenerator.ResourcePathForIndex(roomType, roomRandomizedType);
+					try {
+						levelChunks[x, y] = (GameObject)Instantiate(Resources.Load(path), position, Quaternion.identity);
+					} catch (ArgumentException e) {
+						Debug.Log("Attempted to instantiate illegal path: " + path);
+						throw e;
 					}
 				}
 			}
@@ -131,63 +157,123 @@ namespace Com.Tempest.Nightmare {
 			levelsGenerated++;
 			if (PhotonNetwork.playerList.Length == levelsGenerated) {
 				GenerateBonfires();
+				photonView.RPC("FindBonfireBehaviors", PhotonTargets.All);
 				photonView.RPC("InstantiateCharacter", PhotonTargets.All);
 			}
 		}
 
 		public void GenerateBonfires() {
-			foreach (GameObject chunk in levelChunks) {
-				Transform fireHolder = chunk.transform.Find("BonfirePlaceholder");
-				if (fireHolder != null) {
-					PhotonNetwork.Instantiate(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0);
-				}
-				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
-				if (shrineHolder != null) {
-					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
-				}
-				Transform torchHolder = chunk.transform.Find("TorchPlaceholder");
-				if (torchHolder != null) {
-					PhotonNetwork.Instantiate(torchPrefab.name, torchHolder.position, Quaternion.identity, 0);
+            for (int x = 0; x < levelWidth; x++) {
+                for (int y = 0; y < levelHeight; y++) {
+                    int chunkObjectType = levelGraph[LevelGenerator.CHUNK_OBJECT_TYPE_LAYER, x, y];
+                    GameObject levelChunk = levelChunks[x, y];
+                    Transform fireHolder = levelChunk.transform.Find("BonfirePlaceholder");
+                    if (fireHolder != null) {
+                        if (chunkObjectType == LevelGenerator.GraphNode.BONFIRE) {
+                            PhotonNetwork.InstantiateSceneObject(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.CHEST) {
+                            PhotonNetwork.InstantiateSceneObject(shrinePrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.MIRROR) {
+                            PhotonNetwork.InstantiateSceneObject(mirrorPrefab.name, fireHolder.position, Quaternion.identity, 0, null);
+                        } else if (chunkObjectType == LevelGenerator.GraphNode.PORTAL) {
+                            Vector3 position = fireHolder.position;
+                            position.y -= 0.5f;
+                            PhotonNetwork.InstantiateSceneObject(portalPrefab.name, position, Quaternion.identity, 0, null);
+                        } else {
+                            Vector3 position = fireHolder.position;
+                            position.y -= 0.5f;
+                            PhotonNetwork.InstantiateSceneObject(torchPrefab.name, position, Quaternion.identity, 0, null);
+                        }
+                    }
+                }
+            }
+        }
+
+		[PunRPC]
+		public void FindBonfireBehaviors() {
+			HashSet<GameObject> fireSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BonfireBehavior));
+			if (fireSet.Count != 0) {
+				Bonfires = new List<BonfireBehavior>();
+				foreach (GameObject go in fireSet) {
+					Bonfires.Add(go.GetComponent<BonfireBehavior>());
 				}
 			}
-		}
+			HashSet<GameObject> shrineSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(ShrineBehavior));
+			if (shrineSet.Count != 0) {
+				Shrines = new List<ShrineBehavior>();
+				foreach (GameObject go in shrineSet) {
+					Shrines.Add(go.GetComponent<ShrineBehavior>());
+				}
+			}
+            HashSet<GameObject> mirrorSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(MirrorBehavior));
+            if (mirrorSet.Count != 0) {
+                Mirrors = new List<MirrorBehavior>();
+                foreach (GameObject go in mirrorSet) {
+                    Mirrors.Add(go.GetComponent<MirrorBehavior>());
+                }
+            }
+            HashSet<GameObject> portalSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(PortalBehavior));
+            if (portalSet.Count != 0) {
+                Portals = new List<PortalBehavior>();
+                foreach (GameObject go in portalSet) {
+                    Portals.Add(go.GetComponent<PortalBehavior>());
+                }
+            }
+            if (PhotonNetwork.isMasterClient) {
+                for (int x = 0; x < Portals.Count; x++) {
+                    Portals[x].photonView.RPC("SetPortalIndex", PhotonTargets.All, x, Portals.Count - x - 1);
+                }
+            }
+        }
 
 		[PunRPC]
 		public void InstantiateCharacter() {
-			GlobalPlayerContainer playerContainer = GlobalPlayerContainer.Instance;
-			if (playerContainer.TeamSelection == GlobalPlayerContainer.EXPLORER) {
+			PlayerStateContainer playerContainer = PlayerStateContainer.Instance;
+			if (playerContainer.TeamSelection == PlayerStateContainer.EXPLORER) {
 				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
 				float spawnLocationY = (UnityEngine.Random.Range(levelChunks.GetLength(1) / 2, levelChunks.GetLength(1)) * 16) + 2;
 				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.ExplorerSelection) {
-				case GlobalPlayerContainer.DOUBLE_JUMP_EXPLORER:
+				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(doubleJumpPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorer>();
 					break;
-				case GlobalPlayerContainer.JETPACK_EXPLORER:
+				case PlayerStateContainer.JETPACK_EXPLORER:
 					Explorer = PhotonNetwork.Instantiate(jetpackPrefab.name, spawnLocation, Quaternion.identity, 0)
+						.GetComponent<BaseExplorer>();
+					break;
+				case PlayerStateContainer.DASH_EXPLORER:
+					Explorer = PhotonNetwork.Instantiate(dashPrefab.name, spawnLocation, Quaternion.identity, 0)
 						.GetComponent<BaseExplorer>();
 					break;
 				}
 				if (Explorer != null) {
+					Explorer.SendTalentsToNetwork();
+					Explorer.SendNameToNetwork();
 					Camera.main.transform.position = Explorer.transform.position;
 				}
 				ChangeMaskColor(0f);
-			} else if (playerContainer.TeamSelection == GlobalPlayerContainer.NIGHTMARE) {
+			} else if (playerContainer.TeamSelection == PlayerStateContainer.NIGHTMARE) {
 				float spawnLocationX = (UnityEngine.Random.Range(1, levelChunks.GetLength(0) - 1) * 16) + 2;
 				float spawnLocationY = (UnityEngine.Random.Range(0, levelChunks.GetLength(1) / 2) * 16) + 2;
 				Vector3 spawnLocation = new Vector3(spawnLocationX, spawnLocationY);
 				switch (playerContainer.NightmareSelection) {
-				case GlobalPlayerContainer.GHAST:
-					Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmare>();
-					break;
-				case GlobalPlayerContainer.CRYO:
-					Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
-						.GetComponent<BaseNightmare>();
-					break;
+					case PlayerStateContainer.GHAST:
+						Nightmare = PhotonNetwork.Instantiate(ghastPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
+					case PlayerStateContainer.CRYO:
+						Nightmare = PhotonNetwork.Instantiate(cryoPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
+					case PlayerStateContainer.GOBLIN:
+						Nightmare = PhotonNetwork.Instantiate(goblinPrefab.name, spawnLocation, Quaternion.identity, 0)
+							.GetComponent<BaseNightmare>();
+						break;
 				}
 				if (Nightmare != null) {
+					Nightmare.SendTalentsToNetwork();
+					Nightmare.SendNameToNetwork();
 					Camera.main.transform.position = Nightmare.gameObject.transform.position;
 				}
 				ChangeMaskColor(0f);
@@ -196,23 +282,20 @@ namespace Com.Tempest.Nightmare {
 			}
 		}
 
+		#endregion
+
+		#region Scene Object Handling
+
 		public void Update() {
+			StartGameIfAble();
 			HandleBonfires();
-			HandleShrines();
 			HandlePlayers();
 			HandleUpgrades();
+			HandleEmbers();
+            HandleMirrors();
 		}
 
 		private void HandleBonfires() {
-			if (Bonfires == null) {
-				HashSet<GameObject> fireSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(BonfireBehavior));
-				if (fireSet.Count != 0) {
-					Bonfires = new List<BonfireBehavior>();
-					foreach (GameObject go in fireSet) {
-						Bonfires.Add(go.GetComponent<BonfireBehavior>());
-					}
-				}
-			}
 			if (Bonfires != null) {
 				int firesLit = 0;
 				foreach (BonfireBehavior bonfire in Bonfires) {
@@ -221,21 +304,9 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (firesLit >= Bonfires.Count - bonfiresAllowedIncomplete) {
-					BeginEndingSequence(GlobalPlayerContainer.EXPLORER);
+					BeginEndingSequence(PlayerStateContainer.EXPLORER);
 				}
 				bonfireText.text = "Bonfires Remaining: " + (Bonfires.Count - firesLit - bonfiresAllowedIncomplete);
-			}
-		}
-
-		private void HandleShrines() {
-			if (Shrines == null) {
-				HashSet<GameObject> shrineSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(ShrineBehavior));
-				if (shrineSet.Count != 0) {
-					Shrines = new List<ShrineBehavior>();
-					foreach (GameObject go in shrineSet) {
-						Shrines.Add(go.GetComponent<ShrineBehavior>());
-					}
-				}
 			}
 		}
 
@@ -262,7 +333,7 @@ namespace Com.Tempest.Nightmare {
 					}
 				}
 				if (aliveExplorers == 0) {
-					BeginEndingSequence(GlobalPlayerContainer.NIGHTMARE);
+					BeginEndingSequence(PlayerStateContainer.NIGHTMARE);
 				}
 				dreamerText.text = "Explorers Alive: " + aliveExplorers + " / " + Explorers.Count;    
 			}
@@ -270,11 +341,26 @@ namespace Com.Tempest.Nightmare {
 
 		private void HandleUpgrades() {
 			if (Explorer != null) {
-				upgradesText.text = "Upgrades: " + Explorer.NumUpgrades;
+				upgradesText.text = "Upgrades: " + Explorer.GetUnmodifiedUpgrades();
 			} else if (Nightmare != null) {
-				upgradesText.text = "Upgrades: " + Nightmare.NumUpgrades;
+				upgradesText.text = "Upgrades: " + Nightmare.GetUnmodifiedUpgrades();
 			}
 		}
+
+		private void HandleEmbers() {
+			embersText.text = "Embers: " + PlayerStateContainer.Instance.TotalEmbers();
+		}
+
+        private void HandleMirrors() {
+            if (Mirrors == null || Mirrors.Count == 0) return;
+            bool explorersActive = false;
+            bool nightmaresActive = false;
+            foreach (MirrorBehavior mirror in Mirrors) {
+                if (mirror.ExplorersActive()) explorersActive = true;
+                if (mirror.NightmaresActive()) nightmaresActive = true;
+            }
+            ShowMirrorNotifications = (explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null);
+        }
 
 		private void BeginEndingSequence(int winningTeam) {
 			StartCoroutine(EndingSequence(winningTeam));
@@ -286,7 +372,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void EndTheGame(int winningTeam) {
-			GlobalPlayerContainer.Instance.IsWinner = winningTeam == GlobalPlayerContainer.Instance.TeamSelection;
+			PlayerStateContainer.Instance.IsWinner = winningTeam == PlayerStateContainer.Instance.TeamSelection;
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.LoadLevel("VictoryScene");
 			}
@@ -295,6 +381,10 @@ namespace Com.Tempest.Nightmare {
 		public void ChangeMaskColor(float newValue) {
 			maskCamera.backgroundColor = new Color(newValue, newValue, newValue);
 		}
+
+		#endregion
+
+		#region Externally Called Methods
 
 		public void LeaveRoom() {
 			PhotonNetwork.LeaveRoom();
@@ -322,20 +412,34 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		[PunRPC]
-		public void AddUpgradeToCharacter(bool nightmaresWon) {
-			if (!nightmaresWon && Explorer != null) {
+		public void AddUpgradeToCharacter(bool isNightmare) {
+			if (!isNightmare && Explorer != null) {
 				Explorer.AddUpgrade();
-			} else if (nightmaresWon && Nightmare != null) {
+			} else if (isNightmare && Nightmare != null) {
 				Nightmare.AddUpgrade();
 			}
 		}
 
 		[PunRPC]
-		public void DisplayAlert(string alertText, int targets) {
-			if (GlobalPlayerContainer.Instance.TeamSelection == GlobalPlayerContainer.OBSERVER ||
-			    targets == GlobalPlayerContainer.Instance.TeamSelection) {
-				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText);
+		public void DisplayAlert(string alertText, bool shortNotification, int targets) {
+			if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER ||
+			    targets == PlayerStateContainer.Instance.TeamSelection) {
+				FindObjectOfType<NotificationManagerBehavior>().DisplayTextAlert(alertText, shortNotification);
 			}
 		}
+
+		public void ToggleSettingsPanel() {
+			bool isActive = settingsPanel.gameObject.GetActive();
+			settingsPanel.gameObject.SetActive(!isActive);
+			if (isActive) {
+				settingsPanel.GetComponent<SettingsManager>().OnPanelClose();
+				settingsButton.GetComponentInChildren<Text>().text = "Settings (Esc)";
+			} else {
+				settingsPanel.GetComponent<SettingsManager>().OnPanelLaunch(true);
+				settingsButton.GetComponentInChildren<Text>().text = "Back";
+			}
+		}
+
+		#endregion
 	}
 }

@@ -7,33 +7,47 @@ namespace Com.Tempest.Nightmare {
     public class IceBallBehavior : Photon.PunBehaviour {
 
         public float gravityFactor = 4f;
-        public float explosionTriggerRadius = .5f;
+        public float explosionTriggerRadius = .4f;
         public float explosionRadius = 2f;
         public float explosionDuration = 0.5f;
+        public float lingerDuration = 4.0f;
+        public float lightBoxScale = 1f;
 
         public LayerMask whatIsExplosionTrigger;
         public LayerMask whatTakesDamage;
 
         private Animator animator;
+        private LightBoxBehavior lightBox;
+        private AudioSource explosionSource;
 
         private Vector3 currentSpeed;
+        private bool gravity;
         private float explosionTime;
 
         private List<BaseExplorer> playersHit;
 
-        public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed) {
+        public CryoBehavior CryoLauncherBehavior { get; set; }
+
+        public void SetStartingDirection(Vector3 currentControllerState, float startingSpeed, bool gravity) {
             currentSpeed = currentControllerState;
             if (currentSpeed.magnitude == 0f) currentSpeed = new Vector3(0f, -20f);
             float ratio = startingSpeed / currentSpeed.magnitude;
             currentSpeed.x *= ratio;
             currentSpeed.y *= ratio;
+            this.gravity = gravity;
         }
 
         // Use this for initialization
         void Awake() {
             animator = GetComponent<Animator>();
-            if (currentSpeed == null) currentSpeed = new Vector3();
             playersHit = new List<BaseExplorer>();
+            explosionSource = GetComponent<AudioSource>();
+
+            lightBox = GetComponentInChildren<LightBoxBehavior>();
+            lightBox.IsMine = false;
+            lightBox.IsActive = true;
+            lightBox.DefaultScale = new Vector3(lightBoxScale, lightBoxScale);
+            lightBox.ActiveScale = new Vector3(lightBoxScale, lightBoxScale);
         }
         
         void Update() {
@@ -44,11 +58,13 @@ namespace Com.Tempest.Nightmare {
         }
 
         private void UpdatePosition() {
-            if (IsExploding()) {
+            if (explosionTime != 0) {
                 currentSpeed = new Vector3();
                 return;
             }
-            currentSpeed.y -= gravityFactor * Time.deltaTime;
+            if (gravity) {
+                currentSpeed.y -= gravityFactor * Time.deltaTime;
+            }
             transform.position += currentSpeed * Time.deltaTime;
         }
 
@@ -58,6 +74,8 @@ namespace Com.Tempest.Nightmare {
             if (triggers.Length != 0) {
                 explosionTime = Time.time;
                 animator.SetBool("IsExploding", true);
+                explosionSource.volume = ControlBindingContainer.GetInstance().effectVolume * 1.3f;
+                explosionSource.Play();
             }
         }
 
@@ -69,12 +87,13 @@ namespace Com.Tempest.Nightmare {
                 if (explorer != null && !explorer.IsOutOfHealth() && !playersHit.Contains(explorer)) {
                     playersHit.Add(explorer);
                     explorer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
+                    CryoLauncherBehavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);
                 }
             }
         }
 
         private void DestroyIfExpired() {
-            if (photonView.isMine && Time.time - explosionTime > explosionDuration && explosionTime != 0f) {
+            if (photonView.isMine && Time.time - explosionTime > lingerDuration && explosionTime != 0f) {
                 PhotonNetwork.Destroy(photonView);
             }
         }

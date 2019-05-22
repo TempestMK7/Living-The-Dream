@@ -11,13 +11,18 @@ namespace Com.Tempest.Nightmare {
 		public float captureNotificationDuration = 5f;
 		public float cooldownTime = 180f;
 
+		public Sprite chestClosed;
+		public Sprite chestOpen;
+
 		public LayerMask whatIsNightmare;
 		public LayerMask whatIsDreamer;
 
+		public AudioSource soundSource;
+
 		private GameObject progressCanvas;
 		private Image positiveProgressBar;
-		private SpriteRenderer spriteRenderer;
 		private CircleCollider2D circleCollider;
+		private SpriteRenderer spriteRenderer;
 
 		private float dreamerCharges;
 		private float nightmareCharges;
@@ -27,8 +32,8 @@ namespace Com.Tempest.Nightmare {
 		void Awake() {
 			progressCanvas = transform.Find("ShrineCanvas").gameObject;
 			positiveProgressBar = progressCanvas.transform.Find("PositiveProgress").GetComponent<Image>();
-			spriteRenderer = GetComponent<SpriteRenderer>();
 			circleCollider = GetComponent<CircleCollider2D>();
+			spriteRenderer = GetComponent<SpriteRenderer>();
 			dreamerCharges = 0f;
 			nightmareCharges = 0f;
 			timeLit = 0f;
@@ -40,6 +45,7 @@ namespace Com.Tempest.Nightmare {
 			HandleNightmareProximity();
 			ResetIfAppropriate();
 			HandleProgressBar();
+			HandleImage();
 		}
 
 		private void HandleDreamerProximity() {
@@ -56,6 +62,10 @@ namespace Com.Tempest.Nightmare {
 			if (dreamerCharges >= requiredCharges) {
 				dreamerCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, true);
+				photonView.RPC("PlaySound", PhotonTargets.All, true);
+				foreach (Collider2D dreamer in dreamers) {
+					dreamer.gameObject.GetComponent<BaseExplorer>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
+				}
 			}
 		}
 
@@ -73,26 +83,47 @@ namespace Com.Tempest.Nightmare {
 			if (nightmareCharges >= requiredCharges) {
 				nightmareCharges = requiredCharges;
 				photonView.RPC("NotifyLit", PhotonTargets.All, false);
+				photonView.RPC("PlaySound", PhotonTargets.All, false);
+				foreach (Collider2D nightmare in nightmares) {
+					nightmare.gameObject.GetComponent<BaseNightmare>().photonView.RPC("ReceiveUpgradeEmbers", PhotonTargets.All, 10);
+				}
 			}
 		}
 
 		[PunRPC]
-		public void NotifyLit(bool dreamersWon) {
-			if (dreamersWon)
+		public void NotifyLit(bool explorersWon) {
+			if (explorersWon)
 				dreamerCharges = requiredCharges;
 			else
 				nightmareCharges = requiredCharges;
 			timeLit = Time.time;
-			AwardPowerups(dreamersWon);
+			AwardPowerups(explorersWon);
 		}
 
-		private void AwardPowerups(bool dreamersWon) {
+		private void AwardPowerups(bool explorersWon) {
 			if (!photonView.isMine)
 				return;
 			GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-			if (behavior == null)
-				return;
-			behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, dreamersWon);
+			if (behavior != null) {
+				behavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, explorersWon);
+			} else {
+				DemoSceneManager demoBehavior = FindObjectOfType<DemoSceneManager>();
+				if (demoBehavior != null) {
+					demoBehavior.photonView.RPC("AddPowerupToCharacter", PhotonTargets.All, explorersWon);
+				}
+			}
+		}
+
+		[PunRPC]
+		public void PlaySound(bool explorersWon) {
+			soundSource.volume = ControlBindingContainer.GetInstance().effectVolume * 0.25f;
+            if (!explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE) {
+                soundSource.Play();
+            } else if (explorersWon && PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
+                soundSource.Play();
+            } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.OBSERVER) {
+                soundSource.Play();
+            }
 		}
 
 		private void ResetIfAppropriate() {
@@ -115,6 +146,14 @@ namespace Com.Tempest.Nightmare {
 				} else {
 					positiveProgressBar.fillAmount = Mathf.Max(dreamerCharges, nightmareCharges) / requiredCharges;
 				}
+			}
+		}
+
+		private void HandleImage() {
+			if (IsLit()) {
+				spriteRenderer.sprite = chestOpen;
+			} else {
+				spriteRenderer.sprite = chestClosed;
 			}
 		}
 
