@@ -57,26 +57,22 @@ namespace Com.Tempest.Nightmare {
         private void InstantiateChunks() {
             levelChunks = new GameObject[2, 2];
             levelChunks[0, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/Base1/LevelChunk10"), new Vector3(0, 0), Quaternion.identity);
-            levelChunks[1, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/ShrineChunks/LevelChunk8"), new Vector3(16, 0), Quaternion.identity);
-            levelChunks[0, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/TorchChunks/Base1/LevelChunk7"), new Vector3(0, 16), Quaternion.identity);
-            levelChunks[1, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/BonfireChunks/Base1/LevelChunk5"), new Vector3(16, 16), Quaternion.identity);
+            levelChunks[1, 0] = (GameObject)Instantiate(Resources.Load("LevelChunks/Base1/LevelChunk8"), new Vector3(16, 0), Quaternion.identity);
+            levelChunks[0, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/Base1/LevelChunk7"), new Vector3(0, 16), Quaternion.identity);
+            levelChunks[1, 1] = (GameObject)Instantiate(Resources.Load("LevelChunks/Base1/LevelChunk5"), new Vector3(16, 16), Quaternion.identity);
         }
 
         private void GenerateObjects() {
-            foreach (GameObject chunk in levelChunks) {
-				Transform fireHolder = chunk.transform.Find("BonfirePlaceholder");
-				if (fireHolder != null) {
-					PhotonNetwork.Instantiate(bonfirePrefab.name, fireHolder.position, Quaternion.identity, 0);
-				}
-				Transform shrineHolder = chunk.transform.Find("ShrinePlaceholder");
-				if (shrineHolder != null) {
-					PhotonNetwork.Instantiate(shrinePrefab.name, shrineHolder.position, Quaternion.identity, 0);
-				}
-				Transform torchHolder = chunk.transform.Find("TorchPlaceholder");
-				if (torchHolder != null) {
-					PhotonNetwork.Instantiate(torchPrefab.name, torchHolder.position, Quaternion.identity, 0);
-				}
-			}
+            Transform bottomRight = levelChunks[1, 0].transform.Find("BonfirePlaceholder");
+            Vector2 position = bottomRight.position;
+            position.y -= 0.5f;
+            PhotonNetwork.Instantiate(torchPrefab.name, position, Quaternion.identity, 0);
+
+            Transform topLeft = levelChunks[0, 1].transform.Find("BonfirePlaceholder");
+            PhotonNetwork.Instantiate(shrinePrefab.name, topLeft.position, Quaternion.identity, 0);
+
+            Transform topRight = levelChunks[1, 1].transform.Find("BonfirePlaceholder");
+            PhotonNetwork.Instantiate(bonfirePrefab.name, topRight.position, Quaternion.identity, 0);
         }
 
         private void CreateCharacter() {

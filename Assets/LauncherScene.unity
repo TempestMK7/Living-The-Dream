@@ -5096,7 +5096,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0.000009101006, y: 0}
+  m_AnchoredPosition: {x: 0.000009859538, y: 0}
   m_SizeDelta: {x: 640, y: 2100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &261208168
@@ -6741,7 +6741,7 @@ MonoBehaviour:
   progressionPanel: {fileID: 1657714592}
   settingsPanel: {fileID: 1058909062}
   progressLabel: {fileID: 1306814203}
-  exitButton: {fileID: 0}
+  exitButton: {fileID: 1000662461}
   versionText: {fileID: 916420934}
   unspentEmberText: {fileID: 1415603710}
   talentNameText: {fileID: 826456887}
@@ -6750,22 +6750,22 @@ MonoBehaviour:
   talentNextText: {fileID: 1609988279}
   nameInputField: {fileID: 539602252}
   publicLabel: {fileID: 635401792}
-  connectExplorerButton: {fileID: 0}
-  connectNightmareButton: {fileID: 0}
-  connectObserverButton: {fileID: 0}
+  connectExplorerButton: {fileID: 1421212536}
+  connectNightmareButton: {fileID: 1963024327}
+  connectObserverButton: {fileID: 1779833671}
   privateLabel: {fileID: 424837585}
   lobbyInputField: {fileID: 272858607}
-  connectPrivateButton: {fileID: 0}
+  connectPrivateButton: {fileID: 498505589}
   musicSlider: {fileID: 527918132}
   effectSlider: {fileID: 1756413846}
-  keyboardUp: {fileID: 0}
-  keyboardDown: {fileID: 0}
-  keyboardLeft: {fileID: 0}
-  keyboardRight: {fileID: 0}
-  keyboardJump: {fileID: 0}
-  keyboardAction: {fileID: 0}
-  keyboardLight: {fileID: 0}
-  keyboardCling: {fileID: 0}
+  keyboardUp: {fileID: 724933215}
+  keyboardDown: {fileID: 1382584631}
+  keyboardLeft: {fileID: 1364151606}
+  keyboardRight: {fileID: 19838454}
+  keyboardJump: {fileID: 502083350}
+  keyboardAction: {fileID: 876659934}
+  keyboardLight: {fileID: 325493885}
+  keyboardCling: {fileID: 1966584553}
 --- !u!114 &347801738
 MonoBehaviour:
   m_ObjectHideFlags: 0
