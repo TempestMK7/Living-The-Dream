@@ -187,7 +187,7 @@ namespace Com.Tempest.Nightmare {
                     }
                 }
             }
-		}
+        }
 
 		[PunRPC]
 		public void FindBonfireBehaviors() {
@@ -212,7 +212,19 @@ namespace Com.Tempest.Nightmare {
                     Mirrors.Add(go.GetComponent<MirrorBehavior>());
                 }
             }
-		}
+            HashSet<GameObject> portalSet = PhotonNetwork.FindGameObjectsWithComponent(typeof(PortalBehavior));
+            if (portalSet.Count != 0) {
+                Portals = new List<PortalBehavior>();
+                foreach (GameObject go in portalSet) {
+                    Portals.Add(go.GetComponent<PortalBehavior>());
+                }
+            }
+            if (PhotonNetwork.isMasterClient) {
+                for (int x = 0; x < Portals.Count; x++) {
+                    Portals[x].photonView.RPC("SetPortalIndex", PhotonTargets.All, x, Portals.Count - x - 1);
+                }
+            }
+        }
 
 		[PunRPC]
 		public void InstantiateCharacter() {

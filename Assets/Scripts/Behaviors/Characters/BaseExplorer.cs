@@ -15,6 +15,8 @@ namespace Com.Tempest.Nightmare {
 		public float healthBarFadeDelay = 1f;
         public float deathRenderTime = 3f;
 
+        public float teleportCooldown = 30f;
+
 		public LayerMask whatIsBonfire;
 		public LayerMask whatIsExplorer;
 
@@ -35,6 +37,7 @@ namespace Com.Tempest.Nightmare {
 		private int currentLives;
 
         private float damageTime;
+        private float teleportTime;
 
         public override void Awake() {
 			base.Awake();
@@ -140,6 +143,14 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 		}
+
+        [PunRPC]
+        public void TeleportToPortal(Vector3 newPosition) {
+            if (!photonView.isMine) return;
+            if (Time.time - teleportTime < teleportCooldown) return;
+            transform.position = newPosition;
+            teleportTime = Time.time;
+        }
 
 		[PunRPC]
 		public override void PlayJumpSound(bool doubleJump) {

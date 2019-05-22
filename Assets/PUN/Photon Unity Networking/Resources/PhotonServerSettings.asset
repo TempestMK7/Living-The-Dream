@@ -79,4 +79,7 @@ MonoBehaviour:
   - OnNotifyTeamChange
   - OnNotifyReadyChange
   - OnResetTeamSelection
+  - SetPortalIndex
+  - TeleportToPortal
+  - PlayChargedSound
   DisableAutoOpenWizard: 1

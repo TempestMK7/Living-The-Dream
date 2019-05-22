@@ -25,7 +25,12 @@ public class CameraFollowScript : Photon.PunBehaviour {
         if (photonView.isMine) {
             if (cameraTransform == null) cameraTransform = Camera.main.transform;
             Vector3 currentVelocity = playerTransform.position - lastPlayerPosition;
-            Vector3 newPos = Vector3.SmoothDamp(cameraTransform.localPosition, playerTransform.position, ref currentVelocity, damping);
+            Vector3 newPos;
+            if (Vector3.Distance(playerTransform.position, cameraTransform.localPosition) > 20f) {
+                newPos = playerTransform.position;
+            } else {
+                newPos = Vector3.SmoothDamp(cameraTransform.localPosition, playerTransform.position, ref currentVelocity, damping);
+            }
             newPos.z = zOffset;
             cameraTransform.position = newPos;
             lastPlayerPosition = playerTransform.position;

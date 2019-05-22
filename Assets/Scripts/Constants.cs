@@ -9,7 +9,7 @@ namespace Com.Tempest.Nightmare {
         public const string ROOM_NEEDS_EXPLORERS = "room_needs_explorers";
         public const string ROOM_NEEDS_NIGHTMARES = "room_needs_nightmares";
 
-        public const string GAME_VERSION = "0.46";
+        public const string GAME_VERSION = "0.47";
         public const string TALENT_VERSION = "2";
         public const string SETTINGS_VERSION = "2";
 

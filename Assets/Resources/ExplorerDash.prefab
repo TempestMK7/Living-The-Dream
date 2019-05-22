@@ -275,7 +275,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.6
 --- !u!114 &114591079199406076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,6 +322,7 @@ MonoBehaviour:
   maxLives: 3
   healthBarFadeDelay: 1
   deathRenderTime: 3
+  teleportCooldown: 30
   whatIsBonfire:
     serializedVersion: 2
     m_Bits: 2048
@@ -354,8 +355,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114591079199406076}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 1
+  instantiationId: 1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114822594791625050
@@ -612,7 +613,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114467772574628408

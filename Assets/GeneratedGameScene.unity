@@ -727,38 +727,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!84 &297010512
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1128
-  m_Height: 606
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &508043963
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,7 +777,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 297010512}
+  m_TargetTexture: {fileID: 2067334651}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1666,12 +1634,12 @@ MonoBehaviour:
   settingsPanel: {fileID: 1244919478}
   settingsButton: {fileID: 150084460}
   bonfiresAllowedIncomplete: 3
-  levelWidth: 7
-  levelHeight: 7
+  levelWidth: 8
+  levelHeight: 8
   bonfireFrequency: 4
-  bonfireOffset: 1
-  numChests: 4
-  numMirrors: 4
+  bonfireOffset: 2
+  numChests: 5
+  numMirrors: 3
 --- !u!114 &1446611635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,7 +1835,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 297010512}
+  spriteLightRT: {fileID: 2067334651}
   intensity: 1
 --- !u!81 &1555642314
 AudioListener:
@@ -2091,6 +2059,38 @@ PrefabInstance:
       objectReference: {fileID: 1446611633}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fba980e1b0d7384ba652a5ca8d86f3e, type: 3}
+--- !u!84 &2067334651
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1128
+  m_Height: 611
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &4264321891093951494
 PrefabInstance:
   m_ObjectHideFlags: 0

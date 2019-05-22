@@ -151,7 +151,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
 --- !u!114 &51405
@@ -302,7 +302,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 856526263694112935}
+  - {fileID: 687100909194530114}
   - {fileID: 49742}
   - {fileID: 49744}
   - {fileID: 49743}
@@ -441,7 +441,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.5}
   serializedVersion: 2
-  m_Radius: 0.75
+  m_Radius: 0.6
 --- !u!114 &51408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,16 +478,17 @@ MonoBehaviour:
   whatIsSolid:
     serializedVersion: 2
     m_Bits: 256
-  jumpSource: {fileID: 7356869636580390198}
-  doubleJumpSource: {fileID: 8125953171321514243}
-  dashSource: {fileID: 930526866197473293}
-  hitSource: {fileID: 4965525811239676766}
-  deathSource: {fileID: 7037541585401717536}
-  relightSource: {fileID: 5180161737888048337}
+  jumpSource: {fileID: 687100909194529396}
+  doubleJumpSource: {fileID: 687100909194529400}
+  dashSource: {fileID: 687100909194529455}
+  hitSource: {fileID: 687100909194529349}
+  deathSource: {fileID: 687100909194529392}
+  relightSource: {fileID: 687100909194529350}
   maxHealth: 2
   maxLives: 3
   healthBarFadeDelay: 1
   deathRenderTime: 3
+  teleportCooldown: 30
   whatIsBonfire:
     serializedVersion: 2
     m_Bits: 2048
@@ -1162,43 +1163,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fff400e47ea1143afda36fc9a2bd89, type: 3}
---- !u!82 &5180161737888048337 stripped
+--- !u!82 &687100909194529350 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5650525518030744065, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &7037541585401717536 stripped
+--- !u!82 &687100909194529392 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7503925430341807600, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &4965525811239676766 stripped
+--- !u!82 &687100909194529349 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5575462696387274126, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &930526866197473293 stripped
+--- !u!82 &687100909194529455 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 387582125518087901, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &8125953171321514243 stripped
+--- !u!82 &687100909194529400 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8740429120224126931, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &7356869636580390198 stripped
+--- !u!82 &687100909194529396 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 8039430380905348070, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
   m_PrefabInstance: {fileID: 687100909194546896}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &856526263694112935 stripped
+--- !u!4 &687100909194530114 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 174493301593093751, guid: c5fff400e47ea1143afda36fc9a2bd89,
     type: 3}
