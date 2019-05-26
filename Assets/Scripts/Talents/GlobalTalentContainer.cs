@@ -63,6 +63,11 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
+        public static void ForceReload() {
+            Instance = null;
+            LoadContainer();
+        }
+
         public static GlobalTalentContainer GetInstance() {
             if (Instance == null) LoadContainer();
             return Instance;
