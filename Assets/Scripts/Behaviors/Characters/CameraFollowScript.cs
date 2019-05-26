@@ -2,38 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Transform))]
-public class CameraFollowScript : Photon.PunBehaviour {
+namespace Com.Tempest.Nightmare {
 
-    public float damping = 0.05f;
+    [RequireComponent(typeof(Transform))]
+    public class CameraFollowScript : Photon.PunBehaviour {
 
-    private Transform cameraTransform;
-    private Transform playerTransform;
+        public float damping = 0.05f;
 
-    private float zOffset;
-    private Vector3 lastPlayerPosition;
-    
-    void Awake () {
-        cameraTransform = Camera.main.transform;
-        playerTransform = GetComponent<Transform>();
-        zOffset = (cameraTransform.position - playerTransform.position).z;
-        lastPlayerPosition = playerTransform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (photonView.isMine) {
-            if (cameraTransform == null) cameraTransform = Camera.main.transform;
-            Vector3 currentVelocity = playerTransform.position - lastPlayerPosition;
-            Vector3 newPos;
-            if (Vector3.Distance(playerTransform.position, cameraTransform.localPosition) > 20f) {
-                newPos = playerTransform.position;
-            } else {
-                newPos = Vector3.SmoothDamp(cameraTransform.localPosition, playerTransform.position, ref currentVelocity, damping);
-            }
-            newPos.z = zOffset;
-            cameraTransform.position = newPos;
+        private Transform cameraTransform;
+        private Transform playerTransform;
+
+        private Vector3 lastPlayerPosition;
+
+        public float ZOffset { get; set; }
+
+        void Awake() {
+            cameraTransform = Camera.main.transform;
+            playerTransform = GetComponent<Transform>();
+            ZOffset = (cameraTransform.position - playerTransform.position).z;
             lastPlayerPosition = playerTransform.position;
         }
-	}
+
+        // Update is called once per frame
+        void Update() {
+            if (photonView.isMine) {
+                if (cameraTransform == null) cameraTransform = Camera.main.transform;
+                Vector3 currentVelocity = playerTransform.position - lastPlayerPosition;
+                Vector3 newPos;
+                if (Vector3.Distance(playerTransform.position, cameraTransform.localPosition) > 20f) {
+                    newPos = playerTransform.position;
+                } else {
+                    newPos = Vector3.SmoothDamp(cameraTransform.localPosition, playerTransform.position, ref currentVelocity, damping);
+                }
+                newPos.z = ZOffset;
+                cameraTransform.position = newPos;
+                lastPlayerPosition = playerTransform.position;
+            }
+        }
+    }
 }

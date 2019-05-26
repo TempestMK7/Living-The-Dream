@@ -238,7 +238,7 @@ namespace Com.Tempest.Nightmare {
             float remainingMirrors = numMirrors;
             float remainingChests = numChests;
             for (int x = 0; x < width; x++) {
-                for (int y = 0; y < width; y++) {
+                for (int y = 0; y < height; y++) {
                     GraphNode node = levelGraph[x, y];
                     if (!node.IsPortal && !node.IsBonfire) {
                         float chestProbability = remainingChests / (remainingTiles - remainingMirrors);
@@ -260,7 +260,7 @@ namespace Com.Tempest.Nightmare {
 
         private void RandomizeTileTypes() {
             for (int x = 0; x < width; x++) {
-                for (int y = 0; y < width; y++) {
+                for (int y = 0; y < height; y++) {
                     levelGraph[x, y].RandomizedType = Random.Range(1, 3);
                 }
             }

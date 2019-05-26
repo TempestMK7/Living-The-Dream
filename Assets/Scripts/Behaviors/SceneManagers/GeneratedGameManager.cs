@@ -69,6 +69,7 @@ namespace Com.Tempest.Nightmare {
         public bool ShowMirrorNotifications { get; set; }
 
 		private bool gameStarted;
+        private bool endingSequenceStarted;
 		private int playersConnected;
 		private int levelsGenerated;
         private int[,,] levelGraph;
@@ -82,6 +83,7 @@ namespace Com.Tempest.Nightmare {
 			}
 			settingsPanel.gameObject.SetActive(false);
 			gameStarted = false;
+            endingSequenceStarted = false;
 		}
 
 		private void OnEnable() {
@@ -363,11 +365,23 @@ namespace Com.Tempest.Nightmare {
         }
 
 		private void BeginEndingSequence(int winningTeam) {
-			StartCoroutine(EndingSequence(winningTeam));
+            if (!endingSequenceStarted) {
+                endingSequenceStarted = true;
+                StartCoroutine(EndingSequence(winningTeam));
+            }
 		}
 
 		IEnumerator EndingSequence(int winningTeam) {
-			yield return new WaitForSeconds(1f);
+            if (Nightmare != null) {
+                Nightmare.ControlsFrozen = true;
+                CameraFollowScript cameraScript = Nightmare.GetComponent<CameraFollowScript>();
+                cameraScript.ZOffset /= 2f;
+            } else if (Explorer != null) {
+                Explorer.ControlsFrozen = true;
+                CameraFollowScript cameraScript = Explorer.GetComponent<CameraFollowScript>();
+                cameraScript.ZOffset /= 2f;
+            }
+            yield return new WaitForSeconds(4f);
 			EndTheGame(winningTeam);
 		}
 

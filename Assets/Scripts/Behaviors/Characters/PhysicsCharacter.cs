@@ -69,6 +69,8 @@ namespace Com.Tempest.Nightmare {
 		private bool actionSecondaryHeld;
 		private bool grabHeld;
 
+        public bool ControlsFrozen { get; set; }
+
         protected abstract bool IsFlyer();
 
         // Called by the system when created.
@@ -87,10 +89,14 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
 			grabHeld = false;
+            ControlsFrozen = false;
         }
 
         // Called by the system once per frame.
         public virtual void Update() {
+            if (ControlsFrozen) {
+                currentControllerState = new Vector3();
+            }
             if (IsFlyer()) {
                 UpdateCurrentSpeedFlyer();
                 MoveAndUpdateStateFlyer();
@@ -483,24 +489,26 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public virtual void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
-			currentControllerState = new Vector3(horizontalScale, verticalScale);
-			this.grabHeld = grabHeld;
+            if (!ControlsFrozen) {
+                currentControllerState = new Vector3(horizontalScale, verticalScale);
+                this.grabHeld = grabHeld;
+            }
 		}
 
 		public virtual void ActionPrimaryPressed() {
-			actionPrimaryHeld = true;
+            if (!ControlsFrozen) actionPrimaryHeld = true;
 		}
 
 		public virtual void ActionPrimaryReleased() {
-			actionPrimaryHeld = false;
+			if (!ControlsFrozen) actionPrimaryHeld = false;
 		}
 
 		public virtual void ActionSecondaryPressed(Vector3 mouseDirection) {
-			actionSecondaryHeld = true;
+            if (!ControlsFrozen) actionSecondaryHeld = true;
 		}
 
 		public virtual void ActionSecondaryReleased() {
-			actionSecondaryHeld = false;
+            if (!ControlsFrozen) actionSecondaryHeld = false;
 		}
 
 		public virtual void LightTogglePressed() {
