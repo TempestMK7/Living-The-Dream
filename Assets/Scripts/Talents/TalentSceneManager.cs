@@ -72,7 +72,7 @@ namespace Com.Tempest.Nightmare {
             explorerPanel.SetActive(showingExplorers);
             foreach (TalentEnum talent in Enum.GetValues(typeof(TalentEnum))) {
                 if (!sceneButtons.ContainsKey(talent)) continue;
-                TalentInfoDictionaryContainer.TalentDescriptions description = TalentInfoDictionaryContainer.infoDictionary[talent];
+                TalentInfoContainer.DescriptionContainer description = TalentInfoContainer.infoDictionary[talent];
                 TalentButton button = sceneButtons[talent];
                 button.SetRankLabel(currentTalentRanks[talent], description.NumRanks);
             }
@@ -81,7 +81,7 @@ namespace Com.Tempest.Nightmare {
 
         private void HandleTalentDisplayPanel() {
             int currentRank = currentTalentRanks[selectedTalent];
-            TalentInfoDictionaryContainer.TalentDescriptions description = TalentInfoDictionaryContainer.infoDictionary[selectedTalent];
+            TalentInfoContainer.DescriptionContainer description = TalentInfoContainer.infoDictionary[selectedTalent];
 
             talentNameText.text = description.Name;
             talentDescriptionText.text = description.Description;
@@ -113,7 +113,7 @@ namespace Com.Tempest.Nightmare {
         }
         
         public void OnTalentPurchase() {
-            TalentInfoDictionaryContainer.TalentDescriptions description = TalentInfoDictionaryContainer.infoDictionary[selectedTalent];
+            TalentInfoContainer.DescriptionContainer description = TalentInfoContainer.infoDictionary[selectedTalent];
             int currentRank = currentTalentRanks[selectedTalent];
             int cost = (currentRank + 1) * description.BaseCost;
             if (currentRank < description.NumRanks && cost <= GlobalTalentContainer.GetInstance().UnspentEmbers) {

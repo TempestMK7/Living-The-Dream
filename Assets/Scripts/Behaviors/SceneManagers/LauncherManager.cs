@@ -3,7 +3,6 @@ using InControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
 
@@ -23,18 +22,11 @@ namespace Com.Tempest.Nightmare {
         public GameObject talentManager;
         public GameObject startPanel;
         public GameObject connectPanel;
-        public GameObject progressionPanel;
         public GameObject settingsPanel;
 
         public GameObject progressLabel;
         public Button exitButton;
         public Text versionText;
-        public Text unspentEmberText;
-
-        public Text talentNameText;
-        public Text talentExplanationText;
-        public Text talentCurrentText;
-        public Text talentNextText;
 
         public InputField nameInputField;
         public Text publicLabel;
@@ -65,7 +57,6 @@ namespace Com.Tempest.Nightmare {
         private bool isRebinding;
         private int inputRebinding;
 
-        private TalentManagerBehavior talentBehavior;
         private LobbyMusicBehavior lobbyMusicBehavior;
         
 	    public void Awake() {
@@ -75,8 +66,6 @@ namespace Com.Tempest.Nightmare {
                 Application.platform == RuntimePlatform.WindowsPlayer ||
                 Application.platform == RuntimePlatform.OSXPlayer ||
                 Application.platform == RuntimePlatform.LinuxPlayer);
-            
-            talentBehavior = talentManager.GetComponent<TalentManagerBehavior>();
             
             PhotonNetwork.logLevel = logLevel;
             PhotonNetwork.autoJoinLobby = false;
@@ -88,7 +77,6 @@ namespace Com.Tempest.Nightmare {
             OpenStartPanel();
             versionText.text = "Game Version: " + Constants.GAME_VERSION;
             PlayerStateContainer.ResetInstance();
-            AccountStateContainer.getInstance();
 
             lobbyMusicBehavior = FindObjectOfType<LobbyMusicBehavior>();
             lobbyMusicBehavior.StartMusic();
@@ -99,7 +87,6 @@ namespace Com.Tempest.Nightmare {
                 CheckForRebinds();
             }
             HandleConnectButtons();
-            UpdateEmberCount();
         }
 
         #region Panel and Button Handling
@@ -125,7 +112,6 @@ namespace Com.Tempest.Nightmare {
             isRebinding = false;
             startPanel.SetActive(true);
             connectPanel.SetActive(false);
-            progressionPanel.SetActive(false);
             settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
         }
@@ -133,33 +119,17 @@ namespace Com.Tempest.Nightmare {
         public void OpenConnectPanel() {
             startPanel.SetActive(false);
             connectPanel.SetActive(true);
-            progressionPanel.SetActive(false);
             settingsPanel.SetActive(false);
             progressLabel.SetActive(false);
         }
 
         public void OpenProgressionPanel() {
-            startPanel.SetActive(false);
-            connectPanel.SetActive(false);
-            progressionPanel.SetActive(true);
-            settingsPanel.SetActive(false);
-            progressLabel.SetActive(false);
-
-            talentBehavior.Start();
-            ClearProgressionDescriptions();
-        }
-
-        private void ClearProgressionDescriptions() {
-            talentNameText.text = "None Selected.";
-            talentExplanationText.text = "Click on a talent to view its description.";
-            talentCurrentText.text = "";
-            talentNextText.text = "";
+            SceneManager.LoadScene("TalentScene");
         }
 
         public void OpenSettingsPanel() {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
-            progressionPanel.SetActive(false);
             settingsPanel.SetActive(true);
             progressLabel.SetActive(false);
 
@@ -185,46 +155,7 @@ namespace Com.Tempest.Nightmare {
         public void CloseAllPanels() {
             startPanel.SetActive(false);
             connectPanel.SetActive(false);
-            progressionPanel.SetActive(false);
             settingsPanel.SetActive(false);
-        }
-
-        private void UpdateEmberCount() {
-            unspentEmberText.text = "Unspent Embers: " + talentBehavior.GetUnspentPoints();
-        }
-
-        #endregion
-
-        #region Progression Panel
-
-        public void ApplyTalents() {
-            talentBehavior.Apply();
-            OpenStartPanel();
-        }
-
-        public void CancelTalents() {
-            talentBehavior.Revert();
-            OpenStartPanel();
-        }
-
-        public void RefundTalents() {
-            talentBehavior.RefundAll();
-            ClearProgressionDescriptions();
-        }
-
-        public void OnTalentClick(TalentTreeNodeBase talent) {
-            talentNameText.text = talent.Name;
-            talentExplanationText.text = talent.Explanation;
-            talentCurrentText.text = "Current Level:\nNo Effect.";
-            talentNextText.text = "Next Level:\nNot Available.";
-            foreach (var c in talent.Cost) {
-                if (c.Bought || c.WillBuy) {
-                    talentCurrentText.text = "Current Level:\n" + c.Description;
-                } else {
-                    talentNextText.text = "Next Level:\n" + c.Description;
-                    break;
-                }
-            }
         }
 
         #endregion

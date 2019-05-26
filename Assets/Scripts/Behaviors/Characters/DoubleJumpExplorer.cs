@@ -54,17 +54,8 @@ namespace Com.Tempest.Nightmare {
             return false;
         }
 
-        public override void SendTalentsToNetwork() {
-            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
-            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.CHEST_DURATION);
-            int bonfireSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
-            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.UPGRADES);
-            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
-            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.DOUBLE_JUMP_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
-            int reducedGravity = talentManager.GetTalentLevel(TalentManagerBehavior.REDUCED_GRAVITY);
-            int jetpackForce = 0;
-            int resetDash = 0;
-            photonView.RPC("ReceiveExplorerTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
+        protected override void LoadTalents() {
+            talentRanks = GlobalTalentContainer.GetInstance().DoubleJumpTalents;
         }
     }
 }

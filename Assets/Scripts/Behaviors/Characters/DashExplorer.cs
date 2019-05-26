@@ -19,7 +19,8 @@ namespace Com.Tempest.Nightmare {
                     break;
                 case MovementState.WALL_SLIDE_LEFT:
                 case MovementState.WALL_SLIDE_RIGHT:
-                    if (networkResetDash != 0) {
+                    int wallResetLevel = talentRanks[TalentEnum.RESET_MOVEMENT_ON_WALL_SLIDE];
+                    if (wallResetLevel == 2 || (wallResetLevel == 1 && grabHeld)) {
                         hasUsedDash = false;
                     }
                     hasUsedSecondDash = false;
@@ -60,17 +61,8 @@ namespace Com.Tempest.Nightmare {
             return false;
         }
 
-        public override void SendTalentsToNetwork() {
-            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
-            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.CHEST_DURATION);
-            int bonfireSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
-            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.UPGRADES);
-            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
-            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.DASH_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
-            int reducedGravity = 0;
-            int jetpackForce = 0;
-            int resetDash = talentManager.GetTalentLevel(TalentManagerBehavior.RESET_DASH);
-            photonView.RPC("ReceiveExplorerTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
+        protected override void LoadTalents() {
+            talentRanks = GlobalTalentContainer.GetInstance().DashTalents;
         }
     }
 }

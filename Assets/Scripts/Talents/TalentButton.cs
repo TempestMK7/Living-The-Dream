@@ -12,7 +12,7 @@ namespace Com.Tempest.Nightmare {
         public Text rankLabel;
         public TalentEnum selectedTalent;
 
-        private TalentInfoDictionaryContainer.TalentDescriptions talentDescription;
+        private TalentInfoContainer.DescriptionContainer talentDescription;
 
         public void OnTalentClick() {
             TalentSceneManager manager = FindObjectOfType<TalentSceneManager>();

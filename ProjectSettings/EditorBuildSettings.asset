@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DemoScene.unity
     guid: a78bc6d3a0649564eac8ed396b9357a9
+  - enabled: 1
+    path: Assets/TalentScene.unity
+    guid: 213a9df93b7e30944a8c48d9f20d2e73
   m_configObjects: {}

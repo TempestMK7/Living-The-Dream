@@ -270,7 +270,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public float GetDefaultScale() {
-			float defaultScaleModifier = (networkSightRange * 0.05f) + 1.0f;
+			float defaultScaleModifier = (talentRanks[TalentEnum.SIGHT_RANGE] * 0.05f) + 1.0f;
 			return defaultScale * defaultScaleModifier;
 		}
 

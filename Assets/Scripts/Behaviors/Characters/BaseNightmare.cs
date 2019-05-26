@@ -61,7 +61,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private float GetLightboxScale() {
-			float talentModifier = 1.0f + (0.05f * networkSightRange);
+			float talentModifier = 1.0f + (0.05f * talentRanks[TalentEnum.SIGHT_RANGE]);
 			return lightBoxScale * talentModifier;
 		}
     }
