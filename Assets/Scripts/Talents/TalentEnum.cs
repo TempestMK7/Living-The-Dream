@@ -27,13 +27,13 @@ namespace Com.Tempest.Nightmare {
         RESET_MOVEMENT_ON_WALL_SLIDE,
 
         // Nightmare Talents.
-        ATTACK_COOLDOWN,
-        FIRST_HIT_DAMAGE,
-        EXPLORER_SAVE_NOTIFICATIONS,
         EXPLORER_HEAL_NOTIFICATIONS,
-        HEALTH_STATION_DENIAL,
         MIRROR_LOCK,
+        EXPLORER_SAVE_NOTIFICATIONS,
+        HEALTH_STATION_DENIAL,
         BONFIRE_LOCK,
-        PORTAL_LOCK
+        PORTAL_LOCK,
+        ATTACK_COOLDOWN,
+        FIRST_HIT_DAMAGE
     }
 }

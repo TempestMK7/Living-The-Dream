@@ -70,8 +70,8 @@ namespace Com.Tempest.Nightmare {
                 }
             }
             explorerPanel.SetActive(showingExplorers);
+            nightmarePanel.SetActive(!showingExplorers);
             foreach (TalentEnum talent in Enum.GetValues(typeof(TalentEnum))) {
-                if (!sceneButtons.ContainsKey(talent)) continue;
                 TalentInfoContainer.DescriptionContainer description = TalentInfoContainer.infoDictionary[talent];
                 TalentButton button = sceneButtons[talent];
                 button.SetRankLabel(currentTalentRanks[talent], description.NumRanks);
@@ -141,36 +141,42 @@ namespace Com.Tempest.Nightmare {
         public void OnDoubleJumpClick() {
             showingExplorers = true;
             currentExplorer = ExplorerEnum.DOUBLE_JUMP;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 
         public void OnJetpackClick() {
             showingExplorers = true;
             currentExplorer = ExplorerEnum.JETPACK;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 
         public void OnDashClick() {
             showingExplorers = true;
             currentExplorer = ExplorerEnum.DASH;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 
         public void OnGhastClick() {
             showingExplorers = false;
             currentNightmare = NightmareEnum.GHAST;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 
         public void OnCryoClick() {
             showingExplorers = false;
             currentNightmare = NightmareEnum.CRYO;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 
         public void OnGoblinClick() {
             showingExplorers = false;
             currentNightmare = NightmareEnum.GOBLIN;
+            selectedTalent = TalentEnum.SIGHT_RANGE;
             ReloadTalents();
         }
 

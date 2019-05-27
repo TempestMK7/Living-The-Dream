@@ -110,17 +110,17 @@ namespace Com.Tempest.Nightmare {
                         if (gameManagerBehavior.ShowMirrorNotifications) {
                             objectsToDisplay.AddRange(GetNightmareNotifications());
                             objectsToDisplay.AddRange(GetLiveExplorerNotifications());
+
+                            int chestLocatorRank = nightmare.GetTalentRank(TalentEnum.CHEST_LOCATOR);
+                            if (chestLocatorRank >= 1) {
+                                objectsToDisplay.AddRange(GetClosedChests());
+                            }
+                            if (chestLocatorRank >= 2) {
+                                objectsToDisplay.AddRange(GetOpenedChests());
+                            }
                         } else if (nightmare.HasPowerup(Powerup.DREAMER_VISION)) {
 			    			objectsToDisplay.AddRange(GetLiveExplorerNotifications());
 			    		}
-
-                        int chestLocatorRank = nightmare.GetTalentRank(TalentEnum.CHEST_LOCATOR);
-                        if (chestLocatorRank >= 1) {
-                            objectsToDisplay.AddRange(GetClosedChests());
-                        }
-                        if (chestLocatorRank >= 2) {
-                            objectsToDisplay.AddRange(GetOpenedChests());
-                        }
                     }
 			    	break;
 			    default:

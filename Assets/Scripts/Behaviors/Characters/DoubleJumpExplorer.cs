@@ -15,6 +15,12 @@ namespace Com.Tempest.Nightmare {
                 usedSecondJump = false;
                 usedThirdJump = false;
             } else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+                int wallResetRank = GetTalentRank(TalentEnum.RESET_MOVEMENT_ON_WALL_SLIDE);
+                if (wallResetRank >= 1 && grabHeld) {
+                    usedSecondJump = false;
+                } else if (wallResetRank >= 2) {
+                    usedSecondJump = false;
+                }
                 usedThirdJump = false;
             }
         }

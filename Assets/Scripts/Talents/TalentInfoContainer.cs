@@ -42,6 +42,24 @@ namespace Com.Tempest.Nightmare {
                 new string[] { "Pressing down while falling will slightly increase fall speed.", "Pressing down while falling will significantly increase fall speed.", "Pressing down while falling immediately sets you to terminal velocity." }) },
             { TalentEnum.RESET_MOVEMENT_ON_WALL_SLIDE, new DescriptionContainer("Reset Movement Ability On Wall Slide", "Grabbing onto walls will reset your double-jump, dash, or jetpack usage.  Normally, jumps and dashes are only reset when landing on the ground.", 2, 250,
                 new string[] { "Grabbing a wall (by pressing the wall grab button) will reset movement abilities.", "Touching a wall will reset movement abilities." }) },
+
+            // Nightmare Talents.
+            { TalentEnum.EXPLORER_HEAL_NOTIFICATIONS, new DescriptionContainer("Explorer Heal Notifications", "Shows explorer locations whenever an explorer heals at a health station.", 2, 50,
+                new string[] { "Shows the location of the explorer that healed.", "Shows the location of all explorers whenever an explorer heals." }) },
+            { TalentEnum.MIRROR_LOCK, new DescriptionContainer("Mirror Lock", "Activating a mirror locks temporarily.  Locked mirrors are not usable by the other team.", 3, 50,
+                new string[] { "Locks activated mirrors for 20 seconds.", "Locks activated mirrors for 40 seconds.", "Locks activated mirrors for 60 seconds." }) },
+            { TalentEnum.EXPLORER_SAVE_NOTIFICATIONS, new DescriptionContainer("Explorer Save Notifications", "Gives you screen-edge notifications whenever an explorer is saved.", 3, 100,
+                new string[] { "Notifies you when an explorer is saved at a bonfire.", "Notifies you when an explorer is saved at a bonfire or health station.", "Notifies you when an explorer is saved at a bonfire, health station, or other explorer." }) },
+            { TalentEnum.HEALTH_STATION_DENIAL, new DescriptionContainer("Health Station Denial", "Standing on a health station deactivates it for 60 seconds.", 3, 100,
+                new string[] { "Health stations take 10 seconds to deny.", "Health stations take 5 seconds to deny.", "Health stations take 1 second to deny." }) },
+            { TalentEnum.BONFIRE_LOCK, new DescriptionContainer("Bonfire Lock", "Touching a bonfire will lock it for 60 seconds.  Locked bonfires cannot be progressed by explorers, but will not lose progress either.  Only one bonfire on the map can be locked at a time.", 3, 200,
+                new string[] { "Bonfires take 10 seconds to lock.", "Bonfires take 5 seconds to lock.", "Bonfires take 1 second to lock." }) },
+            { TalentEnum.PORTAL_LOCK, new DescriptionContainer("Portal Lock", "Touching a portal will lock it for 60 seconds.  Locked portals cannot be opened and cannot be traveled through.", 3, 200,
+                new string[] { "Portals take 10 seconds to lock.", "Portals take 5 seconds to lock.", "Portals take 1 second to lock." }) },
+            { TalentEnum.ATTACK_COOLDOWN, new DescriptionContainer("Reduced Attack Cooldown", "Reduces the internal cooldown of your attack.", 3, 250,
+                new string[] { "Attack cooldown is decreased by 10%.", "Attack cooldown is decreased by 20%.", "Attack cooldown is decreased by 30%." }) },
+            { TalentEnum.FIRST_HIT_DAMAGE, new DescriptionContainer("Bonus Damage", "You inflict bonus damage on your first successful attacks of the game.", 3, 250,
+                new string[] { "You inflict bonus damage on your first successful attack only.", "You inflict bonus damage on your first two successful attacks.", "You inflict bonus damage on your first three successful attacks." }) }
         };
 
         public class DescriptionContainer {
