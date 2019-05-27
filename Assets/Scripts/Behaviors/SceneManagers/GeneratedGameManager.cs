@@ -74,6 +74,7 @@ namespace Com.Tempest.Nightmare {
 		private int levelsGenerated;
         private int[,,] levelGraph;
         private GameObject[,] levelChunks;
+        private float mirrorActivationTime;
 
 		#region Level Loading
 
@@ -361,7 +362,16 @@ namespace Com.Tempest.Nightmare {
                 if (mirror.ExplorersActive()) explorersActive = true;
                 if (mirror.NightmaresActive()) nightmaresActive = true;
             }
-            ShowMirrorNotifications = (explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null);
+            int mirrorFadeRank = 0;
+            if (Explorer != null) mirrorFadeRank = Explorer.GetMirrorFadeRank();
+            else if (Nightmare != null) mirrorFadeRank = Nightmare.GetMirrorFadeRank();
+            float mirrorFadeTime = 3.0f * mirrorFadeRank;
+            if ((explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null)) {
+                mirrorActivationTime = Time.time;
+                ShowMirrorNotifications = true;
+            } else {
+                ShowMirrorNotifications = Time.time - mirrorActivationTime < mirrorFadeTime;
+            }
         }
 
 		private void BeginEndingSequence(int winningTeam) {

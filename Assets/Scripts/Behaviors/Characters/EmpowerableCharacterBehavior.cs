@@ -12,6 +12,7 @@ namespace Com.Tempest.Nightmare {
 
 		private Dictionary<Powerup, float> powerupDictionary;
         private int numUpgrades;
+        private bool hasTouchedFirstBonfire;
 
         protected string playerName;
         protected Dictionary<TalentEnum, int> talentRanks;
@@ -80,6 +81,26 @@ namespace Com.Tempest.Nightmare {
 		public int GetBonfireSpeed() {
 			return talentRanks[TalentEnum.BONFIRE_SPEED];
 		}
+
+        public int GetFirstBonfireRank() {
+            return talentRanks[TalentEnum.FIRST_BONFIRE_SPEED];
+        }
+
+        public int GetChestLocatorRank() {
+            return talentRanks[TalentEnum.CHEST_LOCATOR];
+        }
+
+        public int GetMirrorActivationRank() {
+            return talentRanks[TalentEnum.MIRROR_ACTIVATION];
+        }
+
+        public int GetMirrorFadeRank() {
+            return talentRanks[TalentEnum.MIRROR_FADE_DELAY];
+        }
+
+        public int GetPortalNotificationRank() {
+            return talentRanks[TalentEnum.PORTAL_NOTIFICATIONS];
+        }
 
 		public float GetNumUpgrades() {
 			float upgradeModifier = 1.0f + (0.05f * talentRanks[TalentEnum.UPGRADE_EFFECTIVENESS]);

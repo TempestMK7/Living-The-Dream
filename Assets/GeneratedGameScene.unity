@@ -112,38 +112,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!84 &111077995
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: SpriteLightKit RT
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  m_Width: 1131
-  m_Height: 611
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 7
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 0
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!1 &130369952
 GameObject:
   m_ObjectHideFlags: 0
@@ -352,6 +320,38 @@ RectTransform:
   m_AnchoredPosition: {x: 20, y: -20}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
+--- !u!84 &207439916
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SpriteLightKit RT
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_Width: 1131
+  m_Height: 573
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 7
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 0
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1001 &261993749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -809,7 +809,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 2147483648
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 111077995}
+  m_TargetTexture: {fileID: 207439916}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1798,7 +1798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 09755a4891f8d4526a7e0690a23dec7b, type: 3}
-  spriteLightRT: {fileID: 111077995}
+  spriteLightRT: {fileID: 207439916}
   intensity: 1
 --- !u!81 &1555642314
 AudioListener:
@@ -2020,6 +2020,18 @@ PrefabInstance:
       propertyPath: gameManagerObject
       value: 
       objectReference: {fileID: 1446611633}
+    - target: {fileID: 114195138105944960, guid: 7fba980e1b0d7384ba652a5ca8d86f3e,
+        type: 3}
+      propertyPath: progressParticlePrefab
+      value: 
+      objectReference: {fileID: 571933772950276266, guid: 5ffd177383e52b44bb11b3b80c6ef67a,
+        type: 3}
+    - target: {fileID: 114195138105944960, guid: 7fba980e1b0d7384ba652a5ca8d86f3e,
+        type: 3}
+      propertyPath: chargedParticlePrefab
+      value: 
+      objectReference: {fileID: 4189935499803000942, guid: eb51933f245fb85409ccf74d45ef083b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7fba980e1b0d7384ba652a5ca8d86f3e, type: 3}
 --- !u!1001 &4264321891093951494

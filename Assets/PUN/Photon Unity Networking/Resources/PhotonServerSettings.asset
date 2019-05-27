@@ -83,4 +83,5 @@ MonoBehaviour:
   - TeleportToPortal
   - PlayChargedSound
   - ReceiveTalent
+  - NotifyCharged
   DisableAutoOpenWizard: 1

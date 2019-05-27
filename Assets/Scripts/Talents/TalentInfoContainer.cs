@@ -19,7 +19,7 @@ namespace Com.Tempest.Nightmare {
             { TalentEnum.MIRROR_ACTIVATION, new DescriptionContainer("Mirror Activation Speed", "Reduces the amount of time needed to activate mirrors.  The base activation time is 5 seconds.", 3, 200,
                 new string[] { "Mirrors only take 4 seconds to activate.", "Mirrors only take 2 seconds to activate.", "Mirrors activate instantly." }) },
             { TalentEnum.MIRROR_FADE_DELAY, new DescriptionContainer("Mirror Fade Delay", "Mirrors will continue to show you object locations for a few seconds after to move away from them.", 3, 200,
-                new string[] { "Mirrors will continue to show objects for 3 seconds.", "Mirrors will continue to show objects for 6 seconds.", "Mirrors will continue to show objects for 10 seconds." }) },
+                new string[] { "Mirrors will continue to show objects for 3 seconds.", "Mirrors will continue to show objects for 6 seconds.", "Mirrors will continue to show objects for 9 seconds." }) },
             { TalentEnum.JUMP_HEIGHT_OR_ACCELERATION, new DescriptionContainer("Increased Agility", "This increases the base jump speed of non-flying characters and the acceleration speed of flying characters.", 3, 250,
                 new string[] { "Jump speed or acceleration speed are increased by 5%.", "Jump speed or acceleration speed are increased by 10%.", "Jump speed or acceleration speed are increased by 15%." }) },
             { TalentEnum.MOVEMENT_SPEED, new DescriptionContainer("Movement Speed", "Increases the base movement speed for your character.  I fully expect this talent to break the game, but I'm running out of ideas.", 3, 250,

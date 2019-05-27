@@ -48,8 +48,21 @@ namespace Com.Tempest.Nightmare {
                     if (behavior == null || playerSet.Contains(behavior)) continue;
                     playerSet.Add(behavior);
                     float explorerModifier = 1f;
+                    int mirrorActivationRank = behavior.GetMirrorActivationRank();
                     if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                         explorerModifier *= 2f;
+                    }
+
+                    switch (mirrorActivationRank) {
+                        case 1:
+                            explorerModifier *= 1.25f;
+                            break;
+                        case 2:
+                            explorerModifier *= 2.5f;
+                            break;
+                        case 3:
+                            explorerCharges = requiredCharges;
+                            break;
                     }
                     modifier += explorerModifier;
                 }
