@@ -125,11 +125,16 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * wallControlFactor * -1f);
 				}
 			} else {
-				float downHeldFactor = -1f;
 				if (currentControllerState.y < -0.5f && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
-					downHeldFactor += currentControllerState.y;
-				}
-				currentSpeed.y += MaxSpeed() * gravityFactor * downHeldFactor * Time.deltaTime;
+                    float fastFallTalent = talentRanks[TalentEnum.FASTER_FALL_SPEED];
+                    if (fastFallTalent < 3) {
+                        currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * (-2f - (fastFallTalent * 0.5f));
+                    } else {
+                        currentSpeed.y = MaxSpeed() * terminalVelocityFactor * -1f;
+                    }
+                } else {
+                    currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * -1f;
+                }
 			}
 			// Clip to terminal velocity if necessary.
 			currentSpeed.y = Mathf.Clamp(currentSpeed.y, MaxSpeed() * terminalVelocityFactor * -1f, MaxSpeed() * JumpFactor());

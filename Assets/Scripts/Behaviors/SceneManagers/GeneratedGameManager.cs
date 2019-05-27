@@ -363,8 +363,8 @@ namespace Com.Tempest.Nightmare {
                 if (mirror.NightmaresActive()) nightmaresActive = true;
             }
             int mirrorFadeRank = 0;
-            if (Explorer != null) mirrorFadeRank = Explorer.GetMirrorFadeRank();
-            else if (Nightmare != null) mirrorFadeRank = Nightmare.GetMirrorFadeRank();
+            if (Explorer != null) mirrorFadeRank = Explorer.GetTalentRank(TalentEnum.MIRROR_FADE_DELAY);
+            else if (Nightmare != null) mirrorFadeRank = Nightmare.GetTalentRank(TalentEnum.MIRROR_FADE_DELAY);
             float mirrorFadeTime = 3.0f * mirrorFadeRank;
             if ((explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null)) {
                 mirrorActivationTime = Time.time;

@@ -35,7 +35,7 @@ namespace Com.Tempest.Nightmare {
             { TalentEnum.BONFIRE_PROGRESS_NOTIFICATIONS, new DescriptionContainer("Bonfire Progress Notifications", "Adds screen-edge notifications for all bonfires that are currently in progress.", 1, 100,
                 new string[] { "Adds notifications for bonfires that are in progress." }) },
             { TalentEnum.PORTAL_COOLDOWN_REDUCTION, new DescriptionContainer("Portal Cooldown", "Reduces the cooldown period for jumping through activated portals.  The base cooldown is 60 seconds.", 3, 200,
-                new string[] { "Reduces the cooldown by 5 seconds.", "Reduces the cooldown by 5 seconds.", "Reduces the cooldown by 5 seconds." }) },
+                new string[] { "Reduces the cooldown by 5 seconds.", "Reduces the cooldown by 10 seconds.", "Reduces the cooldown by 15 seconds." }) },
             { TalentEnum.HEALTH_STATION_COOLDOWN_REDUCTION, new DescriptionContainer("Health Station Cooldown", "Using a health station will immediately refund part of the normal cooldown.", 3, 200,
                 new string[] { "Refunds 10% of the cooldown.", "Refunds 25% of the cooldown.", "Refunds 50% of the cooldown." }) },
             { TalentEnum.FASTER_FALL_SPEED, new DescriptionContainer("Faster Fall Speed", "Adds a downward snap to your fast fall, allowing for more unpreditable movement.", 3, 250,

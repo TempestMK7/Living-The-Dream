@@ -24,6 +24,7 @@ namespace Com.Tempest.Nightmare {
             } else {
                 talentRanks = new Dictionary<TalentEnum, int>();
             }
+            hasTouchedFirstBonfire = false;
 		}
 
         protected abstract void LoadTalents();
@@ -78,28 +79,9 @@ namespace Com.Tempest.Nightmare {
             talentRanks[talent] = rank;
 		}
 
-		public int GetBonfireSpeed() {
-			return talentRanks[TalentEnum.BONFIRE_SPEED];
-		}
-
-        public int GetFirstBonfireRank() {
-            return talentRanks[TalentEnum.FIRST_BONFIRE_SPEED];
-        }
-
-        public int GetChestLocatorRank() {
-            return talentRanks[TalentEnum.CHEST_LOCATOR];
-        }
-
-        public int GetMirrorActivationRank() {
-            return talentRanks[TalentEnum.MIRROR_ACTIVATION];
-        }
-
-        public int GetMirrorFadeRank() {
-            return talentRanks[TalentEnum.MIRROR_FADE_DELAY];
-        }
-
-        public int GetPortalNotificationRank() {
-            return talentRanks[TalentEnum.PORTAL_NOTIFICATIONS];
+        public int GetTalentRank(TalentEnum talent) {
+            if (talentRanks.ContainsKey(talent)) return talentRanks[talent];
+            return 0;
         }
 
 		public float GetNumUpgrades() {
@@ -131,5 +113,14 @@ namespace Com.Tempest.Nightmare {
 			playerName = name;
 			transform.Find("NameCanvas").transform.Find("NameText").GetComponent<Text>().text = name;
 		}
+
+        public bool HasTouchedFirstBonfire() {
+            return hasTouchedFirstBonfire;
+        }
+
+        [PunRPC]
+        public void OnTouchFirstBonfire() {
+            hasTouchedFirstBonfire = true;
+        }
 	}
 }

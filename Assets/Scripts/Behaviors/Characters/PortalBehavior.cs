@@ -76,7 +76,7 @@ namespace Com.Tempest.Nightmare {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
                         if (behavior == null || playerSet.Contains(behavior)) continue;
                         playerSet.Add(behavior);
-                        float explorerModifier = 1.0f + (behavior.GetBonfireSpeed() * 0.05f);
+                        float explorerModifier = 1.0f + (behavior.GetTalentRank(TalentEnum.BONFIRE_SPEED) * 0.05f);
                         if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             explorerModifier *= 2f;
                         }

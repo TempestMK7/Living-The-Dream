@@ -322,7 +322,7 @@ MonoBehaviour:
   maxLives: 3
   healthBarFadeDelay: 1
   deathRenderTime: 3
-  teleportCooldown: 30
+  teleportCooldown: 60
   whatIsBonfire:
     serializedVersion: 2
     m_Bits: 2048

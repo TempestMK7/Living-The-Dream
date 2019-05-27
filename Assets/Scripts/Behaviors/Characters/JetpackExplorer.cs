@@ -43,7 +43,11 @@ namespace Com.Tempest.Nightmare {
                     jetpackTimeRemaining = 0f;
                     jetpackOn = false;
                 }
-            } else if (currentState == MovementState.GROUNDED || currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+            } else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+                float wallResetRank = GetTalentRank(TalentEnum.RESET_MOVEMENT_ON_WALL_SLIDE);
+                float wallSlideMultiplier = 1f + wallResetRank;
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * wallSlideMultiplier;
+            } else if (currentState == MovementState.GROUNDED) {
                 jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f);
             } else {
                 jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * aerialJetpackReloadFactor;
@@ -86,7 +90,7 @@ namespace Com.Tempest.Nightmare {
         }
 
         protected override void LoadTalents() {
-            talentRanks = GlobalTalentContainer.GetInstance().CryoTalents;
+            talentRanks = GlobalTalentContainer.GetInstance().JetpackTalents;
         }
     }
 }

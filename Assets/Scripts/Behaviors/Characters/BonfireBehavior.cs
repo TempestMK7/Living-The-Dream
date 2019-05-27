@@ -90,13 +90,20 @@ namespace Com.Tempest.Nightmare {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
                         if (behavior == null || playerSet.Contains(behavior)) continue;
                         playerSet.Add(behavior);
-                        float explorerModifier = 1.0f + (behavior.GetBonfireSpeed() * 0.05f);
+                        float explorerModifier = 1.0f + (behavior.GetTalentRank(TalentEnum.BONFIRE_SPEED) * 0.05f);
                         if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             explorerModifier *= 2f;
                         }
                         float embers = Time.deltaTime * explorerModifier;
                         multiplier += explorerModifier;
                         behavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, embers);
+
+                        if (!behavior.HasTouchedFirstBonfire()) {
+                            behavior.OnTouchFirstBonfire();
+                            behavior.photonView.RPC("OnTouchFirstBonfire", PhotonTargets.All);
+                            float freeProgress = 0.2f * behavior.GetTalentRank(TalentEnum.FIRST_BONFIRE_SPEED);
+                            currentCharges += freeProgress * GetRequiredCharges();
+                        }
                     }
                     currentCharges += Time.deltaTime * multiplier;
                     if (currentCharges >= GetRequiredCharges()) {
@@ -165,6 +172,10 @@ namespace Com.Tempest.Nightmare {
 
         public bool IsLit() {
             return currentCharges >= GetRequiredCharges();
+        }
+
+        public bool IsInProgress() {
+            return currentCharges > 0 && currentCharges < GetRequiredCharges();
         }
 
         public bool ShowLitNotification() {

@@ -36,6 +36,7 @@ namespace Com.Tempest.Nightmare {
                 Image[] images = new Image[IMAGES_PER_GAME_OBJECT];
                 for (int y = 0; y < IMAGES_PER_GAME_OBJECT; y++) {
                     images[y] = Instantiate<Image>(notificationImagePrefab, uiCanvas.transform, false);
+                    images[y].enabled = false;
                 }
                 notificationImages.Add(images);
             }
@@ -44,6 +45,8 @@ namespace Com.Tempest.Nightmare {
                 GameObject[] particles = new GameObject[2];
                 particles[0] = Instantiate(progressParticlePrefab, uiCanvas.transform, false);
                 particles[1] = Instantiate(chargedParticlePrefab, uiCanvas.transform, false);
+                StopNotification(particles[0]);
+                StopNotification(particles[1]);
                 notificationParticles.Add(particles);
             }
 		}
@@ -76,7 +79,7 @@ namespace Com.Tempest.Nightmare {
                                 objectsToDisplay.AddRange(GetLiveExplorerNotifications());
                             }
 
-                            int chestLocatorRank = explorer.GetChestLocatorRank();
+                            int chestLocatorRank = explorer.GetTalentRank(TalentEnum.CHEST_LOCATOR);
                             if (chestLocatorRank >= 1) {
                                 objectsToDisplay.AddRange(GetClosedChests());
                             }
@@ -87,12 +90,17 @@ namespace Com.Tempest.Nightmare {
 					    	objectsToDisplay.AddRange(GetNightmareNotifications());
 					    }
 
-                        int portalNotificationRank = explorer.GetPortalNotificationRank();
+                        int portalNotificationRank = explorer.GetTalentRank(TalentEnum.PORTAL_NOTIFICATIONS);
                         if (portalNotificationRank >= 1) {
                             particlesToDisplay.AddRange(GetRecentlyChargedPortals());
                         }
                         if (portalNotificationRank >= 2) {
                             particlesToDisplay.AddRange(GetInProgressPortals());
+                        }
+
+                        int bonfireNotificationRank = explorer.GetTalentRank(TalentEnum.BONFIRE_PROGRESS_NOTIFICATIONS);
+                        if (bonfireNotificationRank == 1) {
+                            objectsToDisplay.AddRange(GetAllInProgressBonfires());
                         }
 				    }
 				    break;
@@ -106,7 +114,7 @@ namespace Com.Tempest.Nightmare {
 			    			objectsToDisplay.AddRange(GetLiveExplorerNotifications());
 			    		}
 
-                        int chestLocatorRank = nightmare.GetChestLocatorRank();
+                        int chestLocatorRank = nightmare.GetTalentRank(TalentEnum.CHEST_LOCATOR);
                         if (chestLocatorRank >= 1) {
                             objectsToDisplay.AddRange(GetClosedChests());
                         }
@@ -269,7 +277,9 @@ namespace Com.Tempest.Nightmare {
 			return cameraBounds;
 		}
 
-		private List<GameObject> GetRecentlyLitBonfires() {
+        #region Object List Retrievers.
+
+        private List<GameObject> GetRecentlyLitBonfires() {
 			List<GameObject> output = new List<GameObject>();
 			if (gameManagerBehavior.Bonfires == null)
 				return output;
@@ -292,6 +302,15 @@ namespace Com.Tempest.Nightmare {
 			}
 			return output;
 		}
+
+        private List<GameObject> GetAllInProgressBonfires() {
+            List<GameObject> output = new List<GameObject>();
+            if (gameManagerBehavior.Bonfires == null) return output;
+            foreach (BonfireBehavior behavior in gameManagerBehavior.Bonfires) {
+                if (behavior.IsInProgress()) output.Add(behavior.gameObject);
+            }
+            return output;
+        }
 
         private List<GameObject> GetAllUnlitBonfires() {
             List<GameObject> output = new List<GameObject>();
@@ -387,7 +406,9 @@ namespace Com.Tempest.Nightmare {
 			return output;
 		}
 
-		public void DisplayTextAlert(string alertText, bool shortNotification) {
+        #endregion
+
+        public void DisplayTextAlert(string alertText, bool shortNotification) {
 			GameObject textPrefab = Instantiate(alertTextPrefab);
 			textPrefab.GetComponent<Text>().text = alertText;
 			textPrefab.GetComponent<AlertTextBehavior>().IsShortNotification = shortNotification;

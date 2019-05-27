@@ -235,24 +235,43 @@ namespace Com.Tempest.Nightmare {
                     if (!node.IsPortal && !node.IsBonfire) remainingTiles++;
                 }
             }
-            float remainingMirrors = numMirrors;
-            float remainingChests = numChests;
+            int mirrorInterval = (int)(remainingTiles / numMirrors);
+            int chestInterval = (int)((remainingTiles - 1) / numChests);
+
+            int currentMirrorStep = 1;
+            int currentChestStep = 1;
+            bool hasPlacedMirror = false;
+            bool hasPlacedChest = false;
+            int totalMirrors = 0;
+            int totalChests = 0;
+
             for (int x = 0; x < width; x++) {
                 for (int y = 0; y < height; y++) {
                     GraphNode node = levelGraph[x, y];
                     if (!node.IsPortal && !node.IsBonfire) {
-                        float chestProbability = remainingChests / (remainingTiles - remainingMirrors);
-                        float mirrorProbability = remainingMirrors / remainingTiles;
-                        if (Random.Range(0f, 1f) < mirrorProbability) {
+                        if (currentMirrorStep > mirrorInterval && hasPlacedMirror) {
+                            hasPlacedMirror = false;
+                            currentMirrorStep = 1;
+                        }
+                        if (currentChestStep > chestInterval && hasPlacedChest) {
+                            hasPlacedChest = false;
+                            currentChestStep = 1;
+                        }
+                        float mirrorProbability = (float)currentMirrorStep / (float)mirrorInterval;
+                        float chestProbability = (float)currentChestStep / (float)chestInterval;
+                        if (Random.Range(0f, 1f) < mirrorProbability && !hasPlacedMirror && totalMirrors < numMirrors) {
                             node.IsMirror = true;
-                            remainingMirrors--;
-                        } else if (Random.Range(0f, 1f) < chestProbability) {
+                            hasPlacedMirror = true;
+                            totalMirrors++;
+                        } else if (Random.Range(0f, 1f) < chestProbability && !hasPlacedChest && totalChests < numChests) {
                             node.IsChest = true;
-                            remainingChests--;
+                            hasPlacedChest = true;
+                            totalChests++;
                         } else {
                             node.IsTorch = true;
                         }
-                        remainingTiles--;
+                        currentMirrorStep++;
+                        currentChestStep++;
                     }
                 }
             }
