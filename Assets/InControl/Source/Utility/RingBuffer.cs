@@ -1,15 +1,15 @@
-﻿namespace InControl
+﻿namespace InControl.Internal
 {
 	using System;
 
 
-	internal class RingBuffer<T>
+	public class RingBuffer<T>
 	{
-		int size;
-		T[] data;
+		readonly int size;
+		readonly T[] data;
 		int head;
 		int tail;
-		object sync;
+		readonly object sync;
 
 
 		public RingBuffer( int size )
@@ -21,7 +21,7 @@
 
 			this.size = size + 1;
 
-			data = new T[ this.size ];
+			data = new T[this.size];
 			head = 0;
 			tail = 0;
 			sync = new object();
@@ -40,6 +40,7 @@
 						tail = (tail + 1) % size;
 					}
 				}
+
 				data[head] = value;
 			}
 		}
@@ -47,18 +48,18 @@
 
 		public T Dequeue()
 		{
-			lock (sync) 
+			lock (sync)
 			{
 				if (size > 1)
 				{
-					if (tail != head) 
+					if (tail != head)
 					{
 						tail = (tail + 1) % size;
 					}
 				}
+
 				return data[tail];
 			}
 		}
 	}
 }
-

@@ -37,7 +37,7 @@ namespace TouchExample
 		}
 
 
-		Color GetColorFromActionButtons( InputDevice inputDevice )
+		static Color GetColorFromActionButtons( InputDevice inputDevice )
 		{
 			if (inputDevice.Action1)
 			{
@@ -71,10 +71,19 @@ namespace TouchExample
 			for (var i = 0; i < touchCount; i++)
 			{
 				var touch = TouchManager.GetTouch( i );
-				GUI.Label( new Rect( 10, y, 500, y + 15.0f ), "" + i + ": fingerId = " + touch.fingerId + ", phase = " + touch.phase.ToString() + ", position = " + touch.position );
+				var text = "" + i + ": fingerId = " + touch.fingerId;
+				text = text + ", phase = " + touch.phase;
+				text = text + ", startPosition = " + touch.startPosition;
+				text = text + ", position = " + touch.position;
+
+				if (touch.IsMouse)
+				{
+					text = text + ", mouseButton = " + touch.mouseButton;
+				}
+
+				GUI.Label( new Rect( 10, y, Screen.width, y + 15.0f ), text );
 				y += 20.0f;
 			}
 		}
 	}
 }
-

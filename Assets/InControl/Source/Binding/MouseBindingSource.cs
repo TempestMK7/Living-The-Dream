@@ -14,9 +14,7 @@
 		public static float JitterThreshold = 0.05f;
 
 
-		internal MouseBindingSource()
-		{
-		}
+		internal MouseBindingSource() {}
 
 
 		public MouseBindingSource( Mouse mouseControl )
@@ -34,16 +32,15 @@
 			{
 				return Input.GetMouseButton( button );
 			}
-			catch (ArgumentException)
-			{
-			}
+			catch (ArgumentException) {}
 
 			return false;
 		}
 
 
 		// This is necessary to maintain backward compatibility. :(
-		readonly static int[] buttonTable = new[] {
+		readonly static int[] buttonTable = new[]
+		{
 			-1, 0, 1, 2, -1, -1, -1, -1, -1, -1, 3, 4, 5, 6, 7, 8
 		};
 
@@ -54,9 +51,9 @@
 			{
 				return SafeGetMouseButton( button );
 			}
+
 			return false;
 		}
-
 
 
 		internal static bool NegativeScrollWheelIsActive( float threshold )
@@ -66,13 +63,11 @@
 		}
 
 
-
 		internal static bool PositiveScrollWheelIsActive( float threshold )
 		{
 			var value = Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse z" ) * ScaleZ );
 			return value > threshold;
 		}
-
 
 
 		internal static float GetValue( Mouse mouseControl )
@@ -85,20 +80,20 @@
 
 			switch (mouseControl)
 			{
-			case Mouse.NegativeX:
-				return -Mathf.Min( Input.GetAxisRaw( "mouse x" ) * ScaleX, 0.0f );
-			case Mouse.PositiveX:
-				return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse x" ) * ScaleX );
+				case Mouse.NegativeX:
+					return -Mathf.Min( Input.GetAxisRaw( "mouse x" ) * ScaleX, 0.0f );
+				case Mouse.PositiveX:
+					return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse x" ) * ScaleX );
 
-			case Mouse.NegativeY:
-				return -Mathf.Min( Input.GetAxisRaw( "mouse y" ) * ScaleY, 0.0f );
-			case Mouse.PositiveY:
-				return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse y" ) * ScaleY );
+				case Mouse.NegativeY:
+					return -Mathf.Min( Input.GetAxisRaw( "mouse y" ) * ScaleY, 0.0f );
+				case Mouse.PositiveY:
+					return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse y" ) * ScaleY );
 
-			case Mouse.NegativeScrollWheel:
-				return -Mathf.Min( Input.GetAxisRaw( "mouse z" ) * ScaleZ, 0.0f );
-			case Mouse.PositiveScrollWheel:
-				return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse z" ) * ScaleZ );
+				case Mouse.NegativeScrollWheel:
+					return -Mathf.Min( Input.GetAxisRaw( "mouse z" ) * ScaleZ, 0.0f );
+				case Mouse.PositiveScrollWheel:
+					return Mathf.Max( 0.0f, Input.GetAxisRaw( "mouse z" ) * ScaleZ );
 			}
 
 			return 0.0f;
@@ -202,16 +197,15 @@
 		}
 
 
-		internal override void Save( BinaryWriter writer )
+		public override void Save( BinaryWriter writer )
 		{
 			writer.Write( (int) Control );
 		}
 
 
-		internal override void Load( BinaryReader reader, UInt16 dataFormatVersion )
+		public override void Load( BinaryReader reader, UInt16 dataFormatVersion )
 		{
 			Control = (Mouse) reader.ReadInt32();
 		}
 	}
 }
-

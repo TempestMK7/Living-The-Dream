@@ -1,3 +1,62 @@
+### v1.7.4
+* Added support for a few common controller/browser combinations in WebGL:
+  * WebGL Chrome (Mac): Xbox 360, Xbox One, PlayStation 4 and Nintendo Switch Pro controllers.
+  * WebGL FireFox (Mac): Xbox 360, Xbox One and PlayStation 4 controllers.
+  * WebGL Safari (Mac): Xbox 360 and Xbox One controllers.
+  * WebGL Chrome (Windows): Xbox (XInput), PlayStation 4 and Nintendo Switch Pro controllers.
+  * WebGL FireFox (Windows): Xbox (XInput) and PlayStation 4 controllers.
+* Added additional controllers supported by 360Controller 1.0.0-alpha.3 on Mac.
+* Added `Preserve` attribute to profiles to prevent IL2CPP max stripping from removing them.
+* Added 8bitdo SF30 Pro Windows native input profile.
+* Added Kiwitata NES Windows native input profile.
+* Fixed touch control animations to use `Time.unscaledDeltaTime` to work consistently when games are paused.
+* Fixed deprecated references to `UnityEngine.Apple.TV`.
+* Fixed error that can happen in Unity Editor on first launch after Library folder is deleted.
+
+
+### v1.7.3
+* Added SteelSeries Nimbus native profile on Mac (but d-pad doesn't work).
+* Added additional controllers supported by 360Controller 0.16.11 on Mac.
+* Added OUYA controller native profile on Windows.
+* Added public setter to `InputManager.SuspendInBackground` property.
+* Added touch emulation for right and middle mouse buttons.
+* Added `Touch.startPosition` field to record where touches started.
+* Added `Touch.mouseButton` field to indicate which mouse button was used for touch emulation.
+* Fixed an issue where `WasRepeated` doesn’t work for managed XInput, ICade and in Virtual Device example.
+* Fixed an issue detecting proper Windows version on Windows 7.
+* Fixed Xbox 360 & One triggers issue both firing at the same time on Windows since Unity 2018.3
+* Fixed an issue with offscreen touches on Android.
+* Prevent certain editor scripts from running when entering play mode.
+* Added `BetopBTP2175sWinProfile`
+* Added `EightBitdoGenericAndroidProfile`
+* Added `EightBitdoN30Pro2AndroidProfile`
+* Added `EightBitdoSF30ProAndroidProfile`
+* Added `EightBitdoSN30ProAndroidProfile`
+* Added `HavitHVG95WLinuxProfile`
+* Added `IpegaPG9021AndroidProfile`
+* Added `IpegaPG9037AndroidProfile`
+* Added `IpegaPG9055AndroidProfile`
+* Added `NVidiaShieldWin81Profile`
+* Added `PlayStation2LinuxProfile`
+
+### v1.7.2
+* Added assembly definition support where available. Make sure you add InControl as a reference to your project where necessary.
+* Added additional controllers supported by 360Controller 0.16.10 on Mac.
+* Added support for some keys that may be on non-US keyboards.
+* Added PowerA Nintendo Switch native profile on Mac.
+* Added `EnabledInHeirarchy` (readonly) to controls and changed `Enabled` (read/write) to be independent of owner. This primarily affects `PlayerAction` allowing individual actions to be disabled while the PlayerActionSet as a whole is still enabled.
+* Fixed issue with menu items not showing up by moving them to a new InControl top-level menu.
+* Fixed issue in native input module to correctly detect disconnected controllers.
+* Fixed movement repeating logic in `InControlInputModule`.
+* Fixed touch controls targeting `Action5` thru `Action12`.
+* Fixed warnings showing up in Unity's experimental incremental compiler.
+
+### v1.7.1
+* Added additional controllers supported by 360Controller 0.16.8 on Mac.
+* Added NVIDIA Shield remote Android profile.
+* Fixed PlayStation 4 profile for console.
+* BREAKING CHANGE: The singleton enforcement for InControlManager and TouchManager components was far too aggressive. It will now no longer destroy duplicate components automatically and, if redundant instances are detected in play mode, a warning will be shown in the console and the components will be disabled.
+
 ### v1.7.0
 * Added additional controllers supported by 360Controller 0.16.6 on Mac.
 * Added Xiaomi Remote profile for Android TV.

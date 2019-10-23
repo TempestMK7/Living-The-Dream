@@ -43,7 +43,7 @@ namespace InControl.iOS.Xcode
 		private PBXElementDict m_UnknownObjects = null;
 		private string m_ObjectVersion = null;
 		private List<string> m_SectionOrder = null;
-        
+
 		private Dictionary<string, UnknownSection> m_UnknownSections;
 		private PBXBuildFileSection buildFiles = null;
 		// use BuildFiles* methods instead of manipulating directly
@@ -64,7 +64,7 @@ namespace InControl.iOS.Xcode
 		private XCBuildConfigurationSection buildConfigs = null;
 		private XCConfigurationListSection configs = null;
 		private PBXProjectSection project = null;
-        
+
 		// FIXME: create a separate PBXObject tree to represent these relationships
 
 		// A build file can be represented only once in all *BuildPhaseSection sections, thus
@@ -113,19 +113,19 @@ namespace InControl.iOS.Xcode
 			m_RealPathToFileRefMap[fileRef.tree].Add( realPath, fileRef ); // FIXME
 			m_GuidToParentGroupMap.Add( fileRef.guid, parent );
 		}
-        
+
 		PBXFileReference FileRefsGet( string guid )
 		{
 			return fileRefs[guid];
 		}
-        
+
 		PBXFileReference FileRefsGetByRealPath( string path, PBXSourceTree sourceTree )
 		{
 			if (m_RealPathToFileRefMap[sourceTree].ContainsKey( path ))
 				return m_RealPathToFileRefMap[sourceTree][path];
 			return null;
 		}
-        
+
 		PBXFileReference FileRefsGetByProjectPath( string path )
 		{
 			if (m_ProjectPathToFileRefMap.ContainsKey( path ))
@@ -148,7 +148,7 @@ namespace InControl.iOS.Xcode
 		{
 			return groups[guid];
 		}
-        
+
 		PBXGroup GroupsGetByChild( string childGuid )
 		{
 			return m_GuidToParentGroupMap[childGuid];
@@ -158,7 +158,7 @@ namespace InControl.iOS.Xcode
 		{
 			return groups[project.project.mainGroup];
 		}
-        
+
 		/// Returns the source group identified by sourceGroup. If sourceGroup is empty or null,
 		/// root group is returned. If no group is found, null is returned.
 		PBXGroup GroupsGetByProjectPath( string sourceGroup )
@@ -203,7 +203,7 @@ namespace InControl.iOS.Xcode
 				string pPath;
 				string rPath;
 				PBXSourceTree rTree;
- 
+
 				if (fileRef != null)
 				{
 					pPath = Utils.CombinePaths( projectPath, fileRef.name );
@@ -234,7 +234,7 @@ namespace InControl.iOS.Xcode
 				{
 					pPath = Utils.CombinePaths( projectPath, gr.name );
 					Utils.CombinePaths( realPath, realPathTree, gr.path, gr.tree, out rPath, out rTree );
-                    
+
 					if (!m_ProjectPathToGroupMap.ContainsKey( pPath ))
 					{
 						m_ProjectPathToGroupMap.Add( pPath, gr );
@@ -293,7 +293,7 @@ namespace InControl.iOS.Xcode
 			configs = new XCConfigurationListSection( "XCConfigurationList" );
 			project = new PBXProjectSection();
 			m_UnknownSections = new Dictionary<string, UnknownSection>();
-            
+
 			m_Section = new Dictionary<string, SectionBase> {
 				{ "PBXBuildFile", buildFiles },
 				{ "PBXFileReference", fileRefs },
@@ -356,7 +356,7 @@ namespace InControl.iOS.Xcode
 					return entry.Key;
 			return null;
 		}
-        
+
 		internal string ProjectGuid()
 		{
 			return project.project.guid;
@@ -462,7 +462,7 @@ namespace InControl.iOS.Xcode
 		{
 			AddBuildFileImpl( targetGuid, fileGuid, false, compileFlags );
 		}
-        
+
 		// returns null on error
 		// FIXME: at the moment returns all flags as the first element of the array
 		public List<string> GetCompileFlagsForFile( string targetGuid, string fileGuid )
@@ -474,7 +474,7 @@ namespace InControl.iOS.Xcode
 				return new List<string>();
 			return new List<string>{ buildFile.compileFlags };
 		}
-        
+
 		public void SetCompileFlagsForFile( string targetGuid, string fileGuid, List<string> compileFlags )
 		{
 			var buildFile = BuildFilesGetForSourceFile( targetGuid, fileGuid );
@@ -512,7 +512,7 @@ namespace InControl.iOS.Xcode
 			string fileGuid = AddFile( "System/Library/Frameworks/" + framework, "Frameworks/" + framework, PBXSourceTree.Sdk );
 			AddBuildFileImpl( targetGuid, fileGuid, weak, null );
 		}
-        
+
 		/// The framework must be specified with the '.framework' extension
 		// FIXME: targetGuid is ignored at the moment
 		public void RemoveFrameworkFromProject( string targetGuid, string framework )
@@ -677,11 +677,11 @@ namespace InControl.iOS.Xcode
 
 			if (sourceGroup == null || sourceGroup == "")
 				return GroupsGetMainGroup();
-            
+
 			PBXGroup gr = GroupsGetByProjectPath( sourceGroup );
 			if (gr != null)
 				return gr;
-                
+
 			// the group does not exist -- create new
 			gr = GroupsGetMainGroup();
 
@@ -733,9 +733,6 @@ namespace InControl.iOS.Xcode
             the same as the 'path' parameter passed to the AddExternalProjectDependency.
             remoteFileGuid must be the guid of the referenced file as specified in
             PBXFileReference section of the external project
-
-            TODO: what. is remoteInfo entry in PBXContainerItemProxy? Is in referenced project name or
-            referenced library name without extension?
         */
 		public void AddExternalLibraryDependency( string targetGuid, string filename, string remoteFileGuid, string projectPath,
 		                                          string remoteInfo )
@@ -1003,7 +1000,7 @@ namespace InControl.iOS.Xcode
 			foreach (string guid in configGuids)
 				RemoveBuildPropertyForConfig( guid, name );
 		}
-        
+
 		/// Interprets the value of the given property as a set of space-delimited strings, then
 		/// removes strings equal to items to removeValues and adds strings in addValues.
 		public void UpdateBuildProperty( string targetGuid, string name, string[] addValues, string[] removeValues )
@@ -1139,14 +1136,14 @@ namespace InControl.iOS.Xcode
 		{
 			Clear();
 			m_RootElements = ParseContent( sr.ReadToEnd() );
-            
+
 			if (!m_RootElements.Contains( "objects" ))
 				throw new Exception( "Invalid PBX project file: no objects element" );
-            
+
 			var objects = m_RootElements["objects"].AsDict();
 			m_RootElements.Remove( "objects" );
 			m_RootElements.SetString( "objects", "OBJMARKER" );
-            
+
 			if (m_RootElements.Contains( "objectVersion" ))
 			{
 				m_ObjectVersion = m_RootElements["objectVersion"].AsString();
@@ -1167,7 +1164,7 @@ namespace InControl.iOS.Xcode
 				}
 				var dict = el.AsDict();
 				var sectionName = dict["isa"].AsString();
-                
+
 				if (m_Section.ContainsKey( sectionName ))
 				{
 					var section = m_Section[sectionName];
@@ -1184,7 +1181,7 @@ namespace InControl.iOS.Xcode
 						m_UnknownSections.Add( sectionName, section );
 					}
 					section.AddObject( kv.Key, dict );
-                    
+
 					// update section order
 					if (!m_SectionOrder.Contains( sectionName ))
 					{
@@ -1193,7 +1190,7 @@ namespace InControl.iOS.Xcode
 						{
 							// this never fails, because we already added any previous unknown sections
 							// to m_SectionOrder
-							pos = m_SectionOrder.FindIndex( x => x == prevSectionName );  
+							pos = m_SectionOrder.FindIndex( x => x == prevSectionName );
 							pos += 1;
 						}
 						m_SectionOrder.Insert( pos, sectionName );
@@ -1214,13 +1211,13 @@ namespace InControl.iOS.Xcode
 		{
 			sw.Write( WriteToString() );
 		}
- 
+
 		public string WriteToString()
 		{
-			var commentMap = BuildCommentMap();            
+			var commentMap = BuildCommentMap();
 			var emptyChecker = new PropertyCommentChecker();
 			var emptyCommentMap = new GUIDToCommentMap();
-            
+
 			// since we need to add custom comments, the serialization is much more complex
 			StringBuilder objectsSb = new StringBuilder();
 			if (m_ObjectVersion != null) // objectVersion comes right before objects
@@ -1232,30 +1229,30 @@ namespace InControl.iOS.Xcode
 					m_Section[sectionName].WriteSection( objectsSb, commentMap );
 				else
 				if (m_UnknownSections.ContainsKey( sectionName ))
-					m_UnknownSections[sectionName].WriteSection( objectsSb, commentMap ); 
+					m_UnknownSections[sectionName].WriteSection( objectsSb, commentMap );
 			}
 			foreach (var kv in m_UnknownObjects.values)
 				Serializer.WriteDictKeyValue( objectsSb, kv.Key, kv.Value, 2, false, emptyChecker, emptyCommentMap );
 			objectsSb.Append( "\n\t};" );
-            
+
 			StringBuilder contentSb = new StringBuilder();
 			contentSb.Append( "// !$*UTF8*$!\n" );
-			Serializer.WriteDict( contentSb, m_RootElements, 0, false, 
+			Serializer.WriteDict( contentSb, m_RootElements, 0, false,
 			                      new PropertyCommentChecker( new string[]{ "rootObject/*" } ), commentMap );
 			contentSb.Append( "\n" );
 			string content = contentSb.ToString();
-            
+
 			content = content.Replace( "objects = OBJMARKER;", objectsSb.ToString() );
 			return content;
 		}
-        
+
 		// This method walks the project structure and removes invalid entries.
 		void RepairStructure( List<string> allGuids )
 		{
 			var guidSet = new Dictionary<string, bool>(); // emulate HashSet on .Net 2.0
 			foreach (var guid in allGuids)
 				guidSet.Add( guid, false );
-            
+
 			while (RepairStructureImpl( guidSet ) == true)
 				;
 		}
@@ -1280,12 +1277,12 @@ namespace InControl.iOS.Xcode
 					guidList.RemoveGUID( guid );
 			}
 		}
-        
+
 		/*  Removes objects from the given @a section for which @a checker returns true.
             Also removes the guids of the removed elements from allGuids dictionary.
             Returns true if any objects were removed.
         */
-		static bool RemoveObjectsFromSection<T>( KnownSectionBase<T> section, 
+		static bool RemoveObjectsFromSection<T>( KnownSectionBase<T> section,
 		                                         Dictionary<string, bool> allGuids,
 		                                         Func<T, bool> checker ) where T : PBXObject, new()
 		{
@@ -1315,20 +1312,20 @@ namespace InControl.iOS.Xcode
 		bool RepairStructureImpl( Dictionary<string, bool> allGuids )
 		{
 			bool changed = false;
-            
+
 			// PBXBuildFile
-			changed |= RemoveObjectsFromSection( buildFiles, allGuids, 
+			changed |= RemoveObjectsFromSection( buildFiles, allGuids,
 			                                     o => (o.fileRef == null || !allGuids.ContainsKey( o.fileRef )) );
 			// PBXFileReference / fileRefs not cleaned
-            
+
 			// PBXGroup
 			changed |= RemoveObjectsFromSection( groups, allGuids, o => o.children == null );
 			foreach (var o in groups.GetObjects())
 				RemoveMissingGuidsFromGuidList( o.children, allGuids );
-            
+
 			// PBXContainerItem / containerItems not cleaned
 			// PBXReferenceProxy / references not cleaned
-            
+
 			// PBXSourcesBuildPhase
 			changed |= RemoveObjectsFromSection( sources, allGuids, o => o.files == null );
 			foreach (var o in sources.GetObjects())
@@ -1349,26 +1346,26 @@ namespace InControl.iOS.Xcode
 			changed |= RemoveObjectsFromSection( shellScripts, allGuids, o => o.files == null );
 			foreach (var o in shellScripts.GetObjects())
 				RemoveMissingGuidsFromGuidList( o.files, allGuids );
- 
+
 			// PBXNativeTarget
 			changed |= RemoveObjectsFromSection( nativeTargets, allGuids, o => o.phases == null );
 			foreach (var o in nativeTargets.GetObjects())
 				RemoveMissingGuidsFromGuidList( o.phases, allGuids );
 
 			// PBXTargetDependency / targetDependencies not cleaned
-            
+
 			// PBXVariantGroup
 			changed |= RemoveObjectsFromSection( variantGroups, allGuids, o => o.children == null );
 			foreach (var o in variantGroups.GetObjects())
 				RemoveMissingGuidsFromGuidList( o.children, allGuids );
-            
+
 			// XCBuildConfiguration / buildConfigs not cleaned
 
 			// XCConfigurationList
 			changed |= RemoveObjectsFromSection( configs, allGuids, o => o.buildConfigs == null );
 			foreach (var o in configs.GetObjects())
 				RemoveMissingGuidsFromGuidList( o.buildConfigs, allGuids );
-            
+
 			// PBXProject project not cleaned
 			return changed;
 		}

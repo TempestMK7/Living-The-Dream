@@ -117,7 +117,6 @@ public class CameraFilterPack_Lut_PlayWith : MonoBehaviour
 
                     textureImporter.isReadable = true;
                     textureImporter.mipmapEnabled = false;
-                    textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
             }

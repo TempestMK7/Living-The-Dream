@@ -1,7 +1,7 @@
 namespace InControl
 {
 	// @cond nodoc
-	[AutoDiscover]
+	[AutoDiscover, Preserve]
 	public class PlayStation4Profile : UnityInputDeviceProfile
 	{
 		public PlayStation4Profile()
@@ -15,7 +15,8 @@ namespace InControl
 			DeviceStyle = InputDeviceStyle.PlayStation4;
 
 			IncludePlatforms = new[] {
-				"PS4"
+				"PS4",
+				"ORBIS"
 			};
 
 			JoystickRegex = new[] {
@@ -179,3 +180,4 @@ namespace InControl
 	}
 	// @endcond
 }
+

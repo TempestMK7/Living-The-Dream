@@ -110,7 +110,6 @@ return;
                 {
                 textureImporter.isReadable = true;
                 textureImporter.mipmapEnabled = false;
-                textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
                 AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
             }

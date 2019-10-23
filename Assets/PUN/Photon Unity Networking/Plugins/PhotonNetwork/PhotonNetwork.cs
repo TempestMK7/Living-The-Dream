@@ -28,7 +28,7 @@ using System.IO;
 public static class PhotonNetwork
 {
     /// <summary>Version number of PUN. Also used in GameVersion to separate client version from each other.</summary>
-    public const string versionPUN = "1.92";
+    public const string versionPUN = "1.99";
 
     /// <summary>Version string for your this build. Can be used to separate incompatible clients. Sent during connect.</summary>
     /// <remarks>This is only sent when you connect so that is also the place you set it usually (e.g. in ConnectUsingSettings).</remarks>
@@ -771,22 +771,6 @@ public static class PhotonNetwork
 
     /// <summary>Backup for property isMessageQueueRunning.</summary>
     private static bool m_isMessageQueueRunning = true;
-
-    /// <summary>
-    /// Used once per dispatch to limit unreliable commands per channel (so after a pause, many channels can still cause a lot of unreliable commands)
-    /// </summary>
-    public static int unreliableCommandsLimit
-    {
-        get
-        {
-            return networkingPeer.LimitOfUnreliableCommands;
-        }
-
-        set
-        {
-            networkingPeer.LimitOfUnreliableCommands = value;
-        }
-    }
 
     /// <summary>
     /// Photon network time, synched with the server.
@@ -1588,15 +1572,16 @@ public static class PhotonNetwork
     /// ParameterCode.FindFriendsResponseRoomIdList = string[] of room names (empty string if not in a room)
     /// </remarks>
     /// <param name="friendsToFind">Array of friend (make sure to use unique playerName or AuthValues).</param>
+    /// <param name="options">Options that affect the result of the FindFriends operation.</param>
     /// <returns>If the operation could be sent (requires connection, only one request is allowed at any time). Always false in offline mode.</returns>
-    public static bool FindFriends(string[] friendsToFind)
+    public static bool FindFriends(string[] friendsToFind, FindFriendsOptions options = null)
     {
         if (networkingPeer == null || isOfflineMode)
         {
             return false;
         }
 
-        return networkingPeer.OpFindFriends(friendsToFind);
+        return networkingPeer.OpFindFriends(friendsToFind, options);
     }
 
 
@@ -3212,7 +3197,7 @@ public static class PhotonNetwork
     /// </param>
     public static void LoadLevel(int levelNumber)
     {
-		networkingPeer.AsynchLevelLoadCall = false;
+        networkingPeer.AsynchLevelLoadCall = false;
 
 		if (PhotonNetwork.automaticallySyncScene) {
 			networkingPeer.SetLevelInPropsIfSynced (levelNumber,true);
@@ -3244,7 +3229,7 @@ public static class PhotonNetwork
 	/// </param>
 	public static AsyncOperation LoadLevelAsync(int levelNumber)
 	{
-		networkingPeer.AsynchLevelLoadCall = true;
+        networkingPeer.AsynchLevelLoadCall = true;
 
 		if (PhotonNetwork.automaticallySyncScene) {
 			networkingPeer.SetLevelInPropsIfSynced (levelNumber,true);
@@ -3275,7 +3260,7 @@ public static class PhotonNetwork
     /// </param>
     public static void LoadLevel(string levelName)
     {
-		networkingPeer.AsynchLevelLoadCall = false;
+        networkingPeer.AsynchLevelLoadCall = false;
 
 		if (PhotonNetwork.automaticallySyncScene) {
 			networkingPeer.SetLevelInPropsIfSynced (levelName,true);
@@ -3308,7 +3293,7 @@ public static class PhotonNetwork
 	/// <param name="mode">LoadSceneMode either single or additive</param>
 	public static AsyncOperation LoadLevelAsync(string levelName)
 	{
-		networkingPeer.AsynchLevelLoadCall = true;
+        networkingPeer.AsynchLevelLoadCall = true;
 
 		if (PhotonNetwork.automaticallySyncScene) {
 			networkingPeer.SetLevelInPropsIfSynced (levelName,true);

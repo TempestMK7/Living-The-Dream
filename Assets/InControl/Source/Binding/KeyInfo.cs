@@ -5,13 +5,13 @@
 
 	public struct KeyInfo
 	{
-		public readonly Key key;
-		private readonly string name;
-		private readonly string macName;
-		public readonly KeyCode[] keyCodes;
+		readonly Key key;
+		readonly string name;
+		readonly string macName;
+		public KeyCode[] keyCodes;
 
 
-		private KeyInfo( Key key, string name, params KeyCode[] keyCodes )
+		KeyInfo( Key key, string name, params KeyCode[] keyCodes )
 		{
 			this.key = key;
 			this.name = name;
@@ -20,7 +20,7 @@
 		}
 
 
-		private KeyInfo( Key key, string name, string macName, params KeyCode[] keyCodes )
+		KeyInfo( Key key, string name, string macName, params KeyCode[] keyCodes )
 		{
 			this.key = key;
 			this.name = name;
@@ -41,6 +41,7 @@
 						return true;
 					}
 				}
+
 				return false;
 			}
 		}
@@ -51,11 +52,11 @@
 			get
 			{
 				if (Application.platform == RuntimePlatform.OSXEditor ||
-					Application.platform == RuntimePlatform.OSXPlayer
+				    Application.platform == RuntimePlatform.OSXPlayer
 #if !UNITY_5_4_OR_NEWER
 					|| Application.platform == RuntimePlatform.OSXWebPlayer
 #endif
-				   )
+				)
 				{
 					return macName;
 				}
@@ -76,7 +77,8 @@
 		}
 
 
-		public static readonly KeyInfo[] KeyList = {
+		public static readonly KeyInfo[] KeyList =
+		{
 			new KeyInfo( Key.None, "None", KeyCode.None ),
 
 			new KeyInfo( Key.Shift, "Shift", KeyCode.LeftShift, KeyCode.RightShift ),
@@ -208,6 +210,32 @@
 			new KeyInfo( Key.AltGr, "Alt Graphic", KeyCode.AltGr ),
 			new KeyInfo( Key.CapsLock, "Caps Lock", KeyCode.CapsLock ),
 
+			// Shifted / non-US keyboard keys.
+			new KeyInfo( Key.ExclamationMark, "Exclamation", KeyCode.Exclaim ),
+			new KeyInfo( Key.At, "At", KeyCode.At ),
+			new KeyInfo( Key.Hash, "Hash", KeyCode.Hash ),
+			new KeyInfo( Key.Dollar, "Dollar", KeyCode.Dollar ),
+			new KeyInfo( Key.Caret, "Caret", KeyCode.Caret ),
+			new KeyInfo( Key.Ampersand, "Ampersand", KeyCode.Ampersand ),
+			new KeyInfo( Key.Asterisk, "Asterisk", KeyCode.Asterisk ),
+			new KeyInfo( Key.LeftParen, "Left Paren", KeyCode.LeftParen ),
+			new KeyInfo( Key.RightParen, "Right Paren", KeyCode.RightParen ),
+			new KeyInfo( Key.Underscore, "Underscore", KeyCode.Underscore ),
+			new KeyInfo( Key.Plus, "Plus", KeyCode.Plus ),
+			new KeyInfo( Key.Colon, "Colon", KeyCode.Colon ),
+			new KeyInfo( Key.DoubleQuote, "Double Quote", KeyCode.DoubleQuote ),
+			new KeyInfo( Key.LessThan, "Less Than", KeyCode.Less ),
+			new KeyInfo( Key.GreaterThan, "Greater Than", KeyCode.Greater ),
+			new KeyInfo( Key.QuestionMark, "Question Mark", KeyCode.Question ),
+
+#if UNITY_2018_3_OR_NEWER
+			new KeyInfo( Key.Percent, "Percent", KeyCode.Percent ),
+			new KeyInfo( Key.Tilde, "Tilde", KeyCode.Tilde ),
+			new KeyInfo( Key.LeftBrace, "LeftBrace", KeyCode.LeftCurlyBracket ),
+			new KeyInfo( Key.RightBrace, "RightBrace", KeyCode.RightCurlyBracket ),
+			new KeyInfo( Key.Pipe, "Pipe", KeyCode.Pipe ),
+#endif
+
 			// Unity doesn't define/support these :(
 			// new KeyInfo( Key.F16, "F16", KeyCode.F16 ),
 			// new KeyInfo( Key.F17, "F17", KeyCode.F17 ),
@@ -216,4 +244,3 @@
 		};
 	}
 }
-

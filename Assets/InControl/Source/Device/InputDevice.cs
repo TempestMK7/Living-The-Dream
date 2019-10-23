@@ -58,15 +58,11 @@ namespace InControl
 
 
 		public InputDevice()
-			: this( "" )
-		{
-		}
+			: this( "" ) {}
 
 
 		public InputDevice( string name )
-			: this( name, false )
-		{
-		}
+			: this( name, false ) {}
 
 
 		public InputDevice( string name, bool rawSticks )
@@ -272,7 +268,7 @@ namespace InControl
 		}
 
 
-		internal void UpdateLeftStickWithValue( Vector2 value, ulong updateTick, float deltaTime )
+		public void UpdateLeftStickWithValue( Vector2 value, ulong updateTick, float deltaTime )
 		{
 			LeftStickLeft.UpdateWithValue( Mathf.Max( 0.0f, -value.x ), updateTick, deltaTime );
 			LeftStickRight.UpdateWithValue( Mathf.Max( 0.0f, value.x ), updateTick, deltaTime );
@@ -290,7 +286,7 @@ namespace InControl
 		}
 
 
-		internal void UpdateLeftStickWithRawValue( Vector2 value, ulong updateTick, float deltaTime )
+		public void UpdateLeftStickWithRawValue( Vector2 value, ulong updateTick, float deltaTime )
 		{
 			LeftStickLeft.UpdateWithRawValue( Mathf.Max( 0.0f, -value.x ), updateTick, deltaTime );
 			LeftStickRight.UpdateWithRawValue( Mathf.Max( 0.0f, value.x ), updateTick, deltaTime );
@@ -308,7 +304,7 @@ namespace InControl
 		}
 
 
-		internal void CommitLeftStick()
+		public void CommitLeftStick()
 		{
 			LeftStickUp.Commit();
 			LeftStickDown.Commit();
@@ -317,7 +313,7 @@ namespace InControl
 		}
 
 
-		internal void UpdateRightStickWithValue( Vector2 value, ulong updateTick, float deltaTime )
+		public void UpdateRightStickWithValue( Vector2 value, ulong updateTick, float deltaTime )
 		{
 			RightStickLeft.UpdateWithValue( Mathf.Max( 0.0f, -value.x ), updateTick, deltaTime );
 			RightStickRight.UpdateWithValue( Mathf.Max( 0.0f, value.x ), updateTick, deltaTime );
@@ -335,7 +331,7 @@ namespace InControl
 		}
 
 
-		internal void UpdateRightStickWithRawValue( Vector2 value, ulong updateTick, float deltaTime )
+		public void UpdateRightStickWithRawValue( Vector2 value, ulong updateTick, float deltaTime )
 		{
 			RightStickLeft.UpdateWithRawValue( Mathf.Max( 0.0f, -value.x ), updateTick, deltaTime );
 			RightStickRight.UpdateWithRawValue( Mathf.Max( 0.0f, value.x ), updateTick, deltaTime );
@@ -353,7 +349,7 @@ namespace InControl
 		}
 
 
-		internal void CommitRightStick()
+		public void CommitRightStick()
 		{
 			RightStickUp.Commit();
 			RightStickDown.Commit();
@@ -539,9 +535,7 @@ namespace InControl
 		}
 
 
-		public virtual void Vibrate( float leftMotor, float rightMotor )
-		{
-		}
+		public virtual void Vibrate( float leftMotor, float rightMotor ) {}
 
 
 		public void Vibrate( float intensity )
@@ -556,9 +550,7 @@ namespace InControl
 		}
 
 
-		public virtual void SetLightColor( float red, float green, float blue )
-		{
-		}
+		public virtual void SetLightColor( float red, float green, float blue ) {}
 
 
 		public void SetLightColor( Color color )
@@ -567,9 +559,7 @@ namespace InControl
 		}
 
 
-		public virtual void SetLightFlash( float flashOnDuration, float flashOffDuration )
-		{
-		}
+		public virtual void SetLightFlash( float flashOnDuration, float flashOffDuration ) {}
 
 
 		public void StopLightFlash()
@@ -934,31 +924,31 @@ namespace InControl
 
 		#region Snapshots for Unknown Devices
 
-		internal virtual int NumUnknownAnalogs
+		public virtual int NumUnknownAnalogs
 		{
 			get { return 0; }
 		}
 
 
-		internal virtual int NumUnknownButtons
+		public virtual int NumUnknownButtons
 		{
 			get { return 0; }
 		}
 
 
-		internal virtual bool ReadRawButtonState( int index )
+		public virtual bool ReadRawButtonState( int index )
 		{
 			return false;
 		}
 
 
-		internal virtual float ReadRawAnalogValue( int index )
+		public virtual float ReadRawAnalogValue( int index )
 		{
 			return 0.0f;
 		}
 
 
-		internal void TakeSnapshot()
+		public void TakeSnapshot()
 		{
 			if (AnalogSnapshot == null)
 			{
@@ -973,7 +963,7 @@ namespace InControl
 		}
 
 
-		internal UnknownDeviceControl GetFirstPressedAnalog()
+		public UnknownDeviceControl GetFirstPressedAnalog()
 		{
 			if (AnalogSnapshot != null)
 			{
@@ -1017,7 +1007,7 @@ namespace InControl
 		}
 
 
-		internal UnknownDeviceControl GetFirstPressedButton()
+		public UnknownDeviceControl GetFirstPressedButton()
 		{
 			for (var index = 0; index < NumUnknownButtons; index++)
 			{

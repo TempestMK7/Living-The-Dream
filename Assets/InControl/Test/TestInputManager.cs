@@ -46,13 +46,21 @@ namespace InControl
 			// This turns off the A button being interpreted as Menu on controllers.
 			// See also:
 			// https://docs.unity3d.com/Manual/tvOS.html
-			// https://docs.unity3d.com/ScriptReference/Apple.TV.Remote-allowExitToHome.html
+			// https://docs.unity3d.com/ScriptReference/tvOS.Remote-allowExitToHome.html
+			#if UNITY_2018_2_OR_NEWER
+			UnityEngine.tvOS.Remote.allowExitToHome = false;
+			#else
 			UnityEngine.Apple.TV.Remote.allowExitToHome = false;
+			#endif
 
 			// This enables swiping instead of a touch analog pad.
 			// See also:
-			// https://docs.unity3d.com/ScriptReference/Apple.TV.Remote-reportAbsoluteDpadValues.html
+			// https://docs.unity3d.com/ScriptReference/tvOS.Remote-reportAbsoluteDpadValues.html
+			#if UNITY_2018_2_OR_NEWER
+			UnityEngine.tvOS.Remote.reportAbsoluteDpadValues = false;
+			#else
 			UnityEngine.Apple.TV.Remote.reportAbsoluteDpadValues = false;
+			#endif
 
 			// This detects whether the attached device is an Apple TV remote and then
 			// configures it to have an appropriate deadzone and state threshhold for
@@ -180,12 +188,12 @@ namespace InControl
 
 			foreach (var inputDevice in InputManager.Devices)
 			{
-				var color = inputDevice.IsActive ? new Color(0.9f, 0.7f, 0.2f) : Color.white;
+				var color = inputDevice.IsActive ? new Color( 0.9f, 0.7f, 0.2f ) : Color.white;
 
 				var isActiveDevice = InputManager.ActiveDevice == inputDevice;
 				if (isActiveDevice)
 				{
-					color = new Color(1.0f, 0.9f, 0.0f);
+					color = new Color( 1.0f, 0.9f, 0.0f );
 				}
 
 				y = 35;
@@ -200,6 +208,7 @@ namespace InControl
 					SetColor( color );
 					GUI.Label( new Rect( x, y, x + w, y + 10 ), inputDevice.Name, style );
 				}
+
 				y += lineHeight;
 
 				SetColor( color );
@@ -219,8 +228,8 @@ namespace InControl
 				GUI.Label( new Rect( x, y, x + w, y + 10 ), "SortOrder: " + inputDevice.SortOrder, style );
 				y += lineHeight;
 
-//				GUI.Label( new Rect( x, y, x + w, y + 10 ), "LastChangeTick: " + inputDevice.LastChangeTick, style );
-//				y += lineHeight;
+				//				GUI.Label( new Rect( x, y, x + w, y + 10 ), "LastChangeTick: " + inputDevice.LastChangeTick, style );
+				//				y += lineHeight;
 
 				GUI.Label( new Rect( x, y, x + w, y + 10 ), "LastInputTick: " + inputDevice.LastInputTick, style );
 				y += lineHeight;
@@ -259,7 +268,7 @@ namespace InControl
 
 				y += lineHeight;
 
-				color = isActiveDevice ? new Color(0.85f, 0.65f, 0.12f) : Color.white;
+				color = isActiveDevice ? new Color( 0.85f, 0.65f, 0.12f ) : Color.white;
 				if (inputDevice.IsKnown)
 				{
 					var control = inputDevice.Command;

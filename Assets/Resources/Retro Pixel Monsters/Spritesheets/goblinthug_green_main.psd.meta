@@ -8,120 +8,274 @@ labels:
 - 2D
 - Monster
 - Monsters
-timeCreated: 1445984516
-licenseType: Store
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: goblinthug_green_main_0
-    21300002: goblinthug_green_main_1
-    21300004: goblinthug_green_main_2
-    21300006: goblinthug_green_main_3
-    21300008: goblinthug_green_main_4
-    21300010: goblinthug_green_main_5
-    21300012: goblinthug_green_main_6
-    21300014: goblinthug_green_main_7
-    21300016: goblinthug_green_main_8
-    21300018: goblinthug_green_main_9
-    21300020: goblinthug_green_main_10
-    21300022: goblinthug_green_main_11
-    21300024: goblinthug_green_main_12
-    21300026: goblinthug_green_main_13
-    21300028: goblinthug_green_main_14
-    21300030: goblinthug_green_main_15
-    21300032: goblinthug_green_main_16
-    21300034: goblinthug_green_main_17
-    21300036: goblinthug_green_main_18
-    21300038: goblinthug_green_main_19
-    21300040: goblinthug_green_main_20
-    21300042: goblinthug_green_main_21
-    21300044: goblinthug_green_main_22
-    21300046: goblinthug_green_main_23
-    21300048: goblinthug_green_main_24
-    21300050: goblinthug_green_main_25
-    21300052: goblinthug_green_main_26
-    21300054: goblinthug_green_main_27
-    21300056: goblinthug_green_main_28
-    21300058: goblinthug_green_main_29
-    21300060: goblinthug_green_main_30
-    21300062: goblinthug_green_main_31
-    21300064: goblinthug_green_main_32
-    21300066: goblinthug_green_main_33
-    21300068: goblinthug_green_main_34
-    21300070: goblinthug_green_main_35
-    21300072: goblinthug_green_main_36
-    21300074: goblinthug_green_main_37
-    21300076: goblinthug_green_main_38
-    21300078: goblinthug_green_main_39
-    21300080: goblinthug_green_main_40
-    21300082: goblinthug_green_main_41
-    21300084: goblinthug_green_main_42
-    21300086: goblinthug_green_main_43
-    21300088: goblinthug_green_main_44
-    21300090: goblinthug_green_main_45
-    21300092: goblinthug_green_main_46
-    21300094: goblinthug_green_main_47
-    21300096: goblinthug_green_main_48
-    21300098: goblinthug_green_main_49
-    21300100: goblinthug_green_main_50
-    21300102: goblinthug_green_main_51
-    21300104: goblinthug_green_main_52
-    21300106: goblinthug_green_main_53
-    21300108: goblinthug_green_main_54
-    21300110: goblinthug_green_main_55
-    21300112: goblinthug_green_main_56
-    21300114: goblinthug_green_main_57
-    21300116: goblinthug_green_main_58
-    21300118: goblinthug_green_main_59
-    21300120: goblinthug_green_main_60
-    21300122: goblinthug_green_main_61
-    21300124: goblinthug_green_main_62
-    21300126: goblinthug_green_main_63
-  serializedVersion: 2
+  internalIDToNameTable:
+  - first:
+      213: 21300000
+    second: goblinthug_green_main_0
+  - first:
+      213: 21300002
+    second: goblinthug_green_main_1
+  - first:
+      213: 21300004
+    second: goblinthug_green_main_2
+  - first:
+      213: 21300006
+    second: goblinthug_green_main_3
+  - first:
+      213: 21300008
+    second: goblinthug_green_main_4
+  - first:
+      213: 21300010
+    second: goblinthug_green_main_5
+  - first:
+      213: 21300012
+    second: goblinthug_green_main_6
+  - first:
+      213: 21300014
+    second: goblinthug_green_main_7
+  - first:
+      213: 21300016
+    second: goblinthug_green_main_8
+  - first:
+      213: 21300018
+    second: goblinthug_green_main_9
+  - first:
+      213: 21300020
+    second: goblinthug_green_main_10
+  - first:
+      213: 21300022
+    second: goblinthug_green_main_11
+  - first:
+      213: 21300024
+    second: goblinthug_green_main_12
+  - first:
+      213: 21300026
+    second: goblinthug_green_main_13
+  - first:
+      213: 21300028
+    second: goblinthug_green_main_14
+  - first:
+      213: 21300030
+    second: goblinthug_green_main_15
+  - first:
+      213: 21300032
+    second: goblinthug_green_main_16
+  - first:
+      213: 21300034
+    second: goblinthug_green_main_17
+  - first:
+      213: 21300036
+    second: goblinthug_green_main_18
+  - first:
+      213: 21300038
+    second: goblinthug_green_main_19
+  - first:
+      213: 21300040
+    second: goblinthug_green_main_20
+  - first:
+      213: 21300042
+    second: goblinthug_green_main_21
+  - first:
+      213: 21300044
+    second: goblinthug_green_main_22
+  - first:
+      213: 21300046
+    second: goblinthug_green_main_23
+  - first:
+      213: 21300048
+    second: goblinthug_green_main_24
+  - first:
+      213: 21300050
+    second: goblinthug_green_main_25
+  - first:
+      213: 21300052
+    second: goblinthug_green_main_26
+  - first:
+      213: 21300054
+    second: goblinthug_green_main_27
+  - first:
+      213: 21300056
+    second: goblinthug_green_main_28
+  - first:
+      213: 21300058
+    second: goblinthug_green_main_29
+  - first:
+      213: 21300060
+    second: goblinthug_green_main_30
+  - first:
+      213: 21300062
+    second: goblinthug_green_main_31
+  - first:
+      213: 21300064
+    second: goblinthug_green_main_32
+  - first:
+      213: 21300066
+    second: goblinthug_green_main_33
+  - first:
+      213: 21300068
+    second: goblinthug_green_main_34
+  - first:
+      213: 21300070
+    second: goblinthug_green_main_35
+  - first:
+      213: 21300072
+    second: goblinthug_green_main_36
+  - first:
+      213: 21300074
+    second: goblinthug_green_main_37
+  - first:
+      213: 21300076
+    second: goblinthug_green_main_38
+  - first:
+      213: 21300078
+    second: goblinthug_green_main_39
+  - first:
+      213: 21300080
+    second: goblinthug_green_main_40
+  - first:
+      213: 21300082
+    second: goblinthug_green_main_41
+  - first:
+      213: 21300084
+    second: goblinthug_green_main_42
+  - first:
+      213: 21300086
+    second: goblinthug_green_main_43
+  - first:
+      213: 21300088
+    second: goblinthug_green_main_44
+  - first:
+      213: 21300090
+    second: goblinthug_green_main_45
+  - first:
+      213: 21300092
+    second: goblinthug_green_main_46
+  - first:
+      213: 21300094
+    second: goblinthug_green_main_47
+  - first:
+      213: 21300096
+    second: goblinthug_green_main_48
+  - first:
+      213: 21300098
+    second: goblinthug_green_main_49
+  - first:
+      213: 21300100
+    second: goblinthug_green_main_50
+  - first:
+      213: 21300102
+    second: goblinthug_green_main_51
+  - first:
+      213: 21300104
+    second: goblinthug_green_main_52
+  - first:
+      213: 21300106
+    second: goblinthug_green_main_53
+  - first:
+      213: 21300108
+    second: goblinthug_green_main_54
+  - first:
+      213: 21300110
+    second: goblinthug_green_main_55
+  - first:
+      213: 21300112
+    second: goblinthug_green_main_56
+  - first:
+      213: 21300114
+    second: goblinthug_green_main_57
+  - first:
+      213: 21300116
+    second: goblinthug_green_main_58
+  - first:
+      213: 21300118
+    second: goblinthug_green_main_59
+  - first:
+      213: 21300120
+    second: goblinthug_green_main_60
+  - first:
+      213: 21300122
+    second: goblinthug_green_main_61
+  - first:
+      213: 21300124
+    second: goblinthug_green_main_62
+  - first:
+      213: 21300126
+    second: goblinthug_green_main_63
+  externalObjects: {}
+  serializedVersion: 10
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
+    sRGBTexture: 1
     linearTexture: 0
-    correctGamma: 0
     fadeOut: 0
     borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
     mipMapFadeDistanceStart: 1
     mipMapFadeDistanceEnd: 3
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: 0.25
     normalMapFilter: 0
   isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
   grayScaleToAlpha: 0
-  generateCubemap: 0
+  generateCubemap: 6
   cubemapConvolution: 0
-  cubemapConvolutionSteps: 8
-  cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -3
   maxTextureSize: 2048
   textureSettings:
+    serializedVersion: 2
     filterMode: 0
     aniso: 16
-    mipBias: -1
-    wrapMode: 1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
-  rGBM: 0
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 7
-  spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
-  buildTargetSettings: []
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: goblinthug_green_main_0
+    - serializedVersion: 2
+      name: goblinthug_green_main_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,7 +285,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_1
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02305410000000000800000000000000
+      internalID: 21300000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_1
       rect:
         serializedVersion: 2
         x: 32
@@ -141,7 +306,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_2
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22305410000000000800000000000000
+      internalID: 21300002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_2
       rect:
         serializedVersion: 2
         x: 64
@@ -151,7 +327,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_3
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42305410000000000800000000000000
+      internalID: 21300004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_3
       rect:
         serializedVersion: 2
         x: 96
@@ -161,7 +348,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_4
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62305410000000000800000000000000
+      internalID: 21300006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_4
       rect:
         serializedVersion: 2
         x: 128
@@ -171,7 +369,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_5
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82305410000000000800000000000000
+      internalID: 21300008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_5
       rect:
         serializedVersion: 2
         x: 160
@@ -181,7 +390,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_6
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2305410000000000800000000000000
+      internalID: 21300010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_6
       rect:
         serializedVersion: 2
         x: 192
@@ -191,7 +411,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_7
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2305410000000000800000000000000
+      internalID: 21300012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_7
       rect:
         serializedVersion: 2
         x: 224
@@ -201,7 +432,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_8
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2305410000000000800000000000000
+      internalID: 21300014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_8
       rect:
         serializedVersion: 2
         x: 0
@@ -211,7 +453,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_9
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03305410000000000800000000000000
+      internalID: 21300016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_9
       rect:
         serializedVersion: 2
         x: 32
@@ -221,7 +474,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_10
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23305410000000000800000000000000
+      internalID: 21300018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_10
       rect:
         serializedVersion: 2
         x: 64
@@ -231,7 +495,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_11
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43305410000000000800000000000000
+      internalID: 21300020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_11
       rect:
         serializedVersion: 2
         x: 96
@@ -241,7 +516,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_12
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63305410000000000800000000000000
+      internalID: 21300022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_12
       rect:
         serializedVersion: 2
         x: 128
@@ -251,7 +537,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_13
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83305410000000000800000000000000
+      internalID: 21300024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_13
       rect:
         serializedVersion: 2
         x: 160
@@ -261,7 +558,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_14
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3305410000000000800000000000000
+      internalID: 21300026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_14
       rect:
         serializedVersion: 2
         x: 192
@@ -271,7 +579,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_15
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3305410000000000800000000000000
+      internalID: 21300028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_15
       rect:
         serializedVersion: 2
         x: 224
@@ -281,7 +600,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_16
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3305410000000000800000000000000
+      internalID: 21300030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_16
       rect:
         serializedVersion: 2
         x: 0
@@ -291,7 +621,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_17
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04305410000000000800000000000000
+      internalID: 21300032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_17
       rect:
         serializedVersion: 2
         x: 32
@@ -301,7 +642,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_18
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24305410000000000800000000000000
+      internalID: 21300034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_18
       rect:
         serializedVersion: 2
         x: 64
@@ -311,7 +663,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_19
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44305410000000000800000000000000
+      internalID: 21300036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_19
       rect:
         serializedVersion: 2
         x: 96
@@ -321,7 +684,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_20
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64305410000000000800000000000000
+      internalID: 21300038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_20
       rect:
         serializedVersion: 2
         x: 128
@@ -331,7 +705,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_21
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84305410000000000800000000000000
+      internalID: 21300040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_21
       rect:
         serializedVersion: 2
         x: 160
@@ -341,7 +726,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_22
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4305410000000000800000000000000
+      internalID: 21300042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_22
       rect:
         serializedVersion: 2
         x: 192
@@ -351,7 +747,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_23
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c4305410000000000800000000000000
+      internalID: 21300044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_23
       rect:
         serializedVersion: 2
         x: 224
@@ -361,7 +768,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_24
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4305410000000000800000000000000
+      internalID: 21300046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_24
       rect:
         serializedVersion: 2
         x: 0
@@ -371,7 +789,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_25
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05305410000000000800000000000000
+      internalID: 21300048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_25
       rect:
         serializedVersion: 2
         x: 32
@@ -381,7 +810,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_26
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25305410000000000800000000000000
+      internalID: 21300050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_26
       rect:
         serializedVersion: 2
         x: 64
@@ -391,7 +831,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_27
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45305410000000000800000000000000
+      internalID: 21300052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_27
       rect:
         serializedVersion: 2
         x: 96
@@ -401,7 +852,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_28
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65305410000000000800000000000000
+      internalID: 21300054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_28
       rect:
         serializedVersion: 2
         x: 128
@@ -411,7 +873,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_29
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85305410000000000800000000000000
+      internalID: 21300056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_29
       rect:
         serializedVersion: 2
         x: 160
@@ -421,7 +894,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_30
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5305410000000000800000000000000
+      internalID: 21300058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_30
       rect:
         serializedVersion: 2
         x: 192
@@ -431,7 +915,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_31
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5305410000000000800000000000000
+      internalID: 21300060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_31
       rect:
         serializedVersion: 2
         x: 224
@@ -441,7 +936,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_32
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5305410000000000800000000000000
+      internalID: 21300062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_32
       rect:
         serializedVersion: 2
         x: 0
@@ -451,7 +957,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_33
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 06305410000000000800000000000000
+      internalID: 21300064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_33
       rect:
         serializedVersion: 2
         x: 32
@@ -461,7 +978,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_34
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26305410000000000800000000000000
+      internalID: 21300066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_34
       rect:
         serializedVersion: 2
         x: 64
@@ -471,7 +999,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_35
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46305410000000000800000000000000
+      internalID: 21300068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_35
       rect:
         serializedVersion: 2
         x: 96
@@ -481,7 +1020,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_36
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66305410000000000800000000000000
+      internalID: 21300070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_36
       rect:
         serializedVersion: 2
         x: 128
@@ -491,7 +1041,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_37
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86305410000000000800000000000000
+      internalID: 21300072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_37
       rect:
         serializedVersion: 2
         x: 160
@@ -501,7 +1062,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_38
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6305410000000000800000000000000
+      internalID: 21300074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_38
       rect:
         serializedVersion: 2
         x: 192
@@ -511,7 +1083,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_39
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6305410000000000800000000000000
+      internalID: 21300076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_39
       rect:
         serializedVersion: 2
         x: 224
@@ -521,7 +1104,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_40
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6305410000000000800000000000000
+      internalID: 21300078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_40
       rect:
         serializedVersion: 2
         x: 0
@@ -531,7 +1125,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_41
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07305410000000000800000000000000
+      internalID: 21300080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_41
       rect:
         serializedVersion: 2
         x: 32
@@ -541,7 +1146,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_42
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27305410000000000800000000000000
+      internalID: 21300082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_42
       rect:
         serializedVersion: 2
         x: 64
@@ -551,7 +1167,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_43
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47305410000000000800000000000000
+      internalID: 21300084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_43
       rect:
         serializedVersion: 2
         x: 96
@@ -561,7 +1188,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_44
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67305410000000000800000000000000
+      internalID: 21300086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_44
       rect:
         serializedVersion: 2
         x: 128
@@ -571,7 +1209,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_45
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87305410000000000800000000000000
+      internalID: 21300088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_45
       rect:
         serializedVersion: 2
         x: 160
@@ -581,7 +1230,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_46
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7305410000000000800000000000000
+      internalID: 21300090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_46
       rect:
         serializedVersion: 2
         x: 192
@@ -591,7 +1251,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_47
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7305410000000000800000000000000
+      internalID: 21300092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_47
       rect:
         serializedVersion: 2
         x: 224
@@ -601,7 +1272,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_48
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7305410000000000800000000000000
+      internalID: 21300094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_48
       rect:
         serializedVersion: 2
         x: 0
@@ -611,7 +1293,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_49
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08305410000000000800000000000000
+      internalID: 21300096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_49
       rect:
         serializedVersion: 2
         x: 32
@@ -621,7 +1314,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_50
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28305410000000000800000000000000
+      internalID: 21300098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_50
       rect:
         serializedVersion: 2
         x: 64
@@ -631,7 +1335,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_51
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48305410000000000800000000000000
+      internalID: 21300100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_51
       rect:
         serializedVersion: 2
         x: 96
@@ -641,7 +1356,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_52
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68305410000000000800000000000000
+      internalID: 21300102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_52
       rect:
         serializedVersion: 2
         x: 128
@@ -651,7 +1377,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_53
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88305410000000000800000000000000
+      internalID: 21300104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_53
       rect:
         serializedVersion: 2
         x: 160
@@ -661,7 +1398,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_54
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8305410000000000800000000000000
+      internalID: 21300106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_54
       rect:
         serializedVersion: 2
         x: 192
@@ -671,7 +1419,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_55
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8305410000000000800000000000000
+      internalID: 21300108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_55
       rect:
         serializedVersion: 2
         x: 224
@@ -681,7 +1440,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_56
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8305410000000000800000000000000
+      internalID: 21300110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_56
       rect:
         serializedVersion: 2
         x: 0
@@ -691,7 +1461,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_57
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09305410000000000800000000000000
+      internalID: 21300112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_57
       rect:
         serializedVersion: 2
         x: 32
@@ -701,7 +1482,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_58
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29305410000000000800000000000000
+      internalID: 21300114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_58
       rect:
         serializedVersion: 2
         x: 64
@@ -711,7 +1503,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_59
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49305410000000000800000000000000
+      internalID: 21300116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_59
       rect:
         serializedVersion: 2
         x: 96
@@ -721,7 +1524,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_60
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69305410000000000800000000000000
+      internalID: 21300118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_60
       rect:
         serializedVersion: 2
         x: 128
@@ -731,7 +1545,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_61
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89305410000000000800000000000000
+      internalID: 21300120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_61
       rect:
         serializedVersion: 2
         x: 160
@@ -741,7 +1566,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_62
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9305410000000000800000000000000
+      internalID: 21300122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_62
       rect:
         serializedVersion: 2
         x: 192
@@ -751,7 +1587,18 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: goblinthug_green_main_63
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9305410000000000800000000000000
+      internalID: 21300124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblinthug_green_main_63
       rect:
         serializedVersion: 2
         x: 224
@@ -761,7 +1608,29 @@ TextureImporter:
       alignment: 7
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9305410000000000800000000000000
+      internalID: 21300126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
   spritePackingTag: 
+  pSDRemoveMatte: 1
+  pSDShowRemoveMatteOption: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
