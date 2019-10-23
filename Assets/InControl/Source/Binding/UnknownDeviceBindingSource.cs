@@ -55,8 +55,7 @@
 					{
 						prefix = "Negative ";
 					}
-					else
-					if (Control.SourceRange == InputRangeType.ZeroToOne)
+					else if (Control.SourceRange == InputRangeType.ZeroToOne)
 					{
 						prefix = "Positive ";
 					}
@@ -187,7 +186,7 @@
 		}
 
 
-		internal override void Load( BinaryReader reader, UInt16 dataFormatVersion )
+		public override void Load( BinaryReader reader, UInt16 dataFormatVersion )
 		{
 			// Have to do this because it's a struct property? Weird.
 			var temp = new UnknownDeviceControl();
@@ -196,11 +195,9 @@
 		}
 
 
-		internal override void Save( BinaryWriter writer )
+		public override void Save( BinaryWriter writer )
 		{
 			Control.Save( writer );
 		}
 	}
 }
-
-

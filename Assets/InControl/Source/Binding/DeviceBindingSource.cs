@@ -61,6 +61,7 @@
 					{
 						return Control.ToString();
 					}
+
 					return inputDevice.GetControl( Control ).Handle;
 				}
 			}
@@ -83,6 +84,7 @@
 					{
 						return "Controller";
 					}
+
 					return inputDevice.Name;
 				}
 			}
@@ -156,13 +158,13 @@
 		}
 
 
-		internal override void Save( BinaryWriter writer )
+		public override void Save( BinaryWriter writer )
 		{
 			writer.Write( (int) Control );
 		}
 
 
-		internal override void Load( BinaryReader reader, UInt16 dataFormatVersion )
+		public override void Load( BinaryReader reader, UInt16 dataFormatVersion )
 		{
 			Control = (InputControlType) reader.ReadInt32();
 		}
@@ -185,4 +187,3 @@
 		}
 	}
 }
-

@@ -32,19 +32,22 @@ namespace Com.Tempest.Nightmare {
         protected override void HandleVerticalMovementGravityBound() {
             base.HandleVerticalMovementGravityBound();
             if (jetpackOn && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
-                float jetpackForce = (networkJetpackForce * 0.4f) + 1.0f;
                 if (currentSpeed.y <= 0f) {
-                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * jetpackForce * Time.deltaTime * fallingJetpackForceFactor;
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
                 } else {
-                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * jetpackForce * Time.deltaTime;
+                    currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime;
                 }
-                currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor * jetpackForce);
+                currentSpeed.y = Mathf.Min(currentSpeed.y, maxSpeed * terminalVelocityFactor);
                 jetpackTimeRemaining -= HasPowerup(Powerup.THIRD_JUMP) ? Time.deltaTime : Time.deltaTime * 2f;
                 if (jetpackTimeRemaining <= 0f) {
                     jetpackTimeRemaining = 0f;
                     jetpackOn = false;
                 }
-            } else if (currentState == MovementState.GROUNDED || currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+            } else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
+                float wallResetRank = GetTalentRank(TalentEnum.RESET_MOVEMENT_ON_WALL_SLIDE);
+                float wallSlideMultiplier = 1f + wallResetRank;
+                jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * wallSlideMultiplier;
+            } else if (currentState == MovementState.GROUNDED) {
                 jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f);
             } else {
                 jetpackTimeRemaining += Time.deltaTime * GetSigmoidUpgradeMultiplier(1f, 2f) * aerialJetpackReloadFactor;
@@ -86,17 +89,8 @@ namespace Com.Tempest.Nightmare {
             return false;
         }
 
-        public override void SendTalentsToNetwork() {
-            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
-            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.CHEST_DURATION);
-            int bonfireSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.BONFIRE_SPEED);
-            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.UPGRADES);
-            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
-            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.JETPACK_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
-            int reducedGravity = 0;
-            int jetpackForce = talentManager.GetTalentLevel(TalentManagerBehavior.INCREASED_JETPACK_FORCE);
-            int resetDash = 0;
-            photonView.RPC("ReceiveExplorerTalents", PhotonTargets.All, sightRange, chestDuration, bonfireSpeed, upgradeModifier, jumpHeight, movementSpeed, reducedGravity, jetpackForce, resetDash);
+        protected override void LoadTalents() {
+            talentRanks = GlobalTalentContainer.GetInstance().JetpackTalents;
         }
     }
 }

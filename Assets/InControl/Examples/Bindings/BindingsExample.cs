@@ -97,6 +97,7 @@ namespace BindingsExample
 				{
 					name += " (Listening)";
 				}
+
 				name += " = " + action.Value;
 				//name += " via " + action.ActiveDevice.Name;
 				//name += ", class: " + action.LastDeviceClass;
@@ -154,4 +155,3 @@ namespace BindingsExample
 		}
 	}
 }
-

@@ -12,21 +12,17 @@ namespace InControl
 		public const int MaxButtons = 20;
 		public const int MaxAnalogs = 20;
 
-		internal int JoystickId { get; private set; }
+		public int JoystickId { get; private set; }
 
 		UnityInputDeviceProfileBase profile;
 
 
 		public UnityInputDevice( UnityInputDeviceProfileBase deviceProfile )
-			: this( deviceProfile, 0, "" )
-		{
-		}
+			: this( deviceProfile, 0, "" ) {}
 
 
 		public UnityInputDevice( int joystickId, string joystickName )
-			: this( null, joystickId, joystickName )
-		{
-		}
+			: this( null, joystickId, joystickName ) {}
 
 
 		public UnityInputDevice( UnityInputDeviceProfileBase deviceProfile, int joystickId, string joystickName )
@@ -192,24 +188,26 @@ namespace InControl
 		}
 
 
-		internal override bool ReadRawButtonState( int index )
+		public override bool ReadRawButtonState( int index )
 		{
 			if (index < MaxButtons)
 			{
 				var buttonQuery = buttonQueries[JoystickId - 1, index];
 				return Input.GetKey( buttonQuery );
 			}
+
 			return false;
 		}
 
 
-		internal override float ReadRawAnalogValue( int index )
+		public override float ReadRawAnalogValue( int index )
 		{
 			if (index < MaxAnalogs)
 			{
 				var analogQuery = analogQueries[JoystickId - 1, index];
 				return Input.GetAxisRaw( analogQuery );
 			}
+
 			return 0.0f;
 		}
 
@@ -232,7 +230,7 @@ namespace InControl
 		}
 
 
-		internal override int NumUnknownButtons
+		public override int NumUnknownButtons
 		{
 			get
 			{
@@ -241,7 +239,7 @@ namespace InControl
 		}
 
 
-		internal override int NumUnknownAnalogs
+		public override int NumUnknownAnalogs
 		{
 			get
 			{
@@ -250,4 +248,3 @@ namespace InControl
 		}
 	}
 }
-

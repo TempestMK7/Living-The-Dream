@@ -56,8 +56,10 @@ namespace InControl
 		bool lastSubmitState;
 		bool thisCancelState;
 		bool lastCancelState;
+
+		bool moveWasRepeated;
 		float nextMoveRepeatTime;
-		float lastVectorPressedTime;
+
 		TwoAxisInputControl direction;
 
 		public PlayerAction SubmitAction { get; set; }
@@ -311,26 +313,23 @@ namespace InControl
 				thisVectorState.y = Mathf.Sign( dir.Y );
 			}
 
+			moveWasRepeated = false;
 			if (VectorIsReleased)
 			{
 				nextMoveRepeatTime = 0.0f;
 			}
-
-			if (VectorIsPressed)
+			else if (VectorIsPressed)
 			{
-				if (lastVectorState == Vector2.zero)
+				var realtimeSinceStartup = Time.realtimeSinceStartup;
+				if (lastVectorState == Vector2.zero) // if vector was pressed
 				{
-					if (Time.realtimeSinceStartup > lastVectorPressedTime + 0.1f)
-					{
-						nextMoveRepeatTime = Time.realtimeSinceStartup + moveRepeatFirstDuration;
-					}
-					else
-					{
-						nextMoveRepeatTime = Time.realtimeSinceStartup + moveRepeatDelayDuration;
-					}
+					nextMoveRepeatTime = realtimeSinceStartup + moveRepeatFirstDuration;
 				}
-
-				lastVectorPressedTime = Time.realtimeSinceStartup;
+				else if (realtimeSinceStartup >= nextMoveRepeatTime)
+				{
+					moveWasRepeated = true;
+					nextMoveRepeatTime = realtimeSinceStartup + moveRepeatDelayDuration;
+				}
 			}
 
 			lastSubmitState = thisSubmitState;
@@ -387,15 +386,7 @@ namespace InControl
 
 		bool VectorWasPressed
 		{
-			get
-			{
-				if (VectorIsPressed && Time.realtimeSinceStartup > nextMoveRepeatTime)
-				{
-					return true;
-				}
-
-				return VectorIsPressed && lastVectorState == Vector2.zero;
-			}
+			get { return moveWasRepeated || (VectorIsPressed && lastVectorState == Vector2.zero); }
 		}
 
 
@@ -910,4 +901,3 @@ namespace InControl
 	}
 }
 #endif
-

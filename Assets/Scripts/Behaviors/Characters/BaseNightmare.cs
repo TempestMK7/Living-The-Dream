@@ -11,7 +11,6 @@ namespace Com.Tempest.Nightmare {
 		public float lightBoxScale = 20f;
 
 		protected LightBoxBehavior lightBox;
-		private Text nameText;
 
         public override void Awake() {
             base.Awake();
@@ -61,7 +60,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private float GetLightboxScale() {
-			float talentModifier = 1.0f + (0.05f * networkSightRange);
+			float talentModifier = 1.0f + (0.05f * GetTalentRank(TalentEnum.SIGHT_RANGE));
 			return lightBoxScale * talentModifier;
 		}
     }

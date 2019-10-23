@@ -13,20 +13,28 @@ namespace InControl
 		float upperDeadZone = 1.0f;
 		float stateThreshold = 0.0f;
 
+		// ReSharper disable once InconsistentNaming
 		protected bool isNullControl = false;
 
+		// ReSharper disable once FieldCanBeMadeReadOnly.Global
+		// ReSharper disable once ConvertToConstant.Global
 		public float FirstRepeatDelay = 0.8f;
+
+		// ReSharper disable once FieldCanBeMadeReadOnly.Global
+		// ReSharper disable once ConvertToConstant.Global
 		public float RepeatDelay = 0.1f;
 
 		public bool Raw;
 
-		internal bool Enabled = true;
+		private bool enabled = true;
+
+		// ReSharper disable once InconsistentNaming
+		protected bool ownerEnabled = true;
 
 		ulong pendingTick;
 		bool pendingCommit;
 
 		float nextRepeatTime;
-		float lastPressedTime;
 		bool wasRepeated;
 
 		bool clearInputState;
@@ -192,7 +200,7 @@ namespace InControl
 			else if (thisPressed) // if is pressed...
 			{
 				var realtimeSinceStartup = Time.realtimeSinceStartup;
-				if (lastPressed != thisPressed) // if has changed...
+				if (!lastPressed) // if was pressed
 				{
 					nextRepeatTime = realtimeSinceStartup + FirstRepeatDelay;
 				}
@@ -236,37 +244,37 @@ namespace InControl
 
 		public bool State
 		{
-			get { return Enabled && thisState.State; }
+			get { return EnabledInHierarchy && thisState.State; }
 		}
 
 
 		public bool LastState
 		{
-			get { return Enabled && lastState.State; }
+			get { return EnabledInHierarchy && lastState.State; }
 		}
 
 
 		public float Value
 		{
-			get { return Enabled ? thisState.Value : 0.0f; }
+			get { return EnabledInHierarchy ? thisState.Value : 0.0f; }
 		}
 
 
 		public float LastValue
 		{
-			get { return Enabled ? lastState.Value : 0.0f; }
+			get { return EnabledInHierarchy ? lastState.Value : 0.0f; }
 		}
 
 
 		public float RawValue
 		{
-			get { return Enabled ? thisState.RawValue : 0.0f; }
+			get { return EnabledInHierarchy ? thisState.RawValue : 0.0f; }
 		}
 
 
 		internal float NextRawValue
 		{
-			get { return Enabled ? nextState.RawValue : 0.0f; }
+			get { return EnabledInHierarchy ? nextState.RawValue : 0.0f; }
 		}
 
 
@@ -276,44 +284,43 @@ namespace InControl
 		/// </summary>
 		internal bool HasInput
 		{
-			get { return Enabled && Utility.IsNotZero( thisState.Value ); }
+			get { return EnabledInHierarchy && Utility.IsNotZero( thisState.Value ); }
 		}
 
 
 		public bool HasChanged
 		{
-			get { return Enabled && thisState != lastState; }
+			get { return EnabledInHierarchy && thisState != lastState; }
 		}
 
 
 		public bool IsPressed
 		{
-			get { return Enabled && thisState.State; }
+			get { return EnabledInHierarchy && thisState.State; }
 		}
 
 
 		public bool WasPressed
 		{
-			get { return Enabled && thisState && !lastState; }
+			get { return EnabledInHierarchy && thisState && !lastState; }
 		}
 
 
 		public bool WasReleased
 		{
-			get { return Enabled && !thisState && lastState; }
+			get { return EnabledInHierarchy && !thisState && lastState; }
 		}
 
 
 		public bool WasRepeated
 		{
-			get { return Enabled && wasRepeated; }
+			get { return EnabledInHierarchy && wasRepeated; }
 		}
 
 
 		public float Sensitivity
 		{
 			get { return sensitivity; }
-
 			set { sensitivity = Mathf.Clamp01( value ); }
 		}
 
@@ -321,7 +328,6 @@ namespace InControl
 		public float LowerDeadZone
 		{
 			get { return lowerDeadZone; }
-
 			set { lowerDeadZone = Mathf.Clamp01( value ); }
 		}
 
@@ -329,7 +335,6 @@ namespace InControl
 		public float UpperDeadZone
 		{
 			get { return upperDeadZone; }
-
 			set { upperDeadZone = Mathf.Clamp01( value ); }
 		}
 
@@ -337,7 +342,6 @@ namespace InControl
 		public float StateThreshold
 		{
 			get { return stateThreshold; }
-
 			set { stateThreshold = Mathf.Clamp01( value ); }
 		}
 
@@ -345,6 +349,19 @@ namespace InControl
 		public bool IsNullControl
 		{
 			get { return isNullControl; }
+		}
+
+
+		public bool Enabled
+		{
+			get { return enabled; }
+			set { enabled = value; }
+		}
+
+
+		public bool EnabledInHierarchy
+		{
+			get { return enabled && ownerEnabled; }
 		}
 
 

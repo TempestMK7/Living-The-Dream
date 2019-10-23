@@ -82,10 +82,7 @@
 
 		static readonly BindingSourceListener[] bindingSourceListeners =
 		{
-			new DeviceBindingSourceListener(),
-			new UnknownDeviceBindingSourceListener(),
-			new KeyBindingSourceListener(),
-			new MouseBindingSourceListener()
+			new DeviceBindingSourceListener(), new UnknownDeviceBindingSourceListener(), new KeyBindingSourceListener(), new MouseBindingSourceListener()
 		};
 
 		bool triggerBindingEnded;
@@ -579,10 +576,7 @@
 		/// </summary>
 		public bool IsListeningForBinding
 		{
-			get
-			{
-				return Owner.listenWithAction == this;
-			}
+			get { return Owner.listenWithAction == this; }
 		}
 
 
@@ -593,10 +587,7 @@
 		/// </summary>
 		public ReadOnlyCollection<BindingSource> Bindings
 		{
-			get
-			{
-				return bindings;
-			}
+			get { return bindings; }
 		}
 
 
@@ -606,10 +597,7 @@
 		/// </summary>
 		public ReadOnlyCollection<BindingSource> UnfilteredBindings
 		{
-			get
-			{
-				return unfilteredBindings;
-			}
+			get { return unfilteredBindings; }
 		}
 
 
@@ -696,7 +684,7 @@
 
 			Commit();
 
-			Enabled = Owner.Enabled;
+			ownerEnabled = Owner.Enabled;
 
 			if (lastInputTypeChangedTick > LastInputTypeChangedTick)
 			{
@@ -870,10 +858,7 @@
 		/// </summary>
 		public InputDevice ActiveDevice
 		{
-			get
-			{
-				return activeDevice ?? InputDevice.Null;
-			}
+			get { return activeDevice ?? InputDevice.Null; }
 		}
 
 
@@ -890,10 +875,7 @@
 		[Obsolete( "Please set this property on device controls directly. It does nothing here." )]
 		public new float LowerDeadZone
 		{
-			get
-			{
-				return 0.0f;
-			}
+			get { return 0.0f; }
 
 			set
 			{
@@ -907,10 +889,7 @@
 		[Obsolete( "Please set this property on device controls directly. It does nothing here." )]
 		public new float UpperDeadZone
 		{
-			get
-			{
-				return 0.0f;
-			}
+			get { return 0.0f; }
 
 			set
 			{

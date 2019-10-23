@@ -75,20 +75,9 @@ namespace Com.Tempest.Nightmare {
         protected override bool IsFlyer() {
             return false;
         }
-        
-        public override void SendTalentsToNetwork() {
-            int sightRange = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.SIGHT_RANGE);
-            int chestDuration = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.CHEST_DURATION);
-            int cooldownReduction = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.COOLDOWN_REDUCTION);
-            int upgradeModifier = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.UPGRADES);
-            int accelerationModifier = 0;
-            int jumpHeight = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.JUMP_HEIGHT);
-            int movementSpeed = talentManager.GetTalentLevel(TalentManagerBehavior.GOBLIN_PREFIX + TalentManagerBehavior.MOVEMENT_SPEED);
-            int wallReflection = 0;
-            int projectileGravity = 0;
-            int wallClimb = talentManager.GetTalentLevel(TalentManagerBehavior.WALL_CLIMB);
-            photonView.RPC("ReceiveNightmareTalents", PhotonTargets.All, sightRange, chestDuration, cooldownReduction,
-                    upgradeModifier, accelerationModifier, jumpHeight, movementSpeed, wallReflection, projectileGravity, wallClimb);
+
+        protected override void LoadTalents() {
+            talentRanks = GlobalTalentContainer.GetInstance().GoblinTalents;
         }
     }
 }

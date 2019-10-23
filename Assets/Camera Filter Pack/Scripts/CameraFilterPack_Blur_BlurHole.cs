@@ -12,8 +12,8 @@ public class CameraFilterPack_Blur_BlurHole : MonoBehaviour {
 public Shader SCShader;
 private float TimeX = 1.0f;
 [Range(1, 16)] public float Size = 10;
-[Range(0, 1)] public float _Radius = 0.25f;
-[Range(0, 4)] public float _SpotSize = 1;
+[Range(-1, 1)] public float _Radius = 0.25f;
+[Range(-4, 4)] public float _SpotSize = 1;
 [Range(0, 1)] public float _CenterX = 0.5f;
 [Range(0, 1)] public float _CenterY = 0.5f;
 [Range(0, 1)] public float _AlphaBlur = 1.0f;

@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using com.cygnusprojects.TalentTree;
 
 namespace Com.Tempest.Nightmare {
 
@@ -11,34 +11,23 @@ namespace Com.Tempest.Nightmare {
 		public float powerupDuration = 60f;
 
 		private Dictionary<Powerup, float> powerupDictionary;
-		protected TalentManagerBehavior talentManager;
+        private int numUpgrades;
+        private bool hasTouchedFirstBonfire;
 
-		protected string playerName;
+        protected string playerName;
+        protected Dictionary<TalentEnum, int> talentRanks;
 
-		private int numUpgrades;
-
-		protected int networkSightRange = 0;
-		protected int networkShrineDuration = 0;
-		protected int networkBonfireSpeed = 0;
-		protected int networkUpgradeModifier = 0;
-		protected int networkJumpHeight = 0;
-		protected int networkMovementSpeed = 0;
-		protected int networkCooldownReduction = 0;
-		protected int networkAcceleration = 0;
-
-		protected int networkReducedGravity = 0;
-		protected int networkJetpackForce = 0;
-		protected int networkResetDash = 0;
-		protected int networkWallReflection = 0;
-		protected int networkProjectileGravity = 0;
-		protected int networkWallClimb = 0;
-
-		public virtual void Awake() {
+        public virtual void Awake() {
 			powerupDictionary = new Dictionary<Powerup, float>();
-			if (photonView.isMine) {
-				talentManager = FindObjectOfType<TalentManagerBehavior>();
-			}
+            if (photonView.isMine) {
+                LoadTalents();
+            } else {
+                talentRanks = new Dictionary<TalentEnum, int>();
+            }
+            hasTouchedFirstBonfire = false;
 		}
+
+        protected abstract void LoadTalents();
 
 		[PunRPC]
 		public void AddPowerup(Powerup p) {
@@ -57,11 +46,11 @@ namespace Com.Tempest.Nightmare {
 			if (!photonView.isMine)
 				return;
 			Powerup[] possiblePowerups = GetUsablePowerups();
-			photonView.RPC("AddPowerup", PhotonTargets.All, possiblePowerups[Random.Range(0, possiblePowerups.Length)]);
+			photonView.RPC("AddPowerup", PhotonTargets.All, possiblePowerups[UnityEngine.Random.Range(0, possiblePowerups.Length)]);
 		}
 
 		public bool HasPowerup(Powerup p) {
-			float powerupExtension = networkShrineDuration * 5f;
+			float powerupExtension = talentRanks[TalentEnum.CHEST_DURATION] * 5f;
 			return powerupDictionary.ContainsKey(p) && Time.time - powerupDictionary[p] < powerupDuration + powerupExtension;
 		}
 
@@ -79,41 +68,24 @@ namespace Com.Tempest.Nightmare {
 		}
 		
 		// This should be used to call the ReceiveTalents RPC with this character's version of each talent in the talent tree.
-		public abstract void SendTalentsToNetwork();
+		public void SendTalentsToNetwork() {
+            foreach (TalentEnum talent in Enum.GetValues(typeof(TalentEnum))) {
+                photonView.RPC("ReceiveTalent", PhotonTargets.All, talent, talentRanks[talent]);
+            }
+        }
 
 		[PunRPC]
-		public void ReceiveExplorerTalents(int sightRange, int shrineDuration, int bonfireSpeed, int upgradeModifier, int jumpHeight, int movementSpeed, int reducedGravity, int jetpackForce, int resetDash) {
-			networkSightRange = sightRange;
-			networkShrineDuration = shrineDuration;
-			networkBonfireSpeed = bonfireSpeed;
-			networkUpgradeModifier = upgradeModifier;
-			networkJumpHeight = jumpHeight;
-			networkMovementSpeed = movementSpeed;
-			networkReducedGravity = reducedGravity;
-			networkJetpackForce = jetpackForce;
-			networkResetDash = resetDash;
+		public void ReceiveTalent(TalentEnum talent, int rank) {
+            talentRanks[talent] = rank;
 		}
 
-		[PunRPC]
-		public void ReceiveNightmareTalents(int sightRange, int shrineDuration, int cooldownReduction, int upgradeModifier, int acceleration, int jumpHeight, int movementSpeed, int wallReflection, int projectileGravity, int wallClimb) {
-			networkSightRange = sightRange;
-			networkShrineDuration = shrineDuration;
-			networkCooldownReduction = cooldownReduction;
-			networkUpgradeModifier = upgradeModifier;
-			networkAcceleration = acceleration;
-			networkJumpHeight = jumpHeight;
-			networkMovementSpeed = movementSpeed;
-			networkWallReflection = wallReflection;
-			networkProjectileGravity = projectileGravity;
-			networkWallClimb = wallClimb;
-		}
-
-		public int GetBonfireSpeed() {
-			return networkBonfireSpeed;
-		}
+        public int GetTalentRank(TalentEnum talent) {
+            if (talentRanks.ContainsKey(talent)) return talentRanks[talent];
+            return 0;
+        }
 
 		public float GetNumUpgrades() {
-			float upgradeModifier = 1.0f + (0.05f * networkUpgradeModifier);
+			float upgradeModifier = 1.0f + (0.05f * talentRanks[TalentEnum.UPGRADE_EFFECTIVENESS]);
 			return numUpgrades * upgradeModifier;
 		}
 
@@ -141,5 +113,14 @@ namespace Com.Tempest.Nightmare {
 			playerName = name;
 			transform.Find("NameCanvas").transform.Find("NameText").GetComponent<Text>().text = name;
 		}
+
+        public bool HasTouchedFirstBonfire() {
+            return hasTouchedFirstBonfire;
+        }
+
+        [PunRPC]
+        public void OnTouchFirstBonfire() {
+            hasTouchedFirstBonfire = true;
+        }
 	}
 }

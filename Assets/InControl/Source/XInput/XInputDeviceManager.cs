@@ -6,16 +6,20 @@ namespace InControl
 	using System.Threading;
 	using UnityEngine;
 	using XInputDotNetPure;
+	using Internal;
 
 
 	public class XInputDeviceManager : InputDeviceManager
 	{
-		bool[] deviceConnected = new bool[] { false, false, false, false };
+		readonly bool[] deviceConnected = new bool[]
+		{
+			false, false, false, false
+		};
 
 		const int maxDevices = 4;
-		RingBuffer<GamePadState>[] gamePadState = new RingBuffer<GamePadState>[ maxDevices ];
+		readonly RingBuffer<GamePadState>[] gamePadState = new RingBuffer<GamePadState>[maxDevices];
 		Thread thread;
-		int timeStep;
+		readonly int timeStep;
 		int bufferSize;
 
 
@@ -143,6 +147,7 @@ namespace InControl
 				{
 					errors.Add( e.Message + ".dll could not be found or is missing a dependency." );
 				}
+
 				return false;
 			}
 
@@ -175,4 +180,3 @@ namespace InControl
 	}
 }
 #endif
-

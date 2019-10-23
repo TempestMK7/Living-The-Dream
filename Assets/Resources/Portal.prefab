@@ -9569,6 +9569,7 @@ MonoBehaviour:
   lightBoxScaleBase: 1
   lightBoxScaleUncharged: 1
   lightBoxScaleCharged: 3
+  chargedNotificationTime: 5
   maxVolume: 0.5
   whatIsPlayer:
     serializedVersion: 2
@@ -9601,8 +9602,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 3718706608638635415}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!82 &5191144407335537231

@@ -56,7 +56,6 @@ namespace Com.Tempest.Nightmare {
 		public Sprite dashChest;
 		public Sprite dashEye;
 
-		private TalentManagerBehavior talentBehavior;
 		private LobbySynchronizerBehavior synchronizerBehavior;
 
 		private float lastListRefresh;
@@ -69,7 +68,6 @@ namespace Com.Tempest.Nightmare {
 		#region Intitialization.
 
 		public void Awake() {
-			talentBehavior = talentManager.GetComponent<TalentManagerBehavior>();
 			if (PhotonNetwork.isMasterClient) {
 				PhotonNetwork.room.IsOpen = true;
 			}
@@ -103,10 +101,6 @@ namespace Com.Tempest.Nightmare {
 			explorerPanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER);
 			nightmarePanel.SetActive(PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.NIGHTMARE);
 
-			doubleJumpButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Double Jump Explorer") != 0);
-			jetpackButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Jetpack Explorer") != 0);
-			dashButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Dash Explorer") != 0);
-
 			switch (PlayerStateContainer.Instance.ExplorerSelection) {
 				case PlayerStateContainer.DOUBLE_JUMP_EXPLORER:
 					explorerSelectionText.text = "Double Jump";
@@ -127,10 +121,6 @@ namespace Com.Tempest.Nightmare {
 					explorerEyeImage.sprite = dashEye;
 					break;
 			}
-
-			ghastButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Ghast Nightmare") != 0);
-			cryoButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Cryo Nightmare") != 0);
-			goblinButton.gameObject.SetActive(talentBehavior.GetTalentLevel("Goblin Nightmare") != 0);
 
 			switch (PlayerStateContainer.Instance.NightmareSelection) {
 				case PlayerStateContainer.GHAST:

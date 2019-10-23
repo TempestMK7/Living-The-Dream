@@ -15,7 +15,7 @@ namespace Com.Tempest.Nightmare {
 		public float healthBarFadeDelay = 1f;
         public float deathRenderTime = 3f;
 
-        public float teleportCooldown = 30f;
+        public float teleportCooldown = 60f;
 
 		public LayerMask whatIsBonfire;
 		public LayerMask whatIsExplorer;
@@ -147,7 +147,8 @@ namespace Com.Tempest.Nightmare {
         [PunRPC]
         public void TeleportToPortal(Vector3 newPosition) {
             if (!photonView.isMine) return;
-            if (Time.time - teleportTime < teleportCooldown) return;
+            float finalCooldown = teleportCooldown - (GetTalentRank(TalentEnum.PORTAL_COOLDOWN_REDUCTION) * 5.0f);
+            if (Time.time - teleportTime < finalCooldown) return;
             transform.position = newPosition;
             teleportTime = Time.time;
         }
@@ -270,7 +271,7 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public float GetDefaultScale() {
-			float defaultScaleModifier = (networkSightRange * 0.05f) + 1.0f;
+			float defaultScaleModifier = (GetTalentRank(TalentEnum.SIGHT_RANGE) * 0.05f) + 1.0f;
 			return defaultScale * defaultScaleModifier;
 		}
 

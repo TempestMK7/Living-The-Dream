@@ -41,7 +41,6 @@
 		[SerializeField, HideInInspector]
 		Vector2 worldSize;
 
-		Transform spriteParentTransform;
 		GameObject spriteGameObject;
 		SpriteRenderer spriteRenderer;
 		bool state;
@@ -119,7 +118,7 @@
 				var color = State ? busyColor : idleColor;
 				if (spriteRenderer.color != color)
 				{
-					spriteRenderer.color = Utility.MoveColorTowards( spriteRenderer.color, color, 5.0f * Time.deltaTime );
+					spriteRenderer.color = Utility.MoveColorTowards( spriteRenderer.color, color, 5.0f * Time.unscaledDeltaTime );
 				}
 			}
 		}
@@ -223,7 +222,7 @@
 
 
 		public bool State
-		{ 
+		{
 			get
 			{
 				return state;
@@ -411,3 +410,4 @@
 		}
 	}
 }
+

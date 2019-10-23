@@ -69,10 +69,12 @@ namespace Com.Tempest.Nightmare {
         public bool ShowMirrorNotifications { get; set; }
 
 		private bool gameStarted;
+        private bool endingSequenceStarted;
 		private int playersConnected;
 		private int levelsGenerated;
         private int[,,] levelGraph;
         private GameObject[,] levelChunks;
+        private float mirrorActivationTime;
 
 		#region Level Loading
 
@@ -82,6 +84,7 @@ namespace Com.Tempest.Nightmare {
 			}
 			settingsPanel.gameObject.SetActive(false);
 			gameStarted = false;
+            endingSequenceStarted = false;
 		}
 
 		private void OnEnable() {
@@ -359,15 +362,36 @@ namespace Com.Tempest.Nightmare {
                 if (mirror.ExplorersActive()) explorersActive = true;
                 if (mirror.NightmaresActive()) nightmaresActive = true;
             }
-            ShowMirrorNotifications = (explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null);
+            int mirrorFadeRank = 0;
+            if (Explorer != null) mirrorFadeRank = Explorer.GetTalentRank(TalentEnum.MIRROR_FADE_DELAY);
+            else if (Nightmare != null) mirrorFadeRank = Nightmare.GetTalentRank(TalentEnum.MIRROR_FADE_DELAY);
+            float mirrorFadeTime = 3.0f * mirrorFadeRank;
+            if ((explorersActive && Explorer != null) || (nightmaresActive && Nightmare != null)) {
+                mirrorActivationTime = Time.time;
+                ShowMirrorNotifications = true;
+            } else {
+                ShowMirrorNotifications = Time.time - mirrorActivationTime < mirrorFadeTime;
+            }
         }
 
 		private void BeginEndingSequence(int winningTeam) {
-			StartCoroutine(EndingSequence(winningTeam));
+            if (!endingSequenceStarted) {
+                endingSequenceStarted = true;
+                StartCoroutine(EndingSequence(winningTeam));
+            }
 		}
 
 		IEnumerator EndingSequence(int winningTeam) {
-			yield return new WaitForSeconds(1f);
+            if (Nightmare != null) {
+                Nightmare.ControlsFrozen = true;
+                CameraFollowScript cameraScript = Nightmare.GetComponent<CameraFollowScript>();
+                cameraScript.ZOffset /= 2f;
+            } else if (Explorer != null) {
+                Explorer.ControlsFrozen = true;
+                CameraFollowScript cameraScript = Explorer.GetComponent<CameraFollowScript>();
+                cameraScript.ZOffset /= 2f;
+            }
+            yield return new WaitForSeconds(4f);
 			EndTheGame(winningTeam);
 		}
 

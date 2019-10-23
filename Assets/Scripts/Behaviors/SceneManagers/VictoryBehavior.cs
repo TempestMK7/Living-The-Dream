@@ -28,8 +28,8 @@ namespace Com.Tempest.Nightmare {
                 rescueText.enabled = false;
             }
 
-            AccountStateContainer.getInstance().unspentEmbers += PlayerStateContainer.Instance.TotalEmbers();
-            AccountStateContainer.SaveInstance();
+            GlobalTalentContainer.GetInstance().UnspentEmbers += PlayerStateContainer.Instance.TotalEmbers();
+            GlobalTalentContainer.SaveInstance();
         }
 
         public void LeaveRoom() {

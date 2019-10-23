@@ -11,6 +11,8 @@ namespace Com.Tempest.Nightmare {
         public float lightBoxScaleUncharged = 1f;
         public float lightBoxScaleCharged = 3f;
 
+        public float chargedNotificationTime = 5f;
+
         public float maxVolume = 0.5f;
 
         public LayerMask whatIsPlayer;
@@ -29,6 +31,7 @@ namespace Com.Tempest.Nightmare {
         private float currentCharges;
         private bool splashPlaying;
         private bool portalPlaying;
+        private float chargedTime;
 
         public int PortalIndex { get; set; }
         private int connectedPortalIndex;
@@ -49,6 +52,7 @@ namespace Com.Tempest.Nightmare {
             splashSystem.Stop();
             portalPlaying = false;
             portalSystem.Stop();
+            chargedTime = 0f;
         }
 
         void Update() {
@@ -72,7 +76,7 @@ namespace Com.Tempest.Nightmare {
                         BaseExplorer behavior = collider.GetComponentInParent<BaseExplorer>();
                         if (behavior == null || playerSet.Contains(behavior)) continue;
                         playerSet.Add(behavior);
-                        float explorerModifier = 1.0f + (behavior.GetBonfireSpeed() * 0.05f);
+                        float explorerModifier = 1.0f + (behavior.GetTalentRank(TalentEnum.BONFIRE_SPEED) * 0.05f);
                         if (behavior.HasPowerup(Powerup.DOUBLE_OBJECTIVE_SPEED)) {
                             explorerModifier *= 2f;
                         }
@@ -84,6 +88,7 @@ namespace Com.Tempest.Nightmare {
                     currentCharges = Mathf.Min(currentCharges, requiredCharges);
                     if (currentCharges >= requiredCharges) {
                         photonView.RPC("PlayChargedSound", PhotonTargets.All);
+                        photonView.RPC("NotifyCharged", PhotonTargets.All);
                     }
                 }
             }
@@ -131,14 +136,17 @@ namespace Com.Tempest.Nightmare {
             } else if (currentCharges < requiredCharges) {
                 StartSplash();
                 StopPortal();
-                float percentComplete = currentCharges / requiredCharges;
-                int maxParticles = (int)(10f * percentComplete) + 1;
                 ParticleSystem.MainModule module = splashSystem.main;
-                module.maxParticles = maxParticles;
+                module.maxParticles = GetMaxParticles();
             } else {
                 StopSplash();
                 StartPortal();
             }
+        }
+
+        public int GetMaxParticles() {
+            float percentComplete = currentCharges / requiredCharges;
+            return (int)(10f * percentComplete) + 1;
         }
 
         private void StopSplash() {
@@ -194,8 +202,21 @@ namespace Com.Tempest.Nightmare {
             return connectedPortal;
         }
 
+        public bool IsInProgress() {
+            return currentCharges > 0 && currentCharges < requiredCharges;
+        }
+
         public bool IsCharged() {
             return currentCharges >= requiredCharges;
+        }
+
+        [PunRPC]
+        public void NotifyCharged() {
+            chargedTime = Time.time;
+        }
+
+        public bool ShowChargedNotification() {
+            return Time.time - chargedTime < chargedNotificationTime;
         }
     }
 }

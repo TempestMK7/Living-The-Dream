@@ -10,7 +10,7 @@
 	/// represents a control bound to an action, whether it be a controller button, a key or combination
 	/// of keys, or a mouse button, etc. An action may have multiple binding sources bound.
 	/// An InputDevice may serve as context for a binding source, especially in the case of controllers.
-	/// For example, the binding source may be "Left Trigger," but when querying a value for the 
+	/// For example, the binding source may be "Left Trigger," but when querying a value for the
 	/// binding, a specific InputDevice must be provided. Not all bindings require an input
 	/// device. Keyboard or mouse bindings do not.
 	/// </summary>
@@ -19,7 +19,7 @@
 		/// <summary>
 		/// Read a float value from the binding source in the context of an optional InputDevice.
 		/// </summary>
-		/// <returns>The value, usually in the range -1..1, but not necessarily, for example, 
+		/// <returns>The value, usually in the range -1..1, but not necessarily, for example,
 		/// in the case of mouse movement.</returns>
 		/// <param name="inputDevice">An input device which serves as the context for this source, if applicable. Pass in null when not applicable.</param>
 		public abstract float GetValue( InputDevice inputDevice );
@@ -124,7 +124,7 @@
 		/// <summary>
 		/// Serves as a hash function for a BindingSource object.
 		/// </summary>
-		/// <returns>A hash code for this instance that is suitable for use in 
+		/// <returns>A hash code for this instance that is suitable for use in
 		/// hashing algorithms and data structures such as a hash table.</returns>
 		public override int GetHashCode()
 		{
@@ -137,8 +137,8 @@
 
 		#region Internal
 
-		internal abstract void Save( BinaryWriter writer );
-		internal abstract void Load( BinaryReader reader, UInt16 dataFormatVersion );
+		public abstract void Save( BinaryWriter writer );
+		public abstract void Load( BinaryReader reader, UInt16 dataFormatVersion );
 		internal PlayerAction BoundTo { get; set; }
 
 

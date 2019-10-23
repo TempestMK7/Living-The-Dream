@@ -82,4 +82,7 @@ MonoBehaviour:
   - SetPortalIndex
   - TeleportToPortal
   - PlayChargedSound
+  - ReceiveTalent
+  - NotifyCharged
+  - OnTouchFirstBonfire
   DisableAutoOpenWizard: 1

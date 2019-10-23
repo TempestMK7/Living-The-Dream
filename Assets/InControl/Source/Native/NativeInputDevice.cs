@@ -11,8 +11,8 @@ namespace InControl
 		const int maxUnknownButtons = 20;
 		const int maxUnknownAnalogs = 20;
 
-		internal DeviceHandle Handle { get; private set; }
-		internal NativeDeviceInfo Info { get; private set; }
+		public DeviceHandle Handle { get; private set; }
+		public NativeDeviceInfo Info { get; private set; }
 
 		Int16[] buttons;
 		Int16[] analogs;
@@ -24,9 +24,7 @@ namespace InControl
 		int numUnknownAnalogs;
 
 
-		internal NativeInputDevice()
-		{
-		}
+		internal NativeInputDevice() {}
 
 
 		internal void Initialize( DeviceHandle deviceHandle, NativeDeviceInfo deviceInfo, NativeInputDeviceProfile deviceProfile )
@@ -159,7 +157,7 @@ namespace InControl
 		}
 
 
-		internal override bool ReadRawButtonState( int index )
+		public override bool ReadRawButtonState( int index )
 		{
 			if (index < buttons.Length)
 			{
@@ -170,7 +168,7 @@ namespace InControl
 		}
 
 
-		internal override float ReadRawAnalogValue( int index )
+		public override float ReadRawAnalogValue( int index )
 		{
 			if (index < analogs.Length)
 			{
@@ -247,13 +245,13 @@ namespace InControl
 		}
 
 
-		internal override int NumUnknownButtons
+		public override int NumUnknownButtons
 		{
 			get { return numUnknownButtons; }
 		}
 
 
-		internal override int NumUnknownAnalogs
+		public override int NumUnknownAnalogs
 		{
 			get { return numUnknownAnalogs; }
 		}

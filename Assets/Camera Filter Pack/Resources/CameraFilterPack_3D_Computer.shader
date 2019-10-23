@@ -1,7 +1,7 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 ////////////////////////////////////////////
-// CameraFilterPack - by VETASOFT 2018 /////
+// CameraFilterPack - by VETASOFT 2017 /////
 ////////////////////////////////////////////
 
 Shader "CameraFilterPack/3D_Computer" {
@@ -70,10 +70,8 @@ return OUT;
 }
 
 
-half4 _MainTex_ST;
-float4 frag(v2f i) : COLOR
+float4 frag (v2f i) : COLOR
 {
-float2 uvst = UnityStereoScreenSpaceUVAdjust(i.texcoord, _MainTex_ST);
 
 
 
@@ -88,7 +86,7 @@ if (_Visualize == 1) return depth;
 
 
 float t=_Time*_MatrixSpeed;
-float2 uv = uvst.xy;
+float2 uv = i.texcoord.xy;
 #if SHADER_API_D3D9
 if (_MainTex_TexelSize.y < 0)
 uv.y = 1-uv.y;

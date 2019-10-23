@@ -22,7 +22,7 @@ namespace InControl
 		// Changes won't trigger changes in active device or update tick.
 		public bool Passive = false;
 
-		// This is primarily to fix a bug with the wired Xbox controller on Mac.
+		// This is primarily to fix an issue with the wired Xbox controller on Mac.
 		public bool IgnoreInitialZeroValue = false;
 
 		// Profile settings can be overriden with these.

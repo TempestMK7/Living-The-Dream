@@ -125,7 +125,6 @@ public class CameraFilterPack_Lut_2_Lut_Extra : MonoBehaviour
 
                     textureImporter.isReadable = true;
                     textureImporter.mipmapEnabled = false;
-                    textureImporter.textureFormat = TextureImporterFormat.AutomaticTruecolor;
                     AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceUpdate);
                 }
               string path2 = AssetDatabase.GetAssetPath(LutTexture2);
@@ -136,7 +135,6 @@ public class CameraFilterPack_Lut_2_Lut_Extra : MonoBehaviour
 
                     textureImporter2.isReadable = true;
                     textureImporter2.mipmapEnabled = false;
-                    textureImporter2.textureFormat = TextureImporterFormat.AutomaticTruecolor;
                     AssetDatabase.ImportAsset(path2, ImportAssetOptions.ForceUpdate);
                 }
             }

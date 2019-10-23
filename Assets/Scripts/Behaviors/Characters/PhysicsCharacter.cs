@@ -67,7 +67,9 @@ namespace Com.Tempest.Nightmare {
         // Self initialized gravity bound variables.
 		private bool actionPrimaryHeld;
 		private bool actionSecondaryHeld;
-		private bool grabHeld;
+		protected bool grabHeld;
+
+        public bool ControlsFrozen { get; set; }
 
         protected abstract bool IsFlyer();
 
@@ -87,10 +89,14 @@ namespace Com.Tempest.Nightmare {
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
 			grabHeld = false;
+            ControlsFrozen = false;
         }
 
         // Called by the system once per frame.
         public virtual void Update() {
+            if (ControlsFrozen) {
+                currentControllerState = new Vector3();
+            }
             if (IsFlyer()) {
                 UpdateCurrentSpeedFlyer();
                 MoveAndUpdateStateFlyer();
@@ -109,12 +115,9 @@ namespace Com.Tempest.Nightmare {
 		protected virtual void HandleVerticalMovementGravityBound() {
 			if (currentState == MovementState.DASHING) return;
 			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
-				float upgradeGravityBackoff = 1.0f - (0.1f * networkReducedGravity);
-				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * upgradeGravityBackoff * Time.deltaTime;
+				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
 			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
-				if (networkWallClimb != 0) {
-					currentSpeed.y = currentControllerState.y * MaxSpeed();
-				} else if (grabHeld && currentSpeed.y <= 0f) {
+				if (grabHeld && currentSpeed.y <= 0f) {
 					currentSpeed.y = 0f;
 				} else {
 					float wallControlFactor = currentControllerState.y < -0.5f ? terminalVelocityFactor : 1f;
@@ -122,11 +125,16 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * wallControlFactor * -1f);
 				}
 			} else {
-				float downHeldFactor = -1f;
 				if (currentControllerState.y < -0.5f && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
-					downHeldFactor += currentControllerState.y;
-				}
-				currentSpeed.y += MaxSpeed() * gravityFactor * downHeldFactor * Time.deltaTime;
+                    float fastFallTalent = talentRanks[TalentEnum.FASTER_FALL_SPEED];
+                    if (fastFallTalent < 3) {
+                        currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * (-2f - (fastFallTalent * 0.5f));
+                    } else {
+                        currentSpeed.y = MaxSpeed() * terminalVelocityFactor * -1f;
+                    }
+                } else {
+                    currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * -1f;
+                }
 			}
 			// Clip to terminal velocity if necessary.
 			currentSpeed.y = Mathf.Clamp(currentSpeed.y, MaxSpeed() * terminalVelocityFactor * -1f, MaxSpeed() * JumpFactor());
@@ -217,7 +225,7 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.x *= wallSpeedReflectionFactor;
 					currentOffset.x *= wallSpeedReflectionFactor;
 				} else if (currentState == MovementState.DASHING) {
-					if (wallReflection && networkWallReflection == 0) {
+					if (wallReflection) {
 						currentSpeed.x *= wallSpeedReflectionFactor;
 						currentOffset.x *= wallSpeedReflectionFactor;
 					} else {
@@ -235,7 +243,7 @@ namespace Com.Tempest.Nightmare {
 			}
 
 			// If we grabbed a wall and are holding grab, 0 out y movement.
-			if ((currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) && grabHeld && networkWallClimb == 0) {
+			if ((currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) && grabHeld) {
 				if (currentSpeed.y < 0) {
 					currentSpeed.y = 0;
 					distanceForFrame.y = 0;
@@ -266,7 +274,7 @@ namespace Com.Tempest.Nightmare {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
 				} else if (currentState == MovementState.DASHING) {
-					if (wallReflection && networkWallReflection == 0) {
+					if (wallReflection) {
 						currentSpeed.y *= wallSpeedReflectionFactor;
 						currentOffset.y *= wallSpeedReflectionFactor;
 					} else {
@@ -373,7 +381,7 @@ namespace Com.Tempest.Nightmare {
 			}
 			if (hitX) {
 				if (currentState == MovementState.DASHING) {
-					if (wallReflection && networkWallReflection == 0) {
+					if (wallReflection) {
 						currentSpeed.x *= wallSpeedReflectionFactor;
 						currentOffset.x *= wallSpeedReflectionFactor;
 					} else {
@@ -406,7 +414,7 @@ namespace Com.Tempest.Nightmare {
 			}
 			if (hitY) {
 				if (currentState == MovementState.DASHING) {
-					if (wallReflection && networkWallReflection == 0) {
+					if (wallReflection) {
 						currentSpeed.y *= wallSpeedReflectionFactor;
 						currentOffset.y *= wallSpeedReflectionFactor;
 					} else {
@@ -483,24 +491,26 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		public virtual void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
-			currentControllerState = new Vector3(horizontalScale, verticalScale);
-			this.grabHeld = grabHeld;
+            if (!ControlsFrozen) {
+                currentControllerState = new Vector3(horizontalScale, verticalScale);
+                this.grabHeld = grabHeld;
+            }
 		}
 
 		public virtual void ActionPrimaryPressed() {
-			actionPrimaryHeld = true;
+            if (!ControlsFrozen) actionPrimaryHeld = true;
 		}
 
 		public virtual void ActionPrimaryReleased() {
-			actionPrimaryHeld = false;
+			if (!ControlsFrozen) actionPrimaryHeld = false;
 		}
 
 		public virtual void ActionSecondaryPressed(Vector3 mouseDirection) {
-			actionSecondaryHeld = true;
+            if (!ControlsFrozen) actionSecondaryHeld = true;
 		}
 
 		public virtual void ActionSecondaryReleased() {
-			actionSecondaryHeld = false;
+            if (!ControlsFrozen) actionSecondaryHeld = false;
 		}
 
 		public virtual void LightTogglePressed() {
@@ -609,17 +619,18 @@ namespace Com.Tempest.Nightmare {
 		// used in the base physics calculations.
 
 		protected virtual float MaxSpeed() {
-			float speedModifier = 1.0f + (networkMovementSpeed * 0.03f);
+            float talentModifier = talentRanks[TalentEnum.MOVEMENT_SPEED] == 3 ? 0.1f : talentRanks[TalentEnum.MOVEMENT_SPEED] * 0.03f;
+			float speedModifier = 1.0f + talentModifier;
 			return maxSpeed * speedModifier;
 		}
 
         protected virtual float JumpFactor() {
-			float modifier = 1.0f + (0.05f * networkJumpHeight);
+			float modifier = 1.0f + (0.05f * talentRanks[TalentEnum.JUMP_HEIGHT_OR_ACCELERATION]);
             return jumpFactor * modifier;
         }
 
         protected virtual float WallJumpFactor() {
-			float modifier = 1.0f + (0.05f * networkJumpHeight);
+			float modifier = 1.0f + (0.05f * talentRanks[TalentEnum.JUMP_HEIGHT_OR_ACCELERATION]);
             return wallJumpFactor * modifier;
         }
 
@@ -628,12 +639,12 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected virtual float GetCurrentAcceleration() {
-			float talentModifier = 1.0f + (networkAcceleration * 0.05f);
+			float talentModifier = 1.0f + (talentRanks[TalentEnum.JUMP_HEIGHT_OR_ACCELERATION] * 0.05f);
 			return baseAcceleration * talentModifier;
 		}
 
 		protected virtual float DashCooldown() {
-			float talentModifier = 1.0f - (networkCooldownReduction * 0.05f);
+			float talentModifier = 1.0f - (talentRanks[TalentEnum.ATTACK_COOLDOWN] * 0.05f);
 			return dashCooldown * talentModifier;
 		}
 
