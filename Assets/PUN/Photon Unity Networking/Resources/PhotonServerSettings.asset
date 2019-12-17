@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  AppID: 
+  AppID: bbfb0821-5635-419f-ad79-746fedcb4251
   VoiceAppID: 
   ChatAppID: 
-  HostType: 0
+  HostType: 1
   PreferredRegion: 0
-  EnabledRegions: -1
+  EnabledRegions: 2
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
@@ -27,5 +27,48 @@ MonoBehaviour:
   PunLogging: 0
   NetworkLogging: 1
   RunInBackground: 1
-  RpcList: []
-  DisableAutoOpenWizard: 0
+  RpcList:
+  - AddPowerup
+  - AddPowerupToCharacter
+  - AddUpgradeToCharacter
+  - Chat
+  - DestroyRpc
+  - DisplayAlert
+  - FindBonfireBehaviors
+  - GenerateLevel
+  - InstantiateCharacter
+  - InstantiateRpc
+  - NotifyCharged
+  - NotifyLevelGenerated
+  - NotifyLit
+  - NotifyMasterClientConnected
+  - NotifyTaken
+  - OnDamageTaken
+  - OnNotifyReadyChange
+  - OnNotifyTeamChange
+  - OnResetTeamSelection
+  - OnTouchFirstBonfire
+  - PickupItemInit
+  - PlayChargedSound
+  - PlayDashSound
+  - PlayDeathSound
+  - PlayHitSound
+  - PlayJumpSound
+  - PlayLaunchSound
+  - PlayLitSound
+  - PlayRelightSound
+  - PlaySound
+  - PunPickup
+  - PunPickupSimple
+  - PunRespawn
+  - ReceiveName
+  - ReceiveObjectiveEmbers
+  - ReceiveRescueEmbers
+  - ReceiveTalent
+  - ReceiveUpgradeEmbers
+  - RequestForPickupItems
+  - RequestForPickupTimes
+  - SetPortalIndex
+  - StopMusic
+  - TeleportToPortal
+  DisableAutoOpenWizard: 1
