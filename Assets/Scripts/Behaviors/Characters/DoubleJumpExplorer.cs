@@ -36,7 +36,6 @@ namespace Com.Tempest.Nightmare {
                     break;
                 case MovementState.JUMPING:
                 case MovementState.FALLING:
-                case MovementState.WALL_JUMP:
                     if (!usedSecondJump) {
                         JumpPhysics(true);
                         usedSecondJump = true;

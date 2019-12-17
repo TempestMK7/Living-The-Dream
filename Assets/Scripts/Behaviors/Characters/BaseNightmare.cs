@@ -63,5 +63,14 @@ namespace Com.Tempest.Nightmare {
 			float talentModifier = 1.0f + (0.05f * GetTalentRank(TalentEnum.SIGHT_RANGE));
 			return lightBoxScale * talentModifier;
 		}
+
+        public override bool OutOfHealth() {
+            // Nightmares can't run out of health.
+            return false;
+        }
+
+        protected override void SubtractHealth(int health) {
+            // Unused for nightmare.
+        }
     }
 }

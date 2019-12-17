@@ -11,8 +11,6 @@ namespace Com.Tempest.Nightmare {
 		public float countDownDuration = 30f;
 		public float countDownLockedDuration = 5f;
 
-		public GameObject talentManager;
-
 		public Text pingDisplay;
 		public Text countdownDisplay;
 		public Button readyButton;

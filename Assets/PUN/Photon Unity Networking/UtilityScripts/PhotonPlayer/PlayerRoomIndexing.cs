@@ -8,7 +8,6 @@
 // <author>developer@exitgames.com</author>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -207,22 +206,18 @@ namespace ExitGames.UtilityScripts
 		{
 			if (PhotonNetwork.room!=null)
 			{
-				
+				_playerIds = new int[PhotonNetwork.room.MaxPlayers];
 				if (PhotonNetwork.room.CustomProperties.TryGetValue(PlayerRoomIndexing.RoomPlayerIndexedProp, out _indexes))
 				{
 					_indexesLUT = _indexes as Dictionary<int,int>;
 
-					_playerIds = new int[_indexesLUT.Keys.Max() + 1];
-					
 					foreach(KeyValuePair<int,int> _entry in _indexesLUT)
 					{
 						//Debug.Log("Entry; "+_entry.Key+":"+_entry.Value);
-						
 						_p = PhotonPlayer.Find(_entry.Key);
 						_playerIds[_entry.Value] = _p.ID;
 					}
 				}
-				
 			}else{
 				_playerIds = new int[0];
 			}
@@ -234,20 +229,18 @@ namespace ExitGames.UtilityScripts
 
 		void AssignIndex(PhotonPlayer player)
 		{
-			List<bool> _indexesPool = new List<bool>();
-			
 			if (PhotonNetwork.room.CustomProperties.TryGetValue(PlayerRoomIndexing.RoomPlayerIndexedProp, out _indexes))
 			{
 				_indexesLUT = _indexes as Dictionary<int,int>;
-				
-				_indexesPool = new List<bool>(new bool[_indexesLUT.Keys.Max() + 1]);
-				foreach(KeyValuePair<int,int> _entry in _indexesLUT)
-				{
-					_indexesPool[_entry.Value] = true;	
-				}
 
 			}else{
 				_indexesLUT = new Dictionary<int, int>();
+			}
+
+			List<bool> _indexesPool = new List<bool>( new bool[PhotonNetwork.room.MaxPlayers] );
+			foreach(KeyValuePair<int,int> _entry in _indexesLUT)
+			{
+				_indexesPool[_entry.Value] = true;
 			}
 
 			_indexesLUT[player.ID] = Mathf.Max (0,_indexesPool.IndexOf(false));
@@ -266,7 +259,10 @@ namespace ExitGames.UtilityScripts
 
 				_indexesLUT.Remove(player.ID);
 				PhotonNetwork.room.SetCustomProperties(new Hashtable() {{PlayerRoomIndexing.RoomPlayerIndexedProp, _indexesLUT}});
+			}else{
+
 			}
+
 			RefreshData();
 		}
 

@@ -135,22 +135,6 @@ public class PhotonGUI
     }
     #endregion
 
-    internal static string GetIconPath(string iconFileName)
-    {
-        string _thisIconPath = PhotonNetwork.FindAssetPath ("PhotonGUI");
-
-        if (string.IsNullOrEmpty(_thisIconPath))
-        {
-            _thisIconPath = "Assets/Photon Unity Networking/Editor/PhotonNetwork/"+iconFileName;
-        }
-        else
-        {
-            _thisIconPath = _thisIconPath.Replace("PhotonGUI.cs", iconFileName);
-        }
-
-        return _thisIconPath;
-    }
-    
     static Texture2D m_HelpIcon;
     public static Texture2D HelpIcon
     {
@@ -158,8 +142,9 @@ public class PhotonGUI
         {
             if( m_HelpIcon == null )
             {
-                m_HelpIcon = AssetDatabase.LoadAssetAtPath( GetIconPath("help.png"), typeof( Texture2D ) ) as Texture2D;
+                m_HelpIcon = AssetDatabase.LoadAssetAtPath( "Assets/Photon Unity Networking/Editor/PhotonNetwork/help.png", typeof( Texture2D ) ) as Texture2D;
             }
+
             return m_HelpIcon;
         }
     }

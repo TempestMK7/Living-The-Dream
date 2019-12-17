@@ -10,8 +10,9 @@ namespace Com.Tempest.Nightmare {
         DASHING,
         WALL_SLIDE_LEFT,
         WALL_SLIDE_RIGHT,
-        WALL_JUMP,
-        DAMAGED,
-        DYING
+        PARRYING,
+        HIT_FREEZE,
+        HIT_STUN,
+        RAG_DOLL
     }
 }

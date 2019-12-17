@@ -291,11 +291,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupDuration: 30
-  wallJumpRecovery: 0.2
   dashDuration: 0.15
-  damageRecovery: 1
-  deathAnimationTime: 3
   dashCooldown: 0.65
+  parryDuration: 0.5
+  deathAnimationTime: 3
   maxSpeed: 6
   dashFactor: 3
   wallReflection: 0
@@ -308,7 +307,9 @@ MonoBehaviour:
   jumpFactor: 1.8
   wallJumpFactor: 1.8
   wallSlideFactor: 0.5
-  wallJumpControlFactor: 6
+  groundAccelerationFactor: 6
+  aerialAccelerationFactor: 4
+  directionalInfluenceFactor: 1
   rayBoundShrinkage: 0.0001
   numRays: 4
   whatIsSolid:
@@ -357,8 +358,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114591079199406076}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
+  viewIdField: 2
+  instantiationId: 2
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114822594791625050
@@ -1107,11 +1108,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4071814198274078}
     m_Modifications:
-    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
-        type: 3}
-      propertyPath: m_Name
-      value: SoundHolder
-      objectReference: {fileID: 0}
     - target: {fileID: 174493301593093751, guid: c5fff400e47ea1143afda36fc9a2bd89,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1166,6 +1162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundHolder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fff400e47ea1143afda36fc9a2bd89, type: 3}

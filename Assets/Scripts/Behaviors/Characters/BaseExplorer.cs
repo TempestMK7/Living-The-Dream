@@ -8,7 +8,7 @@ namespace Com.Tempest.Nightmare {
     public abstract class BaseExplorer : PhysicsCharacter {
 
 		// Player rule params.
-		public int maxHealth = 3;
+		public int maxHealth = 100;
 		public int maxLives = 3;
         
         // Health bar timer, time is in seconds.
@@ -84,7 +84,7 @@ namespace Com.Tempest.Nightmare {
 			Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, saveCollider.radius, whatIsExplorer);
 			foreach (Collider2D collider in players) {
 				BaseExplorer behavior = collider.gameObject.GetComponent<BaseExplorer>();
-				if (behavior != null && !behavior.IsOutOfHealth()) {
+				if (behavior != null && !behavior.OutOfHealth()) {
 					ableToRes = true;
 					behavior.photonView.RPC("ReceiveRescueEmbers", PhotonTargets.All, 10);
 					savior = behavior;
@@ -111,7 +111,7 @@ namespace Com.Tempest.Nightmare {
 				ToggleRenderers(!amNightmare);
 				lightBox.IsActive = false;
 			} else {
-				gameObject.layer = LayerMask.NameToLayer(IsOutOfHealth() ? "Death" : "Explorer");
+				gameObject.layer = LayerMask.NameToLayer(OutOfHealth() ? "Death" : "Explorer");
 				positiveHealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
 				healthCanvas.SetActive(Time.time - damageTime < healthBarFadeDelay);
 				ToggleRenderers(true);
@@ -155,14 +155,14 @@ namespace Com.Tempest.Nightmare {
 
 		[PunRPC]
 		public override void PlayJumpSound(bool doubleJump) {
-			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !IsOutOfHealth()) {
+			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !OutOfHealth()) {
 				base.PlayJumpSound(doubleJump);
 			}
 		}
 
 		[PunRPC]
 		public override void PlayDashSound() {
-			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !IsOutOfHealth()) {
+			if (PlayerStateContainer.Instance.TeamSelection != PlayerStateContainer.NIGHTMARE || !OutOfHealth()) {
 				base.PlayDashSound();
 			}
 		}
@@ -177,12 +177,16 @@ namespace Com.Tempest.Nightmare {
 
         #region HealthState
 
-		public bool IsOutOfHealth() {
+		public override bool OutOfHealth() {
 			return currentHealth <= 0;
 		}
 
-		// Returns whether or not the player is currently dead (out of health but still in the game).
-		public bool IsDead() {
+        protected override void SubtractHealth(int health) {
+            currentHealth -= health;
+        }
+
+        // Returns whether or not the player is currently dead (out of health but still in the game).
+        public bool IsDead() {
 			return currentHealth <= 0 && Time.time - damageTime > deathRenderTime;
 		}
 
@@ -195,7 +199,7 @@ namespace Com.Tempest.Nightmare {
 
 		public override void LightTogglePressed() {
 			base.LightTogglePressed();
-			if (!IsOutOfHealth()) {
+			if (!OutOfHealth()) {
 				lightBox.IsActive = !lightBox.IsActive;
 			}
 		}
@@ -204,14 +208,13 @@ namespace Com.Tempest.Nightmare {
 
 		// Called by a nightmare behavior when collision occurs.
 		[PunRPC]
-		public void TakeDamage(Vector3 currentSpeed) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || IsOutOfHealth()) return;
-			damageTime = Time.time;
+		public void OnDamageTaken(Vector3 hitPosition, Vector3 hitSpeed, int damage, float freezeTime, float stunTime) {
+			if (currentState == MovementState.HIT_FREEZE || currentState == MovementState.RAG_DOLL || OutOfHealth()) return;
+            TakeDamage(hitPosition, hitSpeed, damage, freezeTime, stunTime);
+            damageTime = Time.time;
 			if (!photonView.isMine) return;
-			currentHealth -= 1;
-			DamagePhysics(currentSpeed, IsOutOfHealth());
 			DieIfAble();
-			if (!IsOutOfHealth()) {
+			if (!OutOfHealth()) {
 				PlayHitSound();
 				photonView.RPC("PlayHitSound", PhotonTargets.Others);
 			}
@@ -220,21 +223,19 @@ namespace Com.Tempest.Nightmare {
 		private void DieIfAble() {
 			if (currentHealth <= 0) {
 				currentHealth = 0;
-				currentState = MovementState.DYING;
 				currentLives--;
-				if (photonView.isMine) {
-					PlayDeathSound();
-					photonView.RPC("PlayDeathSound", PhotonTargets.Others);
-					GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
-					if (IsOutOfLives()) {
-						behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", false, PlayerStateContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", false, PlayerStateContainer.EXPLORER);
-					} else {
-						behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", false, PlayerStateContainer.EXPLORER);
-						behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", false, PlayerStateContainer.EXPLORER);
-					}
-				}
-			}
+
+                PlayDeathSound();
+                photonView.RPC("PlayDeathSound", PhotonTargets.Others);
+                GeneratedGameManager behavior = FindObjectOfType<GeneratedGameManager>();
+                if (IsOutOfLives()) {
+                    behavior.DisplayAlert("Your light has gone out forever.  You can still spectate though.", false, PlayerStateContainer.EXPLORER);
+                    behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "An explorer has fallen, his light is out forever.", false, PlayerStateContainer.EXPLORER);
+                } else {
+                    behavior.DisplayAlert("Your light has gone out!  Go to a lit bonfire or another player to relight it.", false, PlayerStateContainer.EXPLORER);
+                    behavior.photonView.RPC("DisplayAlert", PhotonTargets.Others, "Someone's light has gone out!  Help them relight it by finding them.", false, PlayerStateContainer.EXPLORER);
+                }
+            }
 		}
 
 		private void DeleteSelfIfAble() {
@@ -253,9 +254,11 @@ namespace Com.Tempest.Nightmare {
 			base.OnPhotonSerializeView(stream, info);
 			if (stream.isWriting) {
 				stream.SendNext(currentHealth);
+                stream.SendNext(currentLives);
 				stream.SendNext(lightBox.IsActive);
 			} else {
 				currentHealth = (int)stream.ReceiveNext();
+                currentLives = (int)stream.ReceiveNext();
 				lightBox.IsActive = (bool)stream.ReceiveNext();
 			}
 		}

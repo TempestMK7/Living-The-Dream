@@ -12,31 +12,43 @@ PluginImporter:
   validateReferences: 1
   platformData:
   - first:
-      '': Linux
+      : Any
+    second:
+      enabled: 0
+      settings:
+        Exclude Android: 0
+        Exclude Editor: 1
+        Exclude Linux64: 1
+        Exclude OSXUniversal: 1
+        Exclude WebGL: 0
+        Exclude Win: 1
+        Exclude Win64: 1
+  - first:
+      : Linux
     second:
       enabled: 0
       settings:
         CPU: x86
   - first:
-      '': OSXIntel
+      : OSXIntel
     second:
       enabled: 0
       settings:
         CPU: AnyCPU
   - first:
-      '': OSXIntel64
+      : OSXIntel64
     second:
       enabled: 0
       settings:
         CPU: AnyCPU
   - first:
-      '': SamsungTV
+      : SamsungTV
     second:
       enabled: 1
       settings:
         STV_MODEL: STANDARD_13
   - first:
-      '': Tizen
+      : Tizen
     second:
       enabled: 1
       settings: {}
@@ -45,7 +57,7 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: ARMv7
   - first:
       Any: 
     second:
@@ -60,40 +72,29 @@ PluginImporter:
         DefaultValueInitialized: true
         OS: AnyOS
   - first:
-      Facebook: WebGL
-    second:
-      enabled: 1
-      settings: {}
-  - first:
-      Facebook: Win
-    second:
-      enabled: 0
-      settings:
-        CPU: AnyCPU
-  - first:
-      Facebook: Win64
-    second:
-      enabled: 0
-      settings:
-        CPU: AnyCPU
-  - first:
       Standalone: Linux64
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
+  - first:
+      Standalone: OSXUniversal
+    second:
+      enabled: 0
+      settings:
+        CPU: None
   - first:
       Standalone: Win
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
   - first:
       Standalone: Win64
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
   - first:
       WebGL: WebGL
     second:

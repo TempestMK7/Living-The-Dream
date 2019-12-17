@@ -32,9 +32,9 @@ namespace Com.Tempest.Nightmare {
         public void OnTriggerEnter2D(Collider2D other) {
             if (!photonView.isMine) return;
             BaseExplorer associatedBehavior = other.gameObject.GetComponent<BaseExplorer>();
-            if (associatedBehavior == null || associatedBehavior.IsOutOfHealth()) return;
+            if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
-                associatedBehavior.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
+                associatedBehavior.photonView.RPC("OnDamageTaken", PhotonTargets.All, associatedBehavior.transform.position, currentSpeed, 30, 0.2f, 0.6f);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
                 photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);

@@ -63,14 +63,7 @@ using ExitGames.Client.Photon;
             Dictionary<byte, object> parameters = new Dictionary<byte, object>();
             parameters[(byte)ParameterCode.ApplicationId] = appId;
 
-            SendOptions sendOptions = new SendOptions
-            {
-                Reliability = true,
-                Channel = 0,
-                Encrypt = true
-            };
-
-            return this.SendOperation(OperationCode.GetRegions, parameters, sendOptions);
+            return this.OpCustom(OperationCode.GetRegions, parameters, true, 0, true);
         }
 
         /// <summary>
@@ -94,7 +87,7 @@ using ExitGames.Client.Photon;
                 parameters[(byte)ParameterCode.LobbyType] = (byte)lobby.Type;
             }
 
-            return this.SendOperation(OperationCode.JoinLobby, parameters, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.JoinLobby, parameters, true);
         }
 
 
@@ -110,7 +103,7 @@ using ExitGames.Client.Photon;
                 this.Listener.DebugReturn(DebugLevel.INFO, "OpLeaveLobby()");
             }
 
-            return this.SendOperation(OperationCode.LeaveLobby, null, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.LeaveLobby, null, true);
         }
 
 
@@ -234,7 +227,7 @@ using ExitGames.Client.Photon;
             }
 
             //UnityEngine.Debug.Log("CreateRoom: " + SupportClassPun.DictionaryToString(op));
-            return this.SendOperation(OperationCode.CreateGame, op, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.CreateGame, op, true);
         }
 
         /// <summary>
@@ -297,7 +290,7 @@ using ExitGames.Client.Photon;
             }
 
             // UnityEngine.Debug.Log("JoinRoom: " + SupportClassPun.DictionaryToString(op));
-            return this.SendOperation(OperationCode.JoinGame, op, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.JoinGame, op, true);
         }
 
 
@@ -350,7 +343,7 @@ using ExitGames.Client.Photon;
             }
 
             // UnityEngine.Debug.LogWarning("OpJoinRandom: " + opParameters.ToStringFull());
-            return this.SendOperation(OperationCode.JoinRandomGame, opParameters, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.JoinRandomGame, opParameters, true);
         }
 
 
@@ -367,7 +360,7 @@ using ExitGames.Client.Photon;
                 parameters = new Dictionary<byte, object>();
                 parameters[ParameterCode.IsInactive] = becomeInactive;
             }
-            return this.SendOperation(OperationCode.Leave, parameters, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.Leave, parameters, true);
         }
 
         /// <summary>Gets a list of games matching a SQL-like where clause.</summary>
@@ -410,7 +403,7 @@ using ExitGames.Client.Photon;
             opParameters[(byte)ParameterCode.LobbyType] = (byte)lobby.Type;
             opParameters[(byte)ParameterCode.Data] = queryData;
 
-            return this.SendOperation(OperationCode.GetGameList, opParameters, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.GetGameList, opParameters, true);
         }
 
         /// <summary>
@@ -426,22 +419,16 @@ using ExitGames.Client.Photon;
         /// ParameterCode.FindFriendsResponseRoomIdList = string[] of room names (empty string if not in a room)
         /// </remarks>
         /// <param name="friendsToFind">Array of friend's names (make sure they are unique).</param>
-        /// <param name="options">Options that affect the result of the FindFriends operation.</param>
         /// <returns>If the operation could be sent (requires connection).</returns>
-        public virtual bool OpFindFriends(string[] friendsToFind, FindFriendsOptions options = null)
+        public virtual bool OpFindFriends(string[] friendsToFind)
         {
-            Dictionary<byte, object> opParams = new Dictionary<byte, object>();
+            Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
             if (friendsToFind != null && friendsToFind.Length > 0)
             {
-                opParams[ParameterCode.FindFriendsRequestList] = friendsToFind;
+                opParameters[ParameterCode.FindFriendsRequestList] = friendsToFind;
             }
 
-            if (options != null)
-            {
-                opParams[ParameterCode.FindFriendsOptions] = options.ToIntFlags();
-            }
-
-            return this.SendOperation(OperationCode.FindFriends, opParams, SendOptions.SendReliable);
+            return this.OpCustom(OperationCode.FindFriends, opParameters, true);
         }
 
         public bool OpSetCustomPropertiesOfActor(int actorNr, Hashtable actorProperties)
@@ -488,14 +475,7 @@ using ExitGames.Client.Photon;
                 opParameters[ParameterCode.EventForward] = true;
             }
 
-            SendOptions sendOptions = new SendOptions
-            {
-                Reliability = true,
-                Channel = 0,
-                Encrypt = false
-            };
-
-            return this.SendOperation(OperationCode.SetProperties, opParameters, sendOptions);
+            return this.OpCustom((byte)OperationCode.SetProperties, opParameters, true, 0, false);
         }
 
 
@@ -506,15 +486,9 @@ using ExitGames.Client.Photon;
             this.OpSetPropertiesOfRoom(properties, expectedProperties: null, webForward: false);
         }
 
-        [Obsolete("Use the other overload method")]
         public bool OpSetCustomPropertiesOfRoom(Hashtable gameProperties, bool broadcast, byte channelId)
         {
             return this.OpSetPropertiesOfRoom(gameProperties.StripToStringKeys(), expectedProperties: null, webForward: false);
-        }
-
-        public bool OpSetCustomPropertiesOfRoom(Hashtable gameProperties, Hashtable expectedProperties = null, bool webForward = false)
-        {
-            return this.OpSetPropertiesOfRoom(gameProperties.StripToStringKeys(), expectedProperties.StripToStringKeys(), webForward);
         }
 
         /// <summary>
@@ -545,14 +519,7 @@ using ExitGames.Client.Photon;
                 opParameters[ParameterCode.EventForward] = true;
             }
 
-            SendOptions sendOptions = new SendOptions
-            {
-                Reliability = true,
-                Channel = 0,
-                Encrypt = false
-            };
-
-            return this.SendOperation(OperationCode.SetProperties, opParameters, sendOptions);
+            return this.OpCustom((byte)OperationCode.SetProperties, opParameters, true, 0, false);
         }
 
         /// <summary>
@@ -572,8 +539,6 @@ using ExitGames.Client.Photon;
         /// <returns>If the operation could be sent (has to be connected).</returns>
         public virtual bool OpAuthenticate(string appId, string appVersion, AuthenticationValues authValues, string regionCode, bool getLobbyStatistics)
         {
-            SendOptions sendOptions;
-
             if (this.DebugOut >= DebugLevel.INFO)
             {
                 this.Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticate()");
@@ -590,15 +555,7 @@ using ExitGames.Client.Photon;
             if (authValues != null && authValues.Token != null)
             {
                 opParameters[ParameterCode.Secret] = authValues.Token;
-
-                sendOptions = new SendOptions
-                {
-                    Reliability = true,
-                    Channel = 0,
-                    Encrypt = false // we don't have to encrypt, when we have a token (which is encrypted)
-                };
-
-                return this.SendOperation(OperationCode.Authenticate, opParameters, sendOptions);
+                return this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, false);   // we don't have to encrypt, when we have a token (which is encrypted)
             }
 
 
@@ -647,14 +604,7 @@ using ExitGames.Client.Photon;
                 }
             }
 
-            sendOptions = new SendOptions
-            {
-                Reliability = true,
-                Channel = 0,
-                Encrypt = this.IsEncryptionAvailable
-            };
-
-            bool sent = this.SendOperation(OperationCode.Authenticate, opParameters, sendOptions);
+            bool sent = this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte) 0, this.IsEncryptionAvailable);
             if (!sent)
             {
                 this.Listener.DebugReturn(DebugLevel.ERROR, "Error calling OpAuthenticate! Did not work. Check log output, AuthValues and if you're connected.");
@@ -681,12 +631,11 @@ using ExitGames.Client.Photon;
         /// <returns>If the operation could be sent (has to be connected).</returns>
         public virtual bool OpAuthenticateOnce(string appId, string appVersion, AuthenticationValues authValues, string regionCode, EncryptionMode encryptionMode, ConnectionProtocol expectedProtocol)
         {
-            SendOptions sendOptions;
-
             if (this.DebugOut >= DebugLevel.INFO)
             {
                 this.Listener.DebugReturn(DebugLevel.INFO, "OpAuthenticate()");
             }
+
 
             var opParameters = new Dictionary<byte, object>();
 
@@ -694,15 +643,7 @@ using ExitGames.Client.Photon;
             if (authValues != null && authValues.Token != null)
             {
                 opParameters[ParameterCode.Secret] = authValues.Token;
-
-                sendOptions = new SendOptions
-                {
-                    Reliability = true,
-                    Channel = 0,
-                    Encrypt = false // we don't have to encrypt, when we have a token (which is encrypted)
-                };
-
-                return this.SendOperation(OperationCode.AuthenticateOnce, opParameters, sendOptions);
+                return this.OpCustom(OperationCode.AuthenticateOnce, opParameters, true, (byte)0, false);   // we don't have to encrypt, when we have a token (which is encrypted)
             }
 
             if (encryptionMode == EncryptionMode.DatagramEncryption && expectedProtocol != ConnectionProtocol.Udp)
@@ -751,14 +692,7 @@ using ExitGames.Client.Photon;
                 }
             }
 
-            sendOptions = new SendOptions
-            {
-                Reliability = true,
-                Channel = 0,
-                Encrypt = this.IsEncryptionAvailable
-            };
-
-            return this.SendOperation(OperationCode.AuthenticateOnce, opParameters, sendOptions);
+            return this.OpCustom(OperationCode.AuthenticateOnce, opParameters, true, (byte)0, this.IsEncryptionAvailable);
         }
 
         /// <summary>
@@ -792,7 +726,7 @@ using ExitGames.Client.Photon;
                 opParameters[(byte)ParameterCode.Add] = groupsToAdd;
             }
 
-            return this.SendOperation(OperationCode.ChangeGroups, opParameters, SendOptions.SendReliable);
+            return this.OpCustom((byte)OperationCode.ChangeGroups, opParameters, true, 0);
         }
 
 
@@ -842,14 +776,7 @@ using ExitGames.Client.Photon;
                 }
             }
 
-            SendOptions sendOptions = new SendOptions
-            {
-                Reliability = sendReliable,
-                Channel = raiseEventOptions.SequenceChannel,
-                Encrypt = raiseEventOptions.Encrypt
-            };
-
-            return this.SendOperation(OperationCode.RaiseEvent, this.opParameters, sendOptions);
+            return this.OpCustom((byte) OperationCode.RaiseEvent, this.opParameters, sendReliable, raiseEventOptions.SequenceChannel, raiseEventOptions.Encrypt);
         }
 
 
@@ -880,7 +807,7 @@ using ExitGames.Client.Photon;
             {
                 if (sendOptions.Channel != raiseEventOptions.SequenceChannel || sendOptions.Encrypt != raiseEventOptions.Encrypt)
                 {
-                    // TODO: This should be a one-time warning.
+                    // TODO: This should be a one-time warning. 
                     // NOTE: Later on, it will be impossible to mix up SendOptions and RaiseEventOptions, as they won't have overlapping settings.
                     this.Listener.DebugReturn(DebugLevel.WARNING, "You are using RaiseEventOptions and SendOptions with conflicting settings. Please check channel and encryption value.");
                 }
@@ -937,7 +864,7 @@ using ExitGames.Client.Photon;
                 // no need to send op in case we set the default values
                 return true;
             }
-            return this.SendOperation(OperationCode.ServerSettings, this.opParameters, SendOptions.SendReliable);
+            return this.OpCustom((byte)OperationCode.ServerSettings, this.opParameters, true);
         }
     }
 
@@ -1401,9 +1328,6 @@ using ExitGames.Client.Photon;
 
         /// <summary>(1) Used in Op FindFriends request. Value must be string[] of friends to look up.</summary>
         public const byte FindFriendsRequestList = (byte)1;
-
-        /// <summary>(2) Used in Op FindFriends request. An integer containing option-flags to filter the results.</summary>
-        public const byte FindFriendsOptions = 2;
 
         /// <summary>(1) Used in Op FindFriends response. Contains bool[] list of online states (false if not online).</summary>
         public const byte FindFriendsResponseOnlineList = (byte)1;
@@ -1936,12 +1860,6 @@ using ExitGames.Client.Photon;
         /// <summary>Authenticates users by their Xbox Account and XSTS token.</summary>
         Xbox = 5,
 
-        /// <summary>Authenticates users by their HTC VIVEPORT Account and user token. Set AuthGetParameters to "userToken=[userToken]"</summary>
-        Viveport = 10,
-		
-        /// <summary>Authenticates users by their NSA ID.</summary>
-        NintendoSwitch = 11,
-
         /// <summary>Disables custom authentification. Same as not providing any AuthenticationValues for connect (more precisely for: OpAuthenticate).</summary>
         None = byte.MaxValue
     }
@@ -1965,7 +1883,7 @@ using ExitGames.Client.Photon;
     /// If the AuthValues.userId is null or empty when it's sent to the server, then the Photon Server assigns a userId!
     ///
     /// The Photon Cloud Dashboard will let you enable this feature and set important server values for it.
-    /// https://dashboard.photonengine.com
+    /// https://www.photonengine.com/dashboard
     /// </remarks>
     public class AuthenticationValues
     {
@@ -1980,14 +1898,10 @@ using ExitGames.Client.Photon;
         }
 
         /// <summary>This string must contain any (http get) parameters expected by the used authentication service. By default, username and token.</summary>
-        /// <remarks>
-        /// Maps to operation parameter 216.
-        /// Standard http get parameters are used here and passed on to the service that's defined in the server (Photon Cloud Dashboard).
-        /// </remarks>
+        /// <remarks>Standard http get parameters are used here and passed on to the service that's defined in the server (Photon Cloud Dashboard).</remarks>
         public string AuthGetParameters { get; set; }
 
         /// <summary>Data to be passed-on to the auth service via POST. Default: null (not sent). Either string or byte[] (see setters).</summary>
-        /// <remarks>Maps to operation parameter 214.</remarks>
         public object AuthPostData { get; private set; }
 
         /// <summary>After initial authentication, Photon provides a token for this client / user, which is subsequently used as (cached) validation.</summary>
@@ -2034,7 +1948,7 @@ using ExitGames.Client.Photon;
             this.AuthPostData = dictData;
         }
 
-        /// <summary>Adds a key-value pair to the get-parameters used for Custom Auth (AuthGetParameters).</summary>
+        /// <summary>Adds a key-value pair to the get-parameters used for Custom Auth.</summary>
         /// <remarks>This method does uri-encoding for you.</remarks>
         /// <param name="key">Key for the value to set.</param>
         /// <param name="value">Some value relevant for Custom Authentication.</param>
@@ -2047,38 +1961,5 @@ using ExitGames.Client.Photon;
         public override string ToString()
         {
             return string.Format("AuthenticationValues UserId: {0}, GetParameters: {1} Token available: {2}", this.UserId, this.AuthGetParameters, this.Token != null);
-        }
-    }
-
-    /// <summary>
-    /// Options for OpFindFriends can be combined to filter which rooms of friends are returned.
-    /// </summary>
-    public class FindFriendsOptions
-    {
-        /// <summary>Include a friend's room only if it is created and confirmed by the game server.</summary>
-        public bool CreatedOnGs = false;    //flag: 0x01
-        /// <summary>Include a friend's room only if it is visible (using Room.IsVisible).</summary>
-        public bool Visible = false;        //flag: 0x02
-        /// <summary>Include a friend's room only if it is open (using Room.IsOpen).</summary>
-        public bool Open = false;           //flag: 0x04
-
-        /// <summary>Turns the bool options into an integer, which is sent as option flags for Op FindFriends.</summary>
-        /// <returns>The options applied to bits of an integer.</returns>
-        internal int ToIntFlags()
-        {
-            int optionFlags = 0;
-            if (this.CreatedOnGs)
-            {
-                optionFlags = optionFlags | 0x1;
-            }
-            if (this.Visible)
-            {
-                optionFlags = optionFlags | 0x2;
-            }
-            if (this.Open)
-            {
-                optionFlags = optionFlags | 0x4;
-            }
-            return optionFlags;
         }
     }

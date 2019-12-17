@@ -31,7 +31,7 @@ namespace Com.Tempest.Nightmare {
 
         protected override void HandleVerticalMovementGravityBound() {
             base.HandleVerticalMovementGravityBound();
-            if (jetpackOn && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
+            if (jetpackOn && currentState != MovementState.HIT_FREEZE && currentState != MovementState.HIT_STUN && currentState != MovementState.RAG_DOLL) {
                 if (currentSpeed.y <= 0f) {
                     currentSpeed.y += maxSpeed * gravityFactor * jetpackVelocityFactor * Time.deltaTime * fallingJetpackForceFactor;
                 } else {

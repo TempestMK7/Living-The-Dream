@@ -84,9 +84,9 @@ namespace Com.Tempest.Nightmare {
             Collider2D[] triggers = Physics2D.OverlapCircleAll(transform.position, explosionRadius, whatTakesDamage);
             foreach (Collider2D trigger in triggers) {
                 BaseExplorer explorer = trigger.gameObject.GetComponent<BaseExplorer>();
-                if (explorer != null && !explorer.IsOutOfHealth() && !playersHit.Contains(explorer)) {
+                if (explorer != null && !explorer.OutOfHealth() && !playersHit.Contains(explorer)) {
                     playersHit.Add(explorer);
-                    explorer.photonView.RPC("TakeDamage", PhotonTargets.All, currentSpeed);
+                    explorer.photonView.RPC("OnDamageTaken", PhotonTargets.All, explorer.transform.position, currentSpeed, 30, 0.2f, 0.8f);
                     CryoLauncherBehavior.photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);
                 }
             }

@@ -4,7 +4,7 @@
 // <copyright company="Exit Games GmbH">Photon Chat Api - Copyright (C) 2014 Exit Games GmbH</copyright>
 // ----------------------------------------------------------------------------------------------------------------------
 
-namespace Photon.Chat
+namespace ExitGames.Client.Photon.Chat
 {
     /// <summary>
     /// Wraps up codes for parameters (in operations and events) used internally in Photon Chat. You don't have to use them directly usually.
@@ -19,7 +19,7 @@ namespace Photon.Chat
         public const byte Messages = 2;
         /// <summary>(3) A single chat message.</summary>
         public const byte Message = 3;
-        /// <summary>(4) Array of names of the users who sent the array of chat messages.</summary>
+        /// <summary>(4) Array of names of the users who sent the array of chat mesages.</summary>
         public const byte Senders = 4;
         /// <summary>(5) Name of a the user who sent a chat message.</summary>
         public const byte Sender = 5;
@@ -48,16 +48,5 @@ namespace Photon.Chat
 
         /// <summary>(21) WebFlags object for changing behaviour of webhooks from client.</summary>
         public const byte WebFlags = 21;
-
-        /// <summary>(22) Properties of channel or user.</summary>
-        /// <remarks>
-        /// In event <see cref="ChatEventCode.Subscribe"/> it's always channel properties.
-        /// </remarks>
-        public const byte Properties = 22;
-        /// <summary>(23) Array of UserIds of users already subscribed to a channel.</summary>
-        /// <remarks>Used in Subscribe event when PublishSubscribers is enabled.
-        /// Does not include local user who just subscribed.
-        /// Maximum length is (<see cref="ChatChannel.MaxSubscribers"/> - 1).</remarks>
-        public const byte ChannelSubscribers = 23;
     }
 }

@@ -19,7 +19,6 @@ namespace Com.Tempest.Nightmare {
         private const int RIGHT = 7;
 
         public PhotonLogLevel logLevel = PhotonLogLevel.ErrorsOnly;
-        public GameObject talentManager;
         public GameObject startPanel;
         public GameObject connectPanel;
         public GameObject settingsPanel;
@@ -286,13 +285,14 @@ namespace Com.Tempest.Nightmare {
 			properties[PlayerStateContainer.IS_READY] = PlayerStateContainer.Instance.IsReady;
 			player.SetCustomProperties(properties);
             if (isPrivate) {
-                RoomOptions options = new RoomOptions();
-                options.IsOpen = true;
-                options.IsVisible = false;
-                options.MaxPlayers = 0;
-                options.PublishUserId = true;
-                options.CustomRoomPropertiesForLobby = new string[]{ "C0", "C1" };
-                options.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable(){{ "C0", 1 }, { "C1", 1 }};
+                RoomOptions options = new RoomOptions {
+                    IsOpen = true,
+                    IsVisible = false,
+                    MaxPlayers = 0,
+                    PublishUserId = true,
+                    CustomRoomPropertiesForLobby = new string[] { "C0", "C1" },
+                    CustomRoomProperties = new ExitGames.Client.Photon.Hashtable() { { "C0", 1 }, { "C1", 1 } }
+                };
                 PhotonNetwork.JoinOrCreateRoom(lobbyName, options, new TypedLobby(Constants.LOBBY_NAME, LobbyType.SqlLobby));
             } else if (PlayerStateContainer.Instance.TeamSelection == PlayerStateContainer.EXPLORER) {
                 string filter = "C0 = 1";

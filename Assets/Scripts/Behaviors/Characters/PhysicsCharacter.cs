@@ -8,11 +8,10 @@ namespace Com.Tempest.Nightmare {
     public abstract class PhysicsCharacter : EmpowerableCharacterBehavior, IPunObservable, IControllable {
 
         // Recovery timers.  Values are in seconds.
-		public float wallJumpRecovery = 0.2f;
 		public float dashDuration = 0.5f;
-		public float damageRecovery = 1f;
+        public float dashCooldown = 1f;
+        public float parryDuration = 0.5f;
 		public float deathAnimationTime = 3f;
-		public float dashCooldown = 0.65f;
 
 		// General movement params.
 		public float maxSpeed = 7f;
@@ -31,7 +30,9 @@ namespace Com.Tempest.Nightmare {
 		public float jumpFactor = 1.5f;
 		public float wallJumpFactor = 1.5f;
 		public float wallSlideFactor = 0.5f;
-		public float wallJumpControlFactor = 6f;
+        public float groundAccelerationFactor = 6f;
+        public float aerialAccelerationFactor = 4f;
+        public float directionalInfluenceFactor = 2f;
 
 		// Physics hit calculation params.
 		public float rayBoundShrinkage = 0.001f;
@@ -54,9 +55,15 @@ namespace Com.Tempest.Nightmare {
 		protected Vector3 currentSpeed;
 		protected Vector3 currentControllerState;
 		private Vector3 currentOffset;
-		private float timerStart;
-		private float jumpTimerStart;
-		private float dashTimerStart;
+
+        // State timers.
+        private bool awaitingTimer;
+        private float stateTimerChange;
+        private float freezeTime;
+        private float stunTime;
+
+        private Vector3 damageSpeed;
+
 		private float lastVolume;
 
         // Self initialized flyer variables.
@@ -85,6 +92,8 @@ namespace Com.Tempest.Nightmare {
 			currentState = MovementState.GROUNDED;
 			baseAcceleration = accelerationFactor * maxSpeed;
 			snapToMaxThreshold = maxSpeed * snapToMaxThresholdFactor;
+            awaitingTimer = false;
+            stateTimerChange = 0f;
 			facingRight = false;
 			actionPrimaryHeld = false;
 			actionSecondaryHeld = false;
@@ -113,29 +122,46 @@ namespace Com.Tempest.Nightmare {
 		#region Gravity-bound physics handling.
 
 		protected virtual void HandleVerticalMovementGravityBound() {
-			if (currentState == MovementState.DASHING) return;
-			if (currentState == MovementState.JUMPING || currentState == MovementState.WALL_JUMP) {
-				currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
-			} else if (currentState == MovementState.WALL_SLIDE_LEFT || currentState == MovementState.WALL_SLIDE_RIGHT) {
-				if (grabHeld && currentSpeed.y <= 0f) {
-					currentSpeed.y = 0f;
-				} else {
-					float wallControlFactor = currentControllerState.y < -0.5f ? terminalVelocityFactor : 1f;
-					currentSpeed.y -= MaxSpeed() * gravityFactor * Time.deltaTime * wallControlFactor;
-					currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * wallControlFactor * -1f);
-				}
-			} else {
-				if (currentControllerState.y < -0.5f && currentState != MovementState.DAMAGED && currentState != MovementState.DYING) {
-                    float fastFallTalent = talentRanks[TalentEnum.FASTER_FALL_SPEED];
-                    if (fastFallTalent < 3) {
-                        currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * (-2f - (fastFallTalent * 0.5f));
+            switch (currentState) {
+                case MovementState.DASHING:
+                    return;
+                case MovementState.PARRYING:
+                case MovementState.HIT_FREEZE:
+                    currentSpeed.y = 0f;
+                    return;
+                case MovementState.JUMPING:
+                    currentSpeed.y -= MaxSpeed() * gravityFactor * risingGravityBackoffFactor * Time.deltaTime;
+                    break;
+                case MovementState.WALL_SLIDE_LEFT:
+                case MovementState.WALL_SLIDE_RIGHT:
+                    if (grabHeld && currentSpeed.y <= 0f) {
+                        currentSpeed.y = 0f;
                     } else {
-                        currentSpeed.y = MaxSpeed() * terminalVelocityFactor * -1f;
+                        float wallControlFactor = currentControllerState.y < -0.5f ? terminalVelocityFactor : 1f;
+                        currentSpeed.y -= MaxSpeed() * gravityFactor * Time.deltaTime * wallControlFactor;
+                        currentSpeed.y = Mathf.Max(currentSpeed.y, MaxSpeed() * wallSlideFactor * wallControlFactor * -1f);
                     }
-                } else {
+                    break;
+                case MovementState.HIT_STUN:
+                    currentSpeed.y += MaxSpeed() * (gravityFactor + (currentControllerState.y * directionalInfluenceFactor)) * Time.deltaTime * -1f;
+                    break;
+                case MovementState.RAG_DOLL:
                     currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * -1f;
-                }
-			}
+                    break;
+                default:
+                    if (currentControllerState.y <= -0.5f) {
+                        float fastFallTalent = talentRanks[TalentEnum.FASTER_FALL_SPEED];
+                        if (fastFallTalent < 3) {
+                            currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * (-2f - (fastFallTalent * 0.5f));
+                        } else {
+                            currentSpeed.y = MaxSpeed() * terminalVelocityFactor * -1f;
+                        }
+                    } else {
+                        currentSpeed.y += MaxSpeed() * gravityFactor * Time.deltaTime * -1f;
+                    }
+                    break;
+            }
+
 			// Clip to terminal velocity if necessary.
 			currentSpeed.y = Mathf.Clamp(currentSpeed.y, MaxSpeed() * terminalVelocityFactor * -1f, MaxSpeed() * JumpFactor());
 		}
@@ -143,12 +169,19 @@ namespace Com.Tempest.Nightmare {
 		private void HandleHorizontalMovementGravityBound() {
 			switch (currentState) {
 				case MovementState.DASHING:
-					break;
-				case MovementState.DAMAGED:
-				case MovementState.DYING:
-					currentSpeed.x -= currentSpeed.x * Time.deltaTime;
-					break;
-				case MovementState.WALL_SLIDE_LEFT:
+                    break;
+                case MovementState.PARRYING:
+                case MovementState.HIT_FREEZE:
+                    currentSpeed.x = 0f;
+                    break;
+                case MovementState.HIT_STUN:
+                    currentSpeed.x += currentControllerState.x * directionalInfluenceFactor * MaxSpeed() * Time.deltaTime;
+                    break;
+                case MovementState.RAG_DOLL:
+                    // Constantly decelerate in rag doll.
+                    currentSpeed.x -= currentSpeed.x * Time.deltaTime;
+                    break;
+                case MovementState.WALL_SLIDE_LEFT:
 					if (currentControllerState.x > 0.5f && !grabHeld) {
 						currentSpeed.x = currentControllerState.x * MaxSpeed();
 						currentState = MovementState.FALLING;
@@ -164,15 +197,28 @@ namespace Com.Tempest.Nightmare {
 						currentSpeed.x = 0.01f;
 					}
 					break;
-				case MovementState.WALL_JUMP:
-					currentSpeed.x += currentControllerState.x * MaxSpeed() * Time.deltaTime * wallJumpControlFactor;
-					currentSpeed.x = Mathf.Clamp(currentSpeed.x, MaxSpeed() * -1f, MaxSpeed());
-					break;
-				default:
-					currentSpeed.x = currentControllerState.x * MaxSpeed();
-					break;
+                case MovementState.GROUNDED:
+                    float horizontalAxis = Mathf.Clamp(currentControllerState.x, -1f, 1f);
+                    float intendedSpeed = horizontalAxis * MaxSpeed();
+                    float difference = intendedSpeed - currentSpeed.x;
+                    if (Mathf.Abs(difference) > snapToMaxThreshold) {
+                        difference *= groundAccelerationFactor * Time.deltaTime;
+                    }
+                    currentSpeed.x += difference;
+                    break;
+                case MovementState.FALLING:
+                case MovementState.JUMPING:
+                    horizontalAxis = Mathf.Clamp(currentControllerState.x, -1f, 1f);
+                    intendedSpeed = horizontalAxis * MaxSpeed();
+                    difference = intendedSpeed - currentSpeed.x;
+                    if (Mathf.Abs(difference) > snapToMaxThreshold) {
+                        difference *= aerialAccelerationFactor * Time.deltaTime;
+                    }
+                    currentSpeed.x += difference;
+                    break;
 			}
-		}
+            currentSpeed.x = Mathf.Clamp(currentSpeed.x, MaxSpeed() * -1f, MaxSpeed());
+        }
 
 		private void MoveAndUpdateStateGravityBound() {
 			// Calculate how far we're going.
@@ -207,10 +253,7 @@ namespace Com.Tempest.Nightmare {
 					if (rayCast) {
 						hitX = true;
 						distanceForFrame.x = rayCast.point.x - rayOrigin.x;
-						if (currentState != MovementState.DAMAGED && 
-								currentState != MovementState.DYING && 
-								currentState != MovementState.GROUNDED && 
-								currentState != MovementState.DASHING) {
+						if (currentState == MovementState.JUMPING || currentState == MovementState.FALLING) {
 							currentState = goingRight ? MovementState.WALL_SLIDE_RIGHT : MovementState.WALL_SLIDE_LEFT;
 						}
 					}
@@ -221,7 +264,7 @@ namespace Com.Tempest.Nightmare {
 
 			// If we hit anything horizontally, reflect or stop x axis movement.
 			if (hitX) {
-				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING ) {
+				if (currentState == MovementState.HIT_STUN || currentState == MovementState.RAG_DOLL) {
 					currentSpeed.x *= wallSpeedReflectionFactor;
 					currentOffset.x *= wallSpeedReflectionFactor;
 				} else if (currentState == MovementState.DASHING) {
@@ -261,7 +304,7 @@ namespace Com.Tempest.Nightmare {
 					if (rayCast) {
 						hitY = true;
 						distanceForFrame.y = rayCast.point.y - rayOrigin.y;
-						if (!goingUp && currentState != MovementState.DAMAGED && currentState != MovementState.DYING && currentState != MovementState.DASHING) {
+						if (!goingUp && currentState != MovementState.HIT_STUN && currentState != MovementState.RAG_DOLL && currentState != MovementState.DASHING) {
 							currentState = MovementState.GROUNDED;
 						}
 					}
@@ -270,7 +313,7 @@ namespace Com.Tempest.Nightmare {
 				}
 			}
 			if (hitY) {
-				if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING) {
+				if (currentState == MovementState.HIT_STUN || currentState == MovementState.RAG_DOLL) {
 					currentSpeed.y *= wallSpeedReflectionFactor;
 					currentOffset.y *= wallSpeedReflectionFactor;
 				} else if (currentState == MovementState.DASHING) {
@@ -317,7 +360,7 @@ namespace Com.Tempest.Nightmare {
         private void UpdateCurrentSpeedFlyer() {
             // Ignore controls if damaged, dying, or dashing.
             if (currentState == MovementState.DASHING) return;
-            if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING) {
+            if (currentState == MovementState.HIT_STUN || currentState == MovementState.RAG_DOLL) {
                 currentSpeed *= 0.9f;
                 return;
             }
@@ -465,17 +508,45 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		private void UpdateStateFromTimers() {
-			if (photonView.isMine) {
-				if (currentState == MovementState.DAMAGED && Time.time - timerStart > damageRecovery) {
-					currentState = MovementState.FALLING;
-				} else if (currentState == MovementState.DYING && Time.time - timerStart > deathAnimationTime) {
-					currentState = MovementState.FALLING;
-				} else if (currentState == MovementState.WALL_JUMP && Time.time - jumpTimerStart > wallJumpRecovery) {
-					currentState = MovementState.JUMPING;
-				} else if (currentState == MovementState.DASHING && Time.time - dashTimerStart > dashDuration) {
-					currentState = MovementState.FALLING;
-				}
-			}
+            if (awaitingTimer) {
+                switch (currentState) {
+                    case MovementState.DASHING:
+                        if (Time.time >= stateTimerChange + dashDuration) {
+                            awaitingTimer = false;
+                            // Note that we do not clear the stateTimerChange variable here because we still need it for the dash cooldown.
+                            // We clear it everywhere else to avoid extending the dash cooldown out of hit stun.
+                            currentState = MovementState.FALLING;
+                        }
+                        break;
+                    case MovementState.PARRYING:
+                        if (Time.time >= stateTimerChange + parryDuration) {
+                            awaitingTimer = false;
+                            stateTimerChange = 0f;
+                            currentState = MovementState.FALLING;
+                        }
+                        break;
+                    case MovementState.HIT_FREEZE:
+                        if (Time.time >= stateTimerChange + freezeTime) {
+                            currentState = OutOfHealth() ? MovementState.RAG_DOLL : MovementState.HIT_STUN;
+                            currentSpeed = damageSpeed;
+                        }
+                        break;
+                    case MovementState.HIT_STUN:
+                        if (Time.time >= stateTimerChange + freezeTime + stunTime) {
+                            awaitingTimer = false;
+                            stateTimerChange = 0f;
+                            currentState = MovementState.FALLING;
+                        }
+                        break;
+                    case MovementState.RAG_DOLL:
+                        if (Time.time >= stateTimerChange + freezeTime + deathAnimationTime) {
+                            awaitingTimer = false;
+                            stateTimerChange = 0f;
+                            currentState = MovementState.FALLING;
+                        }
+                        break;
+                }
+            }
 			if (currentState == MovementState.JUMPING && (currentSpeed.y <= 0 || !actionPrimaryHeld)) {
 				currentState = MovementState.FALLING;
 			}
@@ -487,7 +558,7 @@ namespace Com.Tempest.Nightmare {
 			if (currentSpeed.x < 0f) speed = -1;
 			else if (currentSpeed.x > 0f) speed = 1;
 			animator.SetInteger("HorizontalSpeed", speed);
-			animator.SetBool("DyingAnimation", currentState == MovementState.DYING);
+			animator.SetBool("DyingAnimation", currentState == MovementState.RAG_DOLL);
 		}
 
 		public virtual void InputsReceived(float horizontalScale, float verticalScale, bool grabHeld) {
@@ -526,21 +597,18 @@ namespace Com.Tempest.Nightmare {
 				case MovementState.GROUNDED:
 				case MovementState.JUMPING:
 				case MovementState.FALLING:
-				case MovementState.WALL_JUMP:
 					currentSpeed.y = MaxSpeed() * JumpFactor();
 					currentState = MovementState.JUMPING;
 					break;
 				case MovementState.WALL_SLIDE_LEFT:
                 	currentSpeed.y = Mathf.Sin(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
                 	currentSpeed.x = Mathf.Cos(Mathf.PI / 4) * MaxSpeed() * WallJumpFactor();
-					jumpTimerStart = Time.time;
-					currentState = MovementState.WALL_JUMP;
+					currentState = MovementState.JUMPING;
 					break;
 				case MovementState.WALL_SLIDE_RIGHT:
                 	currentSpeed.y = Mathf.Sin(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
                 	currentSpeed.x = Mathf.Cos(Mathf.PI * 3 / 4) * MaxSpeed() * WallJumpFactor();
-					jumpTimerStart = Time.time;
-					currentState = MovementState.WALL_JUMP;
+					currentState = MovementState.JUMPING;
 					break;
 			}
 			if (photonView.isMine) {
@@ -559,11 +627,23 @@ namespace Com.Tempest.Nightmare {
 		}
 
 		protected bool DashPhysics(Vector3 mouseDirection) {
-			if (currentState == MovementState.DAMAGED || currentState == MovementState.DYING || Time.time - dashTimerStart < DashCooldown())  {
+            // Cannot dash out of certain states.
+			if (currentState == MovementState.PARRYING ||
+                currentState == MovementState.HIT_FREEZE || 
+                currentState == MovementState.HIT_STUN ||
+                currentState == MovementState.RAG_DOLL ||
+                currentState == MovementState.DASHING)  {
 				return false;
 			}
+
+            // Cannot dash if on cooldown.
+            if (Time.time < stateTimerChange + DashCooldown()) {
+                return false;
+            }
+
 			currentState = MovementState.DASHING;
-			dashTimerStart = Time.time;
+            awaitingTimer = true;
+            stateTimerChange = Time.time;
 
 			if (mouseDirection.magnitude != 0f) {
 				currentSpeed = mouseDirection * MaxSpeed() * DashFactor() / mouseDirection.magnitude;
@@ -589,11 +669,24 @@ namespace Com.Tempest.Nightmare {
 			currentSpeed *= -0.5f;
 		}
 
-		protected void DamagePhysics(Vector3 newSpeed, bool outOfHealth) {
-			currentState = outOfHealth ? MovementState.DYING : MovementState.DAMAGED;
-			timerStart = Time.time;
-			currentSpeed = newSpeed;
+		protected void TakeDamage(Vector3 hitPosition, Vector3 hitSpeed, int damage, float freezeTime, float stunTime) {
+            if (currentState == MovementState.HIT_FREEZE || currentState == MovementState.RAG_DOLL || OutOfHealth()) return;
+            transform.position = hitPosition;
+            damageSpeed = hitSpeed;
+            if (photonView.isMine) {
+                SubtractHealth(damage);
+            }
+            this.freezeTime = freezeTime;
+            this.stunTime = stunTime;
+
+            currentState = MovementState.HIT_FREEZE;
+            awaitingTimer = true;
+            stateTimerChange = Time.time;
 		}
+
+        protected abstract void SubtractHealth(int health);
+
+        public abstract bool OutOfHealth();
 
 		[PunRPC]
 		public void PlayHitSound() {

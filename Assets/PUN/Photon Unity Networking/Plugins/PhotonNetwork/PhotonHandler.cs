@@ -69,8 +69,7 @@ internal class PhotonHandler : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) =>
         {
             PhotonNetwork.networkingPeer.NewSceneLoaded();
-            PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName, false);
-			PhotonNetwork.networkingPeer.IsReloadingLevel = false;
+            PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName);
         };
     }
 
@@ -80,9 +79,7 @@ internal class PhotonHandler : MonoBehaviour
     protected void OnLevelWasLoaded(int level)
     {
         PhotonNetwork.networkingPeer.NewSceneLoaded();
-        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName, false);
-		PhotonNetwork.networkingPeer.IsReloadingLevel = false;
-		PhotonNetwork.networkingPeer.AsynchLevelLoadCall = false;
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName);
     }
 
     #endif
@@ -193,7 +190,7 @@ internal class PhotonHandler : MonoBehaviour
 
     protected void OnCreatedRoom()
     {
-        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName, false);
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(SceneManagerHelper.ActiveSceneName);
     }
 
     public static void StartFallbackSendAckThread()

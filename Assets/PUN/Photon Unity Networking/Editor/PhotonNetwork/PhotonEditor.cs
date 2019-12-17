@@ -11,7 +11,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using ExitGames.Client.Photon;
 using UnityEditor;
@@ -111,7 +110,7 @@ public class PhotonEditor : EditorWindow
 
     protected static string UrlAccountPage = "https://dashboard.photonengine.com/Account/SignIn?email="; // opened in browser
 
-    protected static string UrlCloudDashboard = "https://dashboard.photonengine.com?email=";
+    protected static string UrlCloudDashboard = "https://dashboard.photonengine.com/dashboard?email=";
 
 
     private enum PhotonSetupStates
@@ -156,7 +155,7 @@ public class PhotonEditor : EditorWindow
 		EditorApplication.playmodeStateChanged += PlaymodeStateChanged;
 		#endif
 
-		#if (UNITY_2018 || UNITY_2018_1_OR_NEWER)
+        #if UNITY_2018
 		EditorApplication.projectChanged += EditorUpdate;
         EditorApplication.hierarchyChanged += EditorUpdate;
         #else
@@ -410,8 +409,8 @@ public class PhotonEditor : EditorWindow
             GUILayout.FlexibleSpace();
             if (GUILayout.Button(new GUIContent(CurrentLang.OpenCloudDashboardText, CurrentLang.OpenCloudDashboardTooltip), GUILayout.Width(205)))
             {
-                Application.OpenURL(string.Concat(UrlCloudDashboard, Uri.EscapeUriString(this.mailOrAppId)));
-                this.mailOrAppId = string.Empty;
+				Application.OpenURL(UrlCloudDashboard + Uri.EscapeUriString(this.mailOrAppId));
+                this.mailOrAppId = "";
             }
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
@@ -571,19 +570,16 @@ public class PhotonEditor : EditorWindow
         }
 
 
-            AccountService client = new AccountService();
-            client.RegisterByEmail(email, RegisterOrigin, accountServiceType, RegisterWithEmailCallback); // this is the synchronous variant using the static RegisterOrigin. "result" is in the client
-        }
+        AccountService client = new AccountService();
+        client.RegisterByEmail(email, RegisterOrigin, accountServiceType); // this is the synchronous variant using the static RegisterOrigin. "result" is in the client
 
-        private void RegisterWithEmailCallback(AccountService client)
+        EditorUtility.ClearProgressBar();
+        if (client.ReturnCode == 0)
         {
-            EditorUtility.ClearProgressBar();
-            if (client.ReturnCode == 0)
+            this.mailOrAppId = client.AppId;
+            PhotonNetwork.PhotonServerSettings.UseCloud(this.mailOrAppId, 0);
+            if (PhotonEditorUtils.HasVoice)
             {
-                this.mailOrAppId = client.AppId;
-                PhotonNetwork.PhotonServerSettings.UseCloud(this.mailOrAppId, 0);
-                if (PhotonEditorUtils.HasVoice)
-                {
                 PhotonNetwork.PhotonServerSettings.VoiceAppID = client.AppId2;
             }
             PhotonEditor.SaveSettings();
@@ -662,83 +658,70 @@ public class PhotonEditor : EditorWindow
     public static void UpdateRpcList()
     {
         List<string> additionalRpcs = new List<string>();
-        List<string> allRpcs = new List<string>();
-        
-        #if UNITY_2019_2_OR_NEWER
+        HashSet<string> currentRpcs = new HashSet<string>();
 
-            // we can make use of the new TypeCache to find methods with PunRPC attribute
-            var extractedMethods = TypeCache.GetMethodsWithAttribute<PunRPC>();
-            foreach (var methodInfo in extractedMethods)
+        var types = GetAllSubTypesInScripts(typeof(MonoBehaviour));
+
+        //int countOldRpcs = 0;
+        foreach (var mono in types)
+        {
+            MethodInfo[] methods = mono.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+
+            foreach (MethodInfo method in methods)
             {
-                allRpcs.Add(methodInfo.Name);
-                if (!PhotonNetwork.PhotonServerSettings.RpcList.Contains(methodInfo.Name))
+                //bool isOldRpc = false;
+                //#pragma warning disable 618
+                //// we let the Editor check for outdated RPC attributes in code. that should not cause a compile warning
+                //if (method.IsDefined(typeof (RPC), false))
+                //{
+                //    countOldRpcs++;
+                //    isOldRpc = true;
+                //}
+                //#pragma warning restore 618
+
+                //if (isOldRpc || method.IsDefined(typeof(PunRPC), false))
+                if (method.IsDefined(typeof(PunRPC), false))
                 {
-                    additionalRpcs.Add(methodInfo.Name);
+                    currentRpcs.Add(method.Name);
+
+                    if (!additionalRpcs.Contains(method.Name) && !PhotonNetwork.PhotonServerSettings.RpcList.Contains(method.Name))
+                    {
+                        additionalRpcs.Add(method.Name);
+                    }
                 }
             }
-
-        #else
-
-        System.Reflection.Assembly[] assemblies;
-
-        #if NET_4_6
-        assemblies = System.AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).ToArray();
-        #else
-        assemblies = System.AppDomain.CurrentDomain.GetAssemblies();
-        #endif
-
-        foreach (var assembly in assemblies)
-        {
-            if (!assembly.Location.Contains("ScriptAssemblies") || assembly.FullName.StartsWith("Assembly-CSharp-Editor"))
-            {
-                continue;
-            }
-
-            var types = assembly.GetTypes().Where(t => t.IsSubclassOf(typeof(MonoBehaviour)));
-            var methodInfos = types.SelectMany(t => t.GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance));
-            var methodNames = methodInfos.Where(m => m.IsDefined(typeof(PunRPC), false)).Select(mi => mi.Name).ToArray();
-            var additional = methodNames.Where(n => !PhotonNetwork.PhotonServerSettings.RpcList.Contains(n));
-
-            allRpcs.AddRange(methodNames);
-            additionalRpcs.AddRange(additional);
         }
 
-        #endif
-        
-        if (additionalRpcs.Count <= 0)
+        if (additionalRpcs.Count > 0)
         {
-            //Debug.Log("UpdateRPCs did not found new.");
-            return;
-        }
-
-
-        if (additionalRpcs.Count + PhotonNetwork.PhotonServerSettings.RpcList.Count >= byte.MaxValue)
-        {
-            if (allRpcs.Count <= byte.MaxValue)
+            // LIMITS RPC COUNT
+            if (additionalRpcs.Count + PhotonNetwork.PhotonServerSettings.RpcList.Count >= byte.MaxValue)
             {
-                bool clearList = EditorUtility.DisplayDialog(CurrentLang.IncorrectRPCListTitle, CurrentLang.IncorrectRPCListLabel, CurrentLang.RemoveOutdatedRPCsLabel, CurrentLang.CancelButton);
-                if (clearList)
+                if (currentRpcs.Count <= byte.MaxValue)
                 {
-                    PhotonNetwork.PhotonServerSettings.RpcList.Clear();
-                    additionalRpcs = allRpcs.Distinct().ToList();   // we add all unique names
+                    bool clearList = EditorUtility.DisplayDialog(CurrentLang.IncorrectRPCListTitle, CurrentLang.IncorrectRPCListLabel, CurrentLang.RemoveOutdatedRPCsLabel, CurrentLang.CancelButton);
+                    if (clearList)
+                    {
+                        PhotonNetwork.PhotonServerSettings.RpcList.Clear();
+                        PhotonNetwork.PhotonServerSettings.RpcList.AddRange(currentRpcs);
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
                 else
                 {
+                    EditorUtility.DisplayDialog(CurrentLang.FullRPCListTitle, CurrentLang.FullRPCListLabel, CurrentLang.SkipRPCListUpdateLabel);
                     return;
                 }
             }
-            else
-            {
-                EditorUtility.DisplayDialog(CurrentLang.FullRPCListTitle, CurrentLang.FullRPCListLabel, CurrentLang.SkipRPCListUpdateLabel);
-                return;
-            }
+
+            additionalRpcs.Sort();
+            Undo.RecordObject(PhotonNetwork.PhotonServerSettings, "Update PUN RPC-list");
+            PhotonNetwork.PhotonServerSettings.RpcList.AddRange(additionalRpcs);
+            PhotonEditor.SaveSettings();
         }
-
-
-        additionalRpcs.Sort();
-        Undo.RecordObject(PhotonNetwork.PhotonServerSettings, "RPC-list update of PUN.");
-        PhotonNetwork.PhotonServerSettings.RpcList.AddRange(additionalRpcs.Distinct().ToList());
-        PhotonEditor.SaveSettings();
     }
 
     public static void ClearRpcList()
