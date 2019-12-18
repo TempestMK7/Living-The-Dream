@@ -47,12 +47,6 @@ public class CameraFilterPack_3D_Inverse : MonoBehaviour {
 	void Start () 
 	{
      	SCShader = Shader.Find("CameraFilterPack/3D_Inverse");
-
-		if(!SystemInfo.supportsImageEffects)
-		{
-			enabled = false;
-			return;
-		}
 	}
 	
 	void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

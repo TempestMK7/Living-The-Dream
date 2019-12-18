@@ -51,12 +51,6 @@ return SCMaterial;
 void Start () 
 {
 SCShader = Shader.Find("CameraFilterPack/3D_Distortion");
-
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

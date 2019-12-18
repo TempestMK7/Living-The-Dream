@@ -7,8 +7,10 @@ namespace Com.Tempest.Nightmare {
     public class GhastBehavior : BaseNightmare {
 
         public float collisionDebounceTime = 1f;
+        public int dashDamage = 40;
+        public float dashFreezeTime = 0.2f;
+        public float dashStunTime = 0.6f;
     
-        private float dashStart;
         private float lastCollisionTime;
 
         protected override void HandleAnimator() {
@@ -32,9 +34,9 @@ namespace Com.Tempest.Nightmare {
         public void OnTriggerEnter2D(Collider2D other) {
             if (!photonView.isMine) return;
             BaseExplorer associatedBehavior = other.gameObject.GetComponent<BaseExplorer>();
-            if (associatedBehavior == null || associatedBehavior.OutOfHealth()) return;
+            if (associatedBehavior == null || associatedBehavior.ImmuneToDamage()) return;
             if (IsAttacking() && Time.time - lastCollisionTime > collisionDebounceTime) {
-                associatedBehavior.photonView.RPC("OnDamageTaken", PhotonTargets.All, associatedBehavior.transform.position, currentSpeed, 30, 0.2f, 0.6f);
+                associatedBehavior.photonView.RPC("OnDamageTaken", PhotonTargets.All, associatedBehavior.transform.position, currentSpeed, dashDamage, dashFreezeTime, dashStunTime);
                 this.currentSpeed *= -1;
                 lastCollisionTime = Time.time;
                 photonView.RPC("ReceiveObjectiveEmbers", PhotonTargets.All, 10f);

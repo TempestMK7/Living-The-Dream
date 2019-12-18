@@ -321,7 +321,7 @@ MonoBehaviour:
   hitSource: {fileID: 3897660828309286589}
   deathSource: {fileID: 1392751914739148483}
   relightSource: {fileID: 3827482519021691186}
-  maxHealth: 2
+  maxHealth: 100
   maxLives: 3
   healthBarFadeDelay: 1
   deathRenderTime: 3
@@ -358,8 +358,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 114591079199406076}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 2
-  instantiationId: 2
+  viewIdField: 0
+  instantiationId: -1
   currentMasterID: -1
   isRuntimeInstantiated: 0
 --- !u!114 &114822594791625050

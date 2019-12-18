@@ -40,16 +40,8 @@ return SCMaterial;
 #endregion
 void Start () 
 {
-
 Texture2 = Resources.Load ("CameraFilterPack_WaterDrop") as Texture2D;
-
 SCShader = Shader.Find("CameraFilterPack/AAA_WaterDropPro");
-
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

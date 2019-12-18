@@ -58,12 +58,6 @@ return SCMaterial;
 void Start () 
 {
 SCShader = Shader.Find("CameraFilterPack/3D_Shield");
-
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

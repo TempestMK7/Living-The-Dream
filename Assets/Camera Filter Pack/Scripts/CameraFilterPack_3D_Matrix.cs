@@ -50,12 +50,6 @@ void Start ()
 {
 Texture2 = Resources.Load ("CameraFilterPack_3D_Matrix1") as Texture2D;
 SCShader = Shader.Find("CameraFilterPack/3D_Matrix");
-
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

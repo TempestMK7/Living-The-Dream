@@ -49,12 +49,6 @@ public class CameraFilterPack_3D_BlackHole : MonoBehaviour {
 	void Start () 
 	{
      	SCShader = Shader.Find("CameraFilterPack/3D_BlackHole");
-
-		if(!SystemInfo.supportsImageEffects)
-		{
-			enabled = false;
-			return;
-		}
 	}
 	
 	void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

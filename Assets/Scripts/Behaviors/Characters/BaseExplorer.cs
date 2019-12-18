@@ -195,6 +195,10 @@ namespace Com.Tempest.Nightmare {
 			return currentLives <= 0;
 		}
 
+		public bool ImmuneToDamage() {
+			return currentState == MovementState.HIT_FREEZE || currentState == MovementState.RAG_DOLL || OutOfHealth();
+		}
+
 		#endregion HealthState
 
 		public override void LightTogglePressed() {
@@ -209,7 +213,7 @@ namespace Com.Tempest.Nightmare {
 		// Called by a nightmare behavior when collision occurs.
 		[PunRPC]
 		public void OnDamageTaken(Vector3 hitPosition, Vector3 hitSpeed, int damage, float freezeTime, float stunTime) {
-			if (currentState == MovementState.HIT_FREEZE || currentState == MovementState.RAG_DOLL || OutOfHealth()) return;
+			if (ImmuneToDamage()) return;
             TakeDamage(hitPosition, hitSpeed, damage, freezeTime, stunTime);
             damageTime = Time.time;
 			if (!photonView.isMine) return;

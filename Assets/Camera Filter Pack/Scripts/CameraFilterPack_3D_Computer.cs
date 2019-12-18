@@ -48,14 +48,8 @@ public class CameraFilterPack_3D_Computer : MonoBehaviour {
 	#endregion
 	void Start () 
 	{
-             Texture2 = Resources.Load ("CameraFilterPack_3D_Computer1") as Texture2D;
+            Texture2 = Resources.Load ("CameraFilterPack_3D_Computer1") as Texture2D;
 			SCShader = Shader.Find("CameraFilterPack/3D_Computer");
-
-		if(!SystemInfo.supportsImageEffects)
-		{
-			enabled = false;
-			return;
-		}
 	}
 	
 	void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

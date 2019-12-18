@@ -47,15 +47,7 @@ return SCMaterial;
 #endregion
 void Start () 
 {
-
-
 SCShader = Shader.Find("CameraFilterPack/AAA_Super_Hexagon");
-
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

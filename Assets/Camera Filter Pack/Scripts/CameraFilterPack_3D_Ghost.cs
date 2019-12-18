@@ -60,11 +60,6 @@ void Start ()
 {
 
 SCShader = Shader.Find("CameraFilterPack/3D_Ghost");
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

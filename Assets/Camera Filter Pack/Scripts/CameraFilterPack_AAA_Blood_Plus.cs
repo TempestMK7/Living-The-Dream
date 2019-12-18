@@ -61,11 +61,6 @@ void Start ()
 {
 Texture2 = Resources.Load ("CameraFilterPack_AAA_Blood2") as Texture2D;
 SCShader = Shader.Find("CameraFilterPack/AAA_Blood_Plus");
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

@@ -48,12 +48,6 @@ public class CameraFilterPack_3D_Fog_Smoke : MonoBehaviour {
     {
         Texture2 = Resources.Load("CameraFilterPack_3D_Myst1") as Texture2D;
         SCShader = Shader.Find("CameraFilterPack/3D_Myst");
-
-        if (!SystemInfo.supportsImageEffects)
-        {
-            enabled = false;
-            return;
-        }
     }
 
     void OnRenderImage(RenderTexture sourceTexture, RenderTexture destTexture)

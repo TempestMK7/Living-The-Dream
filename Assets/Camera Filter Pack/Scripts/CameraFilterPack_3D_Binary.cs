@@ -52,12 +52,6 @@ public class CameraFilterPack_3D_Binary : MonoBehaviour {
 	{
             Texture2 = Resources.Load ("CameraFilterPack_3D_Binary1") as Texture2D;
 			SCShader = Shader.Find("CameraFilterPack/3D_Binary");
-
-		if(!SystemInfo.supportsImageEffects)
-		{
-			enabled = false;
-			return;
-		}
 	}
 	
 	void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

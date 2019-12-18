@@ -57,11 +57,6 @@ void Start ()
 {
 
 SCShader = Shader.Find("CameraFilterPack/3D_Anomaly");
-if(!SystemInfo.supportsImageEffects)
-{
-enabled = false;
-return;
-}
 }
 
 void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)

@@ -46,6 +46,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -57,6 +58,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -77,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 6.4, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &114549099269143846
@@ -146,6 +148,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -157,6 +160,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -259,13 +263,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerupDuration: 30
-  wallJumpRecovery: 0.2
-  dashDuration: 0.12
-  damageRecovery: 1
-  deathAnimationTime: 3
+  dashDuration: 0.2
   dashCooldown: 1
+  parryDuration: 0.5
+  deathAnimationTime: 3
   maxSpeed: 10
-  dashFactor: 5
+  dashFactor: 2
   wallReflection: 1
   wallSpeedReflectionFactor: -0.75
   accelerationFactor: 0.3
@@ -276,7 +279,9 @@ MonoBehaviour:
   jumpFactor: 1.5
   wallJumpFactor: 1.5
   wallSlideFactor: 0.5
-  wallJumpControlFactor: 6
+  groundAccelerationFactor: 6
+  aerialAccelerationFactor: 4
+  directionalInfluenceFactor: 2
   rayBoundShrinkage: 0.001
   numRays: 4
   whatIsSolid:
@@ -293,6 +298,9 @@ MonoBehaviour:
     m_Bits: 1024
   lightBoxScale: 2
   collisionDebounceTime: 1
+  dashDamage: 40
+  dashFreezeTime: 0.2
+  dashStunTime: 0.6
 --- !u!114 &114923540571695566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +395,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2827935252105281865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -396,8 +404,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: dc185aa05d5eaad4db59e6249f9b9b42, type: 3}
     m_FontSize: 18
@@ -481,7 +487,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850958669317837035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 0
@@ -503,7 +509,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850958669317837035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 1
@@ -518,11 +524,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4830860031841358}
     m_Modifications:
-    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
-        type: 3}
-      propertyPath: m_Name
-      value: SoundHolder
-      objectReference: {fileID: 0}
     - target: {fileID: 174493301593093751, guid: c5fff400e47ea1143afda36fc9a2bd89,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -577,6 +578,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4071266775754747596, guid: c5fff400e47ea1143afda36fc9a2bd89,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundHolder
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5fff400e47ea1143afda36fc9a2bd89, type: 3}
