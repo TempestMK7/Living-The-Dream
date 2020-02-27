@@ -25,8 +25,8 @@ namespace Com.Tempest.Nightmare {
             }
         }
 
-        public override void ActionPrimaryPressed() {
-            base.ActionPrimaryPressed();
+        public override void ActionPrimaryPressed(Vector3 mouseDirection) {
+            base.ActionPrimaryPressed(mouseDirection);
             
             switch (currentState) {
                 case MovementState.GROUNDED:

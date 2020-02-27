@@ -87,7 +87,7 @@ namespace Com.Tempest.Nightmare {
 			aSet.Right.AddDefaultBinding(InputControlType.LeftStickRight);
 
 			aSet.ActionPrimary.AddDefaultBinding(jumpKey);
-			aSet.ActionPrimary.AddDefaultBinding(jumpMouse);
+			aSet.ActionPrimaryMouse.AddDefaultBinding(jumpMouse);
 			aSet.ActionPrimary.AddDefaultBinding(jumpController);
 
 			aSet.ActionSecondary.AddDefaultBinding(actionKey);

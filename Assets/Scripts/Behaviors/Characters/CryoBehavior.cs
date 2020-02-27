@@ -46,7 +46,7 @@ namespace Com.Tempest.Nightmare {
                 fireballTime = Time.time;
                 IceBallBehavior iceBall = PhotonNetwork.Instantiate(
                     fireballPrefab.name, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity, 0)
-                    .GetComponent<IceBallBehavior>();
+                        .GetComponent<IceBallBehavior>();
                     Vector3 direction = mouseDirection.magnitude == 0f ? currentControllerState : mouseDirection;
                 iceBall.SetStartingDirection(direction, fireballSpeed * GetSigmoidUpgradeMultiplier(1f, 1.7f), true);
                 iceBall.CryoLauncherBehavior = this;

@@ -16,7 +16,7 @@ MonoBehaviour:
   VoiceAppID: 
   ChatAppID: 
   HostType: 1
-  PreferredRegion: 0
+  PreferredRegion: 1
   EnabledRegions: 2
   Protocol: 0
   ServerAddress: 
@@ -71,4 +71,5 @@ MonoBehaviour:
   - SetPortalIndex
   - StopMusic
   - TeleportToPortal
+  - Initialize
   DisableAutoOpenWizard: 1

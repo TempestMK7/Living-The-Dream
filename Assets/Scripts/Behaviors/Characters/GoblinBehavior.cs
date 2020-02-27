@@ -27,8 +27,8 @@ namespace Com.Tempest.Nightmare {
             animator.SetBool("IsAttacking", currentState == MovementState.DASHING);
         }
 
-        public override void ActionPrimaryPressed() {
-            base.ActionPrimaryPressed();
+        public override void ActionPrimaryPressed(Vector3 mouseDirection) {
+            base.ActionPrimaryPressed(mouseDirection);
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:

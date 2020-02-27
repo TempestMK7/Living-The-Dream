@@ -60,8 +60,8 @@ namespace Com.Tempest.Nightmare {
             fuelBarCanvas.SetActive(photonView.isMine && jetpackTimeRemaining != UpgradedMaxJetpackTime());
         }
 
-        public override void ActionPrimaryPressed() {
-            base.ActionPrimaryPressed();
+        public override void ActionPrimaryPressed(Vector3 mouseDirection) {
+            base.ActionPrimaryPressed(mouseDirection);
             switch (currentState) {
                 case MovementState.GROUNDED:
                 case MovementState.WALL_SLIDE_LEFT:

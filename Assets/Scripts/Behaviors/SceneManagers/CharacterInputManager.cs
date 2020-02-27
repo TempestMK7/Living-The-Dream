@@ -56,9 +56,16 @@ namespace Com.Tempest.Nightmare {
 			} else {
 				controllable.InputsReceived(actionSet.MoveX.Value, actionSet.MoveY.Value, actionSet.Grab.IsPressed);
 				if (actionSet.ActionPrimary.WasPressed) {
-					controllable.ActionPrimaryPressed();
+					controllable.ActionPrimaryPressed(new Vector3());
 				}
 				if (actionSet.ActionPrimary.WasReleased) {
+					controllable.ActionPrimaryReleased();
+				}
+				if (actionSet.ActionPrimaryMouse.WasPressed) {
+					Vector3 direction = new Vector3(Input.mousePosition.x - (Screen.width / 2f), Input.mousePosition.y - (Screen.height / 2f));
+					controllable.ActionPrimaryPressed(direction);
+				}
+				if (actionSet.ActionPrimaryMouse.WasReleased) {
 					controllable.ActionPrimaryReleased();
 				}
 				if (actionSet.ActionSecondary.WasPressed) {

@@ -64,7 +64,7 @@ namespace Com.Tempest.Nightmare {
 
         private Vector3 damageSpeed;
 
-		private float lastVolume;
+		private float lastVolume = -1f;
 
         // Self initialized flyer variables.
 		private float baseAcceleration;
@@ -568,7 +568,7 @@ namespace Com.Tempest.Nightmare {
             }
 		}
 
-		public virtual void ActionPrimaryPressed() {
+		public virtual void ActionPrimaryPressed(Vector3 mouseDirection) {
             if (!ControlsFrozen) actionPrimaryHeld = true;
 		}
 
@@ -671,7 +671,7 @@ namespace Com.Tempest.Nightmare {
 
 		protected void TakeDamage(Vector3 hitPosition, Vector3 hitSpeed, int damage, float freezeTime, float stunTime) {
             if (currentState == MovementState.HIT_FREEZE || currentState == MovementState.RAG_DOLL || OutOfHealth()) return;
-            transform.position = hitPosition;
+            // transform.position = hitPosition;
             damageSpeed = hitSpeed;
             if (photonView.isMine) {
                 SubtractHealth(damage);
@@ -746,6 +746,8 @@ namespace Com.Tempest.Nightmare {
 		public virtual void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
 			if (stream.isWriting) {
 				stream.SendNext(currentState);
+				stream.SendNext(awaitingTimer);
+				stream.SendNext(Time.time - stateTimerChange);
 				stream.SendNext(transform.position);
 				stream.SendNext(currentSpeed);
 				stream.SendNext(currentControllerState);
@@ -754,6 +756,8 @@ namespace Com.Tempest.Nightmare {
 				stream.SendNext(grabHeld);
 			} else {
 				currentState = (MovementState)stream.ReceiveNext();
+				awaitingTimer = (bool)stream.ReceiveNext();
+				stateTimerChange = Time.time - (float)stream.ReceiveNext();
 				Vector3 networkPosition = (Vector3)stream.ReceiveNext();
 				currentSpeed = (Vector3)stream.ReceiveNext();
 				currentControllerState = (Vector3)stream.ReceiveNext();
